@@ -2,17 +2,158 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#AE3031">
+<meta name="description" content="Catecumenato da Paróquia São Judas Tadeu: participe do encontro pelo celular.">
 <title>Catecumenato · Paróquia São Judas Tadeu</title>
-<style>
-html,body{margin:0;height:100%;background:#AE3031;color:#fff;font-family:"Century Gothic",Futura,"Jost",sans-serif}
-body{display:grid;place-items:center;text-align:center;padding:24px;box-sizing:border-box}
-img{max-height:62vh;max-width:80vw}
-p{letter-spacing:.3em;text-transform:uppercase;font-size:13px;color:#F8D464;margin-top:24px}
-</style>
+<link rel="icon" href="img/icone.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/marca.css">
+<link rel="stylesheet" href="css/celular.css">
 </head>
 <body>
-<main><img src="img/logo-catecumenato-p.jpg" alt="Catecumenato: Iniciação Cristã de Adultos, Paróquia São Judas Tadeu"><p>Em preparação</p></main>
+<div class="wrap">
+  <header>
+    <div class="marca"><img src="img/icone.svg" alt=""><span>Catecumenato</span></div>
+    <span class="status" id="status"><i></i><span>conectando</span></span>
+  </header>
+
+  <div class="eu" id="eu" hidden>
+    <div id="eu-gota"></div>
+    <div class="nm"><b id="eu-nome"></b><small id="eu-pts">0 pontos</small></div>
+    <button type="button" id="eu-editar">Editar</button>
+  </div>
+
+  <div>
+    <div class="kick">Paróquia São Judas Tadeu</div>
+    <h1 id="aula-tit">Encontro</h1>
+  </div>
+
+  <!-- cadastro -->
+  <section class="view" id="v-cadastro">
+    <form class="card centro" id="f-cad">
+      <div class="kick">Check-in</div>
+      <h2>Entre no plantão</h2>
+      <div class="gota-g" id="cad-gota"></div>
+      <label for="apelido" class="nota">Como quer aparecer no telão?</label>
+      <input type="text" id="apelido" maxlength="16" autocomplete="nickname" autocapitalize="words" enterkeyhint="go" placeholder="seu apelido">
+      <div class="foto-acoes">
+        <button type="button" class="btn sec peq" id="btn-foto">Tirar selfie (opcional)</button>
+        <button type="button" class="btn sec peq" id="btn-tirar" hidden>Sem foto</button>
+      </div>
+      <input type="file" id="arquivo" accept="image/*" capture="user" hidden>
+      <p class="nota">A selfie é opcional, fica dentro da sua gota no telão e é apagada ao final do encontro. Sem foto, a gota mostra as suas iniciais.</p>
+      <button class="btn" type="submit" id="btn-entrar">Entrar</button>
+      <div class="msg" id="m-cad" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <!-- espera -->
+  <section class="view" id="v-espera">
+    <div class="card centro">
+      <div class="gota-g" id="espera-gota"></div>
+      <h2 id="espera-tit">Acompanhe no telão</h2>
+      <p class="nota" id="espera-txt"></p>
+    </div>
+  </section>
+
+  <!-- nuvem -->
+  <section class="view" id="v-nuvem">
+    <form class="card" id="f-nuvem">
+      <div class="kick" id="nuvem-kick"></div>
+      <h2><label for="w-nuvem" id="nuvem-perg"></label></h2>
+      <div class="linha"><input type="text" id="w-nuvem" maxlength="24" autocomplete="off" autocapitalize="none" enterkeyhint="send" placeholder="uma palavra"><button class="btn" type="submit">Enviar</button></div>
+      <div class="msg" id="m-nuvem" aria-live="polite"></div>
+      <div class="chips" id="chips-nuvem"></div>
+    </form>
+  </section>
+
+  <!-- mito ou verdade -->
+  <section class="view" id="v-mito">
+    <div class="card">
+      <div class="kick" id="mito-kick"></div>
+      <h2 id="mito-afirm"></h2>
+      <div class="duas" id="mito-ops"></div>
+      <div class="msg" id="m-mito" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- régua -->
+  <section class="view" id="v-regua">
+    <div class="card">
+      <div class="kick" id="regua-kick"></div>
+      <h2 id="regua-perg"></h2>
+      <div class="lista-sel" id="regua-lista"></div>
+      <div class="msg" id="m-regua" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- mapa do corpo -->
+  <section class="view" id="v-mapa">
+    <div class="card">
+      <div class="kick" id="mapa-kick"></div>
+      <h2 id="mapa-perg"></h2>
+      <div class="corpo-box" id="mapa-box"></div>
+      <div class="msg" id="m-mapa" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- caça -->
+  <section class="view" id="v-caca">
+    <div class="card">
+      <div class="kick" id="caca-kick"></div>
+      <h2 id="caca-perg"></h2>
+      <div class="lista-sel multi" id="caca-lista"></div>
+      <div class="msg" id="m-caca" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- quiz -->
+  <section class="view" id="v-quiz">
+    <div class="card" id="quiz-box"></div>
+  </section>
+
+  <!-- placar -->
+  <section class="view" id="v-placar">
+    <div class="card centro">
+      <div class="kick">Seu placar</div>
+      <div id="placar-box"></div>
+    </div>
+  </section>
+
+  <!-- intenções -->
+  <section class="view" id="v-int">
+    <form class="card" id="f-int">
+      <div class="kick">Oração pelos enfermos</div>
+      <h2><label for="w-int" id="int-tit"></label></h2>
+      <p class="nota" id="int-txt"></p>
+      <div class="linha"><input type="text" id="w-int" maxlength="30" autocomplete="off" autocapitalize="words" enterkeyhint="send" placeholder="primeiro nome"><button class="btn" type="submit">Enviar</button></div>
+      <div class="msg" id="m-int" aria-live="polite"></div>
+      <div class="chips" id="chips-int"></div>
+    </form>
+  </section>
+
+  <p class="nota" style="text-align:center">Sem cadastro. Os dados do encontro servem somente para as dinâmicas desta aula.</p>
+</div>
+
+<button type="button" id="fab" hidden>Pergunte</button>
+<div id="folha" hidden>
+  <div class="sheet" role="dialog" aria-label="Perguntas para o palestrante">
+    <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick">Mural de perguntas</div><button type="button" class="btn sec peq" id="fechar-folha">Fechar</button></div>
+    <form class="card" id="f-perg">
+      <h2><label for="w-perg">Mande a sua pergunta</label></h2>
+      <textarea id="w-perg" maxlength="240" placeholder="Ela é anônima e aparece no telão depois de aprovada."></textarea>
+      <button class="btn" type="submit">Enviar pergunta</button>
+      <div class="msg" id="m-perg" aria-live="polite"></div>
+    </form>
+    <div class="kick">Apoie as perguntas da sala</div>
+    <div id="mural-lista" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="js/nucleo.js"></script>
+<script src="js/celular.js"></script>
 </body>
 </html>

@@ -1,0 +1,735 @@
+/* Telão · renderiza a aula, conduz as dinâmicas e sincroniza os celulares */
+(function () {
+  'use strict';
+  var C = window.Catequese, esc = C.esc;
+  var A, slides, loja, palco, tela, chaveApr = null, somenteExibir = false;
+  var indice = -1, atual = null, elAtual = null, ultimoSeq = null;
+  var hudTimer = null;
+
+  /* ---------- utilitários ---------- */
+  function $(sel, raiz) { return (raiz || document).querySelector(sel); }
+  function tit(t) { return (Array.isArray(t) ? t : [t]).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join(''); }
+  function img(f) { return A.img + f; }
+  function fmt(n) { return Number(n || 0).toLocaleString('pt-BR'); }
+  function pct(a, b) { return b ? Math.round(a * 100 / b) : 0; }
+  function mediana(v) {
+    if (!v.length) return null; v = v.slice().sort(function (a, b) { return a - b; });
+    var m = v.length >> 1; return v.length % 2 ? v[m] : Math.round((v[m - 1] + v[m]) / 2 - 0.01);
+  }
+  function rpcApr(nome, args) {
+    args = args || {};
+    if (!chaveApr && !C.DEMO) return Promise.resolve({ error: { message: 'sem chave' } });
+    args.p_chave = chaveApr || 'demo'; args.p_sala = C.SALA;
+    return loja.rpc(nome, args).then(function (r) {
+      if (r && r.error && /chave invalida/.test(r.error.message || '')) { chaveApr = null; C.guardar('cat-chave', ''); mostrarLogin('A chave foi recusada. Digite de novo.'); }
+      return r;
+    });
+  }
+  function miniQR() {
+    return '<div class="mini-qr"><div class="u">' + esc(C.urlCurta()) + '</div><div class="q">' + C.qrSvg(C.urlPublica()) + '</div></div>';
+  }
+  function cab(kicker, pergunta) {
+    return '<div class="cab">' + (kicker ? '<div class="kicker">' + esc(kicker) + '</div>' : '') + '<h2>' + esc(pergunta) + '</h2></div>';
+  }
+  function gruposDe(id) {
+    for (var i = 0; i < slides.length; i++) if (slides[i].tipo === 'nuvem' && slides[i].id === id && slides[i].grupos) return slides[i].grupos;
+    return null;
+  }
+  function etapaDo(sl) {
+    var t = sl.tipo;
+    if (t === 'entrada' || t === 'mural' || t === 'ranking' || t === 'podio' || t === 'intencoes' || t === 'quiz-intro' || t === 'eclesial') return t;
+    if (t === 'nuvem' || t === 'mito' || t === 'regua' || t === 'mapa' || t === 'caca') return t + ':' + sl.id;
+    if (t === 'quiz') return 'quiz';
+    return 'espera';
+  }
+
+  /* ---------- gotas: disposição em espiral (filotaxia) ---------- */
+  function dispor(cont, lista, R, opt) {
+    opt = opt || {};
+    var N = lista.length, existentes = {}, novos = 0;
+    Array.prototype.forEach.call(cont.querySelectorAll('.g'), function (d) { existentes[d.dataset.ap] = d; });
+    var cx = R, cy = R, tam, pos = [];
+    if (opt.aneis) {
+      var r0 = opt.r0 || 210, esp = opt.esp || 92, k = 0, anel = 0;
+      tam = Math.max(46, Math.min(96, esp * 0.95));
+      while (k < N) {
+        var r = r0 + anel * esp, cap = Math.max(6, Math.floor(2 * Math.PI * r / (tam * 0.92)));
+        var nesse = Math.min(cap, N - k);
+        for (var i = 0; i < nesse; i++) { var th = -Math.PI / 2 + (i / nesse) * 2 * Math.PI + anel * 0.35; pos.push([cx + r * Math.cos(th), cy + r * Math.sin(th)]); }
+        k += nesse; anel++;
+        if (r0 + anel * esp > R - tam * 0.4) { esp *= 0.86; tam *= 0.86; }
+      }
+    } else {
+      var c = N ? (R * 0.84) / Math.sqrt(N + 0.5) : 0;
+      tam = Math.max(38, Math.min(150, c * 1.5));
+      for (var j = 0; j < N; j++) { var rr = c * Math.sqrt(j + 0.5), tt = j * 2.399963; pos.push([cx + rr * Math.cos(tt), cy + rr * Math.sin(tt)]); }
+    }
+    lista.forEach(function (jg, i) {
+      var d = existentes[jg.aparelho];
+      var assinatura = (jg.foto ? 'f' + jg.foto.length : 'n') + '|' + jg.apelido + '|' + jg.cor;
+      if (!d) {
+        d = document.createElement('div'); d.className = 'g' + (opt.semQueda ? '' : ' caindo'); d.dataset.ap = jg.aparelho;
+        d.style.animationDelay = (novos++ * 0.14) + 's';
+        cont.appendChild(d);
+      }
+      if (d.dataset.assin !== assinatura) { d.innerHTML = C.gotaSVG(jg); d.dataset.assin = assinatura; }
+      d.style.left = pos[i][0].toFixed(1) + 'px'; d.style.top = pos[i][1].toFixed(1) + 'px'; d.style.width = tam.toFixed(1) + 'px';
+      delete existentes[jg.aparelho];
+    });
+    Object.keys(existentes).forEach(function (k) { existentes[k].remove(); });
+  }
+
+  /* ---------- renderizadores ---------- */
+  var R = {};
+
+  R.capa = function (sl, el) {
+    el.innerHTML = '<div class="capa"><div class="logo"><img src="img/logo-catecumenato.jpg" alt="Catecumenato, Iniciação Cristã de Adultos, Paróquia São Judas Tadeu"></div>' +
+      '<div class="lado"><div class="kicker">' + esc(sl.kicker) + '</div><h1 class="titulo">' + tit(sl.titulo) + '</h1>' +
+      '<div class="divisor"></div><div class="sub">' + esc(sl.subtitulo) + '</div>' +
+      (sl.imagem ? '<div class="foto-circ"><img src="' + img(sl.imagem) + '" alt=""></div>' : '') +
+      '<div class="rodape">' + esc(sl.rodape || '') + '</div></div></div>';
+    return {};
+  };
+
+  R.entrada = function (sl, el) {
+    el.innerHTML = '<div class="entrada"><div class="esq"><div class="kicker">Check-in</div><h1 class="titulo">' + tit(sl.titulo) + '</h1>' +
+      '<div class="qr-cartao">' + C.qrSvg(C.urlPublica()) + '</div>' +
+      '<div class="url"><small>ou digite</small>' + esc(C.urlCurta()) + '</div>' +
+      '<div class="texto-g">' + esc(sl.texto) + '</div></div>' +
+      '<div class="dir"><div class="poco"><div class="circ forte"></div><div class="gotas"></div><div class="vazio">As gotas aparecem aqui</div>' +
+      '<div class="contador"><b>0</b><span>gotas no plantão</span></div></div></div></div>';
+    var cont = $('.gotas', el), num = $('.contador b', el), vazio = $('.vazio', el);
+    function atualizar() {
+      var lista = loja.listaJogadores();
+      dispor(cont, lista, 410);
+      num.textContent = fmt(lista.length);
+      num.nextElementSibling.textContent = lista.length === 1 ? 'gota no plantão' : 'gotas no plantão';
+      vazio.hidden = lista.length > 0;
+    }
+    return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); } };
+  };
+
+  R.nuvem = function (sl, el) {
+    var grupos = sl.grupos || gruposDe(sl.comparar);
+    var passos = (sl.passos || ['Coleta']).length, foco = 0;
+    el.innerHTML = cab(sl.kicker, sl.pergunta) + miniQR() + '<div class="nuvem"></div>' +
+      '<div class="rodape-dados"><b class="np">0</b> palavras · <b class="pp">0</b> pessoas</div><div class="legenda-foco"></div>';
+    var nv = $('.nuvem', el), leg = $('.legenda-foco', el);
+    function desenhar(animar) {
+      var itens = loja.nuvem(sl.id, grupos);
+      C.desenharNuvem(nv, itens, { animar: animar, maxF: 180, minF: 26, classe: function (it) { return it.grupo ? 'g-' + it.grupo : ''; } });
+      $('.np', el).textContent = fmt(loja.palavras.filter(function (p) { return p.interacao === sl.id; }).length);
+      $('.pp', el).textContent = fmt(loja.participantesDe('palavras', sl.id));
+    }
+    function aplicar() {
+      nv.classList.toggle('foco-fim', foco === 1);
+      nv.classList.toggle('foco-forca', foco === 2);
+      leg.innerHTML = foco === 1 ? '<span class="fim">Palavras de fim</span>' : foco === 2 ? '<span class="forca">Palavras de força</span>' : '';
+    }
+    return {
+      entrar: function () { setTimeout(function () { desenhar(false); }, 60); },
+      atualizar: function (t) { if (t === 'palavras' || t === 'carga') desenhar(true); },
+      avancar: function () { if (foco < passos - 1) { foco++; aplicar(); return true; } return false; },
+      voltar: function () { if (foco > 0) { foco--; aplicar(); return true; } return false; }
+    };
+  };
+
+  R.foto = function (sl, el) {
+    el.classList.add('trans-' + (sl.transicao || 'suave'));
+    var temTexto = sl.legenda || sl.kicker;
+    el.innerHTML = '<div class="foto-full' + (sl.ajuste === 'contain' ? ' contain' : '') + '" style="background-image:url(\'' + img(sl.imagem) + '\');transform-origin:' + (sl.origem || '50% 50%') + '"></div>' +
+      (sl.transicao === 'portas' ? '<div class="portas"><i></i><i></i></div>' : '') +
+      (temTexto ? '<div class="foto-sombra"></div><div class="foto-texto">' + (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
+        (sl.legenda ? '<div class="leg">' + esc(sl.legenda) + '</div>' : '') + '</div>' : '');
+    return {};
+  };
+
+  R.sacramentos = function (sl, el) {
+    el.innerHTML = '<div class="sacr"><div class="lista"><h1 class="titulo medio">' + tit(sl.titulo) + '</h1><ol>' +
+      sl.lista.map(function (n, i) { return '<li class="' + (sl.destaque.indexOf(i) >= 0 ? 'dest' : '') + '">' + esc(n) + '</li>'; }).join('') +
+      '<div class="chave-cura"><i></i><span>' + esc(sl.rotulo).replace(' de ', '<br>de ') + '</span></div></ol></div>' +
+      '<div><div class="circ-foto"><div class="circ forte"></div><div class="img" style="background-image:url(\'' + img(sl.imagem) + '\')"></div></div></div></div>';
+    return {
+      entrar: function () {
+        var d = el.querySelectorAll('li.dest'), ch = $('.chave-cura', el);
+        if (!d.length) { ch.hidden = true; return; }
+        var top = d[0].offsetTop, fim = d[d.length - 1].offsetTop + d[d.length - 1].offsetHeight;
+        ch.style.top = top + 'px'; ch.style.height = (fim - top) + 'px'; ch.querySelector('i').style.height = (fim - top - 16) + 'px';
+      }
+    };
+  };
+
+  R.texto = function (sl, el) {
+    var imgs = sl.imagens || (sl.imagem ? [sl.imagem] : []);
+    el.innerHTML = '<div class="txt' + (imgs.length ? '' : ' sem-img') + '"><div class="col">' +
+      (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
+      '<h1 class="titulo medio">' + tit(sl.titulo) + '</h1><ul>' +
+      (sl.itens || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+      (imgs.length ? '<div class="imgs' + (imgs.length === 1 ? ' uma' : '') + '">' + imgs.map(function (f) { return '<div class="im" style="background-image:url(\'' + img(f) + '\')"></div>'; }).join('') + '</div>' : '') +
+      '</div>';
+    return {};
+  };
+
+  R.citacao = function (sl, el) {
+    el.innerHTML = '<div class="circ" style="width:1500px;height:1500px;right:-700px;top:-210px"></div>' +
+      '<div class="cit"><div class="aspas">“</div><blockquote>' + esc(sl.texto) + '</blockquote><div class="autor">' + esc(sl.autor) + '</div>' +
+      (sl.complemento ? '<div class="compl">' + esc(sl.complemento) + '</div>' : '') + '</div>';
+    return {};
+  };
+
+  R.titulo = function (sl, el) {
+    el.innerHTML = '<div class="circ" style="width:1300px;height:1300px;left:-500px;bottom:-650px"></div>' +
+      '<div class="tit">' + (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
+      '<h1 class="titulo">' + tit(sl.titulo) + '</h1>' + (sl.texto ? '<div class="texto-g">' + esc(sl.texto) + '</div>' : '') + '</div>';
+    return {};
+  };
+
+  R.regua = function (sl, el) {
+    var n = sl.pontos.length, revelado = false;
+    el.innerHTML = cab(sl.kicker, sl.pergunta) + miniQR() +
+      '<div class="regua"><div class="linha-base"></div>' + sl.pontos.map(function (p, i) {
+        return '<div class="col" data-i="' + i + '"><div class="num">0</div><div class="barra" style="height:0"></div><div class="rot">' + esc(p) + '</div></div>';
+      }).join('') + '</div>' +
+      '<div class="marcador-cic"><div class="chama-barra"></div><div>' + esc(sl.marcador) + '<div class="fonte">' + esc(sl.fonte) + '</div></div></div>' +
+      '<div class="rodape-dados"><b class="pp">0</b> respostas</div>';
+    var cols = el.querySelectorAll('.regua .col');
+    function atualizar() {
+      var v = loja.valoresRegua(sl.id), c = []; for (var i = 0; i < n; i++) c.push(0);
+      v.forEach(function (x) { if (c[x] != null) c[x]++; });
+      var max = Math.max.apply(null, c.concat([1])), med = mediana(v);
+      Array.prototype.forEach.call(cols, function (col, i) {
+        col.querySelector('.barra').style.height = Math.round(360 * c[i] / max) + 'px';
+        col.querySelector('.num').textContent = c[i];
+        var m = col.querySelector('.mediana');
+        if (med === i && v.length) { if (!m) { m = document.createElement('div'); m.className = 'mediana'; m.textContent = 'Mediana da sala'; col.insertBefore(m, col.firstChild); } }
+        else if (m) m.remove();
+      });
+      $('.pp', el).textContent = fmt(v.length);
+    }
+    function aplicar() {
+      Array.prototype.forEach.call(cols, function (col, i) { col.classList.toggle('certo', revelado && sl.certo.indexOf(i) >= 0); });
+      $('.marcador-cic', el).classList.toggle('on', revelado);
+      $('.rodape-dados', el).style.opacity = revelado ? 0 : 1;
+    }
+    return {
+      entrar: atualizar, atualizar: function (t) { if (t === 'regua' || t === 'carga') atualizar(); },
+      avancar: function () { if (!revelado) { revelado = true; aplicar(); return true; } return false; },
+      voltar: function () { if (revelado) { revelado = false; aplicar(); return true; } return false; }
+    };
+  };
+
+  R.mito = function (sl, el, ctx) {
+    var p = 0, total = sl.itens.length * 2;
+    el.innerHTML = '<div class="mito"><div class="kicker">' + esc(sl.kicker) + '</div><div class="contagem-item"></div><div class="afirm"></div>' +
+      '<div class="barras">' + sl.opcoes.map(function (o, i) { return '<div class="op" data-o="' + i + '"><div class="enche"></div><span class="r">' + esc(o) + '</span><span class="p">0%</span></div>'; }).join('') + '</div>' +
+      '<div class="exp"></div><div class="carimbo"></div></div>' + miniQR() + '<div class="rodape-dados"><b class="pp">0</b> votos</div>';
+    var raiz = $('.mito', el);
+    function item() { return Math.floor(p / 2); }
+    function render(mudouItem) {
+      var it = sl.itens[item()], rev = p % 2 === 1;
+      $('.contagem-item', el).textContent = (item() + 1) + ' / ' + sl.itens.length;
+      $('.afirm', el).textContent = it.t;
+      raiz.classList.toggle('revelado', rev);
+      Array.prototype.forEach.call(el.querySelectorAll('.op'), function (op, i) { op.classList.toggle('certa', i === it.r); });
+      $('.carimbo', el).textContent = sl.opcoes[it.r];
+      $('.exp', el).innerHTML = esc(it.exp) + ' <span class="fonte">' + esc(it.fonte || '') + '</span>';
+      contar();
+      if (mudouItem) ctx.sincronizar(item());
+    }
+    function contar() {
+      var c = loja.contarVotos(sl.id, item(), sl.opcoes.length), t = c.reduce(function (a, b) { return a + b; }, 0);
+      Array.prototype.forEach.call(el.querySelectorAll('.op'), function (op, i) {
+        op.querySelector('.enche').style.width = pct(c[i], t) + '%';
+        op.querySelector('.p').textContent = pct(c[i], t) + '%';
+      });
+      $('.pp', el).textContent = fmt(t);
+    }
+    return {
+      item: 0,
+      entrar: function () { render(false); },
+      atualizar: function (t) { if (t === 'votos' || t === 'carga') contar(); },
+      avancar: function () { if (p < total - 1) { var antes = item(); p++; render(item() !== antes); return true; } return false; },
+      voltar: function () { if (p > 0) { var antes = item(); p--; render(item() !== antes); return true; } return false; }
+    };
+  };
+
+  R.tres = function (sl, el) {
+    el.innerHTML = '<div class="tres"><div class="topo"><h1 class="titulo medio">' + tit(sl.titulo) + '</h1>' +
+      (sl.imagem ? '<div class="im" style="background-image:url(\'' + img(sl.imagem) + '\')"></div>' : '') + '</div>' +
+      '<div class="cols">' + sl.colunas.map(function (c) {
+        return '<div class="c"><h3>' + esc(c.t) + '</h3>' + c.itens.map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('') + '</div>';
+      }).join('') + '</div><div class="fonte">' + esc(sl.fonte || '') + '</div></div>';
+    return {};
+  };
+
+  R.mapa = function (sl, el) {
+    var passo = 0, alvos = C.ALVOS_CORPO;
+    function marcas(lista, cls, r) {
+      return lista.map(function (p) {
+        return '<g class="ponto-alvo ' + cls + '" transform="translate(' + p[0] + ' ' + p[1] + ')"><circle r="' + (r + 12) + '" fill="none" stroke="#F8D464" stroke-width="3"/>' +
+          '<path d="M0 ' + (-r) + ' C0 ' + (-r) + ' ' + (-r * 0.7) + ' ' + (-r * 0.1) + ' ' + (-r * 0.7) + ' ' + (r * 0.3) + ' A' + (r * 0.7) + ' ' + (r * 0.7) + ' 0 0 0 ' + (r * 0.7) + ' ' + (r * 0.3) + ' C' + (r * 0.7) + ' ' + (-r * 0.1) + ' 0 ' + (-r) + ' 0 ' + (-r) + 'Z" fill="#F8D464"/></g>';
+      }).join('');
+    }
+    var extra = '<g class="calor" style="mix-blend-mode:screen"></g>' + marcas(alvos.sentidos, 'antigo', 9) + marcas(alvos.fronte.concat(alvos.maos), 'atual', 16);
+    el.innerHTML = '<div class="mapa"><div class="figura">' + C.corpoSVG(extra) + '</div><div class="lado">' +
+      '<div class="kicker">' + esc(sl.kicker) + '</div><h2>' + esc(sl.pergunta) + '</h2>' +
+      '<div class="resposta r-atual"><b>' + esc(sl.atual.texto) + '</b><span class="fonte">' + esc(sl.atual.fonte) + '</span></div>' +
+      '<div class="resposta r-antigo">' + esc(sl.antigo.texto) + '</div>' +
+      '<div class="rodape-dados" style="position:static"><b class="np">0</b> toques · <b class="pp">0</b> pessoas</div></div></div>' + miniQR();
+    var calor = $('.calor', el), desenhados = 0;
+    function atualizar() {
+      var pts = loja.pontosMapa(sl.id);
+      if (pts.length < desenhados) { calor.innerHTML = ''; desenhados = 0; }
+      var frag = '';
+      for (var i = desenhados; i < pts.length; i++) frag += '<circle cx="' + (pts[i].x * 400).toFixed(1) + '" cy="' + (pts[i].y * 1000).toFixed(1) + '" r="34" fill="url(#calor)"/>';
+      if (frag) calor.insertAdjacentHTML('beforeend', frag);
+      desenhados = pts.length;
+      $('.np', el).textContent = fmt(pts.length);
+      $('.pp', el).textContent = fmt(loja.participantesDe('mapa', sl.id));
+    }
+    function aplicar() {
+      Array.prototype.forEach.call(el.querySelectorAll('.ponto-alvo.atual'), function (g) { g.classList.toggle('on', passo >= 1); });
+      Array.prototype.forEach.call(el.querySelectorAll('.ponto-alvo.antigo'), function (g) { g.classList.toggle('on', passo >= 2); });
+      $('.r-atual', el).classList.toggle('on', passo >= 1);
+      $('.r-antigo', el).classList.toggle('on', passo >= 2);
+      calor.style.opacity = passo >= 1 ? 0.45 : 1;
+    }
+    return {
+      entrar: atualizar, atualizar: function (t) { if (t === 'mapa' || t === 'carga') atualizar(); },
+      avancar: function () { if (passo < 2) { passo++; aplicar(); return true; } return false; },
+      voltar: function () { if (passo > 0) { passo--; aplicar(); return true; } return false; }
+    };
+  };
+
+  var ICONES = {
+    gota: '<svg viewBox="0 0 100 100"><defs><linearGradient id="icg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8D94A"/><stop offset=".6" stop-color="#F2A652"/><stop offset="1" stop-color="#D06C38"/></linearGradient></defs><path d="M50 6 C50 6 18 48 18 68 A32 32 0 0 0 82 68 C82 48 50 6 50 6 Z" fill="url(#icg)"/></svg>',
+    cruz: '<svg viewBox="0 0 100 100" fill="#fff"><path d="M46 8 h8 l3 4 v24 h24 l4 -3 v8 l-4 -3 h-24 v46 l3 4 h-14 l3 -4 v-46 h-24 l-4 3 v-8 l4 3 h24 v-24 z"/><circle cx="50" cy="44" r="40" fill="none" stroke="#fff" stroke-width="2"/></svg>',
+    estola: '<svg viewBox="0 0 100 100" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M33 12 Q50 34 67 12" stroke="#F8D464" stroke-width="9"/><path d="M33 12 L31 88 M67 12 L69 88" stroke="#F8D464" stroke-width="9"/><path d="M31 70 v10 M26 75 h10 M69 70 v10 M64 75 h10" stroke="#fff" stroke-width="3"/></svg>'
+  };
+  R.rito = function (sl, el) {
+    var ic = ['gota', 'cruz', 'estola'];
+    el.innerHTML = '<div class="rito"><h1 class="titulo medio">' + tit(sl.titulo) + '</h1><div class="blocos">' +
+      sl.blocos.map(function (b, i) {
+        return '<div class="b">' + ICONES[ic[i]] + '<h3>' + esc(b.t) + '</h3><p>' + esc(b.d) + '</p>' + (b.citacao ? '<q>' + esc(b.citacao) + '</q>' : '') + '</div>';
+      }).join('') + '</div><div class="fonte">' + esc(sl.fonte) + '</div></div>';
+    return {};
+  };
+
+  R.caca = function (sl, el) {
+    var revelado = false;
+    el.innerHTML = cab(sl.kicker, sl.pergunta) + miniQR() + '<div class="caca">' + sl.itens.map(function (t, i) {
+      var intr = sl.intrusos.indexOf(i) >= 0;
+      return '<div class="l' + (intr ? ' intruso' : '') + '"><div class="enche"></div><span class="tx">' + esc(t) + '</span>' +
+        '<span class="tag">' + (intr ? 'Intruso' : esc((sl.fontes || [])[i] || 'Efeito')) + '</span><span class="n">0</span></div>';
+    }).join('') + '</div><div class="rodape-dados"><b class="pp">0</b> pessoas caçando</div>';
+    var raiz = $('.caca', el), linhas = el.querySelectorAll('.caca .l');
+    function atualizar() {
+      var c = loja.contarToques(sl.id, sl.itens.length);
+      Array.prototype.forEach.call(linhas, function (l, i) {
+        l.querySelector('.enche').style.width = pct(c.porItem[i], c.pessoas) + '%';
+        l.querySelector('.n').textContent = c.porItem[i];
+      });
+      $('.pp', el).textContent = fmt(c.pessoas);
+    }
+    return {
+      entrar: atualizar, atualizar: function (t) { if (t === 'toques' || t === 'carga') atualizar(); },
+      avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); return true; } return false; },
+      voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); return true; } return false; }
+    };
+  };
+
+  R.efeitos = function (sl, el) {
+    el.innerHTML = '<div class="efe"><div class="col"><h1 class="titulo medio">' + tit(sl.titulo) + '</h1><div class="grade">' +
+      sl.itens.map(function (x) { return '<div class="it"><h3>' + esc(x.t) + '</h3><p>' + esc(x.d) + '</p><div class="fonte">' + esc(x.f) + '</div></div>'; }).join('') +
+      '</div></div><div class="im" style="background-image:url(\'' + img(sl.imagem) + '\')"></div></div>';
+    return {};
+  };
+
+  R.eclesial = function (sl, el) {
+    el.innerHTML = '<div class="ecl"><div class="col"><div class="kicker">' + esc(sl.fonte) + '</div><h1 class="titulo medio">' + tit(sl.titulo) + '</h1>' +
+      '<div class="texto-g">' + esc(sl.texto) + '</div><div class="leg">' + esc(sl.legenda) + '</div></div>' +
+      '<div><div class="poco" style="width:960px;height:960px"><div class="circ forte"></div>' +
+      '<svg viewBox="0 0 100 126" style="position:absolute;left:50%;top:50%;width:200px;transform:translate(-50%,-52%)"><defs><linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8D94A"/><stop offset=".6" stop-color="#F2A652"/><stop offset="1" stop-color="#D06C38"/></linearGradient></defs>' +
+      '<path d="M50 3 C50 3 11 55 11 85 A39 39 0 0 0 89 85 C89 55 50 3 50 3 Z" fill="url(#gc)"/><path d="M47 62 h6 v14 h14 v6 h-14 v26 h-6 v-26 h-14 v-6 h14 z" fill="#fff"/></svg>' +
+      '<div class="gotas"></div></div></div></div>';
+    var cont = $('.gotas', el);
+    function atualizar() { dispor(cont, loja.listaJogadores(), 480, { aneis: true, r0: 190, esp: 96, semQueda: false }); }
+    return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); } };
+  };
+
+  R.testemunho = function (sl, el) {
+    var f = sl.fotos || [];
+    el.innerHTML = '<div class="test"><div class="fotos' + (f.length === 1 ? ' uma' : '') + '">' + f.map(function (x, i) {
+      return '<div class="f' + (/-pb\./.test(x) ? ' pb' : '') + '" style="background-image:url(\'' + img(x) + '\')"></div>';
+    }).join('') + '</div><div class="col"><div class="kicker">' + esc(sl.kicker) + '</div><blockquote>“' + esc(sl.citacao) + '”</blockquote>' +
+      '<div class="autor">' + esc(sl.autor) + '</div><div class="papel">' + esc([sl.papel, sl.data].filter(Boolean).join(' · ')) + '</div></div></div>';
+    return {};
+  };
+
+  R.comparar = function (sl, el) {
+    var grupos = gruposDe(sl.a);
+    el.innerHTML = '<div class="comp"><div class="kicker">' + esc(sl.titulo) + '</div><div class="duas">' +
+      ['a', 'b'].map(function (k) {
+        return '<div class="lado-n"><h3>' + (k === 'a' ? 'Na abertura' : 'Agora') + '</h3><div class="caixa"><div class="nuvem n-' + k + '"></div></div>' +
+          '<div class="stats s-' + k + '"></div></div>';
+      }).join('') + '</div></div>';
+    function lado(k) {
+      var id = sl[k], itens = loja.nuvem(id, grupos), tot = 0, fim = 0, forca = 0;
+      itens.forEach(function (it) { tot += it.n; if (it.grupo === 'fim') fim += it.n; if (it.grupo === 'forca') forca += it.n; });
+      C.desenharNuvem($('.n-' + k, el), itens, { maxF: 110, minF: 20, limite: 30, classe: function (it) { return it.grupo ? 'g-' + it.grupo : ''; } });
+      $('.s-' + k, el).innerHTML = '<div class="fim"><b>' + pct(fim, tot) + '%</b>falam de fim</div><div class="forca"><b>' + pct(forca, tot) + '%</b>falam de força</div>';
+    }
+    function atualizar() { lado('a'); lado('b'); }
+    return { entrar: function () { setTimeout(atualizar, 60); }, atualizar: function (t) { if (t === 'palavras' || t === 'carga') atualizar(); } };
+  };
+
+  R.mural = function (sl, el) {
+    el.innerHTML = '<div class="cab"><div class="kicker">Mural</div><h2>' + esc(sl.titulo) + '</h2></div>' + miniQR() + '<div class="mural"></div>';
+    var box = $('.mural', el);
+    function atualizar() {
+      var l = loja.mural.filter(function (m) { return m.aprovada && !m.oculta; })
+        .sort(function (a, b) { return (a.respondida - b.respondida) || (b.apoios - a.apoios) || String(a.criado).localeCompare(String(b.criado)); }).slice(0, 8);
+      box.innerHTML = l.length ? l.map(function (m) {
+        return '<div class="card' + (m.respondida ? ' resp' : '') + '"><div class="ap">' + m.apoios + '<small>apoios</small></div><div>' + esc(m.texto) + '</div></div>';
+      }).join('') : '<div class="vazio">As perguntas aprovadas aparecem aqui. Toque em “Pergunte” no celular.</div>';
+    }
+    return { entrar: atualizar, atualizar: function (t) { if (t === 'mural' || t === 'carga') atualizar(); } };
+  };
+
+  R['quiz-intro'] = function (sl, el) {
+    el.innerHTML = '<div class="qi"><div class="col"><div class="kicker">Quiz final</div><h1 class="titulo medio">' + tit(sl.titulo) + '</h1>' +
+      '<div class="texto-g" style="font-size:38px">' + esc(sl.texto) + '</div><ol>' + sl.regras.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ol></div>' +
+      '<div class="lado-qr"><div class="qr-cartao" style="width:420px">' + C.qrSvg(C.urlPublica()) + '</div><div class="url" style="text-align:center"><small>Ainda não entrou?</small>' + esc(C.urlCurta()) + '</div></div></div>';
+    return {};
+  };
+
+  R.quiz = function (sl, el, ctx) {
+    var p = loja.pergunta(sl.ordem), estado = 'preparada', abertaEm = null, tempo = 20, raf = null, ultPoll = 0, revelando = false, autoTimer = null;
+    var multiplas = loja.perguntas.filter(function (q) { return q.tipo === 'multipla'; }).length;
+    if (!p) {
+      el.innerHTML = '<div class="tit"><div class="kicker">Quiz</div><h1 class="titulo menor"><span>Pergunta ' + sl.ordem + ' não encontrada</span></h1><div class="texto-g">Confira se o quiz desta aula foi carregado no banco.</div></div>';
+      return {};
+    }
+    tempo = p.tempo || 20;
+    var num = p.tipo === 'numero' ? 'Desempate' : 'Pergunta ' + sl.ordem + ' de ' + multiplas;
+    el.classList.add('escuro');
+    el.innerHTML = '<div class="quiz"><div class="topo"><div class="num">' + num + '</div><div class="estado"></div>' +
+      '<div class="relogio"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="6"/>' +
+      '<circle class="arco" cx="50" cy="50" r="45" fill="none" stroke="#F8D464" stroke-width="6" stroke-linecap="round" stroke-dasharray="282.74" stroke-dashoffset="0"/></svg><b>' + tempo + '</b></div></div>' +
+      '<div class="perg">' + esc(p.texto) + '</div>' +
+      (p.tipo === 'numero' ? '<div class="numero-resp">?</div>' :
+        '<div class="ops">' + p.opcoes.map(function (o, i) {
+          return '<div class="op op-' + i + '" data-i="' + i + '"><div class="enche"></div>' + C.formaSVG(i) + '<span class="tx">' + esc(o) + '</span><span class="n">0</span></div>';
+        }).join('') + '</div>') +
+      '<div class="base"><div class="coment"></div><div class="resp"><b class="nr">0</b> de <b class="nj">0</b> responderam</div></div></div>';
+    var raiz = $('.quiz', el), arco = $('.arco', el), rel = $('.relogio b', el), est = $('.estado', el);
+
+    function painel() {
+      return loja.rpc('quiz_painel', { p_sala: C.SALA }).then(function (r) {
+        var d = r && r.data; if (!d || +d.ordem !== +sl.ordem) return d;
+        $('.nr', el).textContent = fmt(d.respostas); $('.nj', el).textContent = fmt(d.jogadores);
+        if (d.contagem && p.tipo === 'multipla') {
+          var t = d.contagem.reduce(function (a, b) { return a + b; }, 0);
+          Array.prototype.forEach.call(el.querySelectorAll('.op'), function (op, i) {
+            op.querySelector('.n').textContent = d.contagem[i] || 0;
+            op.querySelector('.enche').style.height = pct(d.contagem[i] || 0, t) + '%';
+          });
+        }
+        if (estado === 'aberta' && d.jogadores > 0 && d.respostas >= d.jogadores) agendarRevelar(900);
+        return d;
+      });
+    }
+    function tick() {
+      if (estado !== 'aberta') return;
+      var rest = Math.max(0, tempo - (loja.agora() - abertaEm) / 1000);
+      arco.setAttribute('stroke-dashoffset', (282.74 * (1 - rest / tempo)).toFixed(1));
+      rel.textContent = Math.ceil(rest);
+      if (Date.now() - ultPoll > 1000) { ultPoll = Date.now(); painel(); }
+      if (rest <= 0) { estado = 'encerrada'; est.textContent = 'Tempo esgotado'; agendarRevelar(1700); return; }
+      raf = requestAnimationFrame(tick);
+    }
+    function agendarRevelar(ms) { if (autoTimer || revelando || estado === 'revelada') return; autoTimer = setTimeout(revelar, ms); }
+    function abrir() {
+      estado = 'aberta'; est.textContent = 'Valendo!';
+      return rpcApr('quiz_abrir', {}).then(function (r) {
+        abertaEm = r && r.data ? new Date(r.data).getTime() : loja.agora();
+        raf = requestAnimationFrame(tick);
+      });
+    }
+    function revelar() {
+      if (revelando || estado === 'revelada') return; revelando = true;
+      clearTimeout(autoTimer); cancelAnimationFrame(raf);
+      return rpcApr('quiz_revelar', {}).then(function (r) {
+        var g = (r && r.data) || {};
+        mostrarRevelada(g.correta, g.valor, g.comentario, g.fonte);
+        setTimeout(painel, 300);
+      });
+    }
+    function mostrarRevelada(correta, valor, comentario, fonte) {
+      estado = 'revelada'; revelando = false; est.textContent = 'Resposta';
+      raiz.classList.add('revelada'); arco.setAttribute('stroke-dashoffset', '282.74'); rel.textContent = '0';
+      if (p.tipo === 'numero') { $('.numero-resp', el).textContent = valor != null ? valor : '?'; }
+      Array.prototype.forEach.call(el.querySelectorAll('.op'), function (op, i) { op.classList.toggle('certa', i === +correta); });
+      $('.coment', el).innerHTML = esc(comentario || '') + (fonte ? '<span class="fonte">' + esc(fonte) + '</span>' : '');
+    }
+    return {
+      quiz: true,
+      entrar: function () {
+        var s = loja.sala;
+        if (s && +s.quiz_ordem === +sl.ordem && s.etapa === 'quiz') {
+          if (s.quiz_revelada) { mostrarRevelada(s.quiz_correta, s.quiz_valor, s.quiz_comentario); painel(); return; }
+          if (s.quiz_aberta_em) { abertaEm = new Date(s.quiz_aberta_em).getTime(); estado = 'aberta'; est.textContent = 'Valendo!'; raf = requestAnimationFrame(tick); return; }
+        }
+        est.textContent = 'Prepare-se';
+        rpcApr('quiz_preparar', { p_ordem: sl.ordem, p_slide: ctx.indice }).then(painel);
+      },
+      avancar: function () {
+        if (estado === 'preparada') { abrir(); return true; }
+        if (estado === 'aberta' || estado === 'encerrada') { revelar(); return true; }
+        return false;
+      },
+      sair: function () { cancelAnimationFrame(raf); clearTimeout(autoTimer); }
+    };
+  };
+
+  R.ranking = function (sl, el) {
+    var lim = sl.limite || 5, timer = null;
+    el.innerHTML = '<div class="rank"><div class="kicker">' + esc(sl.titulo) + '</div><div class="linhas"></div></div>';
+    var box = $('.linhas', el), cache = {};
+    function render(lista) {
+      var max = lista.length ? Math.max(1, lista[0].total) : 1, vistos = {};
+      lista.forEach(function (j, i) {
+        var d = cache[j.aparelho];
+        if (!d) {
+          d = document.createElement('div'); d.className = 'lin'; d.style.top = (i * 150 + 40) + 'px'; d.style.opacity = 0;
+          box.appendChild(d); cache[j.aparelho] = d;
+          d.innerHTML = '<div class="pos"></div><div class="av"></div><div class="nome"><b></b><i style="width:0"></i></div><div class="pts"><span></span><small>pontos</small></div>';
+        }
+        d.querySelector('.pos').textContent = j.posicao + 'º';
+        var assin = (j.foto ? j.foto.length : 0) + j.apelido;
+        if (d.dataset.assin !== assin) { d.querySelector('.av').innerHTML = C.gotaSVG(j); d.dataset.assin = assin; }
+        d.querySelector('.nome b').textContent = j.apelido;
+        d.querySelector('.pts span').textContent = fmt(j.total);
+        (function (dd, top, w) { requestAnimationFrame(function () { dd.style.top = top + 'px'; dd.style.opacity = 1; dd.querySelector('.nome i').style.width = w + '%'; }); })(d, i * 150, Math.round(100 * j.total / max));
+        vistos[j.aparelho] = 1;
+      });
+      Object.keys(cache).forEach(function (k) { if (!vistos[k]) { cache[k].remove(); delete cache[k]; } });
+      if (!lista.length) box.innerHTML = '<div class="texto-g" style="color:var(--texto-suave)">O placar aparece depois das primeiras respostas.</div>';
+    }
+    function buscar() { loja.rpc('ranking', { p_sala: C.SALA, p_limite: lim }).then(function (r) { render((r && r.data) || []); }); }
+    return {
+      entrar: function () { buscar(); timer = setInterval(buscar, 4000); },
+      sair: function () { clearInterval(timer); }
+    };
+  };
+
+  R.podio = function (sl, el) {
+    var passo = 0, dados = [];
+    el.classList.add('escuro');
+    el.innerHTML = '<div class="podio"><div class="kicker">' + esc(sl.titulo) + '</div><div class="degraus">' +
+      [2, 1, 3].map(function (pos) { return '<div class="d p' + pos + '" data-p="' + pos + '"><div class="av"></div><div class="nm"></div><div class="pt"></div>' + (pos === 1 ? '<div class="premio">Prêmio</div>' : '') + '<div class="bloco">' + pos + '</div></div>'; }).join('') +
+      '</div></div>';
+    function preencher() {
+      [1, 2, 3].forEach(function (pos) {
+        var j = dados[pos - 1], d = $('.d.p' + pos, el);
+        if (!j) { d.style.visibility = 'hidden'; return; }
+        d.style.visibility = ''; d.querySelector('.av').innerHTML = C.gotaSVG(j);
+        d.querySelector('.nm').textContent = j.apelido; d.querySelector('.pt').textContent = fmt(j.total) + ' pontos';
+      });
+    }
+    function confete() {
+      var cores = ['#F8D464', '#FFFFFF', '#F2A652', '#F8D94A'];
+      for (var i = 0; i < 90; i++) {
+        var c = document.createElement('i'); c.className = 'confete';
+        c.style.left = (Math.random() * 1920) + 'px'; c.style.background = cores[i % 4];
+        c.style.animationDuration = (2.8 + Math.random() * 2.6) + 's'; c.style.animationDelay = (Math.random() * 1.2) + 's';
+        el.appendChild(c);
+      }
+    }
+    function aplicar() {
+      var ordem = [3, 2, 1];
+      ordem.forEach(function (pos, k) { $('.d.p' + pos, el).classList.toggle('on', passo > k); });
+      if (passo === 3) confete();
+    }
+    return {
+      entrar: function () { loja.rpc('ranking', { p_sala: C.SALA, p_limite: 3 }).then(function (r) { dados = (r && r.data) || []; preencher(); }); },
+      avancar: function () { if (passo < 3) { passo++; aplicar(); return true; } return false; },
+      voltar: function () { if (passo > 0) { passo--; aplicar(); return true; } return false; }
+    };
+  };
+
+  R.intencoes = function (sl, el) {
+    var fila = [], vistos = {}, k = 0, timer = null, atrasoInicial = 0;
+    setTimeout(function () { atrasoInicial = 0; }, 100);
+    el.classList.add('escuro');
+    el.innerHTML = '<div class="int"><div class="topo"><div class="kicker">Oração pelos enfermos</div><h1 class="titulo menor"><span>' + esc(sl.titulo) + '</span></h1>' +
+      '<div class="texto-g">' + esc(sl.texto) + '</div></div><div class="nomes"></div><div class="chama-centro"></div></div>' + miniQR();
+    var box = $('.nomes', el);
+    function soltar(nome) {
+      var s = document.createElement('div'); s.className = 'nome'; s.textContent = nome;
+      s.style.left = (8 + Math.random() * 78) + '%'; var dur = 17 + Math.random() * 6; s.style.animationDuration = dur + 's';
+      box.appendChild(s); setTimeout(function () { s.remove(); }, dur * 1000 + 200);
+    }
+    function atualizar() {
+      loja.intencoes.forEach(function (i) {
+        if (!i.nome || vistos[i.id]) return; vistos[i.id] = 1; fila.push(i.nome);
+        var atraso = (atrasoInicial++) * 1300; setTimeout(function () { soltar(i.nome); }, atraso);
+      });
+    }
+    return {
+      entrar: function () {
+        atualizar(); var primeiro = fila.length; atrasoInicial = 0; k = 0;
+        setTimeout(function () { timer = setInterval(function () { if (fila.length) soltar(fila[k++ % fila.length]); }, 2600); }, primeiro * 1300);
+      },
+      atualizar: function (t) { if (t === 'intencoes' || t === 'carga') atualizar(); },
+      sair: function () { clearInterval(timer); }
+    };
+  };
+
+  R.final = function (sl, el) {
+    el.innerHTML = '<div class="fim-slide"><div class="im" style="background-image:url(\'' + img(sl.imagem) + '\')"></div>' +
+      '<div class="baixo"><div><h1 class="titulo"><span>' + esc(sl.titulo) + '</span></h1><div class="kicker" style="margin-top:20px">' + esc(sl.legenda || '') + '</div></div>' +
+      '<img src="img/logo-catecumenato-p.jpg" alt="Catecumenato"></div></div>';
+    return {};
+  };
+
+  /* ---------- navegação ---------- */
+  function sincronizar(n, item) {
+    var sl = slides[n]; if (!sl || sl.tipo === 'quiz') return;
+    rpcApr('mudar', { p_slide: n, p_etapa: etapaDo(sl), p_item: item || 0 });
+  }
+  function ir(n, inicial) {
+    n = Math.max(0, Math.min(slides.length - 1, n));
+    if (n === indice && !inicial) return;
+    var sl = slides[n], velho = elAtual, ctlVelho = atual, slVelho = slides[indice];
+    var el = document.createElement('div'); el.className = 'slide';
+    var ctx = { indice: n, sincronizar: function (item) { sincronizar(n, item); } };
+    if (sl.tipo === 'capa' || sl.tipo === 'final') el.classList.add('liso');
+    var ctl = (R[sl.tipo] || R.titulo)(sl, el, ctx) || {};
+    palco.appendChild(el);
+    if (velho) {
+      if (sl.transicao === 'entrar' && slVelho && slVelho.tipo === 'foto') velho.classList.add('saindo-entrar');
+      velho.classList.remove('on');
+      setTimeout(function () { velho.remove(); }, 1100);
+      if (ctlVelho && ctlVelho.sair) ctlVelho.sair();
+    }
+    indice = n; elAtual = el; atual = ctl;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('on'); }); });
+    if (ctl.entrar) ctl.entrar();
+    if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
+    atualizarHud();
+    qrFlutuante(sl);
+  }
+  function avancar() { if (atual && atual.avancar && atual.avancar()) return; ir(indice + 1); }
+  function voltar() { if (atual && atual.voltar && atual.voltar()) return; ir(indice - 1); }
+
+  function executar(cmd) {
+    if (cmd === 'avancar') avancar();
+    else if (cmd === 'voltar') voltar();
+    else if (cmd === 'qr') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
+    else if (cmd === 'recarregar') location.reload();
+    else if (/^ir:\d+$/.test(cmd)) ir(+cmd.slice(3));
+  }
+  function verComando() {
+    var s = loja.sala; if (!s) return;
+    var seq = s.comando_seq || 0;
+    if (ultimoSeq === null) { ultimoSeq = seq; return; }
+    if (seq > ultimoSeq) { ultimoSeq = seq; executar(s.comando); }
+  }
+
+  var qrManual = false;
+  function qrFlutuante(sl) {
+    var box = $('#qr-flutuante');
+    var auto = sl && ['quiz-intro', 'entrada', 'capa', 'foto', 'final', 'podio', 'ranking', 'quiz', 'testemunho', 'citacao'].indexOf(sl.tipo) < 0 && etapaDo(sl) === 'espera';
+    box.hidden = !qrManual;
+    if (!box.innerHTML) box.innerHTML = C.qrSvg(C.urlPublica()) + '<small>' + esc(C.urlCurta()) + '</small>';
+    return auto;
+  }
+
+  /* ---------- HUD, escala e login ---------- */
+  function escalar() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    palco.style.transform = 'translate(' + (-960 * s) + 'px,' + (-540 * s) + 'px) scale(' + s + ')';
+  }
+  function atualizarHud() {
+    var h = $('#hud');
+    h.classList.toggle('online', !!loja && loja.online);
+    var n = loja ? Object.keys(loja.jogadores).length : 0;
+    h.innerHTML = '<i></i><span>' + (C.DEMO ? 'demonstração' : (loja && loja.online ? 'ao vivo' : 'sem conexão')) + '</span><span>' + n + ' gotas</span><span>slide ' + (indice + 1) + '/' + slides.length + '</span>' +
+      '<span>' + (chaveApr || C.DEMO ? 'celulares sincronizados' : 'sem chave: celulares não acompanham') + '</span><span>sala ' + esc(C.SALA) + '</span>';
+  }
+  function mostrarHud() {
+    var h = $('#hud'); h.classList.add('on'); tela.classList.remove('sem-cursor');
+    clearTimeout(hudTimer); hudTimer = setTimeout(function () { h.classList.remove('on'); tela.classList.add('sem-cursor'); }, 2600);
+  }
+  function mostrarLogin(msg) {
+    var l = $('#login'); l.hidden = false; $('#login .erro').textContent = msg || '';
+    setTimeout(function () { $('#login input').focus(); }, 50);
+  }
+  function configurarLogin() {
+    $('#login form').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var v = $('#login input').value.trim(); if (!v) return;
+      loja.rpc('chave_valida', { p_chave: v }).then(function (r) {
+        if (r && r.data === true) {
+          chaveApr = v; C.guardar('cat-chave', v); $('#login').hidden = true;
+          rpcApr('sala_garantir', { p_aula: C.AULA_ID }).then(function () { sincronizar(indice, atual && atual.item); atualizarHud(); });
+        } else $('#login .erro').textContent = 'Chave incorreta.';
+      });
+    });
+    $('#login .sec').addEventListener('click', function () { somenteExibir = true; $('#login').hidden = true; atualizarHud(); });
+  }
+
+  function teclado(ev) {
+    if (!$('#login').hidden) return;
+    var k = ev.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { ev.preventDefault(); avancar(); }
+    else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { ev.preventDefault(); voltar(); }
+    else if (k === 'Home') ir(0);
+    else if (k === 'End') ir(slides.length - 1);
+    else if (k === 'f' || k === 'F') { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function () {}); else document.exitFullscreen(); }
+    else if (k === 'q' || k === 'Q') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
+    else if (k === 'b' || k === 'B' || k === '.') { $('#preto').hidden = !$('#preto').hidden; }
+  }
+
+  function preCarregar() {
+    slides.forEach(function (s) {
+      [s.imagem].concat(s.imagens || [], s.fotos || []).forEach(function (f) { if (f) { var i = new Image(); i.src = img(f); } });
+    });
+  }
+
+  function iniciar() {
+    A = window.AULA; slides = A.slides;
+    tela = $('#tela'); palco = $('#palco');
+    escalar(); window.addEventListener('resize', escalar);
+    document.addEventListener('keydown', teclado);
+    document.addEventListener('mousemove', mostrarHud);
+    configurarLogin();
+    preCarregar();
+    document.title = A.titulo + ' · telão';
+    loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000 });
+    chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
+    loja.ouvir(function (tipo) {
+      if (tipo === 'sala') { verComando(); return; }
+      if (tipo === 'conexao' || tipo === 'jogadores') atualizarHud();
+      if (atual && atual.atualizar) atual.atualizar(tipo);
+    });
+    loja.iniciar().then(function () {
+      verComando();
+      var inicio = +(C.params.get('slide') || 0) || (loja.sala && loja.sala.slide) || 0;
+      if (chaveApr && !C.DEMO) {
+        loja.rpc('chave_valida', { p_chave: chaveApr }).then(function (r) {
+          if (!(r && r.data === true)) { chaveApr = null; mostrarLogin('Digite a chave do apresentador.'); }
+          else rpcApr('sala_garantir', { p_aula: C.AULA_ID });
+        });
+      } else if (!C.DEMO) mostrarLogin();
+      ir(inicio, true);
+      mostrarHud();
+    });
+  }
+
+  C.carregarScript('aulas/' + C.AULA_ID + '/aula.js')
+    .then(function () { return C.DEMO ? C.carregarScript('aulas/' + C.AULA_ID + '/demo.js').catch(function () {}) : null; })
+    .then(iniciar)
+    .catch(function (e) { document.body.innerHTML = '<p style="color:#fff;font:20px sans-serif;padding:40px">Não foi possível carregar a aula: ' + esc(e.message) + '</p>'; });
+})();

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5E1617">
+<meta name="robots" content="noindex">
+<title>Painel do apresentador</title>
+<link rel="icon" href="img/icone.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/marca.css">
+<link rel="stylesheet" href="css/celular.css">
+<style>
+body{background:var(--vermelho-profundo)}
+.topo{position:sticky;top:0;z-index:3;background:var(--vermelho-profundo);padding:8px 0 12px;display:flex;flex-direction:column;gap:10px}
+.nav{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+.nav .btn{padding:22px 10px;font-size:16px}
+#atual h2{font-size:20px}
+.nota-apr{margin:0;font-size:15px;line-height:1.45;color:#FCEFC7;background:rgba(248,212,100,.12);border-left:3px solid var(--ouro);padding:10px 12px;border-radius:8px}
+#lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto}
+#lista li{display:flex;gap:10px;align-items:baseline;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);cursor:pointer;font-size:14px}
+#lista li .n{color:var(--ouro);font-variant-numeric:tabular-nums;min-width:22px}
+#lista li .t{flex:1}
+#lista li em{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-suave)}
+#lista li.atual{background:var(--ouro);color:var(--vinho)}
+#lista li.atual .n{color:var(--vinho)}
+.m{background:rgba(255,255,255,.06);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m p{margin:0;font-size:15px}
+.m.resp{opacity:.5}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.aviso{min-height:20px;font-size:14px;color:var(--ouro)}
+.aviso.err{color:#FFD0C2}
+.grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.links a{color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="marca"><img src="img/icone.svg" alt=""><span>Apresentador</span></div><span class="nota" id="aula"></span></header>
+
+  <form class="card" id="login" hidden>
+    <h2><label for="w-chave">Chave do apresentador</label></h2>
+    <input type="text" id="w-chave" autocomplete="off" autocapitalize="none" placeholder="chave">
+    <button class="btn" type="submit">Entrar</button>
+    <div class="msg err" id="m-login"></div>
+  </form>
+
+  <div id="painel" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div class="topo">
+      <div class="card claro" id="atual"></div>
+      <div class="nav"><button class="btn sec" id="b-voltar" type="button">◀ Voltar</button><button class="btn" id="b-avancar" type="button">Avançar ▶</button></div>
+      <div class="aviso" id="aviso" aria-live="polite"></div>
+    </div>
+
+    <div class="card claro">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick">Roteiro</div><label class="nota"><input type="checkbox" id="seguir" checked> seguir o telão</label></div>
+      <ol id="lista"></ol>
+    </div>
+
+    <div class="card claro">
+      <div class="kick">Mural · aguardando (<span id="n-pend">0</span>)</div>
+      <div id="pend" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div class="kick">No telão</div>
+      <div id="apr" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <div class="card claro">
+      <div class="kick">Sessão · <span id="n-gotas">0</span> gotas</div>
+      <div class="grade">
+        <button class="btn sec peq" id="b-qr" type="button">QR no telão</button>
+        <button class="btn sec peq" id="b-recarregar" type="button">Recarregar telão</button>
+      </div>
+      <button class="btn" id="b-encerrar" type="button">Encerrar: apagar fotos e intenções</button>
+      <button class="btn sec" id="b-limpar" type="button">Recomeçar a sala (ensaio)</button>
+      <div class="links"><a id="link-telao" target="_blank" rel="noopener">Abrir telão</a><a id="link-celular" target="_blank" rel="noopener">Abrir página do celular</a><a href="#" id="b-sair">Sair</a></div>
+    </div>
+  </div>
+</div>
+<script src="js/config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="js/nucleo.js"></script>
+<script src="js/apresentador.js"></script>
+</body>
+</html>

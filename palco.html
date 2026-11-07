@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Telão · Catecumenato</title>
+<link rel="icon" href="img/icone.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/marca.css">
+<link rel="stylesheet" href="css/palco.css">
+</head>
+<body>
+<div id="tela"><div id="palco" class="palco"></div></div>
+<div id="hud"></div>
+<div id="qr-flutuante" hidden></div>
+<div id="preto" hidden></div>
+<div id="login" hidden>
+  <form>
+    <h1>Chave do apresentador</h1>
+    <p>Com a chave, o telão comanda os celulares e o quiz. Ela fica guardada neste computador.</p>
+    <input type="password" autocomplete="current-password" placeholder="chave" aria-label="Chave do apresentador">
+    <div class="erro" aria-live="polite"></div>
+    <button type="submit">Entrar</button>
+    <button type="button" class="sec">Somente exibir</button>
+  </form>
+</div>
+<script src="js/config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="vendor/qrcode.js"></script>
+<script src="js/nucleo.js"></script>
+<script src="js/palco.js"></script>
+</body>
+</html>
