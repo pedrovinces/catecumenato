@@ -12,10 +12,18 @@
     return { tipo: tipos[s.tipo] || s.tipo, texto: s.tipo === 'quiz' ? ((loja.pergunta(s.ordem) || {}).texto || '') : String(t) };
   }
   function cmd(c) {
+    if (!loja.sala) { aviso('A sala ainda não existe. Abra o telão (palco.html) no computador do projetor e digite a chave.', true); return Promise.resolve(); }
+    if (!loja.palcoOnline && !C.DEMO) aviso('Comando enviado, mas o telão está fechado. Abra palco.html no computador do projetor, na sala ' + SALA + '.', true);
     return loja.rpc('comandar', { p_chave: chave, p_sala: SALA, p_comando: c }).then(function (r) {
       if (r && r.error) aviso(/chave/.test(r.error.message) ? 'Chave recusada.' : 'Falha ao enviar: ' + r.error.message, true);
       return r;
     });
+  }
+  function pintarPresenca() {
+    var p = $('presenca'); if (!p) return;
+    var on = C.DEMO || !!loja.palcoOnline;
+    p.className = 'status' + (on ? ' on' : '');
+    p.querySelector('span').textContent = on ? 'telão conectado' : 'telão fechado';
   }
   function aviso(t, erro) { var a = $('aviso'); a.textContent = t; a.className = 'aviso' + (erro ? ' err' : ''); clearTimeout(a._t); a._t = setTimeout(function () { a.textContent = ''; }, 4000); }
 
@@ -64,6 +72,7 @@
     loja.rpc('chave_valida', { p_chave: v }).then(function (r) {
       if (r && r.data === true) {
         chave = v; C.guardar('cat-chave', v); $('login').hidden = true; $('painel').hidden = false;
+        if (!loja.sala) loja.rpc('sala_garantir', { p_chave: v, p_sala: SALA, p_aula: C.AULA_ID });
         mural(); clearInterval(timerMural); timerMural = setInterval(mural, 4000);
       } else { $('m-login').textContent = 'Chave incorreta.'; $('login').hidden = false; }
     });
@@ -74,8 +83,8 @@
     $('aula').textContent = A.titulo + ' · sala ' + SALA;
     $('link-telao').href = 'palco.html' + location.search;
     $('link-celular').href = 'index.html' + location.search;
-    loja = new C.Loja({ tabelas: ['jogadores'], intervalo: 8000 });
-    loja.ouvir(function (t) { if (t === 'sala' || t === 'carga' || t === 'jogadores') pintarEstado(); });
+    loja = new C.Loja({ tabelas: ['jogadores'], intervalo: 8000, verPresenca: true });
+    loja.ouvir(function (t) { if (t === 'sala' || t === 'carga' || t === 'jogadores') pintarEstado(); if (t === 'presenca' || t === 'carga') pintarPresenca(); });
     loja.iniciar().then(function () {
       montarLista(); pintarEstado();
       var salva = C.DEMO ? 'demo' : C.ler('cat-chave', '');

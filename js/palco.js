@@ -704,10 +704,28 @@
     escalar(); window.addEventListener('resize', escalar);
     document.addEventListener('keydown', teclado);
     document.addEventListener('mousemove', mostrarHud);
+    /* toque e deslize: celular, tablet ou clique do mouse */
+    var tx = null, ty = null, ultimoToque = 0;
+    function navegarPor(x) { if (x > window.innerWidth * 0.35) avancar(); else voltar(); }
+    tela.addEventListener('touchstart', function (ev) {
+      if (!$('#login').hidden) return;
+      var t = ev.changedTouches[0]; tx = t.clientX; ty = t.clientY;
+    }, { passive: true });
+    tela.addEventListener('touchend', function (ev) {
+      if (tx === null) return;
+      var t = ev.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+      tx = null; ultimoToque = Date.now(); mostrarHud();
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) avancar(); else voltar(); return; }
+      if (Math.abs(dx) < 14 && Math.abs(dy) < 14) navegarPor(t.clientX);
+    }, { passive: true });
+    tela.addEventListener('click', function (ev) {
+      if (Date.now() - ultimoToque < 700 || !$('#login').hidden) return;
+      navegarPor(ev.clientX);
+    });
     configurarLogin();
     preCarregar();
     document.title = A.titulo + ' · telão';
-    loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000 });
+    loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco' });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
       if (tipo === 'sala') { verComando(); return; }

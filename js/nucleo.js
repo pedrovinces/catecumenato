@@ -297,6 +297,16 @@
     });
     ch.subscribe(function (st) { s.online = st === 'SUBSCRIBED'; s.avisar('conexao'); });
     s.canal = ch;
+    if (s.opts.presenca || s.opts.verPresenca) {
+      var pres = c.channel('presenca-' + SALA, { config: { presence: { key: (s.opts.presenca || 'obs') + '-' + Math.random().toString(36).slice(2, 8) } } });
+      pres.on('presence', { event: 'sync' }, function () {
+        var st = pres.presenceState();
+        s.palcoOnline = Object.keys(st).some(function (k) { return (st[k] || []).some(function (m) { return m.papel === 'palco'; }); });
+        s.avisar('presenca');
+      });
+      pres.subscribe(function (status) { if (status === 'SUBSCRIBED' && s.opts.presenca) pres.track({ papel: s.opts.presenca }); });
+      s.canalPresenca = pres;
+    }
     setInterval(function () { s._carregar(false); }, s.opts.intervalo || 10000);
   };
 

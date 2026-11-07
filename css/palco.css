@@ -1,6 +1,6 @@
 /* Telão · tela de desenho fixa em 1920x1080, escalada para qualquer projetor */
 html,body{height:100%;overflow:hidden;background:#000}
-#tela{position:fixed;inset:0;background:#000;cursor:default}
+#tela{position:fixed;inset:0;background:#000;cursor:default;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 #tela.sem-cursor{cursor:none}
 .palco{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:var(--vermelho);color:var(--branco)}
 
