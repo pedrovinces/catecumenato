@@ -24,7 +24,7 @@ window.AULA = {
         forca: ['paz', 'cura', 'forca', 'esperanca', 'consolo', 'conforto', 'coragem', 'graca', 'fe', 'amor', 'alivio', 'saude', 'vida', 'misericordia', 'perdao', 'reconforto', 'cuidado', 'presenca', 'acolhimento', 'oracao', 'serenidade', 'confianca', 'bencao', 'protecao', 'salvacao']
       },
       passos: ['Coleta', 'Acender “fim”', 'Acender “força”'],
-      musica: 'abertura.mp3', musicaQuando: 'resposta', volume: 0.55,
+      musica: 'suspense.mp3', musicaQuando: 'resposta', volume: 0.55,
       nota: 'A música começa sozinha com a primeira palavra e some ao trocar de slide. Deixe a nuvem crescer. Primeiro acenda as palavras de fim, depois as de força.' },
 
     { tipo: 'foto', imagem: 'hospital-fachada.jpg', transicao: 'entrar', origem: '50% 86%',
