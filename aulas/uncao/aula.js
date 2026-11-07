@@ -57,7 +57,8 @@ window.AULA = {
       marcador: 'O Catecismo indica a Unção desde o início do perigo, por doença ou velhice, e antes de uma cirurgia importante.',
       fonte: 'CIC 1514-1515',
       passos: ['Coleta', 'Mostrar o Catecismo'],
-      nota: 'Mostre a mediana da sala e conte o que você vê na UTI: o padre que chega quando o paciente já não responde.' },
+      musica: 'suspense.mp3', musicaQuando: 'resposta', volume: 0.55,
+      nota: 'A música começa com a primeira resposta e sai quando você mostra o Catecismo. Mostre a mediana da sala e conte o que você vê na UTI: o padre que chega quando o paciente já não responde.' },
 
     { tipo: 'foto', imagem: 'uti-piora.jpg', transicao: 'suave', kicker: 'UTI · 02h15', legenda: 'O plantonista liga para a família.' },
     { tipo: 'foto', imagem: 'uti-familia.jpg', transicao: 'suave', kicker: 'UTI · 06h30', legenda: 'A família chega.' },

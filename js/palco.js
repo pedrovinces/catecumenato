@@ -285,8 +285,11 @@
         else if (m) m.remove();
       });
       $('.pp', el).textContent = fmt(v.length);
+      if (!revelado) musicaPorResposta(sl, v.length);
     }
     function aplicar() {
+      /* a música acompanha a coleta; ao mostrar o Catecismo ela sai para a fala */
+      if (sl.musica) { if (revelado) Som.parar(2500); else musicaPorResposta(sl, loja.valoresRegua(sl.id).length); }
       Array.prototype.forEach.call(cols, function (col, i) { col.classList.toggle('certo', revelado && sl.certo.indexOf(i) >= 0); });
       $('.marcador-cic', el).classList.toggle('on', revelado);
       $('.rodape-dados', el).style.opacity = revelado ? 0 : 1;
