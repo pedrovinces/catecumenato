@@ -327,12 +327,19 @@
       });
       $('.pp', el).textContent = fmt(t);
     }
+    /* som por afirmação: pergunta nova com vinheta e trilha; resposta revelada em silêncio */
+    var comSom = !!(sl.efeitoPorItem && (sl.musica || sl.efeito));
+    function som(direcao) {
+      if (!comSom) return;
+      if (p % 2 === 1) silenciarPergunta();
+      else trilhaDaPergunta(sl, direcao === 'frente');
+    }
     return {
       item: 0,
-      entrar: function () { render(false); },
+      entrar: function () { render(false); som(ctx.paraFrente ? 'frente' : 'tras'); },
       atualizar: function (t) { if (t === 'votos' || t === 'carga') contar(); },
-      avancar: function () { if (p < total - 1) { var antes = item(); p++; render(item() !== antes); return true; } return false; },
-      voltar: function () { if (p > 0) { var antes = item(); p--; render(item() !== antes); return true; } return false; }
+      avancar: function () { if (p < total - 1) { var antes = item(); p++; render(item() !== antes); som('frente'); return true; } return false; },
+      voltar: function () { if (p > 0) { var antes = item(); p--; render(item() !== antes); som('tras'); return true; } return false; }
     };
   };
 
@@ -369,6 +376,7 @@
       desenhados = pts.length;
       $('.np', el).textContent = fmt(pts.length);
       $('.pp', el).textContent = fmt(loja.participantesDe('mapa', sl.id));
+      if (passo === 0) musicaPorResposta(sl, pts.length);
     }
     function aplicar() {
       Array.prototype.forEach.call(el.querySelectorAll('.ponto-alvo.atual'), function (g) { g.classList.toggle('on', passo >= 1); });
@@ -376,6 +384,8 @@
       $('.r-atual', el).classList.toggle('on', passo >= 1);
       $('.r-antigo', el).classList.toggle('on', passo >= 2);
       calor.style.opacity = passo >= 1 ? 0.45 : 1;
+      /* a música acompanha a coleta e sai quando a resposta aparece */
+      if (sl.musica) { if (passo >= 1) Som.parar(2500); else musicaPorResposta(sl, loja.pontosMapa(sl.id).length); }
     }
     return {
       entrar: atualizar, atualizar: function (t) { if (t === 'mapa' || t === 'carga') atualizar(); },
@@ -686,7 +696,7 @@
     if (n === indice && !inicial) return;
     var sl = slides[n], velho = elAtual, ctlVelho = atual, slVelho = slides[indice], paraFrente = !inicial && n > indice;
     var el = document.createElement('div'); el.className = 'slide';
-    var ctx = { indice: n, sincronizar: function (item) { sincronizar(n, item); } };
+    var ctx = { indice: n, paraFrente: paraFrente, sincronizar: function (item) { sincronizar(n, item); } };
     if (sl.tipo === 'capa' || sl.tipo === 'final') el.classList.add('liso');
     var ctl = (R[sl.tipo] || R.titulo)(sl, el, ctx) || {};
     ligarPassagens(el, sl);
@@ -760,11 +770,12 @@
     function mudar(e) { if (estado === e) return; estado = e; pintarSom(); if (loja) loja.anunciar(); }
     var api = {
       preparar: function (src) { var a = audio(); if (fonte !== src) { fonte = src; a.src = src; a.load(); } },
-      tocar: function (src, vol) {
+      tocar: function (src, vol, doInicio) {
         api.preparar(src); quer = true; alvo = vol || 0.6;
         if (mudo) { mudar('mudo'); return; }
         var a = audio();
-        if (estado === 'tocando' && !a.paused) return;
+        if (doInicio) { try { a.currentTime = 0; } catch (x) {} }
+        if (estado === 'tocando' && !a.paused) { if (doInicio) rampa(alvo, 1200); return; }
         var p = a.play();
         var ok = function () { mudar('tocando'); rampa(alvo, 3500); };
         if (p && p.then) p.then(ok).catch(function () { mudar('bloqueado'); }); else ok();
@@ -812,7 +823,9 @@
   /* efeito: 'vinheta.mp3' toca na transição para a frente; a música do slide entra na metade dela */
   function musicaDoSlide(sl, paraFrente) {
     var m = sl.musica ? aud(sl.musica) : null;
+    seqPergunta++;
     if (Som.fonte() && Som.fonte() !== m) Som.parar(2500);
+    if (sl.efeitoPorItem) return;          /* o próprio slide toca a vinheta a cada pergunta */
     if (sl.efeito && paraFrente) {
       Som.efeito(aud(sl.efeito), sl.efeitoVolume, function () {
         if (m && slides[indice] === sl && sl.musicaQuando !== 'resposta') Som.tocar(m, sl.volume);
@@ -823,6 +836,14 @@
     if (sl.musicaQuando === 'resposta') Som.preparar(m);
     else Som.tocar(m, sl.volume);
   }
+  /* a cada nova pergunta: vinheta e trilha do começo, entrando na metade da vinheta; ao revelar, silêncio */
+  var seqPergunta = 0;
+  function trilhaDaPergunta(sl, comVinheta) {
+    var m = sl.musica ? aud(sl.musica) : null, meu = ++seqPergunta;
+    if (comVinheta && sl.efeito) Som.efeito(aud(sl.efeito), sl.efeitoVolume, function () { if (meu === seqPergunta && slides[indice] === sl && m) Som.tocar(m, sl.volume, true); });
+    else if (m) Som.tocar(m, sl.volume);
+  }
+  function silenciarPergunta(ms) { seqPergunta++; if (Som.fonte()) Som.parar(ms || 2000); }
   function musicaPorResposta(sl, total) {
     if (sl.musica && sl.musicaQuando === 'resposta' && total > 0 && slides[indice] === sl) Som.tocar(aud(sl.musica), sl.volume);
   }

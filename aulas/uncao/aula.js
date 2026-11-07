@@ -85,14 +85,14 @@ window.AULA = {
       complemento: 'São Tiago descreve o rito: a oração dos presbíteros, a unção com óleo no nome do Senhor e a promessa de alívio e de perdão.' },
 
     { tipo: 'mito', id: 'mito', kicker: 'Mito ou verdade?', opcoes: ['Mito', 'Verdade'],
-      efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55,
+      efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55, efeitoPorItem: true,
       itens: [
         { t: 'A Unção é reservada a quem está morrendo.', r: 0, exp: 'Não é sacramento reservado aos que estão à beira da morte.', fonte: 'CIC 1514' },
         { t: 'Faz sentido receber a Unção antes de uma cirurgia de alto risco.', r: 1, exp: 'O Catecismo indica a Unção antes de uma cirurgia importante.', fonte: 'CIC 1515' },
         { t: 'O diácono administra a Unção dos Enfermos.', r: 0, exp: 'Somente bispos e presbíteros administram o sacramento.', fonte: 'CIC 1516; CDC cân. 1003 §1' },
         { t: 'Quem já recebeu recebe de novo se a doença se agravar.', r: 1, exp: 'Repete-se em nova doença grave ou no agravamento da mesma.', fonte: 'CIC 1515; CDC cân. 1004 §2' }
       ],
-      nota: 'Ao entrar, toca a vinheta e a trilha de suspense começa no meio dela (M silencia). Para cada afirmação: espere os votos, depois avance para mostrar a resposta.' },
+      nota: 'A cada afirmação toca a vinheta e a trilha de suspense começa no meio dela; ao mostrar a resposta, a trilha sai (M silencia tudo). Para cada afirmação: espere os votos, depois avance para mostrar a resposta.' },
 
     { tipo: 'tres', titulo: ['Unção dos', 'Enfermos'], imagem: 'uncao-familia.jpg', fonte: 'CIC 1514-1516; CDC cân. 1003-1004',
       colunas: [
@@ -104,9 +104,10 @@ window.AULA = {
     { tipo: 'mapa', id: 'corpo', kicker: 'O gesto',
       pergunta: 'Toque nos lugares onde o sacerdote unge o enfermo. Você tem até 3 toques.',
       passos: ['Coleta', 'Fronte e mãos', 'Antes de 1972'],
+      musica: 'suspense.mp3', musicaQuando: 'resposta', volume: 0.55,
       atual: { texto: 'Fronte e mãos', fonte: 'Paulo VI, Sacram Unctionem Infirmorum, 1972 · CIC 1513' },
       antigo: { texto: 'Até 1972, ungiam-se os sentidos: olhos, ouvidos, narinas, lábios, mãos e pés.' },
-      nota: 'Mostre o mapa de calor. Quem tocou olhos e lábios não errou: está 50 anos atrasado.' },
+      nota: 'A trilha de suspense começa com o primeiro toque e sai quando você mostra fronte e mãos. Mostre o mapa de calor. Quem tocou olhos e lábios não errou: está 50 anos atrasado.' },
 
     { tipo: 'rito', titulo: 'O rito', fonte: 'Sacram Unctionem Infirmorum · CIC 1513 · CDC cân. 999 e 1003',
       blocos: [
