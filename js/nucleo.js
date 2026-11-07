@@ -101,7 +101,7 @@
 
   function carregarScript(src) {
     return new Promise(function (ok, falha) {
-      var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { falha(new Error('Falha ao carregar ' + src)); };
+      var s = document.createElement('script'), v = (window.CATEQUESE_CFG || {}).versao; s.src = src + (v && src.indexOf('?') < 0 ? '?v=' + v : ''); s.onload = ok; s.onerror = function () { falha(new Error('Falha ao carregar ' + src)); };
       document.head.appendChild(s);
     });
   }
