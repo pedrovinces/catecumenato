@@ -75,6 +75,7 @@
         d.style.animationDelay = opt.boca ? atraso + 's, ' + (atraso + 1.8 + Math.random() * 2).toFixed(2) + 's' : atraso + 's';
         d._chegada = Date.now() + (atraso + (opt.boca ? 1.8 : 1.1)) * 1000;
         if (opt.boca) setTimeout(function () { opt.boca.respingo(); }, (atraso + 0.8) * 1000);
+        else if (opt.aoPousar && !opt.semQueda) setTimeout(opt.aoPousar, (atraso + 0.78) * 1000);
         cont.appendChild(d);
       }
       if (d.dataset.assin !== assinatura) { d.innerHTML = C.gotaSVG(jg); d.dataset.assin = assinatura; }
@@ -147,6 +148,7 @@
         var r = document.createElement('i'); r.className = 'respingo';
         r.style.left = (400 * k) + 'px'; r.style.top = (boca.nivel) + 'px';
         resp.appendChild(r); setTimeout(function () { r.remove(); }, 1200);
+        if (sl.somGota && slides[indice] === sl) Gota.tocar(0.6);
       }
     };
     function atualizar() {
@@ -449,7 +451,11 @@
       '<path d="M50 3 C50 3 11 55 11 85 A39 39 0 0 0 89 85 C89 55 50 3 50 3 Z" fill="url(#gc)"/><path d="M47 62 h6 v14 h14 v6 h-14 v26 h-6 v-26 h-14 v-6 h14 z" fill="#fff"/></svg>' +
       '<div class="gotas"></div></div></div></div>';
     var cont = $('.gotas', el);
-    function atualizar() { var R0 = (cont.offsetWidth || 960) / 2; dispor(cont, loja.listaJogadores(), R0, { aneis: true, r0: R0 * 0.4, esp: R0 * 0.2, semQueda: false }); }
+    function atualizar() {
+      var R0 = (cont.offsetWidth || 960) / 2;
+      dispor(cont, loja.listaJogadores(), R0, { aneis: true, r0: R0 * 0.4, esp: R0 * 0.2, semQueda: false,
+        aoPousar: sl.somGota ? function () { if (slides[indice] === sl) Gota.tocar(0.5); } : null });
+    }
     return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); } };
   };
 
@@ -851,6 +857,40 @@
     if (sl.musica && sl.musicaQuando === 'resposta' && total > 0 && slides[indice] === sl) Som.tocar(aud(sl.musica), sl.volume);
   }
 
+  /* ---------- sonoplastia de gota ----------
+     um slide com somGota: true toca o som quando cada gota cai (audio/gota.mp3, altura variada) */
+  var Gota = (function () {
+    var ctx = null, buf = null, carregando = null, ultimo = 0;
+    function contexto() {
+      if (!ctx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; try { ctx = new AC(); } catch (e) { return null; } }
+      return ctx;
+    }
+    function carregar() {
+      if (carregando) return carregando;
+      var c = contexto(); if (!c) return Promise.reject(new Error('sem áudio'));
+      var v = (window.CATEQUESE_CFG || {}).versao;
+      carregando = fetch('audio/gota.mp3' + (v ? '?v=' + v : '')).then(function (r) { return r.arrayBuffer(); })
+        .then(function (b) { return new Promise(function (ok, falha) { c.decodeAudioData(b, ok, falha); }); })
+        .then(function (b) { buf = b; }).catch(function (e) { carregando = null; throw e; });
+      return carregando;
+    }
+    return {
+      preparar: function () { carregar().catch(function () {}); },
+      liberar: function () { var c = contexto(); if (c && c.state === 'suspended') c.resume().catch(function () {}); },
+      tocar: function (vol) {
+        if (Som.mudo()) return;
+        var c = contexto(); if (!c) return;
+        if (!buf) { carregar().catch(function () {}); return; }
+        if (c.state === 'suspended') c.resume().catch(function () {});
+        var agora = c.currentTime; if (agora - ultimo < 0.04) return; ultimo = agora;
+        var src = c.createBufferSource(), g = c.createGain();
+        src.buffer = buf; src.playbackRate.value = 0.8 + Math.random() * 0.45;
+        g.gain.value = (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3);
+        src.connect(g); g.connect(c.destination); src.start();
+      }
+    };
+  })();
+
   /* ---------- passagens bíblicas ----------
      um slide declara passagens: [{ ref: 'Mt 10,8', texto: '...' }]; cada citação no texto do slide
      mostra o versículo ao passar o mouse e abre em destaque pelo clique ou pelo painel */
@@ -1018,7 +1058,7 @@
 
   function teclado(ev) {
     if (!$('#login').hidden) return;
-    Som.liberar();
+    Som.liberar(); Gota.liberar();
     var k = ev.key;
     if (passagemAberta && /^(Escape|ArrowRight|ArrowLeft|PageDown|PageUp| |Enter|Backspace)$/.test(k)) { ev.preventDefault(); fecharPassagem(); return; }
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { ev.preventDefault(); avancar(); }
@@ -1034,6 +1074,7 @@
   }
 
   function preCarregar() {
+    if (slides.some(function (s) { return s.somGota; })) Gota.preparar();
     var vistos = {};
     slides.forEach(function (s) {
       if (s.efeito && !vistos[s.efeito]) { vistos[s.efeito] = 1; Som.preCarregar(aud(s.efeito), true); }
@@ -1055,12 +1096,13 @@
     var tx = null, ty = null, ultimoToque = 0;
     function navegarPor(x) { if (x > window.innerWidth * 0.35) avancar(); else voltar(); }
     var noSom = function (ev) { return ev.target && ev.target.closest && ev.target.closest('#som-bloqueado'); };
-    $('#som-bloqueado').addEventListener('click', function (ev) { ev.stopPropagation(); Som.liberar(); });
+    $('#som-bloqueado').addEventListener('click', function (ev) { ev.stopPropagation(); Som.liberar(); Gota.liberar(); });
     tela.addEventListener('touchstart', function (ev) {
       if (!$('#login').hidden || noSom(ev)) return;
       var t = ev.changedTouches[0]; tx = t.clientX; ty = t.clientY;
     }, { passive: true });
     tela.addEventListener('touchend', function (ev) {
+      Gota.liberar();
       if (tx === null) return;
       var t = ev.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
       tx = null; ultimoToque = Date.now(); mostrarHud();
@@ -1068,6 +1110,7 @@
       if (Math.abs(dx) < 14 && Math.abs(dy) < 14) { if (cliquePassagem(ev.target)) return; navegarPor(t.clientX); }
     }, { passive: true });
     tela.addEventListener('click', function (ev) {
+      Gota.liberar();
       if (Date.now() - ultimoToque < 700 || !$('#login').hidden || noSom(ev)) return;
       if (cliquePassagem(ev.target)) return;
       navegarPor(ev.clientX);

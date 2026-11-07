@@ -13,7 +13,7 @@ window.AULA = {
       imagem: 'capa-gota.jpg', rodape: 'Paróquia São Judas Tadeu · Arquidiocese de Niterói',
       nota: 'Boas-vindas. Peça que todos peguem o celular.' },
 
-    { tipo: 'entrada', titulo: 'Aponte a câmera',
+    { tipo: 'entrada', titulo: 'Aponte a câmera', somGota: true,
       texto: 'Tire uma selfie e veja sua gota cair no frasco.',
       nota: 'Cada pessoa que entra vira uma gota com o próprio rosto e cai no frasco de óleo; o apelido aparece ao lado. Quem não tem celular joga em dupla com o vizinho.' },
 
@@ -144,7 +144,7 @@ window.AULA = {
       ],
       imagem: 'efeitos-padre.jpg' },
 
-    { tipo: 'eclesial', titulo: 'Graça eclesial', fonte: 'CIC 1522',
+    { tipo: 'eclesial', titulo: 'Graça eclesial', fonte: 'CIC 1522', somGota: true,
       texto: 'Ninguém é ungido sozinho. A Igreja inteira reza pelo enfermo, e o enfermo, unido a Cristo, oferece-se pela Igreja.',
       legenda: 'Cada gota desta sala faz parte dessa intercessão.',
       nota: 'As gotas de todos os participantes se reúnem ao redor da gota central.' },
