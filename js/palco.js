@@ -446,19 +446,19 @@
       rel.textContent = Math.ceil(rest);
       if (Date.now() - ultPoll > 1000) { ultPoll = Date.now(); painel(); }
       if (rest <= 0) { estado = 'encerrada'; est.textContent = 'Tempo esgotado'; agendarRevelar(1700); return; }
-      raf = requestAnimationFrame(tick);
+      raf = setTimeout(tick, 100);
     }
     function agendarRevelar(ms) { if (autoTimer || revelando || estado === 'revelada') return; autoTimer = setTimeout(revelar, ms); }
     function abrir() {
       estado = 'aberta'; est.textContent = 'Valendo!';
       return rpcApr('quiz_abrir', {}).then(function (r) {
         abertaEm = r && r.data ? new Date(r.data).getTime() : loja.agora();
-        raf = requestAnimationFrame(tick);
+        raf = setTimeout(tick, 50);
       });
     }
     function revelar() {
       if (revelando || estado === 'revelada') return; revelando = true;
-      clearTimeout(autoTimer); cancelAnimationFrame(raf);
+      clearTimeout(autoTimer); clearTimeout(raf);
       return rpcApr('quiz_revelar', {}).then(function (r) {
         var g = (r && r.data) || {};
         mostrarRevelada(g.correta, g.valor, g.comentario, g.fonte);
@@ -478,7 +478,7 @@
         var s = loja.sala;
         if (s && +s.quiz_ordem === +sl.ordem && s.etapa === 'quiz') {
           if (s.quiz_revelada) { mostrarRevelada(s.quiz_correta, s.quiz_valor, s.quiz_comentario); painel(); return; }
-          if (s.quiz_aberta_em) { abertaEm = new Date(s.quiz_aberta_em).getTime(); estado = 'aberta'; est.textContent = 'Valendo!'; raf = requestAnimationFrame(tick); return; }
+          if (s.quiz_aberta_em) { abertaEm = new Date(s.quiz_aberta_em).getTime(); estado = 'aberta'; est.textContent = 'Valendo!'; raf = setTimeout(tick, 50); return; }
         }
         est.textContent = 'Prepare-se';
         rpcApr('quiz_preparar', { p_ordem: sl.ordem, p_slide: ctx.indice }).then(painel);
@@ -488,7 +488,7 @@
         if (estado === 'aberta' || estado === 'encerrada') { revelar(); return true; }
         return false;
       },
-      sair: function () { cancelAnimationFrame(raf); clearTimeout(autoTimer); }
+      sair: function () { clearTimeout(raf); clearTimeout(autoTimer); }
     };
   };
 
@@ -510,7 +510,7 @@
         if (d.dataset.assin !== assin) { d.querySelector('.av').innerHTML = C.gotaSVG(j); d.dataset.assin = assin; }
         d.querySelector('.nome b').textContent = j.apelido;
         d.querySelector('.pts span').textContent = fmt(j.total);
-        (function (dd, top, w) { requestAnimationFrame(function () { dd.style.top = top + 'px'; dd.style.opacity = 1; dd.querySelector('.nome i').style.width = w + '%'; }); })(d, i * 150, Math.round(100 * j.total / max));
+        (function (dd, top, w) { setTimeout(function () { dd.style.top = top + 'px'; dd.style.opacity = 1; dd.querySelector('.nome i').style.width = w + '%'; }, 30); })(d, i * 150, Math.round(100 * j.total / max));
         vistos[j.aparelho] = 1;
       });
       Object.keys(cache).forEach(function (k) { if (!vistos[k]) { cache[k].remove(); delete cache[k]; } });
@@ -614,7 +614,7 @@
       if (ctlVelho && ctlVelho.sair) ctlVelho.sair();
     }
     indice = n; elAtual = el; atual = ctl;
-    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('on'); }); });
+    setTimeout(function () { el.classList.add('on'); }, 30);
     if (ctl.entrar) ctl.entrar();
     if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
     atualizarHud();
