@@ -72,6 +72,7 @@
     loja.rpc('chave_valida', { p_chave: v }).then(function (r) {
       if (r && r.data === true) {
         chave = v; C.guardar('cat-chave', v); $('login').hidden = true; $('painel').hidden = false;
+        $('link-telao').href = 'palco.html' + location.search + '#k=' + encodeURIComponent(v);
         if (!loja.sala) loja.rpc('sala_garantir', { p_chave: v, p_sala: SALA, p_aula: C.AULA_ID });
         mural(); clearInterval(timerMural); timerMural = setInterval(mural, 4000);
       } else { $('m-login').textContent = 'Chave incorreta.'; $('login').hidden = false; }

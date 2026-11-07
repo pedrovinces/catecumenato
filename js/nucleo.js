@@ -22,6 +22,14 @@
       var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16);
     });
   }
+  /* chave do apresentador no link (#k=...): guardada neste aparelho e apagada do endereço na hora.
+     O trecho depois do # não sai do navegador, nem para o servidor do site. */
+  (function () {
+    try {
+      var m = location.hash.replace(/^#/, '').match(/(?:^|&)(?:k|chave)=([^&]+)/);
+      if (m) { guardar('cat-chave', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); }
+    } catch (e) {}
+  })();
   var APARELHO = ler('cat-aparelho', null);
   if (!APARELHO || !/^[0-9a-f-]{36}$/.test(APARELHO)) { APARELHO = uuid(); guardar('cat-aparelho', APARELHO); }
 
