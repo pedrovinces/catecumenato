@@ -422,9 +422,11 @@
       var D = window.DEMO_DADOS || {};
       if (s.opts.semDadosDemo) { setTimeout(function () { s.avisar('carga'); }, 0); return Promise.resolve(); }
       var n = 0;
+      /* cinco já entraram; os demais chegam aos poucos, como na sala */
       Demo.nomes.forEach(function (nome, i) {
-        var ap = 'demo-' + i;
-        s.jogadores[ap] = { aparelho: ap, apelido: nome, cor: i % 8, foto: null, criado: new Date(Date.now() - (40 - i) * 1000).toISOString() };
+        var ap = 'demo-' + i, j = { aparelho: ap, apelido: nome, cor: i % 8, foto: null, criado: new Date(Date.now() - (40 - i) * 1000).toISOString() };
+        if (i < 5) s.jogadores[ap] = j;
+        else setTimeout(function () { j.criado = new Date().toISOString(); s.jogadores[ap] = j; s.avisar('jogadores'); }, 2500 + (i - 5) * 1300);
       });
       function dev() { return 'demo-' + (n++ % Demo.nomes.length); }
       Object.keys(D.palavras || {}).forEach(function (inter) {

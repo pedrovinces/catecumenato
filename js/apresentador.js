@@ -8,7 +8,7 @@
   function rotulo(s, i) {
     var t = s.titulo || s.pergunta || s.legenda || s.citacao || s.texto || s.kicker || '';
     if (Array.isArray(t)) t = t.join(' ');
-    var tipos = { capa: 'Capa', entrada: 'Check-in', nuvem: 'Nuvem', foto: 'Foto', sacramentos: 'Sacramentos', texto: 'Texto', regua: 'Régua', citacao: 'Citação', mito: 'Mito ou verdade', tres: 'Resumo', mapa: 'Mapa do corpo', rito: 'Rito', caca: 'Caça', efeitos: 'Efeitos', eclesial: 'Gotas', titulo: 'Título', testemunho: 'Testemunho', comparar: 'Antes e depois', mural: 'Mural', 'quiz-intro': 'Quiz', quiz: 'Pergunta ' + s.ordem, ranking: 'Placar', podio: 'Pódio', intencoes: 'Intenções', final: 'Final' };
+    var tipos = { capa: 'Capa', entrada: 'Entrada (QR)', nuvem: 'Nuvem', foto: 'Foto', sacramentos: 'Sacramentos', texto: 'Texto', regua: 'Régua', citacao: 'Citação', mito: 'Mito ou verdade', tres: 'Resumo', mapa: 'Mapa do corpo', rito: 'Rito', caca: 'Caça', efeitos: 'Efeitos', eclesial: 'Gotas', titulo: 'Título', testemunho: 'Testemunho', comparar: 'Antes e depois', mural: 'Mural', 'quiz-intro': 'Quiz', quiz: 'Pergunta ' + s.ordem, ranking: 'Placar', podio: 'Pódio', intencoes: 'Intenções', final: 'Final' };
     return { tipo: tipos[s.tipo] || s.tipo, texto: s.tipo === 'quiz' ? ((loja.pergunta(s.ordem) || {}).texto || '') : String(t) };
   }
   function cmd(c) {
@@ -29,6 +29,14 @@
     if (fa) fa.textContent = C.DEMO ? 'demonstração' : !on ? 'telão fechado' : m && m.formato ?
       nomes[m.formato] + (m.formato === 'auto' ? ' (agora ' + (m.layout === '43' ? '4:3' : '16:9') + ')' : '') + (m.teste ? ' · teste aberto' : '') : 'telão conectado';
     Array.prototype.forEach.call(document.querySelectorAll('#formatos [data-f]'), function (b) { b.classList.toggle('ativo', !!(on && m && m.formato === b.dataset.f)); });
+    var sa = $('som-atual'), bm = $('b-musica');
+    if (sa) {
+      var est = m && m.som, mudo = !!(m && m.mudo);
+      sa.textContent = C.DEMO ? 'demonstração' : !on ? 'telão fechado' : !m ? 'telão conectado' :
+        est === 'tocando' ? 'tocando' : est === 'bloqueado' ? 'bloqueada pelo navegador: aperte F no telão' : mudo ? 'desligada' : 'pronta, começa na primeira palavra do slide 3';
+      sa.style.color = est === 'bloqueado' ? '#FFD0C2' : '';
+      bm.textContent = mudo ? 'Ligar música' : 'Desligar música';
+    }
   }
   function aviso(t, erro) { var a = $('aviso'); a.textContent = t; a.className = 'aviso' + (erro ? ' err' : ''); clearTimeout(a._t); a._t = setTimeout(function () { a.textContent = ''; }, 4000); }
 
@@ -105,6 +113,7 @@
       b.addEventListener('click', function () { cmd('formato:' + b.dataset.f).then(function (r) { if (r && !r.error) aviso('Formato enviado ao telão: ' + b.textContent + '.'); }); });
     });
     $('b-teste').addEventListener('click', function () { cmd('teste').then(function (r) { if (r && !r.error) aviso('Teste de tela alternado no telão.'); }); });
+    $('b-musica').addEventListener('click', function () { cmd('musica').then(function (r) { if (r && !r.error) aviso('Música alternada no telão.'); }); });
     $('b-encerrar').addEventListener('click', function () {
       if (!confirm('Apagar as selfies e as intenções desta sala? Os pontos continuam.')) return;
       loja.rpc('sala_encerrar', { p_chave: chave, p_sala: SALA }).then(function (r) {

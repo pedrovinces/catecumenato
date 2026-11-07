@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <title>Painel do apresentador</title>
 <link rel="icon" href="img/icone.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/marca.css?v=20261107b">
-<link rel="stylesheet" href="css/celular.css?v=20261107b">
+<link rel="stylesheet" href="css/marca.css?v=20261107c">
+<link rel="stylesheet" href="css/celular.css?v=20261107c">
 <style>
 body{background:var(--vermelho-profundo)}
 .topo{position:sticky;top:0;z-index:3;background:var(--vermelho-profundo);padding:8px 0 12px;display:flex;flex-direction:column;gap:10px}
@@ -34,7 +34,7 @@ body{background:var(--vermelho-profundo)}
 .links a{color:#fff}
 .grade4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn.ativo{background:var(--ouro);color:var(--vinho);border-color:var(--ouro)}
-#formatos .btn,#b-teste,#b-encerrar,#b-limpar{white-space:normal;line-height:1.3}
+#formatos .btn,#b-teste,#b-musica,#b-encerrar,#b-limpar{white-space:normal;line-height:1.3}
 </style>
 </head>
 <body>
@@ -69,7 +69,7 @@ body{background:var(--vermelho-profundo)}
     </div>
 
     <div class="card claro">
-      <div class="kick">Sessão · <span id="n-gotas">0</span> gotas</div>
+      <div class="kick">Sessão · <span id="n-gotas">0</span> participantes</div>
       <div class="grade">
         <button class="btn sec peq" id="b-qr" type="button">QR no telão</button>
         <button class="btn sec peq" id="b-recarregar" type="button">Recarregar telão</button>
@@ -80,7 +80,7 @@ body{background:var(--vermelho-profundo)}
     </div>
 
     <div class="card claro">
-      <div class="kick">Formato do telão · <span id="formato-atual">telão fechado</span></div>
+      <div class="kick">Telão · <span id="formato-atual">telão fechado</span></div>
       <div class="grade4" id="formatos">
         <button class="btn sec peq" type="button" data-f="auto">Automático</button>
         <button class="btn sec peq" type="button" data-f="169">16:9</button>
@@ -88,14 +88,16 @@ body{background:var(--vermelho-profundo)}
         <button class="btn sec peq" type="button" data-f="43c">4:3 compensado</button>
       </div>
       <button class="btn sec peq" id="b-teste" type="button">Teste de tela: círculo e moldura</button>
+      <div class="kick" style="margin-top:6px">Música · <span id="som-atual">telão fechado</span></div>
+      <button class="btn sec peq" id="b-musica" type="button">Desligar música</button>
       <p class="nota">Tela de projeção 4:3 e datashow 16:9: use <b>4:3 com faixas</b> e ajuste o zoom do datashow até a imagem ocupar a altura da tela. Se o datashow estiver travado em 4:3 e o círculo do teste ficar alto e estreito, use <b>4:3 compensado</b>. O telão guarda a escolha.</p>
     </div>
   </div>
 </div>
-<script src="js/config.js?v=20261107b"></script>
-<script src="vendor/supabase.js?v=20261107b"></script>
-<script src="vendor/qrcode.js?v=20261107b"></script>
-<script src="js/nucleo.js?v=20261107b"></script>
-<script src="js/apresentador.js?v=20261107b"></script>
+<script src="js/config.js?v=20261107c"></script>
+<script src="vendor/supabase.js?v=20261107c"></script>
+<script src="vendor/qrcode.js?v=20261107c"></script>
+<script src="js/nucleo.js?v=20261107c"></script>
+<script src="js/apresentador.js?v=20261107c"></script>
 </body>
 </html>

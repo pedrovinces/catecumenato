@@ -58,10 +58,10 @@ html,body{height:100%;overflow:hidden;background:#000}
 .poco .vazio{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--texto-suave);font-weight:300;padding:200px}
 
 /* cabeçalho das dinâmicas */
-.cab{position:absolute;left:120px;right:480px;top:80px;display:flex;flex-direction:column;gap:18px}
+.cab{position:absolute;left:120px;right:330px;top:80px;display:flex;flex-direction:column;gap:18px}
 .cab h2{margin:0;font-size:56px;line-height:1.18;font-weight:400}
 .mini-qr{position:absolute;right:80px;top:70px;display:flex;gap:18px;align-items:center;text-align:right}
-.mini-qr .q{width:150px;background:#fff;border-radius:14px;padding:10px}
+.mini-qr .q{width:170px;background:#fff;border-radius:14px;padding:10px}
 .mini-qr .q svg{width:100%;height:auto;display:block}
 .mini-qr .u{font-size:18px;letter-spacing:.1em;color:var(--texto-suave);max-width:230px;line-height:1.3;overflow-wrap:anywhere}
 .rodape-dados{position:absolute;left:120px;bottom:60px;font-size:24px;letter-spacing:.24em;text-transform:uppercase;color:var(--texto-suave)}
@@ -349,7 +349,8 @@ html,body{height:100%;overflow:hidden;background:#000}
 #qr-flutuante{position:absolute;right:28px;bottom:28px;background:#fff;border-radius:22px;padding:16px;width:230px;z-index:15;box-shadow:0 14px 40px rgba(0,0,0,.3)}
 #qr-flutuante svg{display:block;width:100%;height:auto}
 #qr-flutuante small{display:block;text-align:center;font:500 17px/1.3 var(--fonte);color:#5E1617;margin-top:8px;letter-spacing:.04em;overflow-wrap:anywhere}
-#qr-flutuante[hidden],#teste-tela[hidden],#aviso-formato[hidden]{display:none}
+#qr-flutuante[hidden],#teste-tela[hidden],#aviso-formato[hidden],#som-bloqueado[hidden]{display:none}
+#som-bloqueado{position:absolute;right:50px;bottom:34px;z-index:42;font:500 24px var(--fonte);letter-spacing:.04em;color:var(--vinho);background:var(--ouro);border:0;border-radius:999px;padding:14px 34px;cursor:pointer;box-shadow:0 12px 34px rgba(0,0,0,.35)}
 
 /* aviso de formato e teste de tela (desenhados dentro do palco, recebem a mesma escala) */
 #aviso-formato{position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:40;background:rgba(62,13,14,.94);border:2px solid var(--ouro);border-radius:22px;padding:22px 44px;text-align:center;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
@@ -407,10 +408,10 @@ html,body{height:100%;overflow:hidden;background:#000}
 .f43 .poco.grande{width:700px;height:700px}
 .f43 .poco .vazio{padding:150px}
 
-.f43 .cab{left:90px;right:430px;top:70px}
+.f43 .cab{left:90px;right:260px;top:70px}
 .f43 .cab h2{font-size:48px}
 .f43 .mini-qr{right:50px;top:60px}
-.f43 .mini-qr .q{width:140px}
+.f43 .mini-qr .q{width:150px}
 .f43 .mini-qr .u{max-width:200px;font-size:16px}
 .f43 .rodape-dados{left:90px}
 .f43 .nuvem{left:60px;right:60px;top:290px}
@@ -534,3 +535,51 @@ html,body{height:100%;overflow:hidden;background:#000}
 .f43 .fim-slide .baixo{padding:0 90px}
 .f43 .fim-slide .titulo{font-size:130px}
 .f43 .fim-slide .baixo img{height:320px;margin-top:-120px}
+
+/* ===================== entrada: QR grande e frasco de vidro com óleo ===================== */
+.entrada{grid-template-columns:820px 1fr}
+.entrada .esq{padding:0 30px 0 110px;align-items:center;text-align:center;gap:34px}
+.entrada .qr-cartao{width:600px;padding:30px;border-radius:34px}
+.qr-cartao.chamar{animation:chamar 2.6s ease-out infinite}
+@keyframes chamar{0%{box-shadow:0 30px 80px rgba(0,0,0,.25),0 0 0 0 rgba(248,212,100,.65)}70%,100%{box-shadow:0 30px 80px rgba(0,0,0,.25),0 0 0 36px rgba(248,212,100,0)}}
+.entrada .chamada{margin:0;font-size:70px;font-weight:500;letter-spacing:.01em;line-height:1.05}
+.entrada .texto-g{font-size:34px;max-width:640px;text-wrap:balance}
+.entrada .texto-g .fim{white-space:nowrap}
+.entrada .seta{display:inline-block;color:var(--ouro);font-weight:500;animation:seta 1.6s ease-in-out infinite}
+@keyframes seta{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
+.entrada .dir{position:relative;height:100%;display:grid;place-items:center}
+.frasco{position:relative;width:760px;height:950px}
+.frasco-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.frasco .oleo{transform:translateY(var(--nivel,0px));transition:transform 1.4s ease}
+.frasco .onda{animation:onda 7s linear infinite}
+.frasco .onda.o2{animation-duration:11s;animation-direction:reverse}
+@keyframes onda{to{transform:translateX(-400px)}}
+.frasco .bolha{fill:#FFF6DA;opacity:0;animation-name:bolha;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes bolha{0%{transform:translateY(0);opacity:0}12%{opacity:.55}85%{opacity:.35}100%{transform:translateY(-640px);opacity:0}}
+.frasco .gotas,.frasco .respingos{position:absolute;inset:0}
+.frasco .g{position:absolute;transform:translate(-50%,-50%);transition:left .9s cubic-bezier(.2,.8,.2,1),top .9s cubic-bezier(.2,.8,.2,1),width .6s ease}
+.frasco .g .gota{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 10px rgba(62,13,14,.42))}
+.frasco .g.mergulho{animation:mergulho 1.8s both,boiar 5.5s ease-in-out infinite}
+@keyframes mergulho{0%{translate:var(--dx) var(--dy);scale:.55;opacity:0}10%{opacity:1}45%{translate:var(--dx) var(--sy);scale:1;animation-timing-function:cubic-bezier(.15,.6,.3,1)}100%{translate:0 0;scale:1;opacity:1}}
+@keyframes boiar{0%,100%{margin-top:0;rotate:-2deg}50%{margin-top:-9px;rotate:2deg}}
+.frasco .g.chegou{width:230px!important;z-index:6}
+.frasco .g.chegou .gota{filter:drop-shadow(0 0 22px rgba(248,212,100,.95)) drop-shadow(0 10px 18px rgba(62,13,14,.45))}
+.nome-chegada{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:12px;white-space:nowrap;background:rgba(62,13,14,.92);border:2px solid var(--ouro);color:#fff;font-size:34px;font-weight:600;letter-spacing:.02em;padding:6px 24px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);animation:nome-in .45s ease both}
+.nome-chegada.acima{top:auto;bottom:100%;margin:0 0 12px}
+.nome-chegada.sai{animation:nome-out .6s ease both}
+@keyframes nome-in{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes nome-out{to{opacity:0;translate:0 -8px}}
+.respingo{position:absolute;width:0;height:0;border:3px solid rgba(255,244,210,.9);border-radius:50%;transform:translate(-50%,-50%);animation:respingo 1.1s ease-out forwards}
+@keyframes respingo{to{width:240px;height:48px;opacity:0;border-width:1px}}
+.frasco .vazio{position:absolute;left:0;right:0;top:60%;text-align:center;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:#fff;font-weight:400;text-shadow:0 2px 10px rgba(62,13,14,.5)}
+.frasco .vazio[hidden]{display:none}
+
+.f43 .entrada{grid-template-columns:640px 1fr}
+.f43 .entrada .esq{padding:0 10px 0 70px;gap:26px}
+.f43 .entrada .qr-cartao{width:470px;padding:24px}
+.f43 .entrada .chamada{font-size:56px}
+.f43 .entrada .texto-g{font-size:30px;max-width:520px}
+.f43 .frasco{width:600px;height:750px}
+.f43 .frasco .g.chegou{width:180px!important}
+.f43 .nome-chegada{font-size:28px}
+.f43 .frasco .vazio{font-size:24px}

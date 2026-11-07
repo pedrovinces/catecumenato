@@ -123,7 +123,7 @@
       case 'caca': telaCaca(id); break;
       case 'mural': abrirFolha(); telaEspera('Perguntas no telão', 'Toque em “Pergunte” para mandar a sua ou apoiar a de alguém.'); break;
       case 'intencoes': telaIntencoes(); break;
-      case 'entrada': telaEspera('Você entrou no plantão', 'Olhe o telão: a sua gota acabou de cair no frasco.'); break;
+      case 'entrada': telaEspera('Sua gota chegou', 'Olhe o telão: a gota com o seu rosto acabou de cair no frasco de óleo.'); break;
       case 'eclesial': telaEspera('Graça eclesial', 'A sua gota está no telão, junto com todas as outras.'); break;
       case 'quiz-intro': atualizarPlacar(); telaEspera('Passagem de plantão', 'O quiz vai começar. Acerto rápido vale mais. Fique de olho no telão.'); break;
       case 'ranking': case 'podio': telaPlacar(); break;
@@ -286,7 +286,7 @@
       if (!d) return;
       $('placar-box').innerHTML = '<div class="placar"><div><b>' + (d.posicao ? d.posicao + 'º' : '–') + '</b><small>posição</small></div>' +
         '<div><b>' + fmt(d.total) + '</b><small>pontos</small></div><div><b>' + fmt(d.acertos) + '</b><small>acertos</small></div></div>' +
-        '<p class="nota">Inclui ' + fmt(d.bonus) + ' pontos de bônus pelas dinâmicas. ' + fmt(d.jogadores) + ' pessoas no plantão.</p>';
+        '<p class="nota">Inclui ' + fmt(d.bonus) + ' pontos de bônus pelas dinâmicas. ' + fmt(d.jogadores) + (d.jogadores === 1 ? ' participante.' : ' participantes.') + '</p>';
     });
   }
 

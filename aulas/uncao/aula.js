@@ -13,9 +13,9 @@ window.AULA = {
       imagem: 'capa-gota.jpg', rodape: 'Paróquia São Judas Tadeu · Arquidiocese de Niterói',
       nota: 'Boas-vindas. Peça que todos peguem o celular.' },
 
-    { tipo: 'entrada', titulo: 'Entre no plantão',
-      texto: 'Aponte a câmera para o código, escolha um apelido e tire uma selfie. Cada pessoa vira uma gota de óleo com o próprio rosto.',
-      nota: 'Espere as gotas encherem o frasco. Quem não tem celular joga em dupla com o vizinho.' },
+    { tipo: 'entrada', titulo: 'Aponte a câmera',
+      texto: 'Tire uma selfie e veja sua gota cair no frasco.',
+      nota: 'Cada pessoa que entra vira uma gota com o próprio rosto e cai no frasco de óleo; o apelido aparece ao lado. Quem não tem celular joga em dupla com o vizinho.' },
 
     { tipo: 'nuvem', id: 'abertura', kicker: 'Primeira palavra',
       pergunta: 'Em uma palavra: o que vem à sua cabeça quando ouve “Unção dos Enfermos”?',
@@ -24,7 +24,8 @@ window.AULA = {
         forca: ['paz', 'cura', 'forca', 'esperanca', 'consolo', 'conforto', 'coragem', 'graca', 'fe', 'amor', 'alivio', 'saude', 'vida', 'misericordia', 'perdao', 'reconforto', 'cuidado', 'presenca', 'acolhimento', 'oracao', 'serenidade', 'confianca', 'bencao', 'protecao', 'salvacao']
       },
       passos: ['Coleta', 'Acender “fim”', 'Acender “força”'],
-      nota: 'Deixe a nuvem crescer. Primeiro acenda as palavras de fim, depois as de força.' },
+      musica: 'abertura.mp3', musicaQuando: 'resposta', volume: 0.55,
+      nota: 'A música começa sozinha com a primeira palavra e some ao trocar de slide. Deixe a nuvem crescer. Primeiro acenda as palavras de fim, depois as de força.' },
 
     { tipo: 'foto', imagem: 'hospital-fachada.jpg', transicao: 'entrar', origem: '50% 86%',
       kicker: 'Hospital São Judas Tadeu', legenda: 'Hoje, você entra comigo num plantão.',
@@ -60,7 +61,7 @@ window.AULA = {
 
     { tipo: 'foto', imagem: 'uti-piora.jpg', transicao: 'suave', kicker: 'UTI · 02h15', legenda: 'O plantonista liga para a família.' },
     { tipo: 'foto', imagem: 'uti-familia.jpg', transicao: 'suave', kicker: 'UTI · 06h30', legenda: 'A família chega.' },
-    { tipo: 'foto', imagem: 'uti-medico-familia.jpg', transicao: 'suave', kicker: 'UTI · 07h00', legenda: 'A medicina faz o que sabe fazer.' },
+    { tipo: 'foto', imagem: 'uti-medico-familia.jpg', transicao: 'suave', kicker: 'UTI · 07h00', legenda: 'Após notícias ruins, a família pede ajuda ao médico para receber o sacerdote.' },
     { tipo: 'foto', imagem: 'uti-padre.jpg', transicao: 'suave', kicker: 'UTI · 07h20',
       legenda: 'Quem entra agora é Cristo, pelas mãos da Igreja.', nota: 'Pausa. Deixe a imagem falar.' },
 

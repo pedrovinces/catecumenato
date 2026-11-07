@@ -26,7 +26,7 @@
     });
   }
   function miniQR() {
-    return '<div class="mini-qr"><div class="u">' + esc(C.urlCurta()).replace('.', '.<wbr>') + '</div><div class="q">' + C.qrSvg(C.urlPublica()) + '</div></div>';
+    return '<div class="mini-qr"><div class="q">' + C.qrSvg(C.urlPublica()) + '</div></div>';
   }
   function cab(kicker, pergunta) {
     return '<div class="cab">' + (kicker ? '<div class="kicker">' + esc(kicker) + '</div>' : '') + '<h2>' + esc(pergunta) + '</h2></div>';
@@ -48,7 +48,7 @@
     opt = opt || {};
     var N = lista.length, existentes = {}, novos = 0;
     Array.prototype.forEach.call(cont.querySelectorAll('.g'), function (d) { existentes[d.dataset.ap] = d; });
-    var cx = R, cy = R, tam, pos = [];
+    var cx = opt.cx != null ? opt.cx : R, cy = opt.cy != null ? opt.cy : R, tam, pos = [];
     if (opt.aneis) {
       var r0 = opt.r0 || 210, esp = opt.esp || 92, k = 0, anel = 0;
       tam = Math.max(46, Math.min(96, esp * 0.95));
@@ -67,13 +67,23 @@
     lista.forEach(function (jg, i) {
       var d = existentes[jg.aparelho];
       var assinatura = (jg.foto ? 'f' + jg.foto.length : 'n') + '|' + jg.apelido + '|' + jg.cor;
+      var novo = false;
       if (!d) {
-        d = document.createElement('div'); d.className = 'g' + (opt.semQueda ? '' : ' caindo'); d.dataset.ap = jg.aparelho;
-        d.style.animationDelay = (novos++ * 0.14) + 's';
+        novo = true;
+        var atraso = novos++ * (opt.boca ? 0.2 : 0.14);
+        d = document.createElement('div'); d.className = 'g' + (opt.semQueda ? '' : opt.boca ? ' mergulho' : ' caindo'); d.dataset.ap = jg.aparelho;
+        d.style.animationDelay = opt.boca ? atraso + 's, ' + (atraso + 1.8 + Math.random() * 2).toFixed(2) + 's' : atraso + 's';
+        d._chegada = Date.now() + (atraso + (opt.boca ? 1.8 : 1.1)) * 1000;
+        if (opt.boca) setTimeout(function () { opt.boca.respingo(); }, (atraso + 0.8) * 1000);
         cont.appendChild(d);
       }
       if (d.dataset.assin !== assinatura) { d.innerHTML = C.gotaSVG(jg); d.dataset.assin = assinatura; }
       d.style.left = pos[i][0].toFixed(1) + 'px'; d.style.top = pos[i][1].toFixed(1) + 'px'; d.style.width = tam.toFixed(1) + 'px';
+      if (novo && opt.boca) {
+        d.style.setProperty('--dx', (opt.boca.x - pos[i][0]).toFixed(1) + 'px');
+        d.style.setProperty('--dy', (opt.boca.y - pos[i][1]).toFixed(1) + 'px');
+        d.style.setProperty('--sy', (opt.boca.nivel - pos[i][1]).toFixed(1) + 'px');
+      }
       delete existentes[jg.aparelho];
     });
     Object.keys(existentes).forEach(function (k) { existentes[k].remove(); });
@@ -91,22 +101,90 @@
     return {};
   };
 
+  /* ---------- frasco de vidro cheio de óleo (slide de entrada) ----------
+     viewBox 800x1000: corpo redondo (centro 400,600, raio 370) e gargalo aberto em cima */
+  var FR = { cx: 400, cy: 600, r: 370, g0: 318, g1: 482, topo: 72 };
+  function frascoSVG() {
+    var a = (FR.cy - Math.sqrt(FR.r * FR.r - Math.pow(FR.cx - FR.g0, 2))).toFixed(1);
+    var corpo = 'M' + FR.g0 + ',' + FR.topo + ' L' + FR.g0 + ',' + a + ' A' + FR.r + ',' + FR.r + ' 0 1 0 ' + FR.g1 + ',' + a + ' L' + FR.g1 + ',' + FR.topo + ' Z';
+    var onda = function (y, amp) {
+      var d = 'M0,' + y; for (var x = 0; x < 1600; x += 400) d += ' Q' + (x + 100) + ',' + (y - amp) + ' ' + (x + 200) + ',' + y + ' Q' + (x + 300) + ',' + (y + amp) + ' ' + (x + 400) + ',' + y;
+      return d + ' L1600,1000 L0,1000 Z';
+    };
+    var bolhas = '';
+    [[250, 7, 11, 0], [520, 5, 14, 3], [380, 9, 17, 6], [610, 6, 12, 8], [190, 4, 15, 10], [450, 5, 13, 2]].forEach(function (b) {
+      bolhas += '<circle class="bolha" cx="' + b[0] + '" cy="955" r="' + b[1] + '" style="animation-duration:' + b[2] + 's;animation-delay:-' + b[3] + 's"/>';
+    });
+    return '<svg class="frasco-svg" viewBox="0 0 800 1000" aria-hidden="true"><defs>' +
+      '<clipPath id="fr-clip"><path d="' + corpo + '"/></clipPath>' +
+      '<linearGradient id="fr-oleo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8D464" stop-opacity=".80"/><stop offset=".5" stop-color="#E3A83C" stop-opacity=".64"/><stop offset="1" stop-color="#B8752A" stop-opacity=".78"/></linearGradient>' +
+      '<radialGradient id="fr-vidro" cx=".34" cy=".36" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".65" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#fff" stop-opacity=".16"/></radialGradient></defs>' +
+      '<ellipse cx="400" cy="986" rx="260" ry="13" fill="#000" opacity=".28"/>' +
+      '<path d="' + corpo + '" fill="url(#fr-vidro)"/>' +
+      '<g clip-path="url(#fr-clip)"><g class="oleo"><path class="onda o2" d="' + onda(296, 9) + '" fill="#F8D464" opacity=".28"/><path class="onda" d="' + onda(304, 11) + '" fill="url(#fr-oleo)"/>' + bolhas + '</g></g>' +
+      '<path d="' + corpo + '" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="5"/>' +
+      '<path d="M96,560 A306,306 0 0 1 236,318" fill="none" stroke="#fff" stroke-opacity=".34" stroke-width="16" stroke-linecap="round"/>' +
+      '<path d="M90,640 A310,310 0 0 1 88,604" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="16" stroke-linecap="round"/>' +
+      '<path d="M640,860 A300,300 0 0 0 700,760" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="10" stroke-linecap="round"/>' +
+      '<rect x="338" y="104" width="11" height="118" rx="5.5" fill="#fff" opacity=".3"/>' +
+      '<rect x="302" y="50" width="196" height="30" rx="13" fill="rgba(255,255,255,.08)" stroke="#fff" stroke-opacity=".7" stroke-width="5"/>' +
+      '<rect x="318" y="150" width="164" height="12" rx="6" fill="#F8D464" opacity=".85"/>' +
+      '</svg>';
+  }
+
   R.entrada = function (sl, el) {
-    el.innerHTML = '<div class="entrada"><div class="esq"><div class="kicker">Check-in</div><h1 class="titulo">' + tit(sl.titulo) + '</h1>' +
-      '<div class="qr-cartao">' + C.qrSvg(C.urlPublica()) + '</div>' +
-      '<div class="url"><small>ou digite</small>' + esc(C.urlCurta()) + '</div>' +
-      '<div class="texto-g">' + esc(sl.texto) + '</div></div>' +
-      '<div class="dir"><div class="poco"><div class="circ forte"></div><div class="gotas"></div><div class="vazio">As gotas aparecem aqui</div>' +
-      '<div class="contador"><b>0</b><span>gotas no plantão</span></div></div></div></div>';
-    var cont = $('.gotas', el), num = $('.contador b', el), vazio = $('.vazio', el);
+    el.innerHTML = '<div class="entrada"><div class="esq">' +
+      '<div class="qr-cartao chamar">' + C.qrSvg(C.urlPublica()) + '</div>' +
+      '<h1 class="chamada">' + esc(sl.titulo) + '</h1>' +
+      '<div class="texto-g">' + esc(sl.texto).replace(/\s(\S+)$/, ' <span class="fim">$1 <span class="seta">→</span></span>') + '</div></div>' +
+      '<div class="dir"><div class="frasco">' + frascoSVG() + '<div class="gotas"></div><div class="respingos"></div>' +
+      '<div class="vazio">Sua gota aparece aqui</div></div>' +
+      '<div class="contador"><b>0</b><span>participantes</span></div></div></div>';
+    var fr = $('.frasco', el), cont = $('.gotas', el), resp = $('.respingos', el), num = $('.contador b', el), vazio = $('.vazio', el);
+    var vistos = null, fila = [], timerFila = null, k = 1, nivel = 304;
+    var boca = {
+      respingo: function () {
+        var r = document.createElement('i'); r.className = 'respingo';
+        r.style.left = (400 * k) + 'px'; r.style.top = (boca.nivel) + 'px';
+        resp.appendChild(r); setTimeout(function () { r.remove(); }, 1200);
+      }
+    };
     function atualizar() {
-      var lista = loja.listaJogadores();
-      dispor(cont, lista, (cont.offsetWidth || 820) / 2);
+      var lista = loja.listaJogadores(), chegaram = [];
+      if (vistos === null) { vistos = {}; lista.forEach(function (j) { vistos[j.aparelho] = 1; }); }
+      else lista.forEach(function (j) { if (!vistos[j.aparelho]) { vistos[j.aparelho] = 1; chegaram.push(j); } });
+      k = (fr.offsetWidth || 760) / 800;
+      nivel = 304 - Math.min(64, lista.length * 2.2);         /* o óleo sobe um pouco a cada participante */
+      fr.style.setProperty('--nivel', (nivel - 304).toFixed(1) + 'px');   /* unidades do desenho */
+      boca.x = 400 * k; boca.y = 30 * k; boca.nivel = nivel * k;
+      dispor(cont, lista, 318 * k, { cx: 400 * k, cy: 648 * k, boca: boca });
       num.textContent = fmt(lista.length);
-      num.nextElementSibling.textContent = lista.length === 1 ? 'gota no plantão' : 'gotas no plantão';
+      num.nextElementSibling.textContent = lista.length === 1 ? 'participante' : 'participantes';
       vazio.hidden = lista.length > 0;
+      chegaram.forEach(function (j) { fila.push(j); });
+      processar();
     }
-    return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); } };
+    /* quem acabou de entrar: a gota cresce, brilha e mostra o apelido, uma de cada vez */
+    function processar() {
+      if (timerFila || !fila.length) return;
+      var j = fila.shift(), muitos = fila.length > 5;
+      destacar(j, muitos ? 1700 : 2700);
+      timerFila = setTimeout(function () { timerFila = null; processar(); }, muitos ? 550 : 1150);
+    }
+    function destacar(j, dura) {
+      var d = null;
+      Array.prototype.some.call(cont.querySelectorAll('.g'), function (x) { if (x.dataset.ap === j.aparelho) { d = x; return true; } return false; });
+      if (!d) return;
+      setTimeout(function () {
+        if (!d.isConnected) return;
+        var acima = parseFloat(d.style.top) > fr.offsetHeight * 0.6;
+        var t = document.createElement('span'); t.className = 'nome-chegada' + (acima ? ' acima' : ''); t.textContent = j.apelido;
+        d.appendChild(t); d.classList.add('chegou');
+        setTimeout(function () { d.classList.remove('chegou'); t.classList.add('sai'); setTimeout(function () { t.remove(); }, 700); }, dura);
+      }, Math.max(0, (d._chegada || 0) - Date.now()));
+    }
+    return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); },
+      sair: function () { clearTimeout(timerFila); fila = []; } };
   };
 
   R.nuvem = function (sl, el) {
@@ -118,7 +196,9 @@
     function desenhar(animar) {
       var itens = loja.nuvem(sl.id, grupos);
       C.desenharNuvem(nv, itens, { animar: animar, maxF: 180, minF: 26, classe: function (it) { return it.grupo ? 'g-' + it.grupo : ''; } });
-      $('.np', el).textContent = fmt(loja.palavras.filter(function (p) { return p.interacao === sl.id; }).length);
+      var total = loja.palavras.filter(function (p) { return p.interacao === sl.id; }).length;
+      $('.np', el).textContent = fmt(total);
+      musicaPorResposta(sl, total);
       $('.pp', el).textContent = fmt(loja.participantesDe('palavras', sl.id));
     }
     function aplicar() {
@@ -399,7 +479,7 @@
   R['quiz-intro'] = function (sl, el) {
     el.innerHTML = '<div class="qi"><div class="col"><div class="kicker">Quiz final</div><h1 class="titulo medio">' + tit(sl.titulo) + '</h1>' +
       '<div class="texto-g" style="font-size:38px">' + esc(sl.texto) + '</div><ol>' + sl.regras.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ol></div>' +
-      '<div class="lado-qr"><div class="qr-cartao" style="width:420px">' + C.qrSvg(C.urlPublica()) + '</div><div class="url" style="text-align:center"><small>Ainda não entrou?</small>' + esc(C.urlCurta()) + '</div></div></div>';
+      '<div class="lado-qr"><div class="qr-cartao" style="width:420px">' + C.qrSvg(C.urlPublica()) + '</div><div class="url" style="text-align:center"><small>Ainda não entrou?</small>Aponte a câmera</div></div></div>';
     return {};
   };
 
@@ -615,6 +695,7 @@
     }
     indice = n; elAtual = el; atual = ctl;
     setTimeout(function () { el.classList.add('on'); }, 30);
+    musicaDoSlide(sl);
     if (ctl.entrar) ctl.entrar();
     if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
     atualizarHud();
@@ -629,6 +710,7 @@
     else if (cmd === 'qr') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
     else if (cmd === 'recarregar') location.reload();
     else if (cmd === 'teste') alternarTeste();
+    else if (cmd === 'musica') Som.alternarMudo();
     else if (/^formato:/.test(cmd)) definirFormato(cmd.slice(8));
     else if (/^ir:\d+$/.test(cmd)) ir(+cmd.slice(3));
   }
@@ -644,8 +726,75 @@
     var box = $('#qr-flutuante');
     var auto = sl && ['quiz-intro', 'entrada', 'capa', 'foto', 'final', 'podio', 'ranking', 'quiz', 'testemunho', 'citacao'].indexOf(sl.tipo) < 0 && etapaDo(sl) === 'espera';
     box.hidden = !qrManual;
-    if (!box.innerHTML) box.innerHTML = C.qrSvg(C.urlPublica()) + '<small>' + esc(C.urlCurta()).replace('.', '.<wbr>') + '</small>';
+    if (!box.innerHTML) box.innerHTML = C.qrSvg(C.urlPublica());
     return auto;
+  }
+
+  /* ---------- música de fundo ----------
+     um slide declara musica: 'arquivo.mp3' (pasta aulas/<aula>/audio/), volume (0 a 1) e
+     musicaQuando: 'resposta' (começa na primeira resposta) ou omitido (começa ao abrir o slide) */
+  function aud(f) {
+    var v = (window.CATEQUESE_CFG || {}).versao;
+    return (A.audio || 'aulas/' + C.AULA_ID + '/audio/') + f + (v ? '?v=' + v : '');
+  }
+  var Som = (function () {
+    var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado';
+    var mudo = C.ler('cat-mudo', '') === '1';
+    function audio() { if (!au) { au = new Audio(); au.loop = true; au.preload = 'auto'; au.volume = 0; } return au; }
+    function rampa(vol, ms, depois) {
+      clearInterval(tick);
+      var a = audio(), v0 = a.volume, t0 = Date.now();
+      tick = setInterval(function () {
+        var f = Math.min(1, (Date.now() - t0) / ms);
+        a.volume = Math.max(0, Math.min(1, v0 + (vol - v0) * f));
+        if (f >= 1) { clearInterval(tick); if (depois) depois(); }
+      }, 50);
+    }
+    function mudar(e) { if (estado === e) return; estado = e; pintarSom(); if (loja) loja.anunciar(); }
+    var api = {
+      preparar: function (src) { var a = audio(); if (fonte !== src) { fonte = src; a.src = src; a.load(); } },
+      tocar: function (src, vol) {
+        api.preparar(src); quer = true; alvo = vol || 0.6;
+        if (mudo) { mudar('mudo'); return; }
+        var a = audio();
+        if (estado === 'tocando' && !a.paused) return;
+        var p = a.play();
+        var ok = function () { mudar('tocando'); rampa(alvo, 3500); };
+        if (p && p.then) p.then(ok).catch(function () { mudar('bloqueado'); }); else ok();
+      },
+      parar: function (ms) {
+        quer = false;
+        if (au && !au.paused) rampa(0, ms || 2500, function () { if (!quer) au.pause(); });
+        mudar('parado');
+      },
+      alternarMudo: function () {
+        mudo = !mudo; C.guardar('cat-mudo', mudo ? '1' : '');
+        if (mudo) { if (au && !au.paused) rampa(0, 700, function () { au.pause(); }); mudar(quer ? 'mudo' : 'parado'); }
+        else if (quer) { estado = 'parado'; api.tocar(fonte, alvo); }
+        else mudar('parado');
+        avisoTela('Música', mudo ? 'desligada' : 'ligada');
+        pintarSom(); if (loja) loja.anunciar();
+      },
+      liberar: function () { if (estado === 'bloqueado' && quer) api.tocar(fonte, alvo); },
+      estado: function () { return estado; },
+      mudo: function () { return mudo; },
+      fonte: function () { return quer ? fonte : null; }
+    };
+    return api;
+  })();
+  function pintarSom() {
+    var b = $('#som-bloqueado'); if (b) b.hidden = Som.estado() !== 'bloqueado';
+    if (slides) atualizarHud();
+  }
+  function musicaDoSlide(sl) {
+    var m = sl.musica ? aud(sl.musica) : null;
+    if (Som.fonte() && Som.fonte() !== m) Som.parar(2500);
+    if (!m) return;
+    if (sl.musicaQuando === 'resposta') Som.preparar(m);
+    else Som.tocar(m, sl.volume);
+  }
+  function musicaPorResposta(sl, total) {
+    if (sl.musica && sl.musicaQuando === 'resposta' && total > 0 && slides[indice] === sl) Som.tocar(aud(sl.musica), sl.volume);
   }
 
   /* ---------- formato da tela: 16:9 ou 4:3 ---------- */
@@ -680,11 +829,14 @@
     escalar(); avisoFormato();
   }
   function nomeFormato() { return FORMATOS[formato] + (formato === 'auto' ? ' (agora ' + (layout43 ? '4:3' : '16:9') + ')' : ''); }
-  function avisoFormato() {
+  function avisoTela(rotulo, texto) {
     var a = $('#aviso-formato');
-    a.innerHTML = '<small>Formato do telão</small><b>' + esc(nomeFormato()) + '</b>';
+    a.innerHTML = '<small>' + esc(rotulo) + '</small><b>' + esc(texto) + '</b>';
     a.hidden = false; clearTimeout(avisoTimer);
     avisoTimer = setTimeout(function () { a.hidden = true; }, 3200);
+  }
+  function avisoFormato() {
+    avisoTela('Formato do telão', nomeFormato());
     if (!$('#teste-tela').hidden) desenharTeste();
   }
   function desenharTeste() {
@@ -709,8 +861,8 @@
     var h = $('#hud');
     h.classList.toggle('online', !!loja && loja.online);
     var n = loja ? Object.keys(loja.jogadores).length : 0;
-    h.innerHTML = '<i></i><span>' + (C.DEMO ? 'demonstração' : (loja && loja.online ? 'ao vivo' : 'sem conexão')) + '</span><span>' + n + ' gotas</span><span>slide ' + (indice + 1) + '/' + slides.length + '</span>' +
-      '<span>' + (chaveApr || C.DEMO ? 'celulares sincronizados' : 'sem chave: celulares não acompanham') + '</span><span>tela ' + esc(nomeFormato()) + '</span><span>sala ' + esc(C.SALA) + '</span>';
+    h.innerHTML = '<i></i><span>' + (C.DEMO ? 'demonstração' : (loja && loja.online ? 'ao vivo' : 'sem conexão')) + '</span><span>' + n + (n === 1 ? ' participante' : ' participantes') + '</span><span>slide ' + (indice + 1) + '/' + slides.length + '</span>' +
+      '<span>' + (chaveApr || C.DEMO ? 'celulares sincronizados' : 'sem chave: celulares não acompanham') + '</span><span>tela ' + esc(nomeFormato()) + '</span><span>música ' + ({ tocando: 'tocando', bloqueado: 'bloqueada', mudo: 'desligada', parado: Som.mudo() ? 'desligada' : 'pronta' })[Som.estado()] + '</span><span>sala ' + esc(C.SALA) + '</span>';
   }
   function mostrarHud() {
     var h = $('#hud'); h.classList.add('on'); tela.classList.remove('sem-cursor');
@@ -736,6 +888,7 @@
 
   function teclado(ev) {
     if (!$('#login').hidden) return;
+    Som.liberar();
     var k = ev.key;
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { ev.preventDefault(); avancar(); }
     else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { ev.preventDefault(); voltar(); }
@@ -746,6 +899,7 @@
     else if (k === 'b' || k === 'B' || k === '.') { $('#preto').hidden = !$('#preto').hidden; }
     else if (k === 't' || k === 'T') definirFormato(ORDEM_FORMATOS[(ORDEM_FORMATOS.indexOf(formato) + 1) % ORDEM_FORMATOS.length]);
     else if (k === 'g' || k === 'G') alternarTeste();
+    else if (k === 'm' || k === 'M') Som.alternarMudo();
   }
 
   function preCarregar() {
@@ -764,8 +918,10 @@
     /* toque e deslize: celular, tablet ou clique do mouse */
     var tx = null, ty = null, ultimoToque = 0;
     function navegarPor(x) { if (x > window.innerWidth * 0.35) avancar(); else voltar(); }
+    var noSom = function (ev) { return ev.target && ev.target.closest && ev.target.closest('#som-bloqueado'); };
+    $('#som-bloqueado').addEventListener('click', function (ev) { ev.stopPropagation(); Som.liberar(); });
     tela.addEventListener('touchstart', function (ev) {
-      if (!$('#login').hidden) return;
+      if (!$('#login').hidden || noSom(ev)) return;
       var t = ev.changedTouches[0]; tx = t.clientX; ty = t.clientY;
     }, { passive: true });
     tela.addEventListener('touchend', function (ev) {
@@ -776,14 +932,14 @@
       if (Math.abs(dx) < 14 && Math.abs(dy) < 14) navegarPor(t.clientX);
     }, { passive: true });
     tela.addEventListener('click', function (ev) {
-      if (Date.now() - ultimoToque < 700 || !$('#login').hidden) return;
+      if (Date.now() - ultimoToque < 700 || !$('#login').hidden || noSom(ev)) return;
       navegarPor(ev.clientX);
     });
     configurarLogin();
     preCarregar();
     document.title = A.titulo + ' · telão';
     loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco',
-      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden }; } });
+      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo() }; } });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
       if (tipo === 'sala') { verComando(); return; }
