@@ -131,7 +131,9 @@ window.AULA = {
       ],
       intrusos: [2, 5],
       fontes: ['CIC 1520', 'CIC 1521', 'CIC 1520', 'CIC 1522', 'CIC 1520; Tg 5,15', 'CIC 1517 e 1524', 'CIC 1520', 'CIC 1523'],
-      passos: ['Coleta', 'Mostrar os intrusos'] },
+      passos: ['Coleta', 'Mostrar os intrusos'],
+      efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55, efeitoPorItem: true,
+      nota: 'Ao entrar, toca a vinheta e a trilha de suspense começa no meio dela; ao mostrar os intrusos, a trilha sai (M silencia).' },
 
     { tipo: 'efeitos', titulo: ['Efeitos', 'espirituais'],
       itens: [

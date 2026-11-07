@@ -408,7 +408,7 @@
     return {};
   };
 
-  R.caca = function (sl, el) {
+  R.caca = function (sl, el, ctx) {
     var revelado = false;
     el.innerHTML = cab(sl.kicker, sl.pergunta) + miniQR() + '<div class="caca">' + sl.itens.map(function (t, i) {
       var intr = sl.intrusos.indexOf(i) >= 0;
@@ -424,10 +424,13 @@
       });
       $('.pp', el).textContent = fmt(c.pessoas);
     }
+    /* mesma lógica do mito ou verdade: vinheta e trilha na coleta, silêncio ao mostrar os intrusos */
+    var comSom = !!(sl.efeitoPorItem && (sl.musica || sl.efeito));
     return {
-      entrar: atualizar, atualizar: function (t) { if (t === 'toques' || t === 'carga') atualizar(); },
-      avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); return true; } return false; },
-      voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); return true; } return false; }
+      entrar: function () { atualizar(); if (comSom) trilhaDaPergunta(sl, ctx.paraFrente); },
+      atualizar: function (t) { if (t === 'toques' || t === 'carga') atualizar(); },
+      avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); if (comSom) silenciarPergunta(); return true; } return false; },
+      voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); if (comSom) trilhaDaPergunta(sl, false); return true; } return false; }
     };
   };
 
