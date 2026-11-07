@@ -14,7 +14,7 @@ window.AULA = {
       nota: 'Boas-vindas. Peça que todos peguem o celular.' },
 
     { tipo: 'entrada', titulo: 'Entre no plantão',
-      texto: 'Aponte a câmera para o código, escolha um apelido e, se quiser, tire uma selfie. Cada pessoa vira uma gota de óleo.',
+      texto: 'Aponte a câmera para o código, escolha um apelido e tire uma selfie. Cada pessoa vira uma gota de óleo com o próprio rosto.',
       nota: 'Espere as gotas encherem o frasco. Quem não tem celular joga em dupla com o vizinho.' },
 
     { tipo: 'nuvem', id: 'abertura', kicker: 'Primeira palavra',

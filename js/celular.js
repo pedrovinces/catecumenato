@@ -55,7 +55,6 @@
     previa();
     $('apelido').addEventListener('input', previa);
     $('btn-foto').addEventListener('click', function () { $('arquivo').click(); });
-    $('btn-tirar').addEventListener('click', function () { fotoNova = null; previa(); });
     $('arquivo').addEventListener('change', function () {
       var f = this.files && this.files[0]; if (!f) return;
       msg($('m-cad'), 'Preparando a foto…');
@@ -67,6 +66,7 @@
       ev.preventDefault();
       var a = C.compacto($('apelido').value), e = C.validarApelido(a);
       if (e) { msg($('m-cad'), e, 'err'); return; }
+      if (!fotoNova) { msg($('m-cad'), 'Tire a selfie para entrar: é ela que identifica você no telão.', 'err'); return; }
       var b = $('btn-entrar'); b.disabled = true; msg($('m-cad'), 'Entrando…');
       loja.rpc('jogador_entrar', { p_sala: SALA, p_aparelho: C.APARELHO, p_apelido: a, p_foto: fotoNova }).then(function (r) {
         b.disabled = false;
@@ -81,8 +81,9 @@
   }
   function previa() {
     $('cad-gota').innerHTML = C.gotaSVG({ apelido: $('apelido').value || '?', foto: fotoNova, cor: (eu && eu.cor) || 3 });
-    $('btn-tirar').hidden = !fotoNova;
-    $('btn-foto').textContent = fotoNova ? 'Trocar selfie' : 'Tirar selfie (opcional)';
+    $('btn-foto').textContent = fotoNova ? 'Trocar selfie' : 'Tirar selfie';
+    $('btn-foto').className = fotoNova ? 'btn sec peq' : 'btn';
+    $('btn-entrar').hidden = !fotoNova;
   }
   function reduzir(file) {
     return new Promise(function (ok, falha) {

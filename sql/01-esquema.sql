@@ -309,7 +309,10 @@ begin
   if public._palavrao(a) then
     return jsonb_build_object('ok', false, 'erro', 'Apelido não aceito.');
   end if;
-  if p_foto is not null and (p_foto not like 'data:image/jpeg;base64,%' or length(p_foto) > 70000) then
+  if p_foto is null or p_foto = '' then
+    return jsonb_build_object('ok', false, 'erro', 'Tire a selfie para entrar: é ela que identifica você no telão.');
+  end if;
+  if p_foto not like 'data:image/jpeg;base64,%' or length(p_foto) > 70000 then
     return jsonb_build_object('ok', false, 'erro', 'Foto inválida. Tente outra.');
   end if;
 

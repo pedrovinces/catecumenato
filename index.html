@@ -37,11 +37,10 @@
       <label for="apelido" class="nota">Como quer aparecer no telão?</label>
       <input type="text" id="apelido" maxlength="16" autocomplete="nickname" autocapitalize="words" enterkeyhint="go" placeholder="seu apelido">
       <div class="foto-acoes">
-        <button type="button" class="btn sec peq" id="btn-foto">Tirar selfie (opcional)</button>
-        <button type="button" class="btn sec peq" id="btn-tirar" hidden>Sem foto</button>
+        <button type="button" class="btn" id="btn-foto">Tirar selfie</button>
       </div>
       <input type="file" id="arquivo" accept="image/*" capture="user" hidden>
-      <p class="nota">A selfie é opcional, fica dentro da sua gota no telão e é apagada ao final do encontro. Sem foto, a gota mostra as suas iniciais.</p>
+      <p class="nota">A selfie é obrigatória: ela fica dentro da sua gota e identifica você no telão, no placar e no pódio. É apagada ao final do encontro.</p>
       <button class="btn" type="submit" id="btn-entrar">Entrar</button>
       <div class="msg" id="m-cad" aria-live="polite"></div>
     </form>
