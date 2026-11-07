@@ -64,8 +64,8 @@ input:focus-visible,textarea:focus-visible{box-shadow:0 0 0 3px var(--ouro)}
 .lista-sel.multi button::before{border-radius:5px}
 .lista-sel.multi button.sel::after{content:"marcada";margin-left:auto;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--ouro)}
 .corpo-box{position:relative;background:rgba(62,13,14,.3);border-radius:20px;padding:12px;display:flex;justify-content:center}
-.corpo-box svg{height:min(62vh,520px);width:auto;touch-action:manipulation}
-.corpo-box .meu{fill:var(--ouro);stroke:#fff;stroke-width:3}
+.corpo-box svg{height:min(68vh,600px);width:auto;touch-action:manipulation}
+.corpo-box .meu{fill:var(--ouro);stroke:#fff;stroke-width:2}
 .tempo{height:8px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
 .tempo i{display:block;height:100%;background:var(--ouro);width:100%}
 .resultado{font-size:46px;font-weight:200;line-height:1}

@@ -356,11 +356,11 @@
     var passo = 0, alvos = C.ALVOS_CORPO;
     function marcas(lista, cls, r) {
       return lista.map(function (p) {
-        return '<g class="ponto-alvo ' + cls + '" transform="translate(' + p[0] + ' ' + p[1] + ')"><circle r="' + (r + 12) + '" fill="none" stroke="#F8D464" stroke-width="3"/>' +
+        return '<g class="ponto-alvo ' + cls + '" transform="translate(' + p[0] + ' ' + p[1] + ')"><circle r="' + (r + Math.round(r * 0.6)) + '" fill="none" stroke="#F8D464" stroke-width="' + (r < 12 ? 2.5 : 3) + '"/>' +
           '<path d="M0 ' + (-r) + ' C0 ' + (-r) + ' ' + (-r * 0.7) + ' ' + (-r * 0.1) + ' ' + (-r * 0.7) + ' ' + (r * 0.3) + ' A' + (r * 0.7) + ' ' + (r * 0.7) + ' 0 0 0 ' + (r * 0.7) + ' ' + (r * 0.3) + ' C' + (r * 0.7) + ' ' + (-r * 0.1) + ' 0 ' + (-r) + ' 0 ' + (-r) + 'Z" fill="#F8D464"/></g>';
       }).join('');
     }
-    var extra = '<g class="calor" style="mix-blend-mode:screen"></g>' + marcas(alvos.sentidos, 'antigo', 9) + marcas(alvos.fronte.concat(alvos.maos), 'atual', 16);
+    var extra = '<g class="calor" style="mix-blend-mode:screen"></g>' + marcas(alvos.sentidos, 'antigo', 9) + marcas(alvos.fronte, 'atual', 12) + marcas(alvos.maos, 'atual', 16);
     el.innerHTML = '<div class="mapa"><div class="figura">' + C.corpoSVG(extra) + '</div><div class="lado">' +
       '<div class="kicker">' + esc(sl.kicker) + '</div><h2>' + esc(sl.pergunta) + '</h2>' +
       '<div class="resposta r-atual"><b>' + esc(sl.atual.texto) + '</b><span class="fonte">' + esc(sl.atual.fonte) + '</span></div>' +

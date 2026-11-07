@@ -217,7 +217,7 @@
     $('mapa-perg').textContent = sl.pergunta;
     var meus = lerL('mapa-' + id, []);
     function desenhar() {
-      var extra = meus.map(function (p) { return '<circle class="meu" cx="' + (p[0] * 400).toFixed(1) + '" cy="' + (p[1] * 1000).toFixed(1) + '" r="16"/>'; }).join('');
+      var extra = meus.map(function (p) { return '<circle class="meu" cx="' + (p[0] * 400).toFixed(1) + '" cy="' + (p[1] * 1000).toFixed(1) + '" r="9"/>'; }).join('');
       $('mapa-box').innerHTML = C.corpoSVG(extra);
       var svg = $('mapa-box').querySelector('svg');
       svg.addEventListener('click', function (ev) {
@@ -379,7 +379,7 @@
 
   /* ---------- demonstração ---------- */
   function barraDemo() {
-    var et = [['espera', 'Espera'], ['entrada', 'Check-in']];
+    var et = [['espera', 'Espera'], ['entrada', 'Entrada']];
     A.slides.forEach(function (s) {
       if (s.tipo === 'nuvem' || s.tipo === 'mito' || s.tipo === 'regua' || s.tipo === 'mapa' || s.tipo === 'caca') et.push([s.tipo + ':' + s.id, s.tipo + ' · ' + s.id]);
     });
