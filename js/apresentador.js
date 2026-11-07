@@ -29,6 +29,7 @@
     if (fa) fa.textContent = C.DEMO ? 'demonstração' : !on ? 'telão fechado' : m && m.formato ?
       nomes[m.formato] + (m.formato === 'auto' ? ' (agora ' + (m.layout === '43' ? '4:3' : '16:9') + ')' : '') + (m.teste ? ' · teste aberto' : '') : 'telão conectado';
     Array.prototype.forEach.call(document.querySelectorAll('#formatos [data-f]'), function (b) { b.classList.toggle('ativo', !!(on && m && m.formato === b.dataset.f)); });
+    marcarPassagem();
     var sa = $('som-atual'), bm = $('b-musica');
     if (sa) {
       var est = m && m.som, mudo = !!(m && m.mudo);
@@ -37,6 +38,10 @@
       sa.style.color = est === 'bloqueado' ? '#FFD0C2' : '';
       bm.textContent = mudo ? 'Ligar música' : 'Desligar música';
     }
+  }
+  function marcarPassagem() {
+    var m = loja.palcoMeta, aberta = m && m.passagem;
+    Array.prototype.forEach.call(document.querySelectorAll('#atual [data-ref]'), function (b) { b.classList.toggle('ativo', !!aberta && b.dataset.ref === aberta); });
   }
   function aviso(t, erro) { var a = $('aviso'); a.textContent = t; a.className = 'aviso' + (erro ? ' err' : ''); clearTimeout(a._t); a._t = setTimeout(function () { a.textContent = ''; }, 4000); }
 
@@ -47,9 +52,13 @@
     var sl = A.slides[s.slide] || {}, r = rotulo(sl, s.slide);
     $('atual').innerHTML = '<div class="kick">Slide ' + (s.slide + 1) + ' de ' + A.slides.length + ' · ' + esc(r.tipo) + '</div><h2>' + esc(r.texto) + '</h2>' +
       (sl.nota ? '<p class="nota-apr">' + esc(sl.nota) + '</p>' : '') +
+      (sl.passagens && sl.passagens.length ? '<div class="passagens"><div class="kick">Passagens · abre em destaque no telão</div><div class="grade4">' +
+        sl.passagens.map(function (p, i) { return '<button class="btn sec peq" type="button" data-p="' + i + '" data-ref="' + esc(p.ref) + '">' + esc(p.ref) + '</button>'; }).join('') +
+        '</div><button class="btn peq" type="button" data-pf="1">Fechar passagem</button></div>' : '') +
       (s.etapa === 'quiz' ? '<p class="nota">Quiz: ' + (s.quiz_revelada ? 'resposta mostrada' : s.quiz_aberta_em ? 'valendo' : 'pronto para abrir') + '</p>' : '');
     Array.prototype.forEach.call($('lista').children, function (li) { li.classList.toggle('atual', +li.dataset.i === s.slide); });
     var at = $('lista').querySelector('.atual'); if (at && $('seguir').checked) at.scrollIntoView({ block: 'nearest' });
+    marcarPassagem();
   }
   function montarLista() {
     $('lista').innerHTML = A.slides.map(function (s, i) {
@@ -113,6 +122,11 @@
       b.addEventListener('click', function () { cmd('formato:' + b.dataset.f).then(function (r) { if (r && !r.error) aviso('Formato enviado ao telão: ' + b.textContent + '.'); }); });
     });
     $('b-teste').addEventListener('click', function () { cmd('teste').then(function (r) { if (r && !r.error) aviso('Teste de tela alternado no telão.'); }); });
+    $('atual').addEventListener('click', function (ev) {
+      var b = ev.target.closest && ev.target.closest('button'); if (!b) return;
+      if (b.dataset.pf) cmd('passagem:fechar').then(function (r) { if (r && !r.error) aviso('Passagem fechada no telão.'); });
+      else if (b.dataset.p != null) cmd('passagem:' + b.dataset.p).then(function (r) { if (r && !r.error) aviso('Abrindo ' + b.dataset.ref + ' no telão.'); });
+    });
     $('b-musica').addEventListener('click', function () { cmd('musica').then(function (r) { if (r && !r.error) aviso('Música alternada no telão.'); }); });
     $('b-encerrar').addEventListener('click', function () {
       if (!confirm('Apagar as selfies e as intenções desta sala? Os pontos continuam.')) return;

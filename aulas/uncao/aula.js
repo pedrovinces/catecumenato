@@ -72,19 +72,27 @@ window.AULA = {
         'A Igreja recebeu do Senhor a missão de curar e a cumpre cuidando dos doentes e intercedendo por eles (Mt 10,8).',
         'Os apóstolos já ungiam os enfermos com óleo (Mc 6,13), e São Tiago atesta o rito próprio (Tg 5,14-15).'
       ],
+      passagens: [
+        { ref: 'Mt 10,8', texto: 'Curai os enfermos, ressuscitai os mortos, limpai os leprosos, expeli os demônios. Dai de graça o que de graça recebestes.' },
+        { ref: 'Mt 10,38', texto: 'O que não toma a sua cruz e não me segue, não é digno de mim.' },
+        { ref: 'Mc 6,13', texto: 'Expeliam muitos demônios, ungiam com óleo muitos enfermos, e curavam-nos.' },
+        { ref: 'Tg 5,14-15', texto: 'Está entre vós algum enfermo? Chame os sacerdotes da Igreja, e estes façam orações sobre ele, ungindo-o com óleo em nome do Senhor; a oração da fé salvará o enfermo e o Senhor o aliviará; se estiver com pecados, ser-lhe-ão perdoados.' }
+      ],
+      nota: 'Passe o mouse sobre uma citação para mostrar o versículo; clique nela, ou use os botões do painel, para abrir a passagem em destaque. Clique fora ou toque em Fechar passagem para fechar.',
       imagem: 'curai-jesus.jpg' },
 
     { tipo: 'citacao', texto: 'Alguém dentre vós está doente? Mande chamar os presbíteros da Igreja.', autor: 'Tg 5,14',
       complemento: 'São Tiago descreve o rito: a oração dos presbíteros, a unção com óleo no nome do Senhor e a promessa de alívio e de perdão.' },
 
     { tipo: 'mito', id: 'mito', kicker: 'Mito ou verdade?', opcoes: ['Mito', 'Verdade'],
+      efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55,
       itens: [
         { t: 'A Unção é reservada a quem está morrendo.', r: 0, exp: 'Não é sacramento reservado aos que estão à beira da morte.', fonte: 'CIC 1514' },
         { t: 'Faz sentido receber a Unção antes de uma cirurgia de alto risco.', r: 1, exp: 'O Catecismo indica a Unção antes de uma cirurgia importante.', fonte: 'CIC 1515' },
         { t: 'O diácono administra a Unção dos Enfermos.', r: 0, exp: 'Somente bispos e presbíteros administram o sacramento.', fonte: 'CIC 1516; CDC cân. 1003 §1' },
         { t: 'Quem já recebeu recebe de novo se a doença se agravar.', r: 1, exp: 'Repete-se em nova doença grave ou no agravamento da mesma.', fonte: 'CIC 1515; CDC cân. 1004 §2' }
       ],
-      nota: 'Para cada afirmação: espere os votos, depois avance para mostrar a resposta.' },
+      nota: 'Ao entrar, toca a vinheta e a trilha de suspense começa no meio dela (M silencia). Para cada afirmação: espere os votos, depois avance para mostrar a resposta.' },
 
     { tipo: 'tres', titulo: ['Unção dos', 'Enfermos'], imagem: 'uncao-familia.jpg', fonte: 'CIC 1514-1516; CDC cân. 1003-1004',
       colunas: [

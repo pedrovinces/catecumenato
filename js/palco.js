@@ -244,7 +244,7 @@
     el.innerHTML = '<div class="txt' + (imgs.length ? '' : ' sem-img') + '"><div class="col">' +
       (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
       '<h1 class="titulo medio">' + tit(sl.titulo) + '</h1><ul>' +
-      (sl.itens || []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' +
+      (sl.itens || []).map(function (t) { return '<li><span>' + esc(t) + '</span></li>'; }).join('') + '</ul></div>' +
       (imgs.length ? '<div class="imgs' + (imgs.length === 1 ? ' uma' : '') + '">' + imgs.map(function (f) { return '<div class="im" style="background-image:url(\'' + img(f) + '\')"></div>'; }).join('') + '</div>' : '') +
       '</div>';
     return {};
@@ -684,11 +684,13 @@
   function ir(n, inicial) {
     n = Math.max(0, Math.min(slides.length - 1, n));
     if (n === indice && !inicial) return;
-    var sl = slides[n], velho = elAtual, ctlVelho = atual, slVelho = slides[indice];
+    var sl = slides[n], velho = elAtual, ctlVelho = atual, slVelho = slides[indice], paraFrente = !inicial && n > indice;
     var el = document.createElement('div'); el.className = 'slide';
     var ctx = { indice: n, sincronizar: function (item) { sincronizar(n, item); } };
     if (sl.tipo === 'capa' || sl.tipo === 'final') el.classList.add('liso');
     var ctl = (R[sl.tipo] || R.titulo)(sl, el, ctx) || {};
+    ligarPassagens(el, sl);
+    fecharPassagem(true); esconderDica();
     palco.appendChild(el);
     if (velho) {
       if (sl.transicao === 'entrar' && slVelho && slVelho.tipo === 'foto') velho.classList.add('saindo-entrar');
@@ -698,7 +700,7 @@
     }
     indice = n; elAtual = el; atual = ctl;
     setTimeout(function () { el.classList.add('on'); }, 30);
-    musicaDoSlide(sl);
+    musicaDoSlide(sl, paraFrente);
     if (ctl.entrar) ctl.entrar();
     if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
     atualizarHud();
@@ -714,6 +716,8 @@
     else if (cmd === 'recarregar') location.reload();
     else if (cmd === 'teste') alternarTeste();
     else if (cmd === 'musica') Som.alternarMudo();
+    else if (cmd === 'passagem:fechar') fecharPassagem();
+    else if (/^passagem:\d+$/.test(cmd)) abrirPassagem(+cmd.slice(9));
     else if (/^formato:/.test(cmd)) definirFormato(cmd.slice(8));
     else if (/^ir:\d+$/.test(cmd)) ir(+cmd.slice(3));
   }
@@ -741,7 +745,7 @@
     return (A.audio || 'aulas/' + C.AULA_ID + '/audio/') + f + (v ? '?v=' + v : '');
   }
   var Som = (function () {
-    var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado';
+    var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado', cacheEfeitos = {}, aquecidos = [];
     var mudo = C.ler('cat-mudo', '') === '1';
     function audio() { if (!au) { au = new Audio(); au.loop = true; au.preload = 'auto'; au.volume = 0; } return au; }
     function rampa(vol, ms, depois) {
@@ -779,6 +783,22 @@
         pintarSom(); if (loja) loja.anunciar();
       },
       liberar: function () { if (estado === 'bloqueado' && quer) api.tocar(fonte, alvo); },
+      /* toca um som curto por cima de tudo; aoMeio é chamado na metade dele (ou já, se não puder tocar) */
+      efeito: function (src, vol, aoMeio) {
+        var feito = false, disparar = function () { if (!feito) { feito = true; if (aoMeio) aoMeio(); } };
+        if (mudo) { disparar(); return; }
+        var e = cacheEfeitos[src] || (cacheEfeitos[src] = new Audio(src));
+        try { e.pause(); e.currentTime = 0; } catch (x) {}
+        e.volume = Math.max(0, Math.min(1, vol == null ? 1 : vol));
+        var agendar = function () { var d = isFinite(e.duration) && e.duration > 0 ? e.duration : 3; setTimeout(disparar, d * 500); };
+        var p = e.play();
+        if (p && p.then) p.then(function () { if (e.readyState >= 1) agendar(); else e.addEventListener('loadedmetadata', agendar, { once: true }); }).catch(disparar);
+        else agendar();
+      },
+      preCarregar: function (src, curto) {
+        if (curto) { if (!cacheEfeitos[src]) { var e = new Audio(); e.preload = 'auto'; e.src = src; cacheEfeitos[src] = e; } return; }
+        var a = new Audio(); a.preload = 'auto'; a.src = src; aquecidos.push(a);
+      },
       estado: function () { return estado; },
       mudo: function () { return mudo; },
       fonte: function () { return quer ? fonte : null; }
@@ -789,15 +809,98 @@
     var b = $('#som-bloqueado'); if (b) b.hidden = Som.estado() !== 'bloqueado';
     if (slides) atualizarHud();
   }
-  function musicaDoSlide(sl) {
+  /* efeito: 'vinheta.mp3' toca na transição para a frente; a música do slide entra na metade dela */
+  function musicaDoSlide(sl, paraFrente) {
     var m = sl.musica ? aud(sl.musica) : null;
     if (Som.fonte() && Som.fonte() !== m) Som.parar(2500);
+    if (sl.efeito && paraFrente) {
+      Som.efeito(aud(sl.efeito), sl.efeitoVolume, function () {
+        if (m && slides[indice] === sl && sl.musicaQuando !== 'resposta') Som.tocar(m, sl.volume);
+      });
+      return;
+    }
     if (!m) return;
     if (sl.musicaQuando === 'resposta') Som.preparar(m);
     else Som.tocar(m, sl.volume);
   }
   function musicaPorResposta(sl, total) {
     if (sl.musica && sl.musicaQuando === 'resposta' && total > 0 && slides[indice] === sl) Som.tocar(aud(sl.musica), sl.volume);
+  }
+
+  /* ---------- passagens bíblicas ----------
+     um slide declara passagens: [{ ref: 'Mt 10,8', texto: '...' }]; cada citação no texto do slide
+     mostra o versículo ao passar o mouse e abre em destaque pelo clique ou pelo painel */
+  var LIVROS = { Mt: 'Mateus', Mc: 'Marcos', Lc: 'Lucas', Jo: 'João', At: 'Atos', Rm: 'Romanos', Hb: 'Hebreus', Tg: 'Tiago', Sl: 'Salmo', Is: 'Isaías' };
+  var passagemAberta = null, dicaTimer = null;
+  function nomeRef(ref) { var m = String(ref).match(/^(\S+)\s+(.+)$/); return m && LIVROS[m[1]] ? LIVROS[m[1]] + ' ' + m[2] : ref; }
+  function ligarPassagens(el, sl) {
+    var ps = sl.passagens; if (!ps || !ps.length) return;
+    var refs = ps.map(function (p) { return p.ref; }).sort(function (a, b) { return b.length - a.length; });
+    var re = new RegExp('(' + refs.map(function (r) { return r.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')(?![\\d-])');
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nos = [];
+    while (w.nextNode()) if (re.test(w.currentNode.nodeValue)) nos.push(w.currentNode);
+    nos.forEach(function (no) {
+      var frag = document.createDocumentFragment();
+      no.nodeValue.split(re).forEach(function (parte, k) {
+        if (!parte) return;
+        if (k % 2) {
+          var i = -1; ps.some(function (p, j) { if (p.ref === parte) { i = j; return true; } return false; });
+          var sp = document.createElement('span'); sp.className = 'cita'; sp.dataset.p = i; sp.textContent = parte; frag.appendChild(sp);
+        } else frag.appendChild(document.createTextNode(parte));
+      });
+      no.parentNode.replaceChild(frag, no);
+    });
+  }
+  function semQuebrarHifen(t) { return esc(t).replace(/(\S*\w-\w\S*)/g, '<span class="sem-quebra">$1</span>'); }
+  function passagemDoSlide(i) { var sl = slides && slides[indice]; return sl && sl.passagens ? sl.passagens[i] : null; }
+  function marcarCitas() {
+    if (!elAtual) return;
+    Array.prototype.forEach.call(elAtual.querySelectorAll('.cita'), function (c) {
+      var p = passagemDoSlide(+c.dataset.p); c.classList.toggle('ativa', !!(p && p.ref === passagemAberta));
+    });
+  }
+  function abrirPassagem(i) {
+    var p = passagemDoSlide(i); if (!p) return;
+    esconderDica();
+    var box = $('#passagem');
+    $('#passagem blockquote').innerHTML = semQuebrarHifen(p.texto);
+    $('#passagem .quem').textContent = nomeRef(p.ref);
+    box.hidden = false; box.classList.remove('on', 'saindo'); void box.offsetWidth; box.classList.add('on');
+    passagemAberta = p.ref; marcarCitas();
+    if (loja) loja.anunciar();
+  }
+  function fecharPassagem(ja) {
+    var box = $('#passagem'); if (box.hidden) return;
+    passagemAberta = null; marcarCitas();
+    if (ja) { box.hidden = true; box.classList.remove('on', 'saindo'); }
+    else {
+      box.classList.remove('on'); box.classList.add('saindo');
+      setTimeout(function () { if (!passagemAberta) { box.hidden = true; box.classList.remove('saindo'); } }, 340);
+    }
+    if (loja) loja.anunciar();
+  }
+  function mostrarDica(c) {
+    var p = passagemDoSlide(+c.dataset.p); if (!p || passagemAberta || !c.isConnected) return;
+    var d = $('#dica');
+    d.innerHTML = '<b>' + esc(nomeRef(p.ref)) + '</b>' + semQuebrarHifen(p.texto);
+    d.classList.remove('on', 'abaixo'); d.hidden = false;
+    var pr = palco.getBoundingClientRect(), sx = pr.width / palco.offsetWidth, sy = pr.height / palco.offsetHeight;
+    var r = c.getBoundingClientRect(), W = palco.offsetWidth;
+    var cx = (r.left + r.width / 2 - pr.left) / sx, topo = (r.top - pr.top) / sy, base = (r.bottom - pr.top) / sy;
+    var dw = d.offsetWidth, dh = d.offsetHeight, esq = Math.max(30, Math.min(W - dw - 30, cx - dw / 2));
+    var acima = topo - dh - 26 > 20;
+    d.style.left = esq + 'px'; d.style.top = (acima ? topo - dh - 26 : base + 26) + 'px';
+    d.style.setProperty('--seta', (cx - esq) + 'px'); d.classList.toggle('abaixo', !acima);
+    void d.offsetWidth; d.classList.add('on');
+  }
+  function esconderDica() { clearTimeout(dicaTimer); var d = $('#dica'); d.classList.remove('on'); d.hidden = true; }
+  /* clique no telão: fecha a passagem aberta (fora do cartão ou no X) ou abre a citação clicada */
+  function cliquePassagem(alvo) {
+    if (!alvo || !alvo.closest) return false;
+    if (passagemAberta) { if (alvo.closest('#passagem .fechar') || !alvo.closest('#passagem .cartao')) fecharPassagem(); return true; }
+    var c = alvo.closest('.cita');
+    if (c) { abrirPassagem(+c.dataset.p); return true; }
+    return false;
   }
 
   /* ---------- formato da tela: 16:9 ou 4:3 ---------- */
@@ -893,6 +996,7 @@
     if (!$('#login').hidden) return;
     Som.liberar();
     var k = ev.key;
+    if (passagemAberta && /^(Escape|ArrowRight|ArrowLeft|PageDown|PageUp| |Enter|Backspace)$/.test(k)) { ev.preventDefault(); fecharPassagem(); return; }
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { ev.preventDefault(); avancar(); }
     else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace') { ev.preventDefault(); voltar(); }
     else if (k === 'Home') ir(0);
@@ -906,6 +1010,11 @@
   }
 
   function preCarregar() {
+    var vistos = {};
+    slides.forEach(function (s) {
+      if (s.efeito && !vistos[s.efeito]) { vistos[s.efeito] = 1; Som.preCarregar(aud(s.efeito), true); }
+      if (s.musica && !vistos[s.musica]) { vistos[s.musica] = 1; Som.preCarregar(aud(s.musica)); }
+    });
     slides.forEach(function (s) {
       [s.imagem].concat(s.imagens || [], s.fotos || []).forEach(function (f) { if (f) { var i = new Image(); i.src = img(f); } });
     });
@@ -931,18 +1040,27 @@
       if (tx === null) return;
       var t = ev.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
       tx = null; ultimoToque = Date.now(); mostrarHud();
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (dx < 0) avancar(); else voltar(); return; }
-      if (Math.abs(dx) < 14 && Math.abs(dy) < 14) navegarPor(t.clientX);
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { if (passagemAberta) { fecharPassagem(); return; } if (dx < 0) avancar(); else voltar(); return; }
+      if (Math.abs(dx) < 14 && Math.abs(dy) < 14) { if (cliquePassagem(ev.target)) return; navegarPor(t.clientX); }
     }, { passive: true });
     tela.addEventListener('click', function (ev) {
       if (Date.now() - ultimoToque < 700 || !$('#login').hidden || noSom(ev)) return;
+      if (cliquePassagem(ev.target)) return;
       navegarPor(ev.clientX);
+    });
+    palco.addEventListener('mouseover', function (ev) {
+      var c = ev.target.closest && ev.target.closest('.cita'); if (!c) return;
+      clearTimeout(dicaTimer); dicaTimer = setTimeout(function () { mostrarDica(c); }, 120);
+    });
+    palco.addEventListener('mouseout', function (ev) {
+      var c = ev.target.closest && ev.target.closest('.cita'); if (!c || (ev.relatedTarget && c.contains(ev.relatedTarget))) return;
+      clearTimeout(dicaTimer); dicaTimer = setTimeout(esconderDica, 160);
     });
     configurarLogin();
     preCarregar();
     document.title = A.titulo + ' · telão';
     loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco',
-      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo() }; } });
+      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo(), passagem: passagemAberta }; } });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
       if (tipo === 'sala') { verComando(); return; }

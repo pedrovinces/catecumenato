@@ -579,7 +579,7 @@ language plpgsql security definer set search_path = public, extensions as $$
 declare n int;
 begin
   perform public._exigir_chave(p_chave);
-  if p_comando !~ '^(avancar|voltar|ir:[0-9]{1,3}|qr|recarregar|teste|musica|formato:(auto|169|43|43c))$' then raise exception 'comando invalido'; end if;
+  if p_comando !~ '^(avancar|voltar|ir:[0-9]{1,3}|qr|recarregar|teste|musica|passagem:([0-9]{1,2}|fechar)|formato:(auto|169|43|43c))$' then raise exception 'comando invalido'; end if;
   update public.salas set comando = p_comando, comando_seq = comando_seq + 1, atualizado = now()
   where id = p_sala returning comando_seq into n;
   return n;
