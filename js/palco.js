@@ -26,7 +26,7 @@
     });
   }
   function miniQR() {
-    return '<div class="mini-qr"><div class="u">' + esc(C.urlCurta()) + '</div><div class="q">' + C.qrSvg(C.urlPublica()) + '</div></div>';
+    return '<div class="mini-qr"><div class="u">' + esc(C.urlCurta()).replace('.', '.<wbr>') + '</div><div class="q">' + C.qrSvg(C.urlPublica()) + '</div></div>';
   }
   function cab(kicker, pergunta) {
     return '<div class="cab">' + (kicker ? '<div class="kicker">' + esc(kicker) + '</div>' : '') + '<h2>' + esc(pergunta) + '</h2></div>';
@@ -101,7 +101,7 @@
     var cont = $('.gotas', el), num = $('.contador b', el), vazio = $('.vazio', el);
     function atualizar() {
       var lista = loja.listaJogadores();
-      dispor(cont, lista, 410);
+      dispor(cont, lista, (cont.offsetWidth || 820) / 2);
       num.textContent = fmt(lista.length);
       num.nextElementSibling.textContent = lista.length === 1 ? 'gota no plantão' : 'gotas no plantão';
       vazio.hidden = lista.length > 0;
@@ -348,12 +348,12 @@
   R.eclesial = function (sl, el) {
     el.innerHTML = '<div class="ecl"><div class="col"><div class="kicker">' + esc(sl.fonte) + '</div><h1 class="titulo medio">' + tit(sl.titulo) + '</h1>' +
       '<div class="texto-g">' + esc(sl.texto) + '</div><div class="leg">' + esc(sl.legenda) + '</div></div>' +
-      '<div><div class="poco" style="width:960px;height:960px"><div class="circ forte"></div>' +
+      '<div><div class="poco grande"><div class="circ forte"></div>' +
       '<svg viewBox="0 0 100 126" style="position:absolute;left:50%;top:50%;width:200px;transform:translate(-50%,-52%)"><defs><linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8D94A"/><stop offset=".6" stop-color="#F2A652"/><stop offset="1" stop-color="#D06C38"/></linearGradient></defs>' +
       '<path d="M50 3 C50 3 11 55 11 85 A39 39 0 0 0 89 85 C89 55 50 3 50 3 Z" fill="url(#gc)"/><path d="M47 62 h6 v14 h14 v6 h-14 v26 h-6 v-26 h-14 v-6 h14 z" fill="#fff"/></svg>' +
       '<div class="gotas"></div></div></div></div>';
     var cont = $('.gotas', el);
-    function atualizar() { dispor(cont, loja.listaJogadores(), 480, { aneis: true, r0: 190, esp: 96, semQueda: false }); }
+    function atualizar() { var R0 = (cont.offsetWidth || 960) / 2; dispor(cont, loja.listaJogadores(), R0, { aneis: true, r0: R0 * 0.4, esp: R0 * 0.2, semQueda: false }); }
     return { entrar: atualizar, atualizar: function (t) { if (t === 'jogadores' || t === 'carga') atualizar(); } };
   };
 
@@ -541,7 +541,7 @@
       var cores = ['#F8D464', '#FFFFFF', '#F2A652', '#F8D94A'];
       for (var i = 0; i < 90; i++) {
         var c = document.createElement('i'); c.className = 'confete';
-        c.style.left = (Math.random() * 1920) + 'px'; c.style.background = cores[i % 4];
+        c.style.left = (Math.random() * (palco.offsetWidth || 1920)) + 'px'; c.style.background = cores[i % 4];
         c.style.animationDuration = (2.8 + Math.random() * 2.6) + 's'; c.style.animationDelay = (Math.random() * 1.2) + 's';
         el.appendChild(c);
       }
@@ -628,6 +628,8 @@
     else if (cmd === 'voltar') voltar();
     else if (cmd === 'qr') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
     else if (cmd === 'recarregar') location.reload();
+    else if (cmd === 'teste') alternarTeste();
+    else if (/^formato:/.test(cmd)) definirFormato(cmd.slice(8));
     else if (/^ir:\d+$/.test(cmd)) ir(+cmd.slice(3));
   }
   function verComando() {
@@ -642,21 +644,73 @@
     var box = $('#qr-flutuante');
     var auto = sl && ['quiz-intro', 'entrada', 'capa', 'foto', 'final', 'podio', 'ranking', 'quiz', 'testemunho', 'citacao'].indexOf(sl.tipo) < 0 && etapaDo(sl) === 'espera';
     box.hidden = !qrManual;
-    if (!box.innerHTML) box.innerHTML = C.qrSvg(C.urlPublica()) + '<small>' + esc(C.urlCurta()) + '</small>';
+    if (!box.innerHTML) box.innerHTML = C.qrSvg(C.urlPublica()) + '<small>' + esc(C.urlCurta()).replace('.', '.<wbr>') + '</small>';
     return auto;
   }
 
-  /* ---------- HUD, escala e login ---------- */
-  function escalar() {
-    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-    palco.style.transform = 'translate(' + (-960 * s) + 'px,' + (-540 * s) + 'px) scale(' + s + ')';
+  /* ---------- formato da tela: 16:9 ou 4:3 ---------- */
+  /* auto: decide pela proporção da janela; 169: palco 1920x1080; 43: palco 1440x1080 com faixas pretas;
+     43c: palco 1440x1080 esticado na horizontal para compensar datashow que achata a imagem em 4:3 */
+  var FORMATOS = { auto: 'Automático', '169': '16:9', '43': '4:3 com faixas pretas', '43c': '4:3 compensado' };
+  var ORDEM_FORMATOS = ['auto', '169', '43', '43c'];
+  var formato = 'auto', layout43 = null, avisoTimer = null;
+  function lerFormato() {
+    var f = String(C.params.get('formato') || '').replace(/[^0-9a-z]/gi, '').toLowerCase();
+    if (FORMATOS[f]) { C.guardar('cat-formato', f); return f; }
+    f = C.ler('cat-formato', 'auto');
+    return FORMATOS[f] ? f : 'auto';
   }
+  function escalar() {
+    var W = window.innerWidth, H = window.innerHeight;
+    var em43 = formato === '43' || formato === '43c' || (formato === 'auto' && W / H < 1.55);
+    var LW = em43 ? 1440 : 1920, sx, sy;
+    if (formato === '43c') { sx = W / LW; sy = H / 1080; }
+    else { sx = sy = Math.min(W / LW, H / 1080); }
+    palco.classList.toggle('f43', em43);
+    palco.style.transform = 'translate(' + (-LW / 2 * sx) + 'px,' + (-540 * sy) + 'px) scale(' + sx + ',' + sy + ')';
+    var mudou = layout43 !== null && layout43 !== em43;
+    layout43 = em43;
+    if (mudou) refazer();
+    if (loja) loja.anunciar();
+  }
+  function refazer() { if (indice < 0 || !slides) return; var n = indice; indice = -1; ir(n, true); }
+  function definirFormato(f) {
+    if (!FORMATOS[f]) return;
+    formato = f; C.guardar('cat-formato', f);
+    escalar(); avisoFormato();
+  }
+  function nomeFormato() { return FORMATOS[formato] + (formato === 'auto' ? ' (agora ' + (layout43 ? '4:3' : '16:9') + ')' : ''); }
+  function avisoFormato() {
+    var a = $('#aviso-formato');
+    a.innerHTML = '<small>Formato do telão</small><b>' + esc(nomeFormato()) + '</b>';
+    a.hidden = false; clearTimeout(avisoTimer);
+    avisoTimer = setTimeout(function () { a.hidden = true; }, 3200);
+    if (!$('#teste-tela').hidden) desenharTeste();
+  }
+  function desenharTeste() {
+    var t = $('#teste-tela');
+    t.innerHTML = '<i class="canto c1"></i><i class="canto c2"></i><i class="canto c3"></i><i class="canto c4"></i>' +
+      '<div class="eixo h"></div><div class="eixo v"></div><div class="quadro"><div class="bola"></div></div>' +
+      '<div class="info"><b>Teste de tela</b><span>' + esc(nomeFormato()) + ' · palco ' + (layout43 ? '1440 × 1080' : '1920 × 1080') + '</span></div>' +
+      '<ol class="passos"><li>A moldura dourada deve encostar nas quatro bordas da tela.</li>' +
+      '<li>O círculo deve ficar redondo: largura igual à altura.</li>' +
+      '<li>Alto e estreito: datashow achatando. Use 4:3 compensado.</li>' +
+      '<li>Largo e baixo: datashow esticando. No menu dele, proporção Automático ou Normal.</li></ol>' +
+      '<div class="teclas">T troca o formato · G fecha o teste</div>';
+  }
+  function alternarTeste() {
+    var t = $('#teste-tela');
+    if (t.hidden) { desenharTeste(); t.hidden = false; } else t.hidden = true;
+    if (loja) loja.anunciar();
+  }
+
+  /* ---------- HUD e login ---------- */
   function atualizarHud() {
     var h = $('#hud');
     h.classList.toggle('online', !!loja && loja.online);
     var n = loja ? Object.keys(loja.jogadores).length : 0;
     h.innerHTML = '<i></i><span>' + (C.DEMO ? 'demonstração' : (loja && loja.online ? 'ao vivo' : 'sem conexão')) + '</span><span>' + n + ' gotas</span><span>slide ' + (indice + 1) + '/' + slides.length + '</span>' +
-      '<span>' + (chaveApr || C.DEMO ? 'celulares sincronizados' : 'sem chave: celulares não acompanham') + '</span><span>sala ' + esc(C.SALA) + '</span>';
+      '<span>' + (chaveApr || C.DEMO ? 'celulares sincronizados' : 'sem chave: celulares não acompanham') + '</span><span>tela ' + esc(nomeFormato()) + '</span><span>sala ' + esc(C.SALA) + '</span>';
   }
   function mostrarHud() {
     var h = $('#hud'); h.classList.add('on'); tela.classList.remove('sem-cursor');
@@ -690,6 +744,8 @@
     else if (k === 'f' || k === 'F') { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function () {}); else document.exitFullscreen(); }
     else if (k === 'q' || k === 'Q') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
     else if (k === 'b' || k === 'B' || k === '.') { $('#preto').hidden = !$('#preto').hidden; }
+    else if (k === 't' || k === 'T') definirFormato(ORDEM_FORMATOS[(ORDEM_FORMATOS.indexOf(formato) + 1) % ORDEM_FORMATOS.length]);
+    else if (k === 'g' || k === 'G') alternarTeste();
   }
 
   function preCarregar() {
@@ -701,6 +757,7 @@
   function iniciar() {
     A = window.AULA; slides = A.slides;
     tela = $('#tela'); palco = $('#palco');
+    formato = lerFormato();
     escalar(); window.addEventListener('resize', escalar);
     document.addEventListener('keydown', teclado);
     document.addEventListener('mousemove', mostrarHud);
@@ -725,7 +782,8 @@
     configurarLogin();
     preCarregar();
     document.title = A.titulo + ' · telão';
-    loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco' });
+    loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco',
+      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden }; } });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
       if (tipo === 'sala') { verComando(); return; }

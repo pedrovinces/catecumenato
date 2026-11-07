@@ -24,6 +24,11 @@
     var on = C.DEMO || !!loja.palcoOnline;
     p.className = 'status' + (on ? ' on' : '');
     p.querySelector('span').textContent = on ? 'telão conectado' : 'telão fechado';
+    var m = loja.palcoMeta, nomes = { auto: 'Automático', '169': '16:9', '43': '4:3 com faixas', '43c': '4:3 compensado' };
+    var fa = $('formato-atual');
+    if (fa) fa.textContent = C.DEMO ? 'demonstração' : !on ? 'telão fechado' : m && m.formato ?
+      nomes[m.formato] + (m.formato === 'auto' ? ' (agora ' + (m.layout === '43' ? '4:3' : '16:9') + ')' : '') + (m.teste ? ' · teste aberto' : '') : 'telão conectado';
+    Array.prototype.forEach.call(document.querySelectorAll('#formatos [data-f]'), function (b) { b.classList.toggle('ativo', !!(on && m && m.formato === b.dataset.f)); });
   }
   function aviso(t, erro) { var a = $('aviso'); a.textContent = t; a.className = 'aviso' + (erro ? ' err' : ''); clearTimeout(a._t); a._t = setTimeout(function () { a.textContent = ''; }, 4000); }
 
@@ -96,6 +101,10 @@
     $('b-avancar').addEventListener('click', function () { cmd('avancar'); });
     $('b-qr').addEventListener('click', function () { cmd('qr'); });
     $('b-recarregar').addEventListener('click', function () { cmd('recarregar'); });
+    Array.prototype.forEach.call(document.querySelectorAll('#formatos [data-f]'), function (b) {
+      b.addEventListener('click', function () { cmd('formato:' + b.dataset.f).then(function (r) { if (r && !r.error) aviso('Formato enviado ao telão: ' + b.textContent + '.'); }); });
+    });
+    $('b-teste').addEventListener('click', function () { cmd('teste').then(function (r) { if (r && !r.error) aviso('Teste de tela alternado no telão.'); }); });
     $('b-encerrar').addEventListener('click', function () {
       if (!confirm('Apagar as selfies e as intenções desta sala? Os pontos continuam.')) return;
       loja.rpc('sala_encerrar', { p_chave: chave, p_sala: SALA }).then(function (r) {

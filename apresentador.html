@@ -32,6 +32,9 @@ body{background:var(--vermelho-profundo)}
 .grade{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
 .links a{color:#fff}
+.grade4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn.ativo{background:var(--ouro);color:var(--vinho);border-color:var(--ouro)}
+#formatos .btn,#b-teste,#b-encerrar,#b-limpar{white-space:normal;line-height:1.3}
 </style>
 </head>
 <body>
@@ -74,6 +77,18 @@ body{background:var(--vermelho-profundo)}
       <button class="btn" id="b-encerrar" type="button">Encerrar: apagar fotos e intenções</button>
       <button class="btn sec" id="b-limpar" type="button">Recomeçar a sala (ensaio)</button>
       <div class="links"><a id="link-telao" target="_blank" rel="noopener">Abrir telão</a><a id="link-celular" target="_blank" rel="noopener">Abrir página do celular</a><a href="#" id="b-sair">Sair</a></div>
+    </div>
+
+    <div class="card claro">
+      <div class="kick">Formato do telão · <span id="formato-atual">telão fechado</span></div>
+      <div class="grade4" id="formatos">
+        <button class="btn sec peq" type="button" data-f="auto">Automático</button>
+        <button class="btn sec peq" type="button" data-f="169">16:9</button>
+        <button class="btn sec peq" type="button" data-f="43">4:3 com faixas</button>
+        <button class="btn sec peq" type="button" data-f="43c">4:3 compensado</button>
+      </div>
+      <button class="btn sec peq" id="b-teste" type="button">Teste de tela: círculo e moldura</button>
+      <p class="nota">Tela de projeção 4:3 e datashow 16:9: use <b>4:3 com faixas</b> e ajuste o zoom do datashow até a imagem ocupar a altura da tela. Se o datashow estiver travado em 4:3 e o círculo do teste ficar alto e estreito, use <b>4:3 compensado</b>. O telão guarda a escolha.</p>
     </div>
   </div>
 </div>

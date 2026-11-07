@@ -309,13 +309,22 @@
       var pres = c.channel('presenca-' + SALA, { config: { presence: { key: (s.opts.presenca || 'obs') + '-' + Math.random().toString(36).slice(2, 8) } } });
       pres.on('presence', { event: 'sync' }, function () {
         var st = pres.presenceState();
-        s.palcoOnline = Object.keys(st).some(function (k) { return (st[k] || []).some(function (m) { return m.papel === 'palco'; }); });
+        s.palcoOnline = false; s.palcoMeta = null;
+        Object.keys(st).forEach(function (k) { (st[k] || []).forEach(function (m) { if (m.papel === 'palco') { s.palcoOnline = true; s.palcoMeta = m; } }); });
         s.avisar('presenca');
       });
-      pres.subscribe(function (status) { if (status === 'SUBSCRIBED' && s.opts.presenca) pres.track({ papel: s.opts.presenca }); });
+      pres.subscribe(function (status) { if (status === 'SUBSCRIBED' && s.opts.presenca) s.anunciar(true); });
       s.canalPresenca = pres;
     }
     setInterval(function () { s._carregar(false); }, s.opts.intervalo || 10000);
+  };
+
+  /* publica na presença o papel e os dados extras deste aparelho (o telão informa o formato da tela) */
+  Loja.prototype.anunciar = function (jaConectado) {
+    var s = this, pres = s.canalPresenca;
+    if (!pres || !s.opts.presenca || (!jaConectado && pres.state !== 'joined')) return;
+    var extra = s.opts.dadosPresenca ? s.opts.dadosPresenca() : {};
+    try { var r = pres.track(Object.assign({ papel: s.opts.presenca }, extra)); if (r && r.catch) r.catch(function () {}); } catch (e) {}
   };
 
   Loja.prototype.enviar = function (tabela, dados) {

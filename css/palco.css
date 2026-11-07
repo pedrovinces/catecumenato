@@ -54,15 +54,16 @@ html,body{height:100%;overflow:hidden;background:#000}
 .contador{position:fixed;right:70px;bottom:50px;text-align:right;white-space:nowrap}
 .contador b{display:block;font-size:120px;font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
 .contador span{font-size:24px;letter-spacing:.32em;text-transform:uppercase;color:var(--ouro);font-weight:500}
+.poco.grande{width:960px;height:960px}
 .poco .vazio{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:30px;letter-spacing:.16em;text-transform:uppercase;color:var(--texto-suave);font-weight:300;padding:200px}
 
 /* cabeçalho das dinâmicas */
-.cab{position:absolute;left:120px;right:420px;top:80px;display:flex;flex-direction:column;gap:18px}
+.cab{position:absolute;left:120px;right:480px;top:80px;display:flex;flex-direction:column;gap:18px}
 .cab h2{margin:0;font-size:56px;line-height:1.18;font-weight:400}
 .mini-qr{position:absolute;right:80px;top:70px;display:flex;gap:18px;align-items:center;text-align:right}
 .mini-qr .q{width:150px;background:#fff;border-radius:14px;padding:10px}
 .mini-qr .q svg{width:100%;height:auto;display:block}
-.mini-qr .u{font-size:18px;letter-spacing:.1em;color:var(--texto-suave);max-width:180px;line-height:1.3}
+.mini-qr .u{font-size:18px;letter-spacing:.1em;color:var(--texto-suave);max-width:230px;line-height:1.3;overflow-wrap:anywhere}
 .rodape-dados{position:absolute;left:120px;bottom:60px;font-size:24px;letter-spacing:.24em;text-transform:uppercase;color:var(--texto-suave)}
 .rodape-dados b{color:var(--branco);font-weight:500;font-variant-numeric:tabular-nums}
 
@@ -149,7 +150,7 @@ html,body{height:100%;overflow:hidden;background:#000}
 
 /* mito ou verdade */
 .mito{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 200px;gap:60px}
-.mito .contagem-item{position:absolute;top:80px;right:120px;font-size:26px;letter-spacing:.3em;color:var(--texto-suave)}
+.mito .contagem-item{position:absolute;bottom:60px;right:120px;font-size:26px;letter-spacing:.3em;color:var(--texto-suave)}
 .mito .afirm{font-size:80px;line-height:1.14;font-weight:300;max-width:1180px}
 .mito .barras{display:grid;grid-template-columns:1fr 1fr;gap:50px}
 .mito .op{position:relative;border:2px solid var(--linha);border-radius:18px;height:150px;overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:opacity .6s,border-color .6s}
@@ -345,9 +346,31 @@ html,body{height:100%;overflow:hidden;background:#000}
 #hud.on{opacity:1}
 #hud i{width:8px;height:8px;border-radius:50%;background:#e57373;display:inline-block}
 #hud.online i{background:#8fd19e}
-#qr-flutuante{position:fixed;right:16px;bottom:16px;background:#fff;border-radius:14px;padding:10px;width:150px;z-index:15;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#qr-flutuante{position:absolute;right:28px;bottom:28px;background:#fff;border-radius:22px;padding:16px;width:230px;z-index:15;box-shadow:0 14px 40px rgba(0,0,0,.3)}
 #qr-flutuante svg{display:block;width:100%;height:auto}
-#qr-flutuante small{display:block;text-align:center;font:500 11px var(--fonte);color:#5E1617;margin-top:6px;letter-spacing:.04em}
+#qr-flutuante small{display:block;text-align:center;font:500 17px/1.3 var(--fonte);color:#5E1617;margin-top:8px;letter-spacing:.04em;overflow-wrap:anywhere}
+#qr-flutuante[hidden],#teste-tela[hidden],#aviso-formato[hidden]{display:none}
+
+/* aviso de formato e teste de tela (desenhados dentro do palco, recebem a mesma escala) */
+#aviso-formato{position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:40;background:rgba(62,13,14,.94);border:2px solid var(--ouro);border-radius:22px;padding:22px 44px;text-align:center;display:flex;flex-direction:column;gap:8px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+#aviso-formato small{font-size:20px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro);font-weight:500}
+#aviso-formato b{font-size:44px;font-weight:400;white-space:nowrap}
+#teste-tela{position:absolute;inset:0;z-index:35;background:#2A0909;border:10px solid var(--ouro);color:#fff}
+#teste-tela .canto{position:absolute;width:90px;height:90px;border:0 solid #fff}
+#teste-tela .c1{left:24px;top:24px;border-left-width:6px;border-top-width:6px}
+#teste-tela .c2{right:24px;top:24px;border-right-width:6px;border-top-width:6px}
+#teste-tela .c3{left:24px;bottom:24px;border-left-width:6px;border-bottom-width:6px}
+#teste-tela .c4{right:24px;bottom:24px;border-right-width:6px;border-bottom-width:6px}
+#teste-tela .eixo{position:absolute;background:rgba(255,255,255,.22)}
+#teste-tela .eixo.h{left:0;right:0;top:50%;height:2px}
+#teste-tela .eixo.v{top:0;bottom:0;left:50%;width:2px}
+#teste-tela .quadro{position:absolute;left:50%;top:50%;width:640px;height:640px;margin:-320px 0 0 -320px;border:3px dashed rgba(255,255,255,.5)}
+#teste-tela .bola{position:absolute;inset:0;border-radius:50%;border:8px solid var(--ouro);box-shadow:inset 0 0 0 60px rgba(248,212,100,.08)}
+#teste-tela .info{position:absolute;left:60px;top:60px;display:flex;flex-direction:column;gap:8px}
+#teste-tela .info b{font-size:40px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro)}
+#teste-tela .info span{font-size:26px;letter-spacing:.06em}
+#teste-tela .passos{position:absolute;left:60px;bottom:56px;margin:0;padding-left:28px;max-width:320px;font-size:21px;line-height:1.35;display:flex;flex-direction:column;gap:8px;color:rgba(255,255,255,.88)}
+#teste-tela .teclas{position:absolute;right:60px;top:66px;font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 #login{position:fixed;inset:0;z-index:30;background:rgba(62,13,14,.92);display:grid;place-items:center}
 #login form{background:var(--vermelho);border:2px solid var(--linha);border-radius:24px;padding:40px;width:min(520px,92vw);display:flex;flex-direction:column;gap:18px}
 #login h1{margin:0;font-weight:300;letter-spacing:.2em;text-transform:uppercase;font-size:26px}
@@ -357,3 +380,157 @@ html,body{height:100%;overflow:hidden;background:#000}
 #login button.sec{background:transparent;color:#fff;border:1px solid var(--linha-fina)}
 #login .erro{color:#FFD3C4;min-height:20px}
 #preto{position:fixed;inset:0;background:#000;z-index:25}
+
+/* ===================== formato 4:3 · palco 1440x1080 ===================== */
+.palco.f43{width:1440px}
+.f43 .titulo{font-size:96px}
+.f43 .titulo.medio{font-size:72px}
+.f43 .titulo.menor{font-size:58px}
+.f43 .contador{right:50px;bottom:40px}
+.f43 .contador b{font-size:100px}
+
+.f43 .capa{grid-template-columns:500px 1fr}
+.f43 .capa .logo{padding:70px 0 70px 50px}
+.f43 .capa .logo img{height:auto;width:100%;max-height:900px}
+.f43 .capa .lado{padding:130px 70px 80px 30px}
+.f43 .capa .titulo{font-size:92px}
+.f43 .capa .sub{font-size:30px}
+.f43 .capa .foto-circ{right:70px;bottom:130px;width:260px;height:260px}
+.f43 .capa .rodape{left:30px;right:70px;bottom:70px;font-size:19px;line-height:1.5}
+
+.f43 .entrada{grid-template-columns:720px 1fr}
+.f43 .entrada .esq{padding:0 30px 0 90px;gap:22px}
+.f43 .entrada .titulo{font-size:58px}
+.f43 .qr-cartao{width:360px}
+.f43 .entrada .texto-g{font-size:27px}
+.f43 .poco{width:640px;height:640px}
+.f43 .poco.grande{width:700px;height:700px}
+.f43 .poco .vazio{padding:150px}
+
+.f43 .cab{left:90px;right:430px;top:70px}
+.f43 .cab h2{font-size:48px}
+.f43 .mini-qr{right:50px;top:60px}
+.f43 .mini-qr .q{width:140px}
+.f43 .mini-qr .u{max-width:200px;font-size:16px}
+.f43 .rodape-dados{left:90px}
+.f43 .nuvem{left:60px;right:60px;top:290px}
+.f43 .legenda-foco{right:80px}
+
+.f43 .foto-texto{left:90px;right:90px}
+.f43 .foto-texto .leg{font-size:52px}
+
+.f43 .sacr{grid-template-columns:1fr 520px}
+.f43 .sacr .lista{padding:0 20px 0 100px}
+.f43 .sacr ol{max-width:560px}
+.f43 .sacr li{font-size:34px;gap:30px}
+.f43 .sacr li::before{font-size:40px;width:64px}
+.f43 .sacr .chave-cura{font-size:20px}
+.f43 .circ-foto{width:470px;height:470px}
+.f43 .circ-foto .img{inset:30px}
+
+.f43 .txt{grid-template-columns:1fr 470px;gap:30px}
+.f43 .txt .col{padding:0 10px 0 100px}
+.f43 .txt.sem-img .col{padding:0 140px 0 100px}
+.f43 .txt li{font-size:36px}
+.f43 .txt .imgs{padding-right:70px}
+.f43 .txt .imgs .im{height:340px}
+.f43 .txt .imgs.uma .im{height:700px;border-radius:240px 240px 6px 6px}
+
+.f43 .cit{padding:0 130px}
+.f43 .cit blockquote{font-size:76px}
+.f43 .cit .compl{font-size:32px}
+.f43 .tit{padding:0 130px}
+.f43 .tit .texto-g{font-size:44px}
+
+.f43 .regua{left:80px;right:80px;gap:20px}
+.f43 .regua .rot{font-size:23px}
+.f43 .marcador-cic{left:80px;right:80px;font-size:27px}
+
+.f43 .mito{padding:0 110px;gap:50px}
+.f43 .mito .afirm{font-size:64px;max-width:880px}
+.f43 .mito .op .r{font-size:44px}
+.f43 .mito .op .p{font-size:48px}
+.f43 .mito .exp{font-size:32px}
+.f43 .carimbo{right:80px;top:300px;font-size:80px}
+.f43 .mito .contagem-item{right:90px;bottom:50px}
+
+.f43 .tres{padding:80px 90px 70px}
+.f43 .tres .topo .im{width:520px;height:250px}
+.f43 .tres .cols{gap:34px;margin-top:50px}
+.f43 .tres .c h3{font-size:28px}
+.f43 .tres .c p{font-size:29px}
+.f43 .tres .fonte{right:90px}
+
+.f43 .mapa{grid-template-columns:600px 1fr}
+.f43 .mapa svg.corpo{height:960px}
+.f43 .mapa .lado{padding:240px 70px 80px 20px}
+.f43 .mapa .lado h2{font-size:46px}
+.f43 .mapa .resposta{font-size:33px}
+.f43 .mapa .resposta b{font-size:70px}
+
+.f43 .rito{padding:90px 80px 70px;gap:44px}
+.f43 .rito .blocos{gap:30px}
+.f43 .rito .b{padding:56px 30px 36px;gap:20px}
+.f43 .rito .b svg{width:90px;height:90px}
+.f43 .rito .b h3{font-size:28px}
+.f43 .rito .b p{font-size:30px}
+.f43 .rito .b q{font-size:31px}
+
+.f43 .caca{left:80px;right:80px;gap:20px 30px}
+.f43 .caca .l{font-size:28px;padding:0 24px}
+
+.f43 .efe{grid-template-columns:1fr 400px}
+.f43 .efe .col{padding:90px 30px 70px 90px;gap:36px}
+.f43 .efe .grade{gap:30px 36px}
+.f43 .efe .grade{gap:44px 40px}
+.f43 .efe .it h3{font-size:27px}
+.f43 .efe .it p{font-size:30px}
+
+.f43 .ecl{grid-template-columns:680px 1fr}
+.f43 .ecl .col{padding:0 10px 0 90px}
+.f43 .ecl .texto-g{font-size:34px}
+.f43 .ecl .leg{font-size:26px}
+
+.f43 .test .fotos .f{width:290px}
+.f43 .test .fotos.uma .f{width:460px}
+.f43 .test .col{padding:0 80px 0 70px}
+.f43 .test blockquote{font-size:64px}
+.f43 .test .autor{font-size:30px}
+.f43 .test .papel{font-size:22px}
+
+.f43 .comp{padding:80px 70px 60px}
+.f43 .comp .duas{gap:36px}
+.f43 .comp .nuvem{left:20px;right:20px;top:20px;bottom:20px}
+.f43 .comp .stats{gap:24px;font-size:26px}
+.f43 .comp .stats b{font-size:52px}
+
+.f43 .mural{left:80px;right:80px;top:250px;gap:22px}
+.f43 .mural .card{font-size:29px;padding:24px 26px}
+
+.f43 .qi{grid-template-columns:1fr 470px}
+.f43 .qi .col{padding:0 20px 0 90px;gap:28px}
+.f43 .qi li{font-size:30px}
+.f43 .qi .qr-cartao{width:380px!important}
+.f43 .qi .url{font-size:23px}
+
+.f43 .quiz{padding:60px 70px 50px;gap:28px}
+.f43 .quiz .perg{font-size:54px;min-height:130px}
+.f43 .quiz .op{font-size:32px;padding:0 26px;gap:20px}
+.f43 .quiz .op .forma{width:48px;height:48px}
+.f43 .quiz .coment{font-size:28px}
+.f43 .quiz .resp{font-size:24px}
+
+.f43 .rank{padding:80px 90px 60px}
+.f43 .rank .lin{grid-template-columns:80px 100px 1fr 200px;gap:24px}
+
+.f43 .podio .degraus{gap:26px}
+.f43 .podio .d{width:400px}
+.f43 .podio .d .nm{font-size:40px}
+
+.f43 .int .topo{top:230px}
+.f43 .int .topo .texto-g{max-width:1100px}
+
+.f43 .fim-slide{grid-template-rows:600px 1fr}
+.f43 .fim-slide .baixo{padding:0 90px}
+.f43 .fim-slide .titulo{font-size:130px}
+.f43 .fim-slide .baixo img{height:320px;margin-top:-120px}
