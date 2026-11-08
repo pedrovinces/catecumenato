@@ -634,3 +634,19 @@ html,body{height:100%;overflow:hidden;background:#000}
 .f43 .relato .texto{gap:9px}
 .f43 .relato .fotos .f{width:210px}
 .f43 .relato .autor{font-size:26px}
+.relato .topo-relato{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+.relato .pagina{font-size:22px;letter-spacing:.24em;color:var(--texto-suave);font-weight:500;font-variant-numeric:tabular-nums}
+.relato .epigrafe{font-size:30px;font-style:italic;font-weight:300;color:var(--ouro);margin-top:-6px}
+.relato .texto{transition:opacity .26s ease,transform .26s ease}
+.relato .texto.virando{opacity:0;transform:translateX(-18px)}
+.relato .rodape-relato{min-height:76px;display:flex;flex-direction:column;justify-content:flex-end}
+.relato .rodape-relato .autor{margin-top:0}
+.relato .rodape-relato .papel{margin-top:8px}
+.relato .continua{font-size:22px;letter-spacing:.24em;text-transform:uppercase;color:var(--texto-suave);font-weight:500}
+.relato .continua span{color:var(--ouro);margin-left:6px}
+.relato .fotos.uma .f{width:560px;background-position:76% center}
+.relato.documento .texto p{font-style:normal;font-size:34px;line-height:1.45;text-align:left}
+.relato.documento .texto{gap:18px}
+.f43 .relato .fotos.uma .f{width:360px;background-position:80% center}
+.f43 .relato.documento .texto p{font-size:30px;line-height:1.42}
+.f43 .relato .epigrafe{font-size:26px}

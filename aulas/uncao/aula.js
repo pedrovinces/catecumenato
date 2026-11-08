@@ -175,8 +175,27 @@ window.AULA = {
       citacao: 'Entre a fé e a medicina, não há guerra. Há encontro.', autor: 'Igor Pavan Três', papel: 'ex-seminarista', data: '15 de maio',
       nota: 'Ponte com a sua vida de médico.' },
 
-    { tipo: 'foto', imagem: 'igor-slide-post.jpg', ajuste: 'contain', transicao: 'suave', opcional: true,
-      nota: 'Publicação integral (slide de 2025). Opcional.' },
+    { tipo: 'relato', variante: 'documento', kicker: 'O testamento do Igor', titulo: ['Testamento espiritual'], aspas: false, opcional: true,
+      epigrafe: '“Em vossas mãos, Senhor, entrego o meu espírito.” (Sl 30,6)',
+      paginas: [
+        [
+          'Sentindo a possibilidade do desenlace e do encontro com o Juiz, cujo dia e hora somente Ele conhece, mas consciente das minhas condições de saúde e das debilidades que me acompanham, decidi escrever estas linhas como meu testamento espiritual.',
+          'Nada sei sobre o tempo que ainda me será concedido. Sei, porém, que a vida é breve e que cada dia é uma preparação silenciosa para comparecer diante d’Aquele que é a Verdade.',
+          'Ofereço a cruz que me foi confiada, com suas dores, limitações e incertezas, pela Santa Igreja, pelo Santo Padre, pelo Bispo Diocesano, por todo o Clero, pela conversão dos pecadores, pelos que sofrem no corpo e na alma, pelas almas do purgatório e pelos cristãos perseguidos em tantas partes do mundo. Ofereço-a também em reparação pelos meus pecados e pelos pecados do mundo.'
+        ],
+        [
+          'Sei que o sofrimento, por si só, não santifica automaticamente. Ele pode endurecer ou purificar. Em minha fraqueza, reconheço que muitas vezes fui infiel. Contudo, posso testemunhar que a dor me ensinou a não permanecer afastado de Deus por muito tempo. Como um cavalo indócil que tenta fugir, fui mantido nas rédeas pelo Senhor, que se serviu do sofrimento para impedir minha fuga definitiva. Se hoje permaneço, é por misericórdia, não por mérito.',
+          'Peço perdão, de modo particular e público, a todos os que foram afetados por minhas iniquidades, palavras, omissões ou escândalos. Àqueles a quem prejudiquei direta ou indiretamente, rogo que me perdoem. Confio que Deus saberá reparar aquilo que eu não soube ou não pude reparar suficientemente.'
+        ],
+        [
+          'Agradeço aos meus familiares, que me sustentaram com amor paciente; aos amigos, que permaneceram; aos profissionais de saúde, que me serviram com competência e humanidade; e a todos os benfeitores que, de modo visível ou oculto, aliviaram meu caminho. Cada gesto foi instrumento da Providência.',
+          'Rogo à Advogada, Maria Santíssima, que me ampare na hora decisiva e interceda por mim junto a seu Filho. Confio-me à Misericórdia de Deus, único fundamento da minha esperança.',
+          'Se for chamado, peço ao Senhor que me conceda o descanso eterno enquanto aguardo, na comunhão dos santos, a ressurreição da carne e a vida do mundo que há de vir.'
+        ]
+      ],
+      autor: 'Igor Pavan Três', data: '20 de fevereiro de 2026',
+      fotos: ['igor-batina.jpg'],
+      nota: 'Testamento espiritual do Igor, em 3 páginas: avance para virar cada página. Leia devagar.' },
 
     { tipo: 'nuvem', id: 'final', kicker: 'Última palavra', comparar: 'abertura',
       pergunta: 'E agora? Em uma palavra: o que é a Unção dos Enfermos para você?',

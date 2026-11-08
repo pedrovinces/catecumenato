@@ -468,18 +468,37 @@
     return {};
   };
 
-  /* relato longo: título, texto em parágrafos e autor à esquerda; fotos em faixa à direita */
+  /* relato longo: título, texto em parágrafos e autor à esquerda; fotos em faixa à direita.
+     Com paginas: [[...], [...]] o texto é dividido em páginas, viradas com avançar e voltar. */
   R.relato = function (sl, el) {
-    var f = sl.fotos || [], ps = sl.paragrafos || [];
-    el.innerHTML = '<div class="relato"><div class="col">' + (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
-      '<h1 class="titulo">' + tit(sl.titulo) + '</h1><div class="texto">' + ps.map(function (t, i) {
-        return '<p>' + (i === 0 ? '<span class="aspa">“</span>' : '') + esc(t) + (i === ps.length - 1 ? '”' : '') + '</p>';
-      }).join('') + '</div>' +
-      '<div class="autor">' + esc(sl.autor || '') + '</div><div class="papel">' + esc([sl.papel, sl.data].filter(Boolean).join(' · ')) + '</div></div>' +
-      '<div class="fotos">' + f.map(function (x) {
+    var f = sl.fotos || [], paginas = sl.paginas || [sl.paragrafos || []], pg = 0, aspas = sl.aspas !== false;
+    el.innerHTML = '<div class="relato' + (sl.variante ? ' ' + esc(sl.variante) : '') + '"><div class="col">' +
+      '<div class="topo-relato">' + (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
+      (paginas.length > 1 ? '<div class="pagina"></div>' : '') + '</div>' +
+      '<h1 class="titulo">' + tit(sl.titulo) + '</h1>' + (sl.epigrafe ? '<div class="epigrafe">' + esc(sl.epigrafe) + '</div>' : '') +
+      '<div class="texto"></div><div class="rodape-relato"></div></div>' +
+      '<div class="fotos' + (f.length === 1 ? ' uma' : '') + '">' + f.map(function (x) {
         return '<div class="f' + (/-pb\./.test(x) ? ' pb' : '') + '" style="background-image:url(\'' + img(x) + '\')"></div>';
       }).join('') + '</div></div>';
-    return {};
+    var tx = $('.texto', el), rod = $('.rodape-relato', el), num = $('.pagina', el);
+    function render() {
+      var ps = paginas[pg], ultima = pg === paginas.length - 1;
+      tx.innerHTML = ps.map(function (t, i) {
+        return '<p>' + (aspas && pg === 0 && i === 0 ? '<span class="aspa">“</span>' : '') + esc(t) + (aspas && ultima && i === ps.length - 1 ? '”' : '') + '</p>';
+      }).join('');
+      rod.innerHTML = ultima ? '<div class="autor">' + esc(sl.autor || '') + '</div><div class="papel">' + esc([sl.papel, sl.data].filter(Boolean).join(' · ')) + '</div>'
+        : '<div class="continua">continua <span>→</span></div>';
+      if (num) num.textContent = (pg + 1) + ' / ' + paginas.length;
+    }
+    function virar(d) {
+      tx.classList.add('virando');
+      setTimeout(function () { pg += d; render(); tx.classList.remove('virando'); }, 260);
+    }
+    render();
+    return {
+      avancar: function () { if (pg < paginas.length - 1) { virar(1); return true; } return false; },
+      voltar: function () { if (pg > 0) { virar(-1); return true; } return false; }
+    };
   };
 
   R.comparar = function (sl, el) {
