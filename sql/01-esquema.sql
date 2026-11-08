@@ -25,6 +25,7 @@ create table public.salas (
   quiz_correta int,
   quiz_valor numeric,
   quiz_comentario text,
+  geracao int not null default 0,
   atualizado timestamptz not null default now()
 );
 
@@ -544,6 +545,7 @@ end $$;
 create or replace function public.sala_limpar(p_chave text, p_sala text) returns text
 language plpgsql security definer set search_path = public, extensions as $$
 -- Recomeça a sala sem apagar linhas: os dados vão para uma sala de arquivo e as fotos são descartadas.
+-- A geração sobe uma unidade: telão, painel e celulares abertos percebem e recomeçam sozinhos.
 declare arq text := left(p_sala, 20) || '-arq-' || to_char(now(), 'YYYYMMDDHH24MISS');
 begin
   perform public._exigir_chave(p_chave);
@@ -559,7 +561,8 @@ begin
   update public.quiz_respostas set sala = arq where sala = p_sala;
   update public.intencoes set nome = '', sala = arq where sala = p_sala;
   update public.salas set slide = 0, etapa = 'espera', item = 0, quiz_ordem = null, quiz_aberta_em = null,
-    quiz_revelada = false, quiz_correta = null, quiz_valor = null, quiz_comentario = null, atualizado = now()
+    quiz_revelada = false, quiz_correta = null, quiz_valor = null, quiz_comentario = null,
+    geracao = geracao + 1, atualizado = now()
   where id = p_sala;
   return arq;
 end $$;
@@ -592,6 +595,30 @@ begin
   update public.salas set comando = p_comando, comando_seq = comando_seq + 1, atualizado = now()
   where id = p_sala returning comando_seq into n;
   return n;
+end $$;
+
+-- ---------- pulso do telão: reserva para quando a presença em tempo real falhar ----------
+
+create table public.palco_estado (
+  sala text primary key references public.salas(id) on delete cascade,
+  meta jsonb not null default '{}'::jsonb,
+  visto timestamptz not null default now()
+);
+
+create or replace function public.palco_pulso(p_chave text, p_sala text, p_meta jsonb) returns void
+language plpgsql security definer set search_path = public, extensions as $$
+begin
+  perform public._exigir_chave(p_chave);
+  if p_meta is null or length(p_meta::text) > 4000 then raise exception 'meta invalida'; end if;
+  insert into public.palco_estado (sala, meta, visto) values (p_sala, p_meta, now())
+  on conflict (sala) do update set meta = excluded.meta, visto = now();
+end $$;
+
+create or replace function public.orador_estado(p_chave text, p_sala text) returns jsonb
+language plpgsql stable security definer set search_path = public, extensions as $$
+begin
+  perform public._exigir_chave(p_chave);
+  return (select jsonb_build_object('meta', e.meta, 'visto', e.visto, 'agora', now()) from public.palco_estado e where e.sala = p_sala);
 end $$;
 
 -- ---------- painel do orador (exigem a chave) ----------
@@ -694,6 +721,7 @@ alter table public.quiz_perguntas enable row level security;
 alter table public.quiz_gabarito enable row level security;
 alter table public.quiz_respostas enable row level security;
 alter table public.roteiros enable row level security;
+alter table public.palco_estado enable row level security;
 
 create policy ler on public.salas for select to anon, authenticated using (true);
 create policy ler on public.jogadores for select to anon, authenticated using (true);
@@ -726,7 +754,7 @@ create policy enviar on public.intencoes for insert to anon, authenticated with 
 revoke update, truncate, references, trigger on all tables in schema public from anon, authenticated;
 revoke insert on public.salas, public.jogadores, public.quiz_perguntas, public.quiz_gabarito, public.quiz_respostas, public.config_chave from anon, authenticated;
 revoke select on public.quiz_gabarito, public.quiz_respostas, public.config_chave from anon, authenticated;
-revoke all on public.roteiros from anon, authenticated;
+revoke all on public.roteiros, public.palco_estado from anon, authenticated;
 revoke execute on function public._chave_ok(text), public._exigir_chave(text),
   public._antes_palavra(), public._limite_generico(), public._antes_mapa(), public._antes_mural(),
   public._antes_intencao(), public._depois_apoio(), public._norm(text), public._palavrao(text)

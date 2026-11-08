@@ -825,6 +825,7 @@
     if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
     atualizarHud();
     qrFlutuante(sl);
+    pintarSom();
     if (loja) loja.anunciar();
   }
   function avancar() { if (atual && atual.avancar && atual.avancar()) { if (loja) loja.anunciar(); return; } ir(indice + 1); }
@@ -850,6 +851,16 @@
     else if (cmd === 'quiz:revelar') { if (atual && atual.revelarSeAberta) atual.revelarSeAberta(); }
   }
   function alternarPreto() { $('#preto').hidden = !$('#preto').hidden; if (loja) loja.anunciar(); }
+  /* sala zerada pelo painel: o telão esquece participantes e respostas e volta ao slide 1, sem recarregar
+     (recarregar perderia o som já liberado com o clique) */
+  var geracaoVista = null;
+  function verGeracao() {
+    var g = loja.geracao(); if (g == null) return;
+    if (geracaoVista == null) { geracaoVista = g; return; }
+    if (g === geracaoVista) return;
+    geracaoVista = g; qrManual = false; fecharPassagem(true);
+    loja.zerar().then(function () { indice = -1; ir(0, true); avisoTela('Encontro', 'recomeçado do zero'); });
+  }
   function verComando() {
     var s = loja.sala; if (!s) return;
     var seq = s.comando_seq || 0;
@@ -875,7 +886,7 @@
   }
   var Som = (function () {
     var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado', cacheEfeitos = {}, aquecidos = [];
-    var mudo = String(C.ler('cat-mudo', '')) === '1';
+    var mudo = false;   /* a música sempre entra ao abrir o telão; silenciar vale até recarregar a página */
     var mestre = Math.max(0, Math.min(150, +C.ler('cat-volume', '100') || 0)) / 100;
     if (C.ler('cat-volume', '') === '') mestre = 1;
     function nivel(v) { return Math.max(0, Math.min(1, v * mestre)); }
@@ -908,7 +919,7 @@
         mudar('parado');
       },
       alternarMudo: function () {
-        mudo = !mudo; C.guardar('cat-mudo', mudo ? '1' : '');
+        mudo = !mudo;
         if (mudo) { if (au && !au.paused) rampa(0, 700, function () { au.pause(); }); mudar(quer ? 'mudo' : 'parado'); }
         else if (quer) { estado = 'parado'; api.tocar(fonte, alvo); }
         else mudar('parado');
@@ -928,6 +939,10 @@
         if (p && p.then) p.then(function () { if (e.readyState >= 1) agendar(); else e.addEventListener('loadedmetadata', agendar, { once: true }); }).catch(disparar);
         else agendar();
       },
+      aquecer: function () {
+        Object.keys(cacheEfeitos).forEach(function (k) { var e = cacheEfeitos[k]; try { e.muted = true; var p = e.play(); if (p && p.then) p.then(function () { e.pause(); e.currentTime = 0; e.muted = false; }).catch(function () { e.muted = false; }); } catch (x) {} });
+        var a = audio(); if (a.paused && fonte) { try { a.muted = true; var q = a.play(); if (q && q.then) q.then(function () { if (!quer) a.pause(); a.muted = false; }).catch(function () { a.muted = false; }); } catch (x) {} }
+      },
       preCarregar: function (src, curto) {
         if (curto) { if (!cacheEfeitos[src]) { var e = new Audio(); e.preload = 'auto'; e.src = src; cacheEfeitos[src] = e; } return; }
         var a = new Audio(); a.preload = 'auto'; a.src = src; aquecidos.push(a);
@@ -946,7 +961,8 @@
     return api;
   })();
   function pintarSom() {
-    var b = $('#som-bloqueado'); if (b) b.hidden = Som.estado() !== 'bloqueado';
+    var sl = slides && slides[indice], gotaPresa = !!(sl && sl.somGota && Gota.bloqueado());
+    var b = $('#som-bloqueado'); if (b) b.hidden = !(Som.estado() === 'bloqueado' || gotaPresa);
     if (slides) atualizarHud();
   }
   /* efeito: 'vinheta.mp3' toca na transição para a frente; a música do slide entra na metade dela */
@@ -983,7 +999,12 @@
   var Gota = (function () {
     var ctx = null, buf = null, carregando = null, ultimo = 0;
     function contexto() {
-      if (!ctx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; try { ctx = new AC(); } catch (e) { return null; } }
+      if (!ctx) {
+        var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+        try { ctx = new AC(); } catch (e) { return null; }
+        /* sem um clique ou tecla no telão o navegador deixa o áudio suspenso: o botão dourado e o iPad avisam */
+        ctx.onstatechange = function () { pintarSom(); if (loja) loja.anunciar(); };
+      }
       return ctx;
     }
     function carregar() {
@@ -997,6 +1018,7 @@
     }
     return {
       preparar: function () { carregar().catch(function () {}); },
+      bloqueado: function () { return !!ctx && ctx.state !== 'running'; },
       liberar: function () { var c = contexto(); if (c && c.state === 'suspended') c.resume().catch(function () {}); },
       tocar: function (vol) {
         if (Som.mudo()) return;
@@ -1191,9 +1213,43 @@
     $('#login .sec').addEventListener('click', function () { somenteExibir = true; $('#login').hidden = true; atualizarHud(); });
   }
 
+  function dadosPresenca() {
+    var ps = atual && atual.passo ? atual.passo() : { p: 0, n: 1 };
+    return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo(), passagem: passagemAberta,
+      vol: Math.round(Som.mestre() * 100), gota: Gota.bloqueado() ? 'bloqueada' : 'ok', inicio: !$('#inicio-som').hidden,
+      geracao: loja ? loja.geracao() : null, ajuste: ajuste.z + ':' + ajuste.x + ':' + ajuste.y, cheia: !!document.fullscreenElement, preto: !$('#preto').hidden,
+      i: indice, p: ps.p, n: ps.n, q: ps.q || null, qr: qrManual, chave: !!chaveApr };
+  }
+  var pulsoTimer = null, ultimoPulso = 0;
+  function pulsar() {
+    if (C.DEMO || !chaveApr || !loja) return;
+    clearTimeout(pulsoTimer);
+    pulsoTimer = setTimeout(function () {
+      ultimoPulso = Date.now();
+      rpcApr('palco_pulso', { p_meta: dadosPresenca() });
+    }, Math.max(0, 1000 - (Date.now() - ultimoPulso)));
+  }
+
+  /* ---------- um clique ao abrir o telão libera todo o som da apresentação ----------
+     O navegador só deixa tocar som depois de um clique ou tecla no próprio telão. Esse clique vale até
+     recarregar a página: depois dele, todas as músicas e gotas entram sozinhas. Com o atalho do Chrome
+     em modo quiosque (--autoplay-policy=no-user-gesture-required), o som já nasce liberado e este aviso não aparece. */
+  function somLiberado() {
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return true;
+    try { var c = new AC(), ok = c.state === 'running'; if (c.close) c.close(); return ok; } catch (e) { return true; }
+  }
+  function iniciarSom() {
+    var box = $('#inicio-som'); if (box.hidden) return;
+    box.hidden = true;
+    Som.liberar(); Gota.liberar(); Som.aquecer();
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {});
+    pintarSom(); if (loja) loja.anunciar();
+  }
+
   function teclado(ev) {
     if (!$('#login').hidden) return;
     Som.liberar(); Gota.liberar();
+    if (!$('#inicio-som').hidden) { var k0 = ev.key; iniciarSom(); if (k0 === 'f' || k0 === 'F') return; }
     var k = ev.key;
     if (passagemAberta && /^(Escape|ArrowRight|ArrowLeft|PageDown|PageUp| |Enter|Backspace)$/.test(k)) { ev.preventDefault(); fecharPassagem(); return; }
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter') { ev.preventDefault(); avancar(); }
@@ -1264,22 +1320,24 @@
     });
     configurarLogin();
     preCarregar();
+    if (!somLiberado()) $('#inicio-som').hidden = false;
+    $('#inicio-som').addEventListener('click', function (ev) { ev.stopPropagation(); iniciarSom(); });
     document.title = A.titulo + ' · telão';
     loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco',
-      dadosPresenca: function () {
-        var ps = atual && atual.passo ? atual.passo() : { p: 0, n: 1 };
-        return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo(), passagem: passagemAberta,
-          vol: Math.round(Som.mestre() * 100), ajuste: ajuste.z + ':' + ajuste.x + ':' + ajuste.y, cheia: !!document.fullscreenElement, preto: !$('#preto').hidden,
-          i: indice, p: ps.p, n: ps.n, q: ps.q || null, qr: qrManual, chave: !!chaveApr };
-      } });
+      dadosPresenca: dadosPresenca });
+    /* além da presença em tempo real, o telão grava um pulso no banco: o painel sabe que ele está aberto mesmo se a presença falhar */
+    var anunciarOriginal = loja.anunciar;
+    loja.anunciar = function (j) { anunciarOriginal.call(loja, j); pulsar(); };
+    setInterval(pulsar, 8000);
     document.addEventListener('fullscreenchange', function () { if (loja) loja.anunciar(); });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
-      if (tipo === 'sala') { verComando(); return; }
+      if (tipo === 'sala') { verGeracao(); verComando(); return; }
       if (tipo === 'conexao' || tipo === 'jogadores') atualizarHud();
       if (atual && atual.atualizar) atual.atualizar(tipo);
     });
     loja.iniciar().then(function () {
+      verGeracao();
       verComando();
       var inicio = +(C.params.get('slide') || 0) || (loja.sala && loja.sala.slide) || 0;
       if (chaveApr && !C.DEMO) {

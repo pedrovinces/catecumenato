@@ -41,8 +41,24 @@
   }
 
   /* ---------- telão: comandos e estado ---------- */
-  function meta() { return loja && loja.palcoMeta; }
-  function telaoOn() { return C.DEMO ? !!meta() : !!(loja && loja.palcoOnline); }
+  /* o telão aparece por dois caminhos: presença em tempo real e um pulso gravado no banco a cada poucos segundos */
+  var estadoPalco = null, assinaturaEstado = '';
+  function pulsoOn() {
+    if (!estadoPalco || !estadoPalco.visto) return false;
+    var idade = new Date(estadoPalco.agora).getTime() - new Date(estadoPalco.visto).getTime();
+    return idade < 25000 && Date.now() - estadoPalco.recebido < 30000;
+  }
+  function meta() { return (loja && loja.palcoOnline && loja.palcoMeta) || (pulsoOn() ? estadoPalco.meta : null) || (loja && loja.palcoMeta); }
+  function telaoOn() { return C.DEMO ? !!meta() : !!((loja && loja.palcoOnline) || pulsoOn()); }
+  function buscarEstado() {
+    if (!chave || C.DEMO || !loja) return;
+    loja.rpc('orador_estado', { p_chave: chave, p_sala: SALA }).then(function (r) {
+      var d = r && r.data; if (!d) return;
+      d.recebido = Date.now(); estadoPalco = d;
+      var ass = JSON.stringify(d.meta) + (pulsoOn() ? '1' : '0');
+      if (ass !== assinaturaEstado) { assinaturaEstado = ass; if (!loja.palcoOnline || !loja.palcoMeta) pintar(); }
+    });
+  }
   function cmd(c, okMsg) {
     if (!loja.sala) { toast('A sala ainda não existe: abra o telão no computador do projetor e digite a chave.', true); return Promise.resolve(); }
     if (!telaoOn()) toast('Comando enviado, mas o telão está fechado.', true);
@@ -266,7 +282,8 @@
     var f = $('faixa'), aviso = '';
     if (chave && !on && !C.DEMO) aviso = 'O telão está fechado. Abra palco.html no computador do projetor, sala ' + SALA + '.';
     else if (on && m && m.chave === false) aviso = 'O telão abriu sem a chave: os celulares não acompanham. Digite a chave no telão.';
-    else if (on && m && m.som === 'bloqueado') aviso = 'A música está bloqueada pelo navegador do telão: aperte F no teclado do telão ou toque no botão dourado do canto da tela.';
+    else if (on && m && m.inicio) aviso = 'O telão espera um clique para liberar o som da apresentação: clique uma vez na tela do telão. Depois disso, todas as músicas e gotas entram sozinhas.';
+    else if (on && m && (m.som === 'bloqueado' || m.gota === 'bloqueada')) aviso = 'O som do telão está bloqueado pelo navegador (música e gotas): um clique na tela do telão, a tecla F ou um toque no botão dourado do canto libera.';
     else if (on && m && m.preto) aviso = 'O telão está com a tela preta. Toque em Tela preta na aba Telão para voltar.';
     f.textContent = aviso; f.hidden = !aviso;
   }
@@ -276,6 +293,30 @@
   function barra(rot, n, total, cls, forma) {
     return '<div class="barra ' + (cls || '') + '"><div class="enche" style="width:' + pct(n, Math.max(total, 1)) + '%"></div>' + (forma != null ? C.formaSVG(forma) : '<span></span>') +
       '<span class="tx">' + esc(rot) + '</span><span class="n">' + fmt(n) + '<small>' + pct(n, total) + '%</small></span></div>';
+  }
+  function cartaoZerar() {
+    return '<div class="cartao zerar"><h3>Começar do zero</h3><p class="nota">Apaga participantes, selfies, respostas, pontos e intenções desta sala, leva o telão ao slide 1 e faz todos os celulares voltarem ao cadastro completo, com selfie nova.</p>' +
+      '<button class="bt perigo grande" type="button" data-zerar="1">Zerar tudo e começar do início</button></div>';
+  }
+  function pedirZerar() { $('modal-zerar').hidden = false; $('b-zerar-sim').focus(); }
+  function zerarTudo() {
+    $('modal-zerar').hidden = true;
+    var b = $('b-zerar-sim'); b.disabled = true;
+    loja.rpc('sala_limpar', { p_chave: chave, p_sala: SALA }).then(function (r) {
+      b.disabled = false;
+      if (r && r.data) toast('Tudo zerado: o telão voltou ao slide 1 e os celulares pedem cadastro novo.');
+      else toast('Não foi possível zerar: ' + ((r && r.error && r.error.message) || 'sem resposta do banco'), true);
+    });
+  }
+  /* geração nova da sala (zerada aqui ou em outro painel): o painel recomeça junto */
+  var geracaoVista = null;
+  function verGeracao() {
+    var g = loja.geracao(); if (g == null) return;
+    if (geracaoVista == null) { geracaoVista = g; return; }
+    if (g === geracaoVista) return;
+    geracaoVista = g; monitor = null; idxVisto = -1; vendo = null;
+    encontro = { inicio: null, pausa: null, acum: 0 }; guardarEncontro();
+    loja.zerar().then(function () { pintar(); pintarVivo(); });
   }
   function vivoPassagens(s) {
     if (!s.passagens || !s.passagens.length) return '';
@@ -442,6 +483,7 @@
       default: h = cartao(esc(TIPOS[s.tipo] || 'Slide'), '', '<div class="numeros"><div><small>participantes</small><b>' + fmt(nJog()) + '</b></div></div>' + (s.nota ? '<p class="nota">' + esc(s.nota) + '</p>' : ''));
     }
     h += vivoPassagens(s);
+    if (i <= 1) h = cartaoZerar() + h;
     var col = $('col-lado'), topo = col.scrollTop;
     box.innerHTML = h;
     col.scrollTop = topo;
@@ -523,7 +565,7 @@
       cartao('Cronômetro do encontro', '', '<div class="grade2"><button class="bt" type="button" id="b-cron">Iniciar ou pausar</button><button class="bt" type="button" id="b-cron-zerar">Zerar</button></div><p class="nota">Ele começa sozinho quando o telão sai do slide 1 e compara o tempo com o planejado no roteiro.</p>') +
       cartao('Sessão', '<span id="t-sessao"></span>',
         '<button class="bt" type="button" id="b-encerrar">Encerrar: apagar fotos e intenções</button>' +
-        '<button class="bt perigo" type="button" id="b-limpar">Recomeçar a sala (ensaio)</button>' +
+        '<button class="bt perigo" type="button" data-zerar="1">Zerar tudo e começar do início</button>' +
         '<div class="grade3"><a class="bt" href="palco.html' + esc(location.search) + '" target="_blank" rel="noopener">Abrir telão</a><a class="bt" href="index.html' + esc(location.search) + '" target="_blank" rel="noopener">Página do celular</a><button class="bt" type="button" id="b-sair">Sair</button></div>');
     var rz = $('r-zoom'), rv = $('r-vol'), tz = null, tv = null;
     rz.addEventListener('input', function () { $('v-zoom').textContent = rz.value + '%'; clearTimeout(tz); tz = setTimeout(function () { var a = ajusteAtual(); a.z = +rz.value; enviarAjuste(a); }, 250); });
@@ -533,10 +575,6 @@
     $('b-encerrar').addEventListener('click', function () {
       if (!confirm('Apagar as selfies e as intenções desta sala? Os pontos continuam.')) return;
       loja.rpc('sala_encerrar', { p_chave: chave, p_sala: SALA }).then(function (r) { var d = r && r.data; toast(d ? d.fotos_apagadas + ' fotos e ' + d.intencoes_apagadas + ' intenções apagadas.' : 'Falha ao encerrar.', !d); });
-    });
-    $('b-limpar').addEventListener('click', function () {
-      if (!confirm('Recomeçar a sala? Participantes, respostas e pontos vão para um arquivo, as fotos são apagadas e todos precisam entrar de novo. Use somente em ensaio.')) return;
-      loja.rpc('sala_limpar', { p_chave: chave, p_sala: SALA }).then(function (r) { toast(r && r.data ? 'Sala recomeçada.' : 'Falha ao recomeçar.', !(r && r.data)); cmd('recarregar'); });
     });
     $('b-sair').addEventListener('click', function () { if (!confirm('Sair do painel neste iPad?')) return; C.guardar('cat-chave', ''); C.guardar('cat-roteiro-' + C.AULA_ID, ''); history.replaceState(null, '', location.pathname + location.search); location.reload(); });
     $('b-mudo2').addEventListener('click', alternarMudo);
@@ -595,9 +633,11 @@
   function pintar() {
     var i = indiceTelao();
     if (i !== idxVisto) {
+      var anterior = idxVisto;
       idxVisto = i; slideDesde = Date.now();
       if (vendo === i) vendo = null;
-      if (i >= 1 && !encontro.inicio) { encontro = { inicio: Date.now(), pausa: null, acum: 0 }; guardarEncontro(); }
+      /* o cronômetro do encontro começa quando o telão sai do slide 1 */
+      if (anterior === 0 && i >= 1 && !encontro.inicio) { encontro = { inicio: Date.now(), pausa: null, acum: 0 }; guardarEncontro(); }
       if (vendo == null) { $('previa').hidden = true; pintarRoteiro(true); } else previa(vendo);
       lacoMonitor();
     } else pintarRoteiro(false);
@@ -644,7 +684,7 @@
       $('login').hidden = true; $('app').hidden = false;
       if (!loja.sala) loja.rpc('sala_garantir', { p_chave: v, p_sala: SALA, p_aula: C.AULA_ID });
       return Promise.all([carregarRoteiro(), carregarGabarito()]).then(function () {
-        montarLista(); montarApoio(); montarTelao(); pintarRoteiro(true); pintar(); lacoMonitor();
+        verGeracao(); montarLista(); montarApoio(); montarTelao(); pintarRoteiro(true); pintar(); lacoMonitor();
       });
     });
   }
@@ -675,6 +715,9 @@
     /* cliques delegados: lista, prévia, passagens, ações do quiz, comandos do telão, ajuste */
     document.addEventListener('click', function (ev) {
       var t = ev.target.closest ? ev.target.closest('button, .it') : null; if (!t) return;
+      if (t.dataset.zerar) { pedirZerar(); return; }
+      if (t.id === 'b-zerar-sim') { zerarTudo(); return; }
+      if (t.id === 'b-zerar-nao' || t.id === 'modal-zerar') { $('modal-zerar').hidden = true; return; }
       if (t.dataset.ir != null) { ev.stopPropagation(); var n = +t.dataset.ir; cmd('ir:' + n, 'Telão indo para o slide ' + (n + 1) + '.'); vendo = null; $('previa').hidden = true; return; }
       if (t.id === 'b-voltar-atual') { previa(indiceTelao()); return; }
       if (t.classList.contains('it')) { previa(+t.dataset.i); return; }
@@ -700,6 +743,7 @@
     document.addEventListener('visibilitychange', manterAcesa);
     document.addEventListener('click', manterAcesa, { once: true });
     document.addEventListener('touchend', manterAcesa, { once: true });
+    setInterval(buscarEstado, 2500);
     setInterval(function () {
       relogios();
       var r = $('q-rest'), s = slides[indiceTelao()];
@@ -713,6 +757,7 @@
     loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'intencoes'], intervalo: 8000, verPresenca: true });
     loja.ouvir(function (t) {
       if (!chave) return;
+      if (t === 'sala') verGeracao();
       if (t === 'sala' || t === 'presenca' || t === 'carga') { pintar(); return; }
       if (t === 'jogadores') { pintarBarra(); pintarTelao(); }
       var s = slides[indiceTelao()];

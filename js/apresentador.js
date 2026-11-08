@@ -11,9 +11,18 @@
     var tipos = { capa: 'Capa', entrada: 'Entrada (QR)', nuvem: 'Nuvem', foto: 'Foto', sacramentos: 'Sacramentos', texto: 'Texto', regua: 'Régua', citacao: 'Citação', mito: 'Mito ou verdade', tres: 'Resumo', mapa: 'Mapa do corpo', rito: 'Rito', caca: 'Caça', efeitos: 'Efeitos', eclesial: 'Gotas', titulo: 'Título', testemunho: 'Testemunho', relato: 'Relato', comparar: 'Antes e depois', mural: 'Mural', 'quiz-intro': 'Quiz', quiz: 'Pergunta ' + s.ordem, ranking: 'Placar', podio: 'Pódio', intencoes: 'Intenções', final: 'Final' };
     return { tipo: tipos[s.tipo] || s.tipo, texto: s.tipo === 'quiz' ? ((loja.pergunta(s.ordem) || {}).texto || '') : String(t) };
   }
+  /* reserva para quando a presença em tempo real falhar: o pulso que o telão grava no banco */
+  var estadoPalco = null;
+  function pulsoOn() { return !!(estadoPalco && estadoPalco.visto && new Date(estadoPalco.agora) - new Date(estadoPalco.visto) < 25000 && Date.now() - estadoPalco.recebido < 30000); }
+  function telaoOn() { return C.DEMO || !!loja.palcoOnline || pulsoOn(); }
+  function buscarEstado() {
+    if (!chave || C.DEMO) return;
+    loja.rpc('orador_estado', { p_chave: chave, p_sala: SALA }).then(function (r) { if (r && r.data) { estadoPalco = r.data; estadoPalco.recebido = Date.now(); pintarPresenca(); } });
+  }
+  setInterval(buscarEstado, 4000);
   function cmd(c) {
     if (!loja.sala) { aviso('A sala ainda não existe. Abra o telão (palco.html) no computador do projetor e digite a chave.', true); return Promise.resolve(); }
-    if (!loja.palcoOnline && !C.DEMO) aviso('Comando enviado, mas o telão está fechado. Abra palco.html no computador do projetor, na sala ' + SALA + '.', true);
+    if (!telaoOn()) aviso('Comando enviado, mas o telão está fechado. Abra palco.html no computador do projetor, na sala ' + SALA + '.', true);
     return loja.rpc('comandar', { p_chave: chave, p_sala: SALA, p_comando: c }).then(function (r) {
       if (r && r.error) aviso(/chave/.test(r.error.message) ? 'Chave recusada.' : 'Falha ao enviar: ' + r.error.message, true);
       return r;
@@ -21,10 +30,10 @@
   }
   function pintarPresenca() {
     var p = $('presenca'); if (!p) return;
-    var on = C.DEMO || !!loja.palcoOnline;
+    var on = telaoOn();
     p.className = 'status' + (on ? ' on' : '');
     p.querySelector('span').textContent = on ? 'telão conectado' : 'telão fechado';
-    var m = loja.palcoMeta, nomes = { auto: 'Automático', '169': '16:9', '43': '4:3 com faixas', '43c': '4:3 compensado' };
+    var m = loja.palcoMeta || (pulsoOn() ? estadoPalco.meta : null), nomes = { auto: 'Automático', '169': '16:9', '43': '4:3 com faixas', '43c': '4:3 compensado' };
     var fa = $('formato-atual');
     if (fa) fa.textContent = C.DEMO ? 'demonstração' : !on ? 'telão fechado' : m && m.formato ?
       nomes[m.formato] + (m.formato === 'auto' ? ' (agora ' + (m.layout === '43' ? '4:3' : '16:9') + ')' : '') + (m.teste ? ' · teste aberto' : '') : 'telão conectado';
@@ -110,7 +119,10 @@
     $('link-celular').href = 'index.html' + location.search;
     $('link-orador').href = 'orador.html' + location.search;
     loja = new C.Loja({ tabelas: ['jogadores'], intervalo: 8000, verPresenca: true });
-    loja.ouvir(function (t) { if (t === 'sala' || t === 'carga' || t === 'jogadores') pintarEstado(); if (t === 'presenca' || t === 'carga') pintarPresenca(); });
+    var geracaoVista = null;
+    loja.ouvir(function (t) {
+      if (t === 'sala') { var g = loja.geracao(); if (g != null && geracaoVista != null && g !== geracaoVista) loja.zerar(); if (g != null) geracaoVista = g; }
+      if (t === 'sala' || t === 'carga' || t === 'jogadores') pintarEstado(); if (t === 'presenca' || t === 'carga') pintarPresenca(); });
     loja.iniciar().then(function () {
       montarLista(); pintarEstado();
       var salva = C.DEMO ? 'demo' : C.ler('cat-chave', '');
@@ -140,8 +152,7 @@
     $('b-limpar').addEventListener('click', function () {
       if (!confirm('Recomeçar a sala? Os participantes, respostas e pontos vão para um arquivo, as fotos são apagadas e todos precisam entrar de novo.')) return;
       loja.rpc('sala_limpar', { p_chave: chave, p_sala: SALA }).then(function (r) {
-        aviso(r && r.data ? 'Sala recomeçada. Arquivo: ' + r.data : 'Falha ao recomeçar.', !(r && r.data));
-        cmd('recarregar');
+        aviso(r && r.data ? 'Sala recomeçada: o telão voltou ao slide 1 e os celulares pedem cadastro novo.' : 'Falha ao recomeçar.', !(r && r.data));
       });
     });
     $('b-sair').addEventListener('click', function () { C.guardar('cat-chave', ''); location.reload(); });

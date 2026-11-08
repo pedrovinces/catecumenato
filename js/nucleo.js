@@ -335,6 +335,16 @@
     try { var r = pres.track(Object.assign({ papel: s.opts.presenca }, extra)); if (r && r.catch) r.catch(function () {}); } catch (e) {}
   };
 
+  /* sala recomeçada do zero (geração nova): esquece tudo o que estava na memória e lê de novo */
+  Loja.prototype.zerar = function () {
+    var s = this;
+    s.jogadores = {}; s.palavras = []; s.votos = []; s.regua = []; s.mapa = []; s.toques = [];
+    s.mural = []; s.intencoes = []; s.vistos = {};
+    if (s.demo || !s.cliente) { s.avisar('carga'); return Promise.resolve(); }
+    return s._carregar(false);
+  };
+  Loja.prototype.geracao = function () { return this.sala && this.sala.geracao != null ? +this.sala.geracao : null; };
+
   Loja.prototype.enviar = function (tabela, dados) {
     var s = this;
     dados.sala = SALA; dados.aparelho = APARELHO;
@@ -445,7 +455,7 @@
     iniciar: function (s) {
       s.online = true; s.demo = true;
       Demo.ponte(s);
-      s.sala = { id: SALA, aula: AULA_ID, slide: 0, etapa: 'espera', item: 0, quiz_ordem: null, quiz_aberta_em: null, quiz_tempo: 20, quiz_revelada: false, quiz_correta: null, comando_seq: 0 };
+      s.sala = { id: SALA, aula: AULA_ID, slide: 0, etapa: 'espera', item: 0, quiz_ordem: null, quiz_aberta_em: null, quiz_tempo: 20, quiz_revelada: false, quiz_correta: null, comando_seq: 0, geracao: 0 };
       s.perguntas = (window.DEMO_QUIZ || []).slice();
       var D = window.DEMO_DADOS || {};
       if (s.opts.semDadosDemo) { setTimeout(function () { s.avisar('carga'); }, 0); return Promise.resolve(); }
@@ -538,7 +548,10 @@
         case 'mural_pendentes': return { data: s.mural.concat([{ id: 'p1', texto: 'Meu avô já recebeu uma vez; pode receber de novo?', aprovada: false, oculta: false, respondida: false, apoios: 0, criado: new Date().toISOString() }]) };
         case 'mural_moderar': return { data: null };
         case 'sala_encerrar': return { data: { fotos_apagadas: 0, intencoes_apagadas: s.intencoes.length } };
-        case 'sala_limpar': return { data: SALA + '-arq-demo' };
+        case 'sala_limpar':
+          Object.assign(sala, { slide: 0, etapa: 'espera', item: 0, quiz_ordem: null, quiz_aberta_em: null, quiz_revelada: false, quiz_correta: null, quiz_valor: null, quiz_comentario: null, geracao: (sala.geracao || 0) + 1 });
+          Demo.pontos = {}; Demo.minhas = {};
+          aviso(); return { data: SALA + '-arq-demo' };
         default: return { data: null };
       }
     }

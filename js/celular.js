@@ -68,12 +68,14 @@
       if (e) { msg($('m-cad'), e, 'err'); return; }
       if (!fotoNova) { msg($('m-cad'), 'Tire a selfie para entrar: é ela que identifica você no telão.', 'err'); return; }
       var b = $('btn-entrar'); b.disabled = true; msg($('m-cad'), 'Entrando…');
+      Plic.liberar();
       loja.rpc('jogador_entrar', { p_sala: SALA, p_aparelho: C.APARELHO, p_apelido: a, p_foto: fotoNova }).then(function (r) {
         b.disabled = false;
         var d = r && r.data;
         if (!d || !d.ok) { msg($('m-cad'), (d && d.erro) || C.traduzErro(r && r.error && r.error.message), 'err'); return; }
         eu = { aparelho: C.APARELHO, apelido: d.apelido, cor: d.cor, foto: fotoNova };
-        salvarL('eu', eu);
+        salvarL('eu', eu); if (loja.geracao() != null) salvarL('geracao', loja.geracao());
+        Plic.tocar(); try { if (navigator.vibrate) navigator.vibrate(35); } catch (x) {}
         if (d.apelido !== a) msg($('m-cad'), 'Esse apelido já existia. Você ficou como “' + d.apelido + '”.', 'ok');
         pintarEu(); atualizarPlacar(); seguir(true);
       });
@@ -101,6 +103,54 @@
       im.onerror = function () { URL.revokeObjectURL(url); falha(new Error('img')); };
       im.src = url;
     });
+  }
+
+  /* ---------- som da gota no celular: o toque em Entrar libera o áudio, e a gota pinga quando o cadastro entra ---------- */
+  var Plic = (function () {
+    var ctx = null, buf = null, carregando = null;
+    function contexto() {
+      if (!ctx) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; try { ctx = new AC(); } catch (e) { return null; } }
+      return ctx;
+    }
+    function carregar() {
+      if (carregando) return carregando;
+      var c = contexto(); if (!c) return Promise.reject(new Error('sem áudio'));
+      var v = (window.CATEQUESE_CFG || {}).versao;
+      carregando = fetch('audio/gota.mp3' + (v ? '?v=' + v : '')).then(function (r) { return r.arrayBuffer(); })
+        .then(function (b) { return new Promise(function (ok, falha) { c.decodeAudioData(b, ok, falha); }); })
+        .then(function (b) { buf = b; }).catch(function (e) { carregando = null; throw e; });
+      return carregando;
+    }
+    return {
+      liberar: function () {
+        var c = contexto(); if (!c) return;
+        try { if (c.state === 'suspended') c.resume(); var sil = c.createBufferSource(); sil.buffer = c.createBuffer(1, 1, 22050); sil.connect(c.destination); sil.start(0); } catch (e) {}
+        carregar().catch(function () {});
+      },
+      tocar: function () {
+        var c = contexto(); if (!c) return;
+        carregar().then(function () {
+          var src = c.createBufferSource(), g = c.createGain();
+          src.buffer = buf; src.playbackRate.value = 0.92; g.gain.value = 0.9;
+          src.connect(g); g.connect(c.destination); src.start();
+        }).catch(function () {});
+      }
+    };
+  })();
+
+  /* ---------- encontro recomeçado do zero no painel: cadastro completo de novo ---------- */
+  function verificarReinicio() {
+    var g = loja.geracao(), minha = lerL('geracao', null);
+    if (g == null) return;
+    if (!eu) return;
+    if (minha == null || minha === '') { salvarL('geracao', g); return; }
+    if (+minha === g) return;
+    eu = null; limparLocal(); salvarL('eu', null); salvarL('geracao', '');
+    fotoNova = null; $('apelido').value = ''; previa();
+    etapaAtual = null; itemAtual = null; ordemAtual = null; vistoQuiz = null;
+    pintarEu(); mostrar('v-cadastro');
+    msg($('m-cad'), 'O encontro recomeçou do início. Faça o cadastro de novo, com a selfie.', 'ok');
+    window.scrollTo(0, 0);
   }
 
   /* ---------- seguir o telão ---------- */
@@ -522,7 +572,7 @@
     $('folha').addEventListener('click', function (ev) { if (ev.target === this) fecharFolha(); });
     $('eu-editar').addEventListener('click', function () { mostrar('v-cadastro'); });
     loja.ouvir(function (tipo) {
-      if (tipo === 'sala' || tipo === 'carga') seguir(false);
+      if (tipo === 'sala' || tipo === 'carga') { verificarReinicio(); seguir(false); }
       if (tipo === 'mural' || tipo === 'carga') { if (!$('folha').hidden) listaMural(); }
       if (tipo === 'conexao') status();
     });
@@ -530,7 +580,8 @@
       if (eu && !loja.demo) {
         /* confere se o cadastro existe nesta sala (ensaio recomeçado, por exemplo) */
         loja.cliente.from('jogadores').select('aparelho').eq('sala', SALA).eq('aparelho', C.APARELHO).maybeSingle().then(function (r) {
-          if (!r.data) { eu = null; limparLocal(); }
+          if (!r.data) { eu = null; limparLocal(); salvarL('geracao', ''); }
+          else if (loja.geracao() != null) salvarL('geracao', loja.geracao());
           pintarEu(); if (eu) atualizarPlacar(); seguir(true);
         });
       } else { pintarEu(); seguir(true); }

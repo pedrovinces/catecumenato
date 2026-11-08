@@ -13,8 +13,8 @@
 <link rel="icon" href="img/icone.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/orador-180.png">
 <link rel="manifest" href="orador.webmanifest">
-<link rel="stylesheet" href="css/marca.css?v=20261107q">
-<link rel="stylesheet" href="css/orador.css?v=20261107q">
+<link rel="stylesheet" href="css/marca.css?v=20261107s">
+<link rel="stylesheet" href="css/orador.css?v=20261107s">
 </head>
 <body>
 
@@ -80,13 +80,26 @@
     <button class="bt ouro nav-avancar" id="b-avancar" type="button"><span><b id="tit-avancar">Avançar</b><small id="sub-avancar"></small></span><span class="seta">▶</span></button>
   </footer>
   <div id="toast" class="toast" aria-live="polite"></div>
+  <div id="modal-zerar" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="zerar-tit">
+    <div class="modal-cartao">
+      <div class="kick">Atenção</div>
+      <h2 id="zerar-tit">Zerar tudo e começar do início?</h2>
+      <ul>
+        <li>Todos os participantes saem; cada celular volta ao cadastro, com apelido e selfie novos.</li>
+        <li>Palavras, votos, toques, respostas do quiz, pontos e intenções desta sala são zerados. Os dados vão para um arquivo fora do painel; as selfies e os nomes das intenções são apagados.</li>
+        <li>O telão volta ao slide 1, sem recarregar a página.</li>
+        <li>O cronômetro do encontro zera.</li>
+      </ul>
+      <div class="grade2"><button class="bt" type="button" id="b-zerar-nao">Cancelar</button><button class="bt perigo cheio" type="button" id="b-zerar-sim">Zerar e recomeçar</button></div>
+    </div>
+  </div>
 </div>
 
 <script>window.MANTER_CHAVE_NO_LINK = true;</script>
-<script src="js/config.js?v=20261107q"></script>
-<script src="vendor/supabase.js?v=20261107q"></script>
-<script src="vendor/qrcode.js?v=20261107q"></script>
-<script src="js/nucleo.js?v=20261107q"></script>
-<script src="js/orador.js?v=20261107q"></script>
+<script src="js/config.js?v=20261107s"></script>
+<script src="vendor/supabase.js?v=20261107s"></script>
+<script src="vendor/qrcode.js?v=20261107s"></script>
+<script src="js/nucleo.js?v=20261107s"></script>
+<script src="js/orador.js?v=20261107s"></script>
 </body>
 </html>
