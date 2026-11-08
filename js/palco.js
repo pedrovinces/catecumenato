@@ -892,9 +892,14 @@
     var ctx = null, buffers = {}, pedidos = {}, faixa = null;
     var fonte = null, alvo = 0.6, quer = false, estado = 'parado', vez = 0;
     var mudo = false;   /* a música sempre entra ao abrir o telão; silenciar vale até recarregar a página */
-    var mestre = Math.max(0, Math.min(150, +C.ler('cat-volume', '100') || 0)) / 100;
+    var mestre = Math.max(0, Math.min(1.2, (+C.ler('cat-volume', '100') || 0) / 100));
     if (C.ler('cat-volume', '') === '') mestre = 1;
-    function nivel(v) { return Math.max(0, Math.min(1, v * mestre)); }
+    var efeitos = [];   /* vinhetas tocando agora, para o volume valer também no meio delas */
+    /* O ouvido percebe volume em escala logarítmica: cada 10% do painel vale 3 dB (100% = trilha como
+       programada, 90% = -3 dB, 50% = -15 dB, 10% = -27 dB, 0% = silêncio). Na escala linear antiga,
+       baixar de 100% para 90% mudava menos de 1 dB e ninguém notava. */
+    function fator() { return mestre <= 0 ? 0 : Math.pow(10, (mestre * 100 - 100) * 0.015); }
+    function nivel(v) { return Math.max(0, Math.min(1, v * fator())); }
     function contexto() {
       if (!ctx) {
         var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
@@ -982,8 +987,10 @@
           clearTimeout(limite);
           if (feito) return;
           if (c.state !== 'running') { disparar(); return; }
-          var g = c.createGain(); g.gain.value = nivel(vol == null ? 1 : vol); g.connect(c.destination);
+          var v0 = vol == null ? 1 : vol, g = c.createGain(); g.gain.value = nivel(v0); g.connect(c.destination);
           var n = c.createBufferSource(); n.buffer = buf; n.connect(g); n.start();
+          var ef = { ganho: g, vol: v0 }; efeitos.push(ef);
+          n.onended = function () { var k = efeitos.indexOf(ef); if (k >= 0) efeitos.splice(k, 1); };
           setTimeout(disparar, buf.duration * 500);
         }).catch(function () { clearTimeout(limite); disparar(); });
       },
@@ -992,9 +999,11 @@
       estado: function () { return estado; },
       mudo: function () { return mudo; },
       mestre: function () { return mestre; },
+      fator: fator,
       volume: function (pc) {
-        mestre = Math.max(0, Math.min(150, pc)) / 100; C.guardar('cat-volume', String(Math.round(mestre * 100)));
-        if (faixa) rampa(faixa.ganho, nivel(alvo), 0.4);
+        mestre = Math.max(0, Math.min(120, pc)) / 100; C.guardar('cat-volume', String(Math.round(mestre * 100)));
+        if (faixa) rampa(faixa.ganho, nivel(alvo), 0.12);
+        efeitos.forEach(function (ef) { rampa(ef.ganho, nivel(ef.vol), 0.12); });
         avisoTela('Volume', Math.round(mestre * 100) + '%');
         if (loja) loja.anunciar();
       },
@@ -1061,7 +1070,7 @@
         var agora = c.currentTime; if (agora - ultimo < 0.04) return; ultimo = agora;
         var src = c.createBufferSource(), g = c.createGain();
         src.buffer = buf; src.playbackRate.value = 0.8 + Math.random() * 0.45;
-        g.gain.value = Math.min(1, (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3) * Som.mestre());
+        g.gain.value = Math.min(1, (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3) * Som.fator());
         src.connect(g); g.connect(c.destination); src.start();
       }
     };

@@ -95,7 +95,7 @@
   function tipoDoRotulo(r) {
     var x = (r || '').toLowerCase();
     if (!x) return 'nota';
-    if (/^(fale|oração)/.test(x)) return 'fala';
+    if (/^(fale|oração|leia)/.test(x)) return 'fala';
     if (/^na tela/.test(x)) return 'tela';
     if (/^no celular/.test(x)) return 'celular';
     if (/^(música|som)/.test(x)) return 'som';
@@ -104,6 +104,8 @@
   }
   function passoDoRotulo(r) {
     var x = (r || '').toLowerCase();
+    var pg = x.match(/^leia.*página (\d+) de/);   /* textos em páginas (testamento do Igor): destaca a página no telão */
+    if (pg) return +pg[1] - 1;
     if (!/^fale/.test(x)) return null;
     if (/terceiro/.test(x)) return 3;
     if (/segundo/.test(x)) return 2;
@@ -321,7 +323,7 @@
     var mudo = !!(m && m.mudo);
     $('b-mudo').innerHTML = mudo ? ICONES.mudo : ICONES.som; $('b-mudo').classList.toggle('on', mudo);
     $('b-mudo').setAttribute('aria-label', mudo ? 'Ligar o som do telão' : 'Silenciar o telão');
-    $('vol-txt').textContent = (m && m.vol != null ? m.vol : 100) + '%';
+    $('vol-txt').textContent = volAtual() + '%';
     var f = $('faixa'), aviso = '';
     if (chave && !on && !C.DEMO) aviso = 'O telão está fechado. Abra palco.html no computador do projetor, sala ' + SALA + '.';
     else if (on && m && m.chave === false) aviso = 'O telão abriu sem a chave: os celulares não acompanham. Digite a chave no telão.';
@@ -598,8 +600,8 @@
         '<span></span><button class="bt" type="button" data-aj="y:1" aria-label="Descer">▼</button><span></span></div>' +
         '<div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:8px"><button class="bt" type="button" data-aj="reset">Restaurar 100% e centro</button><p class="nota">Cada toque move 1% da tela. Abra o teste de tela para encaixar a moldura dourada nas bordas da projeção.</p></div></div>') +
       cartao('Som do telão', '<span id="t-som"></span>',
-        '<div class="faixa-zoom"><button class="ic" type="button" id="b-mudo2"></button><input type="range" id="r-vol" min="0" max="150" step="5" value="100" aria-label="Volume do telão"><span class="valor" id="v-vol">100%</span></div>' +
-        '<p class="nota">100% é o volume programado de cada trilha; acima disso reforça as músicas de fundo. Confira também o volume do computador e da caixa de som.</p>') +
+        '<div class="faixa-zoom"><button class="ic" type="button" id="b-mudo2"></button><input type="range" id="r-vol" min="0" max="120" step="5" value="100" aria-label="Volume do telão"><span class="valor" id="v-vol">100%</span></div>' +
+        '<p class="nota">Cada toque em − ou + muda 10%, o equivalente a 3 dB: uma diferença que o ouvido percebe. 100% é o volume programado de cada trilha; 110% e 120% reforçam as músicas de fundo. 0% silencia. Confira também o volume do computador e da caixa de som.</p>') +
       cartao('Tela cheia', '<span id="t-cheia"></span>',
         '<p class="nota">O navegador só deixa entrar em tela cheia com um toque no próprio computador: aperte <b>F</b> no teclado do telão. Para abrir o telão já em tela cheia e com o som liberado, crie um atalho do Chrome com este comando:</p>' +
         '<p class="nota"><b>Windows</b> (destino do atalho):<br><code>"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --kiosk --autoplay-policy=no-user-gesture-required ' + esc(url) + '</code></p>' +
@@ -612,7 +614,7 @@
         '<div class="grade3"><a class="bt" href="palco.html' + esc(location.search) + '" target="_blank" rel="noopener">Abrir telão</a><a class="bt" href="index.html' + esc(location.search) + '" target="_blank" rel="noopener">Página do celular</a><button class="bt" type="button" id="b-sair">Sair</button></div>');
     var rz = $('r-zoom'), rv = $('r-vol'), tz = null, tv = null;
     rz.addEventListener('input', function () { $('v-zoom').textContent = rz.value + '%'; clearTimeout(tz); tz = setTimeout(function () { var a = ajusteAtual(); a.z = +rz.value; enviarAjuste(a); }, 250); });
-    rv.addEventListener('input', function () { $('v-vol').textContent = rv.value + '%'; clearTimeout(tv); tv = setTimeout(function () { cmd('volume:' + rv.value); }, 250); });
+    rv.addEventListener('input', function () { pedirVolume(+rv.value); });
     $('b-cron').addEventListener('click', alternarEncontro);
     $('b-cron-zerar').addEventListener('click', function () { if (!confirm('Zerar o cronômetro do encontro?')) return; encontro = { inicio: null, pausa: null, acum: 0 }; guardarEncontro(); relogios(); });
     $('b-encerrar').addEventListener('click', function () {
@@ -640,7 +642,7 @@
     var a = ajusteAtual();
     $('t-ajuste').textContent = 'tamanho ' + a.z + '% · ' + (a.x > 0 ? '+' : '') + a.x + ' / ' + (a.y > 0 ? '+' : '') + a.y;
     if (document.activeElement !== $('r-zoom')) { $('r-zoom').value = a.z; $('v-zoom').textContent = a.z + '%'; }
-    var vol = m.vol != null ? m.vol : 100;
+    var vol = volAtual();
     if (document.activeElement !== $('r-vol')) { $('r-vol').value = vol; $('v-vol').textContent = vol + '%'; }
     var est = m.som, mudo = !!m.mudo;
     $('t-som').textContent = !on ? '' : est === 'tocando' ? 'tocando' : est === 'bloqueado' ? 'bloqueada pelo navegador' : mudo ? 'desligado' : 'pronto';
@@ -649,7 +651,31 @@
     $('t-sessao').textContent = fmt(nJog()) + ' participantes · sala ' + SALA;
   }
   function alternarMudo() { var m = meta(); cmd('mudo:' + (m && m.mudo ? '0' : '1'), m && m.mudo ? 'Som ligado no telão.' : 'Telão silenciado.'); }
-  function mudarVolume(d) { var m = meta(), v = (m && m.vol != null ? m.vol : 100) + d; v = Math.max(0, Math.min(150, v)); cmd('volume:' + v); $('vol-txt').textContent = v + '%'; }
+  /* Volume: o painel guarda o valor pedido e soma os toques sobre ele, sem esperar o telão confirmar
+     (a confirmação chega pela presença, com atraso de 1 a 2 segundos). Toques seguidos viram um único
+     envio a cada 250 ms, sempre com o valor final. */
+  var VOL_MAX = 120, volPedido = null, envioVol = { t: null, ultimo: 0 };
+  function volAtual() {
+    var m = meta(), mv = m && m.vol != null ? Math.min(VOL_MAX, m.vol) : 100;
+    if (volPedido) {
+      if (mv === volPedido.v || Date.now() - volPedido.desde > 6000) volPedido = null;
+      else return volPedido.v;
+    }
+    return mv;
+  }
+  function pintarVolume(v) {
+    $('vol-txt').textContent = v + '%';
+    var rv = $('r-vol'); if (rv && document.activeElement !== rv) rv.value = v;
+    if ($('v-vol')) $('v-vol').textContent = v + '%';
+  }
+  function pedirVolume(v) {
+    v = Math.max(0, Math.min(VOL_MAX, Math.round(v)));
+    volPedido = { v: v, desde: Date.now() };
+    pintarVolume(v);
+    clearTimeout(envioVol.t);
+    envioVol.t = setTimeout(function () { envioVol.ultimo = Date.now(); cmd('volume:' + volPedido.v); }, Math.max(0, 250 - (Date.now() - envioVol.ultimo)));
+  }
+  function mudarVolume(d) { pedirVolume(volAtual() + d); }
 
   /* ---------- aba Apoio ---------- */
   function montarApoio() {

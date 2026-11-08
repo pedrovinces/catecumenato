@@ -12,6 +12,8 @@
 html,body{height:100%;background:var(--fundo);overscroll-behavior:none;overflow:hidden}
 body{font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 button{font-family:var(--fonte);cursor:pointer;color:inherit}
+/* toques seguidos no mesmo botão (volume, avançar) não podem virar o "duplo toque para ampliar" do Safari */
+html,body,button,a,input,label,.bt,.ic,.pill{touch-action:manipulation}
 .kick{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ouro);font-weight:500}
 .msg{min-height:20px;color:var(--erro);font-size:14px;margin:0}
 
