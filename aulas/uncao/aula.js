@@ -200,7 +200,8 @@ window.AULA = {
     { tipo: 'nuvem', id: 'final', kicker: 'Última palavra', comparar: 'abertura',
       pergunta: 'E agora? Em uma palavra: o que é a Unção dos Enfermos para você?',
       passos: ['Coleta'],
-      nota: 'Mesma pergunta da abertura, com outra moldura.' },
+      musica: 'suspense.mp3', musicaQuando: 'resposta', volume: 0.55,
+      nota: 'Mesma pergunta da abertura, com outra moldura. A trilha de suspense começa com a primeira palavra, como no slide 3.' },
 
     { tipo: 'comparar', a: 'abertura', b: 'final', titulo: 'Antes e depois',
       nota: 'Leia os percentuais: quanto da sala falava de fim na abertura e quanto fala agora.' },
