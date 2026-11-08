@@ -468,6 +468,20 @@
     return {};
   };
 
+  /* relato longo: título, texto em parágrafos e autor à esquerda; fotos em faixa à direita */
+  R.relato = function (sl, el) {
+    var f = sl.fotos || [], ps = sl.paragrafos || [];
+    el.innerHTML = '<div class="relato"><div class="col">' + (sl.kicker ? '<div class="kicker">' + esc(sl.kicker) + '</div>' : '') +
+      '<h1 class="titulo">' + tit(sl.titulo) + '</h1><div class="texto">' + ps.map(function (t, i) {
+        return '<p>' + (i === 0 ? '<span class="aspa">“</span>' : '') + esc(t) + (i === ps.length - 1 ? '”' : '') + '</p>';
+      }).join('') + '</div>' +
+      '<div class="autor">' + esc(sl.autor || '') + '</div><div class="papel">' + esc([sl.papel, sl.data].filter(Boolean).join(' · ')) + '</div></div>' +
+      '<div class="fotos">' + f.map(function (x) {
+        return '<div class="f' + (/-pb\./.test(x) ? ' pb' : '') + '" style="background-image:url(\'' + img(x) + '\')"></div>';
+      }).join('') + '</div></div>';
+    return {};
+  };
+
   R.comparar = function (sl, el) {
     var grupos = gruposDe(sl.a);
     el.innerHTML = '<div class="comp"><div class="kicker">' + esc(sl.titulo) + '</div><div class="duas">' +

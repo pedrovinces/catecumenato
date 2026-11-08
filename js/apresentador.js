@@ -8,7 +8,7 @@
   function rotulo(s, i) {
     var t = s.titulo || s.pergunta || s.legenda || s.citacao || s.texto || s.kicker || '';
     if (Array.isArray(t)) t = t.join(' ');
-    var tipos = { capa: 'Capa', entrada: 'Entrada (QR)', nuvem: 'Nuvem', foto: 'Foto', sacramentos: 'Sacramentos', texto: 'Texto', regua: 'Régua', citacao: 'Citação', mito: 'Mito ou verdade', tres: 'Resumo', mapa: 'Mapa do corpo', rito: 'Rito', caca: 'Caça', efeitos: 'Efeitos', eclesial: 'Gotas', titulo: 'Título', testemunho: 'Testemunho', comparar: 'Antes e depois', mural: 'Mural', 'quiz-intro': 'Quiz', quiz: 'Pergunta ' + s.ordem, ranking: 'Placar', podio: 'Pódio', intencoes: 'Intenções', final: 'Final' };
+    var tipos = { capa: 'Capa', entrada: 'Entrada (QR)', nuvem: 'Nuvem', foto: 'Foto', sacramentos: 'Sacramentos', texto: 'Texto', regua: 'Régua', citacao: 'Citação', mito: 'Mito ou verdade', tres: 'Resumo', mapa: 'Mapa do corpo', rito: 'Rito', caca: 'Caça', efeitos: 'Efeitos', eclesial: 'Gotas', titulo: 'Título', testemunho: 'Testemunho', relato: 'Relato', comparar: 'Antes e depois', mural: 'Mural', 'quiz-intro': 'Quiz', quiz: 'Pergunta ' + s.ordem, ranking: 'Placar', podio: 'Pódio', intencoes: 'Intenções', final: 'Final' };
     return { tipo: tipos[s.tipo] || s.tipo, texto: s.tipo === 'quiz' ? ((loja.pergunta(s.ordem) || {}).texto || '') : String(t) };
   }
   function cmd(c) {

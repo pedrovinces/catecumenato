@@ -156,8 +156,20 @@ window.AULA = {
       citacao: 'O leito de hospital tem algo de altar.', autor: 'Igor Pavan Três', papel: 'ex-seminarista', data: '06/04/2025',
       nota: 'Leia o texto completo do Igor. O próximo slide traz o texto integral, se quiser projetar.' },
 
-    { tipo: 'foto', imagem: 'igor-slide-texto.jpg', ajuste: 'contain', transicao: 'suave', opcional: true,
-      nota: 'Texto integral (slide de 2025). Pule se preferir ler sem projetar.' },
+    { tipo: 'relato', kicker: 'O texto do Igor', titulo: ['O que busca um doente?', 'A cura!'], opcional: true,
+      paragrafos: [
+        'O leito de hospital tem algo de altar.',
+        'Ali, onde o corpo fraqueja e a alma se inquieta, a verdade aparece sem maquiagem.',
+        'Já não há como disfarçar a dor, nem fingir força. A fragilidade não pede licença - ela simplesmente vem. E com ela vem também o silêncio que nos obriga a olhar para dentro.',
+        'Vê-se mais do que febre ou ferida. Vê-se o pecado acumulado, a pressa com que se viveu, as coisas que se deixaram para depois. Tudo pesa. Tudo grita.',
+        'Mas ali também está Ele.',
+        'Jesus não assiste de longe. Senta-se à beira do leito. Escuta até o que não dizes. Sofre contigo.',
+        'E Maria, Mãe de verdade, passa. Com mãos que não curam só o corpo mas acalmam o coração.',
+        'Eles não prometem fuga da dor. Mas estão ali, presentes. Fiéis. E isso muda tudo.'
+      ],
+      autor: 'Igor Pavan Três', papel: 'ex-seminarista', data: '06/04/2025',
+      fotos: ['igor-pb.jpg', 'igor-sorriso.jpg'],
+      nota: 'Texto integral do Igor. Leia devagar, com o texto na tela, ou pule.' },
 
     { tipo: 'testemunho', kicker: 'Fé e medicina', fotos: ['igor-batina.jpg'],
       citacao: 'Entre a fé e a medicina, não há guerra. Há encontro.', autor: 'Igor Pavan Três', papel: 'ex-seminarista', data: '15 de maio',

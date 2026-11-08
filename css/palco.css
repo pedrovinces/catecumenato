@@ -614,3 +614,23 @@ html,body{height:100%;overflow:hidden;background:#000}
 .f43 #passagem .cartao{width:1180px;max-width:calc(100% - 120px);padding:86px 80px 62px}
 .f43 #passagem blockquote{font-size:46px}
 .f43 #dica{max-width:620px;font-size:26px}
+
+/* ===================== relato longo (texto integral com fotos) ===================== */
+.relato{display:grid;grid-template-columns:1fr auto;height:100%}
+.relato .col{padding:60px 80px 60px 110px;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.relato .titulo{font-size:58px}
+.relato .titulo span:nth-child(2){color:var(--ouro);font-weight:500}
+.relato .texto{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.relato .texto p{margin:0;font-size:29px;line-height:1.42;font-weight:300;font-style:italic}
+.relato .texto .aspa{font-family:Georgia,'Times New Roman',serif;font-style:normal;color:var(--ouro);font-size:1.5em;line-height:0;margin-right:4px;vertical-align:-.12em}
+.relato .autor{font-size:30px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-top:8px}
+.relato .papel{font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:var(--texto-suave);margin-top:-14px}
+.relato .fotos{display:flex;height:100%}
+.relato .fotos .f{height:100%;width:330px;background-size:cover;background-position:center 35%}
+.relato .fotos .f.pb{filter:grayscale(1);background-position:72% 30%}
+.f43 .relato .col{padding:50px 50px 50px 80px;gap:18px}
+.f43 .relato .titulo{font-size:48px}
+.f43 .relato .texto p{font-size:25px;line-height:1.4}
+.f43 .relato .texto{gap:9px}
+.f43 .relato .fotos .f{width:210px}
+.f43 .relato .autor{font-size:26px}
