@@ -331,8 +331,16 @@
       return;
     }
     if (!pres || !s.opts.presenca || (!jaConectado && pres.state !== 'joined')) return;
-    var extra = s.opts.dadosPresenca ? s.opts.dadosPresenca() : {};
-    try { var r = pres.track(Object.assign({ papel: s.opts.presenca }, extra)); if (r && r.catch) r.catch(function () {}); } catch (e) {}
+    /* agrupa os anúncios (no máximo um a cada 700 ms): rajadas de track derrubam a presença no servidor */
+    if (s._anuncioTimer && !jaConectado) return;
+    clearTimeout(s._anuncioTimer);
+    var espera = jaConectado ? 0 : Math.max(0, 700 - (Date.now() - (s._ultimoAnuncio || 0)));
+    s._anuncioTimer = setTimeout(function () {
+      s._anuncioTimer = null; s._ultimoAnuncio = Date.now();
+      var extra = {};
+      try { extra = s.opts.dadosPresenca ? s.opts.dadosPresenca() : {}; } catch (e) { console.warn(e); }
+      try { var r = pres.track(Object.assign({ papel: s.opts.presenca }, extra)); if (r && r.catch) r.catch(function () {}); } catch (e) {}
+    }, espera);
   };
 
   /* sala recomeçada do zero (geração nova): esquece tudo o que estava na memória e lê de novo */
