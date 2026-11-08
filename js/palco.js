@@ -321,7 +321,7 @@
       $('.carimbo', el).textContent = sl.opcoes[it.r];
       $('.exp', el).innerHTML = esc(it.exp) + ' <span class="fonte">' + esc(it.fonte || '') + '</span>';
       contar();
-      if (mudouItem) ctx.sincronizar(item());
+      if (mudouItem) ctx.sincronizar(item(), rev ? 'fim' : null);
     }
     function contar() {
       var c = loja.contarVotos(sl.id, item(), sl.opcoes.length), t = c.reduce(function (a, b) { return a + b; }, 0);
@@ -343,8 +343,8 @@
       entrar: function () { render(false); som(ctx.paraFrente ? 'frente' : 'tras'); },
       atualizar: function (t) { if (t === 'votos' || t === 'carga') contar(); },
       passo: function () { return { p: p, n: total }; },
-      avancar: function () { if (p < total - 1) { var antes = item(); p++; render(item() !== antes); som('frente'); return true; } return false; },
-      voltar: function () { if (p > 0) { var antes = item(); p--; render(item() !== antes); som('tras'); return true; } return false; }
+      avancar: function () { if (p < total - 1) { p++; render(true); som('frente'); return true; } return false; },
+      voltar: function () { if (p > 0) { p--; render(true); som('tras'); return true; } return false; }
     };
   };
 
@@ -436,8 +436,8 @@
       entrar: function () { atualizar(); if (comSom) trilhaDaPergunta(sl, ctx.paraFrente); },
       atualizar: function (t) { if (t === 'toques' || t === 'carga') atualizar(); },
       passo: function () { return { p: revelado ? 1 : 0, n: 2 }; },
-      avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); if (comSom) silenciarPergunta(); return true; } return false; },
-      voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); if (comSom) trilhaDaPergunta(sl, false); return true; } return false; }
+      avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); ctx.sincronizar(0, 'fim'); if (comSom) silenciarPergunta(); return true; } return false; },
+      voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); ctx.sincronizar(0, null); if (comSom) trilhaDaPergunta(sl, false); return true; } return false; }
     };
   };
 
@@ -797,16 +797,17 @@
   };
 
   /* ---------- navegação ---------- */
-  function sincronizar(n, item) {
+  /* sufixo 'fim': a resposta já está no telão; os celulares saem da votação e mostram a tela de espera */
+  function sincronizar(n, item, sufixo) {
     var sl = slides[n]; if (!sl || sl.tipo === 'quiz') return;
-    rpcApr('mudar', { p_slide: n, p_etapa: etapaDo(sl), p_item: item || 0 });
+    rpcApr('mudar', { p_slide: n, p_etapa: etapaDo(sl) + (sufixo ? ':' + sufixo : ''), p_item: item || 0 });
   }
   function ir(n, inicial) {
     n = Math.max(0, Math.min(slides.length - 1, n));
     if (n === indice && !inicial) return;
     var sl = slides[n], velho = elAtual, ctlVelho = atual, slVelho = slides[indice], paraFrente = !inicial && n > indice;
     var el = document.createElement('div'); el.className = 'slide';
-    var ctx = { indice: n, paraFrente: paraFrente, sincronizar: function (item) { sincronizar(n, item); } };
+    var ctx = { indice: n, paraFrente: paraFrente, sincronizar: function (item, sufixo) { sincronizar(n, item, sufixo); } };
     if (sl.tipo === 'capa' || sl.tipo === 'final') el.classList.add('liso');
     var ctl = (R[sl.tipo] || R.titulo)(sl, el, ctx) || {};
     ligarPassagens(el, sl);
@@ -884,75 +885,116 @@
     var v = (window.CATEQUESE_CFG || {}).versao;
     return (A.audio || 'aulas/' + C.AULA_ID + '/audio/') + f + (v ? '?v=' + v : '');
   }
+  /* Todo o som passa pelo Web Audio: um único clique (ou tecla) no telão destrava o contexto de áudio e,
+     daí em diante, vinhetas, trilhas e gotas tocam sozinhas, inclusive no Safari, que bloqueia cada
+     elemento de áudio separadamente. As trilhas são decodificadas na abertura do telão. */
   var Som = (function () {
-    var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado', cacheEfeitos = {}, aquecidos = [];
+    var ctx = null, buffers = {}, pedidos = {}, faixa = null;
+    var fonte = null, alvo = 0.6, quer = false, estado = 'parado', vez = 0;
     var mudo = false;   /* a música sempre entra ao abrir o telão; silenciar vale até recarregar a página */
     var mestre = Math.max(0, Math.min(150, +C.ler('cat-volume', '100') || 0)) / 100;
     if (C.ler('cat-volume', '') === '') mestre = 1;
     function nivel(v) { return Math.max(0, Math.min(1, v * mestre)); }
-    function audio() { if (!au) { au = new Audio(); au.loop = true; au.preload = 'auto'; au.volume = 0; } return au; }
-    function rampa(vol, ms, depois) {
-      clearInterval(tick);
-      var a = audio(), v0 = a.volume, t0 = Date.now();
-      tick = setInterval(function () {
-        var f = Math.min(1, (Date.now() - t0) / ms);
-        a.volume = Math.max(0, Math.min(1, v0 + (vol - v0) * f));
-        if (f >= 1) { clearInterval(tick); if (depois) depois(); }
-      }, 50);
+    function contexto() {
+      if (!ctx) {
+        var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+        try { ctx = new AC(); } catch (e) { return null; }
+        ctx.onstatechange = function () {
+          if (ctx.state === 'running') {
+            var ini = document.getElementById('inicio-som'); if (ini) ini.hidden = true;
+            if (quer && !faixa && !mudo) api.tocar(fonte, alvo);
+          } else if (quer && !mudo) mudar('bloqueado');
+          pintarSom(); if (loja) loja.anunciar();
+        };
+      }
+      return ctx;
+    }
+    function carregar(src) {
+      if (buffers[src]) return Promise.resolve(buffers[src]);
+      if (pedidos[src]) return pedidos[src];
+      var c = contexto(); if (!c) return Promise.reject(new Error('sem áudio'));
+      pedidos[src] = fetch(src).then(function (r) { if (!r.ok) throw new Error('áudio ' + r.status); return r.arrayBuffer(); })
+        .then(function (b) { return new Promise(function (ok, falha) { c.decodeAudioData(b, ok, falha); }); })
+        .then(function (buf) { buffers[src] = buf; return buf; })
+        .catch(function (e) { delete pedidos[src]; throw e; });
+      return pedidos[src];
+    }
+    function rampa(g, valor, seg) {
+      var t = ctx.currentTime;
+      try { g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.linearRampToValueAtTime(valor, t + Math.max(0.03, seg)); }
+      catch (e) { g.gain.value = valor; }
+    }
+    function soltarFaixa(seg) {
+      var f = faixa; faixa = null; if (!f) return;
+      try { rampa(f.ganho, 0, seg); f.no.stop(ctx.currentTime + seg + 0.05); } catch (e) {}
     }
     function mudar(e) { if (estado === e) return; estado = e; pintarSom(); if (loja) loja.anunciar(); }
     var api = {
-      preparar: function (src) { var a = audio(); if (fonte !== src) { fonte = src; a.src = src; a.load(); } },
+      contexto: contexto,
+      bloqueado: function () { return !!ctx && ctx.state !== 'running'; },
+      preparar: function (src) { carregar(src).catch(function () {}); },
       tocar: function (src, vol, doInicio) {
-        api.preparar(src); quer = true; alvo = vol || 0.6;
+        fonte = src; quer = true; alvo = vol || 0.6;
         if (mudo) { mudar('mudo'); return; }
-        var a = audio();
-        if (doInicio) { try { a.currentTime = 0; } catch (x) {} }
-        if (estado === 'tocando' && !a.paused) { if (doInicio) rampa(nivel(alvo), 1200); return; }
-        var p = a.play();
-        var ok = function () { if (!quer) { a.pause(); mudar('parado'); return; } mudar('tocando'); rampa(nivel(alvo), 3500); };
-        if (p && p.then) p.then(ok).catch(function () { mudar('bloqueado'); }); else ok();
+        var c = contexto(); if (!c) return;
+        if (c.state !== 'running') { try { c.resume(); } catch (e) {} }
+        if (faixa && faixa.src === src && !doInicio) { rampa(faixa.ganho, nivel(alvo), 1.2); if (c.state === 'running') mudar('tocando'); return; }
+        var meu = ++vez;
+        carregar(src).then(function (buf) {
+          if (meu !== vez || !quer || fonte !== src || mudo) return;
+          if (c.state !== 'running') { mudar('bloqueado'); return; }   /* o clique no telão retoma daqui */
+          soltarFaixa(doInicio ? 0.4 : 0.8);
+          var g = c.createGain(); g.gain.value = 0; g.connect(c.destination);
+          var n = c.createBufferSource(); n.buffer = buf; n.loop = true; n.connect(g); n.start();
+          faixa = { src: src, no: n, ganho: g };
+          rampa(g, nivel(alvo), doInicio ? 1.2 : 3.5);
+          mudar('tocando');
+        }).catch(function () { if (meu === vez) mudar('parado'); });
       },
       parar: function (ms) {
-        quer = false;
-        if (au && !au.paused) rampa(0, ms || 2500, function () { if (!quer) au.pause(); });
+        quer = false; vez++;
+        if (faixa) soltarFaixa((ms || 2500) / 1000);
         mudar('parado');
       },
       alternarMudo: function () {
         mudo = !mudo;
-        if (mudo) { if (au && !au.paused) rampa(0, 700, function () { au.pause(); }); mudar(quer ? 'mudo' : 'parado'); }
+        if (mudo) { vez++; if (faixa) soltarFaixa(0.7); mudar(quer ? 'mudo' : 'parado'); }
         else if (quer) { estado = 'parado'; api.tocar(fonte, alvo); }
         else mudar('parado');
         avisoTela('Música', mudo ? 'desligada' : 'ligada');
         pintarSom(); if (loja) loja.anunciar();
       },
-      liberar: function () { if (estado === 'bloqueado' && quer) api.tocar(fonte, alvo); },
+      /* chamado em todo clique, toque ou tecla no telão: destrava o áudio (Safari pede também um som mudo no gesto) */
+      liberar: function () {
+        var c = contexto(); if (!c) return;
+        if (c.state !== 'running') { try { var r = c.resume(); if (r && r.catch) r.catch(function () {}); } catch (e) {} }
+        try { var sil = c.createBufferSource(); sil.buffer = c.createBuffer(1, 1, 22050); sil.connect(c.destination); sil.start(0); } catch (e) {}
+        if (quer && !faixa && !mudo && c.state === 'running') api.tocar(fonte, alvo);
+      },
       /* toca um som curto por cima de tudo; aoMeio é chamado na metade dele (ou já, se não puder tocar) */
       efeito: function (src, vol, aoMeio) {
         var feito = false, disparar = function () { if (!feito) { feito = true; if (aoMeio) aoMeio(); } };
         if (mudo) { disparar(); return; }
-        var e = cacheEfeitos[src] || (cacheEfeitos[src] = new Audio(src));
-        try { e.pause(); e.currentTime = 0; } catch (x) {}
-        e.volume = nivel(vol == null ? 1 : vol);
-        var agendar = function () { var d = isFinite(e.duration) && e.duration > 0 ? e.duration : 3; setTimeout(disparar, d * 500); };
-        var p = e.play();
-        if (p && p.then) p.then(function () { if (e.readyState >= 1) agendar(); else e.addEventListener('loadedmetadata', agendar, { once: true }); }).catch(disparar);
-        else agendar();
+        var c = contexto(); if (!c) { disparar(); return; }
+        if (c.state !== 'running') { try { c.resume(); } catch (e) {} }
+        var limite = setTimeout(disparar, 2500);   /* se o arquivo demorar, a trilha entra mesmo assim */
+        carregar(src).then(function (buf) {
+          clearTimeout(limite);
+          if (feito) return;
+          if (c.state !== 'running') { disparar(); return; }
+          var g = c.createGain(); g.gain.value = nivel(vol == null ? 1 : vol); g.connect(c.destination);
+          var n = c.createBufferSource(); n.buffer = buf; n.connect(g); n.start();
+          setTimeout(disparar, buf.duration * 500);
+        }).catch(function () { clearTimeout(limite); disparar(); });
       },
-      aquecer: function () {
-        Object.keys(cacheEfeitos).forEach(function (k) { var e = cacheEfeitos[k]; try { e.muted = true; var p = e.play(); if (p && p.then) p.then(function () { e.pause(); e.currentTime = 0; e.muted = false; }).catch(function () { e.muted = false; }); } catch (x) {} });
-        var a = audio(); if (a.paused && fonte) { try { a.muted = true; var q = a.play(); if (q && q.then) q.then(function () { if (!quer) a.pause(); a.muted = false; }).catch(function () { a.muted = false; }); } catch (x) {} }
-      },
-      preCarregar: function (src, curto) {
-        if (curto) { if (!cacheEfeitos[src]) { var e = new Audio(); e.preload = 'auto'; e.src = src; cacheEfeitos[src] = e; } return; }
-        var a = new Audio(); a.preload = 'auto'; a.src = src; aquecidos.push(a);
-      },
+      aquecer: function () { api.liberar(); },
+      preCarregar: function (src) { carregar(src).catch(function () {}); },
       estado: function () { return estado; },
       mudo: function () { return mudo; },
       mestre: function () { return mestre; },
       volume: function (pc) {
         mestre = Math.max(0, Math.min(150, pc)) / 100; C.guardar('cat-volume', String(Math.round(mestre * 100)));
-        if (estado === 'tocando' && au && !au.paused) rampa(nivel(alvo), 400);
+        if (faixa) rampa(faixa.ganho, nivel(alvo), 0.4);
         avisoTela('Volume', Math.round(mestre * 100) + '%');
         if (loja) loja.anunciar();
       },
@@ -997,19 +1039,10 @@
   /* ---------- sonoplastia de gota ----------
      um slide com somGota: true toca o som quando cada gota cai (audio/gota.mp3, altura variada) */
   var Gota = (function () {
-    var ctx = null, buf = null, carregando = null, ultimo = 0;
-    function contexto() {
-      if (!ctx) {
-        var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
-        try { ctx = new AC(); } catch (e) { return null; }
-        /* sem um clique ou tecla no telão o navegador deixa o áudio suspenso: o botão dourado e o iPad avisam */
-        ctx.onstatechange = function () { pintarSom(); if (loja) loja.anunciar(); };
-      }
-      return ctx;
-    }
+    var buf = null, carregando = null, ultimo = 0;
     function carregar() {
       if (carregando) return carregando;
-      var c = contexto(); if (!c) return Promise.reject(new Error('sem áudio'));
+      var c = Som.contexto(); if (!c) return Promise.reject(new Error('sem áudio'));
       var v = (window.CATEQUESE_CFG || {}).versao;
       carregando = fetch('audio/gota.mp3' + (v ? '?v=' + v : '')).then(function (r) { return r.arrayBuffer(); })
         .then(function (b) { return new Promise(function (ok, falha) { c.decodeAudioData(b, ok, falha); }); })
@@ -1018,17 +1051,17 @@
     }
     return {
       preparar: function () { carregar().catch(function () {}); },
-      bloqueado: function () { return !!ctx && ctx.state !== 'running'; },
-      liberar: function () { var c = contexto(); if (c && c.state === 'suspended') c.resume().catch(function () {}); },
+      bloqueado: function () { return Som.bloqueado(); },
+      liberar: function () { Som.liberar(); },
       tocar: function (vol) {
         if (Som.mudo()) return;
-        var c = contexto(); if (!c) return;
+        var c = Som.contexto(); if (!c) return;
         if (!buf) { carregar().catch(function () {}); return; }
-        if (c.state === 'suspended') c.resume().catch(function () {});
+        if (c.state !== 'running') { try { c.resume(); } catch (e) {} return; }
         var agora = c.currentTime; if (agora - ultimo < 0.04) return; ultimo = agora;
         var src = c.createBufferSource(), g = c.createGain();
         src.buffer = buf; src.playbackRate.value = 0.8 + Math.random() * 0.45;
-        g.gain.value = (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3) * Som.mestre();
+        g.gain.value = Math.min(1, (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3) * Som.mestre());
         src.connect(g); g.connect(c.destination); src.start();
       }
     };
@@ -1234,10 +1267,7 @@
      O navegador só deixa tocar som depois de um clique ou tecla no próprio telão. Esse clique vale até
      recarregar a página: depois dele, todas as músicas e gotas entram sozinhas. Com o atalho do Chrome
      em modo quiosque (--autoplay-policy=no-user-gesture-required), o som já nasce liberado e este aviso não aparece. */
-  function somLiberado() {
-    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return true;
-    try { var c = new AC(), ok = c.state === 'running'; if (c.close) c.close(); return ok; } catch (e) { return true; }
-  }
+  function somLiberado() { var c = Som.contexto(); return !c || c.state === 'running'; }
   function iniciarSom() {
     var box = $('#inicio-som'); if (box.hidden) return;
     box.hidden = true;

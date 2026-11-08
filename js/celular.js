@@ -167,10 +167,16 @@
     clearInterval(timerQuiz);
     switch (tipo) {
       case 'nuvem': telaNuvem(id); break;
-      case 'mito': telaMito(id, +s.item); break;
+      case 'mito':
+        if (partes[2] === 'fim') telaEspera('Votação encerrada', 'A resposta está no telão. A próxima afirmação aparece aqui.');
+        else telaMito(id, +s.item);
+        break;
       case 'regua': telaRegua(id); break;
       case 'mapa': telaMapa(id); break;
-      case 'caca': telaCaca(id); break;
+      case 'caca':
+        if (partes[2] === 'fim') telaEspera('Caça encerrada', 'Os intrusos estão marcados no telão.');
+        else telaCaca(id);
+        break;
       case 'mural': abrirFolha(); telaEspera('Perguntas no telão', 'Toque em “Pergunte” para mandar a sua ou apoiar a de alguém.'); break;
       case 'intencoes': telaIntencoes(); break;
       case 'entrada': telaEspera('Sua gota chegou', 'Olhe o telão: a gota com o seu rosto acabou de cair no frasco de óleo.'); break;
