@@ -25,7 +25,7 @@
   /* ---------- views ---------- */
   function mostrar(id) {
     Array.prototype.forEach.call(document.querySelectorAll('.view'), function (v) { v.classList.toggle('on', v.id === id); });
-    $('fab').hidden = !eu || id === 'v-cadastro' || id === 'v-quiz';
+    $('fab').hidden = !temMural() || !eu || id === 'v-cadastro' || id === 'v-quiz';
   }
   function status() {
     var s = $('status'); s.classList.toggle('on', loja.online);
@@ -347,6 +347,7 @@
   }
 
   /* ---------- mural (folha inferior) ---------- */
+  function temMural() { return !!(A && A.slides.some(function (s) { return s.tipo === 'mural'; })); }
   function abrirFolha() { $('folha').hidden = false; listaMural(); }
   function fecharFolha() { $('folha').hidden = true; }
   function listaMural() {
@@ -383,7 +384,8 @@
     A.slides.forEach(function (s) {
       if (s.tipo === 'nuvem' || s.tipo === 'mito' || s.tipo === 'regua' || s.tipo === 'mapa' || s.tipo === 'caca') et.push([s.tipo + ':' + s.id, s.tipo + ' · ' + s.id]);
     });
-    et.push(['quiz', 'Quiz'], ['ranking', 'Placar'], ['intencoes', 'Intenções'], ['mural', 'Mural']);
+    et.push(['quiz', 'Quiz'], ['ranking', 'Placar'], ['intencoes', 'Intenções']);
+    if (temMural()) et.push(['mural', 'Mural']);
     var d = document.createElement('div'); d.id = 'demo-bar';
     d.innerHTML = '<select aria-label="Etapa de demonstração">' + et.map(function (e) { return '<option value="' + e[0] + '">' + e[1] + '</option>'; }).join('') + '</select>';
     document.body.appendChild(d);

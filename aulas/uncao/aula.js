@@ -7,6 +7,8 @@ window.AULA = {
   edicao: 'Catecumenato 2026',
   img: 'aulas/uncao/img/',
   bonusPorDinamica: 50,
+  /* som de cada pergunta do quiz: vinheta ao entrar, trilha na metade dela, silêncio ao revelar */
+  somQuiz: { efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55 },
 
   slides: [
     { tipo: 'capa', titulo: ['Unção dos', 'Enfermos'], subtitulo: 'Um sacramento de cura', kicker: 'Catecumenato 2026',
@@ -206,10 +208,9 @@ window.AULA = {
     { tipo: 'comparar', a: 'abertura', b: 'final', titulo: 'Antes e depois',
       nota: 'Leia os percentuais: quanto da sala falava de fim na abertura e quanto fala agora.' },
 
-    { tipo: 'mural', titulo: 'Perguntas da sala',
-      nota: 'Aprove as perguntas no painel do apresentador. As mais apoiadas sobem.' },
-
     { tipo: 'quiz-intro', titulo: 'Passagem de plantão',
+      efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense.mp3', volume: 0.5,
+      nota: 'Abertura do quiz: vinheta e trilha de suspense nº 1 de fundo enquanto você explica as regras.',
       texto: 'Antes de sair, todo plantonista passa o caso adiante. Agora é a sua vez.',
       regras: ['10 perguntas sobre o que vimos hoje', 'Acerto vale de 500 a 1000 pontos: quanto mais rápido, mais pontos', 'Cada dinâmica respondida durante a aula já rendeu 50 pontos', 'O primeiro lugar leva o prêmio'] },
 

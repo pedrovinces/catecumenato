@@ -601,6 +601,7 @@
       });
     }
     function mostrarRevelada(correta, valor, comentario, fonte) {
+      if (sl.musica && estado !== 'revelada') silenciarPergunta();
       estado = 'revelada'; revelando = false; est.textContent = 'Resposta';
       raiz.classList.add('revelada'); arco.setAttribute('stroke-dashoffset', '282.74'); rel.textContent = '0';
       if (p.tipo === 'numero') { $('.numero-resp', el).textContent = valor != null ? valor : '?'; }
@@ -819,7 +820,7 @@
         if (doInicio) { try { a.currentTime = 0; } catch (x) {} }
         if (estado === 'tocando' && !a.paused) { if (doInicio) rampa(alvo, 1200); return; }
         var p = a.play();
-        var ok = function () { mudar('tocando'); rampa(alvo, 3500); };
+        var ok = function () { if (!quer) { a.pause(); mudar('parado'); return; } mudar('tocando'); rampa(alvo, 3500); };
         if (p && p.then) p.then(ok).catch(function () { mudar('bloqueado'); }); else ok();
       },
       parar: function (ms) {
@@ -869,8 +870,9 @@
     if (Som.fonte() && Som.fonte() !== m) Som.parar(2500);
     if (sl.efeitoPorItem) return;          /* o próprio slide toca a vinheta a cada pergunta */
     if (sl.efeito && paraFrente) {
+      var meu = seqPergunta;
       Som.efeito(aud(sl.efeito), sl.efeitoVolume, function () {
-        if (m && slides[indice] === sl && sl.musicaQuando !== 'resposta') Som.tocar(m, sl.volume);
+        if (m && meu === seqPergunta && slides[indice] === sl && sl.musicaQuando !== 'resposta') Som.tocar(m, sl.volume, true);
       });
       return;
     }
@@ -1120,6 +1122,10 @@
 
   function iniciar() {
     A = window.AULA; slides = A.slides;
+    if (A.somQuiz) slides.forEach(function (s) {
+      if (s.tipo !== 'quiz') return;
+      Object.keys(A.somQuiz).forEach(function (k) { if (s[k] == null) s[k] = A.somQuiz[k]; });
+    });
     tela = $('#tela'); palco = $('#palco');
     formato = lerFormato();
     escalar(); window.addEventListener('resize', escalar);
