@@ -84,7 +84,10 @@ window.AULA = {
       imagem: 'curai-jesus.jpg' },
 
     { tipo: 'citacao', texto: 'Alguém dentre vós está doente? Mande chamar os presbíteros da Igreja.', autor: 'Tg 5,14',
-      complemento: 'São Tiago descreve o rito: a oração dos presbíteros, a unção com óleo no nome do Senhor e a promessa de alívio e de perdão.' },
+      complemento: 'São Tiago descreve o rito: a oração dos presbíteros, a unção com óleo no nome do Senhor e a promessa de alívio e de perdão.',
+      passagens: [
+        { ref: 'Tg 5,14-15', texto: 'Está entre vós algum enfermo? Chame os sacerdotes da Igreja, e estes façam orações sobre ele, ungindo-o com óleo em nome do Senhor; a oração da fé salvará o enfermo e o Senhor o aliviará; se estiver com pecados, ser-lhe-ão perdoados.' }
+      ] },
 
     { tipo: 'mito', id: 'mito', kicker: 'Mito ou verdade?', opcoes: ['Mito', 'Verdade'],
       efeito: 'vinheta.mp3', efeitoVolume: 1, musica: 'suspense2.mp3', volume: 0.55, efeitoPorItem: true,

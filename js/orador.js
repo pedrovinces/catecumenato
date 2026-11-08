@@ -111,7 +111,7 @@
     if (/, com (o|a|as|os) /.test(x)) return 0;
     return null;
   }
-  function htmlBloco(b, k) {
+  function htmlBloco(b, k, extra) {
     var tipo = tipoDoRotulo(b.r), ps = passoDoRotulo(b.r), h = '';
     if (b.tabela) {
       h = '<table>' + b.tabela.map(function (l, i) { return '<tr data-l="' + i + '">' + l.map(function (c) { return i ? '<td>' + texto(c) + '</td>' : '<th>' + texto(c) + '</th>'; }).join('') + '</tr>'; }).join('') + '</table>';
@@ -122,7 +122,7 @@
     else if (b.t) h += '<p>' + texto(b.t) + '</p>';
     (b.fala || []).forEach(function (f) { h += '<p>' + texto(f) + '</p>'; });
     if (b.itens) h += '<ul>' + b.itens.map(function (x) { return '<li>' + texto(x) + '</li>'; }).join('') + '</ul>';
-    return '<div class="bloco ' + tipo + '" data-k="' + k + '"' + (ps != null ? ' data-passo="' + ps + '"' : '') + '>' + h + '</div>';
+    return '<div class="bloco ' + tipo + '" data-k="' + k + '"' + (ps != null ? ' data-passo="' + ps + '"' : '') + '>' + h + (extra || '') + '</div>';
   }
   function pintarRoteiro(forcar) {
     var i = vendo != null ? vendo : indiceTelao(), s = slides[i], r = rotSlide(i);
@@ -141,10 +141,17 @@
     else if (!r) h = '<p class="vazio">Este slide não tem fala no roteiro.</p>' + (s.nota ? htmlBloco({ r: 'Nota do slide', t: s.nota }, 0) : '');
     else {
       if (s.tipo === 'quiz' && r.gabarito) h += htmlBloco({ r: 'Comente em uma frase', t: r.gabarito.frase + (r.gabarito.fonte ? ' (' + r.gabarito.fonte + ')' : '') }, 'g');
-      h += r.blocos.map(htmlBloco).join('');
+      var comBotoes = false;
+      h += r.blocos.map(function (b, k) {
+        if (s.passagens && s.passagens.length && !comBotoes && /^passage/i.test(b.r || '')) { comBotoes = true; return htmlBloco(b, k, botoesPassagem(s, i)); }
+        return htmlBloco(b, k);
+      }).join('');
+      if (s.passagens && s.passagens.length && !comBotoes) h = htmlBloco({ r: 'Passagens no telão' }, 'p', botoesPassagem(s, i)) + h;
       if (r.quiz && roteiro.quiz) h += '<details class="comum"><summary>Como cada pergunta funciona</summary>' + roteiro.quiz.map(function (b, k) { return htmlBloco(b, 'q' + k); }).join('') + '</details>';
     }
     box.innerHTML = h;
+    if (s.passagens && s.passagens.length) ligarRefs(box, s);
+    marcarPassagens();
     var prox = slides[i + 1];
     if (prox) {
       var rp = rotSlide(i + 1), primeira = '';
@@ -154,6 +161,42 @@
     if (vendo == null) $('col-roteiro').scrollTop = 0;
     marcarPasso(true); preencherLacunas();
   }
+  /* passagens bíblicas: botões dentro da rubrica e as citações do roteiro viram links que abrem e fecham o popup no telão */
+  function botoesPassagem(s, i) {
+    var noTelao = indiceTelao() === i;
+    return '<div class="botoes-passagem">' + s.passagens.map(function (p, k) {
+      return '<button class="ref-bt" type="button" data-passagem="' + k + '" data-ref="' + esc(p.ref) + '"' + (noTelao ? '' : ' disabled') + '><b>' + esc(p.ref) + '</b><span>' + esc(p.texto.length > 70 ? p.texto.slice(0, 68) + '…' : p.texto) + '</span></button>';
+    }).join('') + '<button class="ref-bt fechar" type="button" data-passagem="fechar"' + (noTelao ? '' : ' disabled') + '><b>Fechar no telão</b><span>fecha o popup aberto</span></button></div>' +
+      (noTelao ? '' : '<p class="nota">Os botões funcionam quando o telão estiver neste slide.</p>');
+  }
+  function ligarRefs(box, s) {
+    var refs = s.passagens.map(function (p) { return p.ref; }).sort(function (a, b) { return b.length - a.length; });
+    var re = new RegExp('(' + refs.map(function (r) { return r.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')(?![\\d-])');
+    var w = document.createTreeWalker(box, NodeFilter.SHOW_TEXT), nos = [];
+    while (w.nextNode()) { var n = w.currentNode; if (n.parentNode.closest('.botoes-passagem, .rot')) continue; if (re.test(n.nodeValue)) nos.push(n); }
+    nos.forEach(function (no) {
+      var frag = document.createDocumentFragment();
+      no.nodeValue.split(re).forEach(function (parte, k) {
+        if (!parte) return;
+        if (k % 2) {
+          var idx = -1; s.passagens.some(function (p, j) { if (p.ref === parte) { idx = j; return true; } return false; });
+          var b = document.createElement('button'); b.type = 'button'; b.className = 'ref-link'; b.dataset.passagem = idx; b.dataset.ref = parte; b.textContent = parte;
+          frag.appendChild(b);
+        } else frag.appendChild(document.createTextNode(parte));
+      });
+      no.parentNode.replaceChild(frag, no);
+    });
+  }
+  function marcarPassagens() {
+    var m = meta(), aberta = m && m.passagem, i = +$('roteiro').dataset.i, noTelao = indiceTelao() === i;
+    Array.prototype.forEach.call(document.querySelectorAll('#roteiro [data-passagem]'), function (b) {
+      var k = b.dataset.passagem;
+      if (k === 'fechar') { b.disabled = !noTelao || !aberta; return; }
+      b.classList.toggle('on', !!aberta && b.dataset.ref === aberta);
+      if (b.classList.contains('ref-bt')) b.disabled = !noTelao;
+    });
+  }
+
   /* destaca a fala do passo em que o telão está (primeiro toque, segundo toque…) */
   function marcarPasso(rolar) {
     var box = $('roteiro'), i = +box.dataset.i, ativo = vendo == null || vendo === indiceTelao();
@@ -641,7 +684,7 @@
       if (vendo == null) { $('previa').hidden = true; pintarRoteiro(true); } else previa(vendo);
       lacoMonitor();
     } else pintarRoteiro(false);
-    pintarBarra(); pintarNav(); marcarLista(); pintarTelao(); relogios();
+    pintarBarra(); pintarNav(); marcarLista(); pintarTelao(); relogios(); marcarPassagens();
     if (abaAtual === 'vivo') pedirVivo();
   }
 
@@ -721,7 +764,13 @@
       if (t.dataset.ir != null) { ev.stopPropagation(); var n = +t.dataset.ir; cmd('ir:' + n, 'Telão indo para o slide ' + (n + 1) + '.'); vendo = null; $('previa').hidden = true; return; }
       if (t.id === 'b-voltar-atual') { previa(indiceTelao()); return; }
       if (t.classList.contains('it')) { previa(+t.dataset.i); return; }
-      if (t.dataset.passagem != null) { cmd('passagem:' + t.dataset.passagem, t.dataset.passagem === 'fechar' ? 'Passagem fechada no telão.' : 'Abrindo a passagem no telão.'); return; }
+      if (t.dataset.passagem != null) {
+        var mm = meta(), jaAberta = t.dataset.ref && mm && mm.passagem === t.dataset.ref;
+        var alvo = jaAberta ? 'fechar' : t.dataset.passagem;
+        if (t.classList.contains('ref-link') && indiceTelao() !== +$('roteiro').dataset.i) { toast('Leve o telão até este slide para abrir a passagem.', true); return; }
+        cmd('passagem:' + alvo, alvo === 'fechar' ? 'Passagem fechada no telão.' : 'Abrindo ' + (t.dataset.ref || 'a passagem') + ' no telão.');
+        return;
+      }
       if (t.dataset.acao) { cmd(t.dataset.acao, t.dataset.acao === 'quiz:abrir' ? 'Pergunta aberta.' : 'Mostrando a resposta no telão.'); return; }
       if (t.dataset.cmd) { cmd(t.dataset.cmd); return; }
       if (t.dataset.aj) {
