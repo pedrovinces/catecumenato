@@ -709,7 +709,8 @@
     setTimeout(function () { atrasoInicial = 0; }, 100);
     el.classList.add('escuro');
     el.innerHTML = '<div class="int"><div class="topo"><div class="kicker">Oração pelos enfermos</div><h1 class="titulo menor"><span>' + esc(sl.titulo) + '</span></h1>' +
-      '<div class="texto-g">' + esc(sl.texto) + '</div></div><div class="nomes"></div><div class="chama-centro"></div></div>' + miniQR();
+      (sl.textoNoTelao === false || !sl.texto ? '' : '<div class="texto-g">' + esc(sl.texto) + '</div>') +   /* o texto continua nos celulares */
+      '</div><div class="nomes"></div><div class="chama-centro"></div></div>' + miniQR();
     var box = $('.nomes', el);
     function soltar(nome) {
       var s = document.createElement('div'); s.className = 'nome'; s.textContent = nome;

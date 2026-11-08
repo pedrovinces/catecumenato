@@ -4,6 +4,6 @@ window.CATEQUESE_CFG = {
   url: 'https://mrielutnaajjxpwmnfwe.supabase.co',
   chavePublica: 'sb_publishable_oGr4WeiKaXcySrR7MpphKg_O3x-pKvw',
   dominio: 'catecumenato.pedrovinces.com.br',
-  versao: '20261107w',
+  versao: '20261107x',
   aulaPadrao: 'uncao'
 };

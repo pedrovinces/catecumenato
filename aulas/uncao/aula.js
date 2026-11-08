@@ -229,6 +229,7 @@ window.AULA = {
 
     { tipo: 'intencoes', titulo: 'Por quem vamos rezar?',
       texto: 'Escreva somente o primeiro nome de alguém enfermo. Os nomes aparecem aqui e são apagados ao final.',
+      textoNoTelao: false,
       nota: 'Conduza a oração pelos enfermos enquanto os nomes sobem. Ao terminar, use Encerrar no painel.' },
 
     { tipo: 'texto', kicker: '11 de fevereiro', titulo: ['Dia Mundial', 'do Enfermo'],
