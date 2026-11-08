@@ -290,25 +290,133 @@
     });
   }
 
+  /* ---------- resultado de cada pergunta: selo animado ---------- */
+  var vistoQuiz = null;
+  var CALMO = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function vibrar(padrao, atraso) {
+    setTimeout(function () { try { if (navigator.vibrate) navigator.vibrate(padrao); } catch (e) {} }, atraso || 0);
+  }
+  function contar(el, de, ate, ms, antes, depois) {
+    if (!el) return;
+    function txt(n) { el.textContent = antes + fmt(n) + depois; }
+    if (!ms || de === ate) { txt(ate); return; }
+    var t0 = null;
+    txt(de);
+    function passo(t) {
+      if (!el.isConnected) return;
+      if (t0 == null) t0 = t;
+      var k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      txt(Math.round(de + (ate - de) * e));
+      if (k < 1) requestAnimationFrame(passo);
+    }
+    setTimeout(function () { requestAnimationFrame(passo); }, 250);
+  }
+  /* decide o resultado: a marcação guardada no aparelho vale primeiro; o placar do banco confirma */
+  function veredito(p, s, meu, d) {
+    if (p.tipo === 'numero') {
+      var alvo = parseInt(s.quiz_valor, 10);
+      if (!meu || meu.v == null || isNaN(alvo)) return { tipo: 'sem' };
+      var dif = Math.abs(+meu.v - alvo);
+      return dif === 0 ? { tipo: 'acerto', dif: 0 } : { tipo: 'alvo', dif: dif };
+    }
+    var marcou = meu && meu.o != null ? +meu.o : null;
+    if (marcou != null && s.quiz_correta != null) return { tipo: marcou === +s.quiz_correta ? 'acerto' : 'erro', marcou: marcou };
+    if (d && d.ultima > 0) return { tipo: 'acerto', marcou: null };
+    if (d && d.respondeu) return { tipo: 'erro', marcou: null };
+    return { tipo: 'sem' };
+  }
+  function seloSVG(tipo, dif) {
+    var miolo = '';
+    if (tipo === 'acerto') miolo = '<path class="marca" pathLength="1" d="M36 62 L53 79 L86 44"/>';
+    else if (tipo === 'erro') miolo = '<path class="marca m1" pathLength="1" d="M42 42 L78 78"/><path class="marca m2" pathLength="1" d="M78 42 L42 78"/>';
+    else if (tipo === 'alvo') {
+      /* quanto menor a diferença, mais perto do centro o dardo crava */
+      var r = Math.min(40, 6 + 34 * Math.sqrt(Math.min(dif, 50) / 50)), ang = ((dif * 137.5) % 360) * Math.PI / 180;
+      var x = (60 + r * Math.cos(ang)).toFixed(1), y = (60 + r * Math.sin(ang)).toFixed(1);
+      miolo = '<circle class="anel" cx="60" cy="60" r="38"/><circle class="anel" cx="60" cy="60" r="24"/><circle class="miolo-alvo" cx="60" cy="60" r="10"/>' +
+        '<circle class="impacto" cx="' + x + '" cy="' + y + '" r="6"/><g class="dardo"><circle cx="' + x + '" cy="' + y + '" r="6"/></g>';
+    } else miolo = '<path class="ponteiro pm" d="M60 60 L60 30"/><path class="ponteiro ph" d="M60 60 L77 60"/><circle class="eixo" cx="60" cy="60" r="4"/>';
+    return '<svg class="selo-svg" viewBox="0 0 120 120" aria-hidden="true"><circle class="disco" cx="60" cy="60" r="50"/><circle class="aro" pathLength="1" cx="60" cy="60" r="50"/>' + miolo + '</svg>';
+  }
+  function faiscas() {
+    var h = '';
+    for (var i = 0; i < 16; i++) {
+      var ang = 22.5 * i + (i % 2 ? 7 : -5), dist = 84 + (i % 3) * 18;
+      h += '<i class="' + (i % 2 ? 'ponto' : 'risco') + '" style="--ang:' + ang + 'deg;--dist:' + dist + 'px;animation-delay:' + (560 + (i % 4) * 35) + 'ms"></i>';
+    }
+    return '<span class="faiscas">' + h + '</span>';
+  }
+  function chip(p, i, rot, cls) {
+    if (i == null || !p.opcoes || p.opcoes[i] == null) return '';
+    var sinal = cls === 'certa' ? '<path d="M8 14.5l4.2 4.2L20.5 9.5"/>' : '<path d="M9.5 9.5l9 9M18.5 9.5l-9 9"/>';
+    return '<div class="vd-op op-' + i + ' ' + cls + '">' + C.formaSVG(i) + '<span class="tx"><small>' + rot + '</small><span>' + esc(p.opcoes[i]) + '</span></span>' +
+      '<svg class="sinal" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13"/>' + sinal + '</svg></div>';
+  }
+  function pintarVeredito(cab, p, s, meu, v, novo) {
+    var certa = p.tipo === 'multipla' && s.quiz_correta != null ? +s.quiz_correta : null;
+    var tit = '', sub = '', ops = '', rotulo = '';
+    if (p.tipo === 'numero') {
+      if (v.tipo === 'acerto') { tit = 'Na mosca!'; sub = 'Você cravou ' + esc(s.quiz_valor) + '.'; rotulo = 'Você acertou o número exato'; }
+      else if (v.tipo === 'alvo') { tit = esc(s.quiz_valor); sub = 'Você respondeu ' + esc(meu.v) + ': diferença de ' + fmt(v.dif) + '.'; rotulo = 'Resposta ' + esc(s.quiz_valor) + ', diferença de ' + fmt(v.dif); }
+      else { tit = 'Sem resposta'; sub = 'A resposta era ' + esc(s.quiz_valor) + '.'; rotulo = 'Sem resposta'; }
+      sub += '<br>Quem chegar mais perto desempata.';
+    } else if (v.tipo === 'acerto') { tit = 'Acertou!'; ops = chip(p, certa, 'Sua resposta', 'certa'); rotulo = 'Você acertou'; }
+    else if (v.tipo === 'erro') { tit = 'Não foi dessa vez'; ops = chip(p, v.marcou, 'Você marcou', 'voce') + chip(p, certa, 'Resposta certa', 'certa'); rotulo = 'Você errou'; }
+    else { tit = 'Sem resposta'; ops = chip(p, certa, 'Resposta certa', 'certa'); rotulo = 'Sem resposta'; }
+    var box = $('quiz-box');
+    box.classList.remove('brilha-ok', 'brilha-erro');
+    box.classList.add('revelada');
+    box.innerHTML = cab +
+      '<div class="veredito ' + v.tipo + (p.tipo === 'numero' ? ' num' : '') + (novo && !CALMO ? '' : ' fixo') + '" role="status" aria-label="' + rotulo + '">' +
+        '<div class="selo">' + (v.tipo === 'acerto' ? '<span class="halo"></span><span class="onda"></span><span class="onda o2"></span>' + faiscas() : '') + seloSVG(v.tipo, v.dif) + '</div>' +
+        '<div class="vd-tit">' + tit + '</div>' +
+        (v.tipo === 'acerto' || v.tipo === 'alvo' ? '<div class="vd-pts" id="vd-pts"></div>' : '') +
+        (sub ? '<p class="vd-sub">' + sub + '</p>' : '') +
+        (ops ? '<div class="vd-ops">' + ops + '</div>' : '') +
+      '</div>' +
+      '<div class="placar vd-placar" id="vd-placar"></div>';
+    if (!novo) return;
+    /* traz o cartão do resultado para a tela, sem esconder o selo */
+    setTimeout(function () {
+      var vd = box.querySelector('.veredito'); if (!vd) return;
+      var rb = box.getBoundingClientRect(), rv = vd.getBoundingClientRect();
+      if (rv.bottom > window.innerHeight - 20 || rb.top < 0) window.scrollBy({ top: rb.top - 12, behavior: CALMO ? 'auto' : 'smooth' });
+    }, 120);
+    if (!CALMO) { void box.offsetWidth; if (v.tipo === 'acerto') box.classList.add('brilha-ok'); else if (v.tipo === 'erro') box.classList.add('brilha-erro'); }
+    if (v.tipo === 'acerto') vibrar([28, 60, 28, 60, 110], 620);
+    else if (v.tipo === 'erro') vibrar([90, 70, 90], 960);
+    else if (v.tipo === 'alvo') vibrar(70, 620);
+  }
+
   /* quiz */
   function telaQuiz(mudou) {
     var s = loja.sala, p = loja.pergunta(s.quiz_ordem);
     var resp = lerL('quiz', {}), meu = resp[s.quiz_ordem];
     clearInterval(timerQuiz);
     mostrar('v-quiz');
+    if (!s.quiz_revelada) $('quiz-box').classList.remove('revelada', 'brilha-ok', 'brilha-erro');
     if (!p) { $('quiz-box').innerHTML = '<h2>Prepare-se…</h2>'; return; }
     var cab = '<div class="kick">' + (p.tipo === 'numero' ? 'Desempate' : 'Pergunta ' + p.ordem) + '</div><h2>' + esc(p.texto) + '</h2>';
     if (s.quiz_revelada) {
-      $('quiz-box').innerHTML = cab + '<div class="msg">Conferindo…</div>';
+      var chave = s.quiz_ordem + '|' + (s.quiz_aberta_em || '');
+      if (!mudou && vistoQuiz === chave && $('quiz-box').querySelector('.veredito')) return;
+      var novo = vistoQuiz !== chave;
+      vistoQuiz = chave;
+      var v = veredito(p, s, meu, null);
+      pintarVeredito(cab, p, s, meu, v, novo);
       atualizarPlacar().then(function (d) {
-        var certo = p.tipo === 'multipla' ? p.opcoes[s.quiz_correta] : s.quiz_valor;
-        var ult = d && d.ultima;
-        var html = cab;
-        if (p.tipo === 'numero') html += '<div class="resultado ok">' + esc(s.quiz_valor) + '</div><p class="nota">Você respondeu ' + (meu != null ? esc(meu.v) : 'nada') + '. Quem chegar mais perto desempata.</p>';
-        else if (ult > 0) html += '<div class="resultado ok">Acertou! +' + fmt(ult) + '</div>';
-        else html += '<div class="resultado">' + (meu != null ? 'Não foi dessa vez' : 'Sem resposta') + '</div><p class="nota">Resposta certa: ' + esc(certo) + '</p>';
-        if (d) html += '<div class="placar"><div><b>' + (d.posicao ? d.posicao + 'º' : '–') + '</b><small>posição</small></div><div><b>' + fmt(d.total) + '</b><small>pontos</small></div></div>';
-        $('quiz-box').innerHTML = html;
+        var agora = loja.sala;
+        if (!d || !agora || !agora.quiz_revelada || agora.quiz_ordem !== s.quiz_ordem || vistoQuiz !== chave) return;
+        var v2 = veredito(p, agora, meu, d);
+        if (v2.tipo !== v.tipo) { v = v2; pintarVeredito(cab, p, agora, meu, v, novo); }
+        var ult = d.ultima > 0 ? d.ultima : 0, anima = novo && !CALMO;
+        if (ult && (v.tipo === 'acerto' || v.tipo === 'alvo')) contar($('vd-pts'), 0, ult, anima ? 1100 : 0, '+', ' pontos');
+        var pl = $('vd-placar');
+        if (pl) {
+          pl.innerHTML = '<div><b>' + (d.posicao ? d.posicao + 'º' : '–') + '</b><small>posição</small></div><div><b id="vd-total"></b><small>pontos</small></div>';
+          contar($('vd-total'), Math.max(0, d.total - ult), d.total, anima && ult ? 1300 : 0, '', '');
+          pl.classList.add('on');
+        }
       });
       return;
     }
@@ -384,7 +492,7 @@
     A.slides.forEach(function (s) {
       if (s.tipo === 'nuvem' || s.tipo === 'mito' || s.tipo === 'regua' || s.tipo === 'mapa' || s.tipo === 'caca') et.push([s.tipo + ':' + s.id, s.tipo + ' · ' + s.id]);
     });
-    et.push(['quiz', 'Quiz'], ['ranking', 'Placar'], ['intencoes', 'Intenções']);
+    et.push(['quiz', 'Quiz'], ['quiz-desempate', 'Quiz · desempate'], ['quiz-revelar', 'Quiz · resultado'], ['ranking', 'Placar'], ['intencoes', 'Intenções']);
     if (temMural()) et.push(['mural', 'Mural']);
     var d = document.createElement('div'); d.id = 'demo-bar';
     d.innerHTML = '<select aria-label="Etapa de demonstração">' + et.map(function (e) { return '<option value="' + e[0] + '">' + e[1] + '</option>'; }).join('') + '</select>';
@@ -392,6 +500,8 @@
     d.querySelector('select').addEventListener('change', function () {
       var v = this.value;
       if (v === 'quiz') { loja.rpc('quiz_preparar', { p_ordem: 1 }); loja.rpc('quiz_abrir', {}); }
+      else if (v === 'quiz-desempate') { loja.rpc('quiz_preparar', { p_ordem: 11 }); loja.rpc('quiz_abrir', {}); }
+      else if (v === 'quiz-revelar') loja.rpc('quiz_revelar', {});
       else loja.rpc('mudar', { p_etapa: v, p_item: 0 });
     });
   }

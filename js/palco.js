@@ -722,11 +722,68 @@
     };
   };
 
+  /* papel picado: rajadas dos cantos de baixo e chuva contínua, nas cores do confete da foto */
+  function papelPicado(cv) {
+    var ctx = cv.getContext('2d'), W = 0, H = 0, pecas = [], vivo = true, ult = 0, acc = 0, proxRajada = 0, t = 0;
+    var CORES = [['#FFFFFF', '#DCE6EF'], ['#FFFFFF', '#DCE6EF'], ['#D6ECF8', '#A9CBE0'], ['#8CC8EE', '#5C9FCB'], ['#4A9FE0', '#2F78B4'],
+      ['#2F6FD1', '#1F4F9C'], ['#5CC6C8', '#3C9799'], ['#F8D464', '#C9A43D'], ['#F8D464', '#C9A43D'], ['#F2A652', '#C27E36']];
+    function medir() { var w = cv.offsetWidth || 1920, h = cv.offsetHeight || 560; if (w !== W || h !== H) { W = cv.width = w; H = cv.height = h; } }
+    function peca(x, y, vx, vy) {
+      var c = CORES[Math.floor(Math.random() * CORES.length)], forma = Math.random();
+      var k = 1.7 + Math.random() * 1.1;
+      pecas.push({ x: x, y: y, vx: vx, vy: vy, k: k, g: 190 + Math.random() * 110,
+        w: forma < .55 ? 13 + Math.random() * 11 : forma < .8 ? 10 + Math.random() * 6 : 6 + Math.random() * 3,
+        h: forma < .55 ? 9 + Math.random() * 7 : forma < .8 ? 10 + Math.random() * 6 : 22 + Math.random() * 12,
+        redondo: forma >= .55 && forma < .8, c: c, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 9,
+        fl: Math.random() * 6.28, vf: 4 + Math.random() * 7, ba: Math.random() * 6.28, vb: 1.2 + Math.random() * 2.2, amp: 10 + Math.random() * 34 });
+    }
+    function rajada(lado, n) {
+      var x0 = lado < 0 ? -10 : W + 10;
+      for (var i = 0; i < n; i++) {
+        var ang = 0.2 + Math.random() * 0.6, vel = 900 + Math.random() * 700;
+        peca(x0, H + 10, -lado * Math.sin(ang) * vel, -Math.cos(ang) * vel);
+      }
+    }
+    function quadro(agora) {
+      if (!vivo) return;
+      requestAnimationFrame(quadro);
+      if (!ult) { ult = agora; medir(); rajada(-1, 130); rajada(1, 130); proxRajada = 14; }
+      var dt = Math.min(0.05, (agora - ult) / 1000); ult = agora; t += dt;
+      if (document.hidden) return;
+      medir();
+      acc += dt * 30;
+      while (acc >= 1 && pecas.length < 420) { acc -= 1; peca(Math.random() * W, -20 - Math.random() * 40, (Math.random() - .5) * 40, 40 + Math.random() * 60); }
+      if (acc >= 1) acc = 0;
+      if (t >= proxRajada) { rajada(Math.random() < .5 ? -1 : 1, 70); proxRajada = t + 12 + Math.random() * 6; }
+      ctx.clearRect(0, 0, W, H);
+      for (var i = pecas.length - 1; i >= 0; i--) {
+        var p = pecas[i];
+        p.vx -= p.vx * p.k * dt; p.vy += (p.g - p.vy * p.k) * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt; p.fl += p.vf * dt; p.ba += p.vb * dt;
+        if (p.y > H + 40) { pecas.splice(i, 1); continue; }
+        var vira = Math.cos(p.fl);
+        ctx.save();
+        ctx.translate(p.x + Math.sin(p.ba) * p.amp, p.y);
+        ctx.rotate(p.rot);
+        ctx.scale(1, Math.max(0.08, Math.abs(vira)));
+        ctx.fillStyle = vira >= 0 ? p.c[0] : p.c[1];
+        ctx.globalAlpha = 0.95;
+        if (p.redondo) { ctx.beginPath(); ctx.arc(0, 0, p.w / 2, 0, 6.2832); ctx.fill(); }
+        else ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+    }
+    requestAnimationFrame(quadro);
+    return { parar: function () { vivo = false; pecas = []; }, rajada: function () { rajada(-1, 110); rajada(1, 110); } };
+  }
+
   R.final = function (sl, el) {
-    el.innerHTML = '<div class="fim-slide"><div class="im" style="background-image:url(\'' + img(sl.imagem) + '\')"></div>' +
-      '<div class="baixo"><div><h1 class="titulo"><span>' + esc(sl.titulo) + '</span></h1><div class="kicker" style="margin-top:20px">' + esc(sl.legenda || '') + '</div></div>' +
+    el.innerHTML = '<div class="fim-slide"><div class="im"><div class="foto" style="background-image:url(\'' + img(sl.imagem) + '\')"></div>' +
+      (sl.confete === false ? '' : '<canvas class="papel-picado" aria-hidden="true"></canvas>') + '</div>' +
+      '<div class="baixo"><div><h1 class="titulo"><span>' + esc(sl.titulo) + '</span></h1>' + (sl.legenda ? '<div class="kicker" style="margin-top:20px">' + esc(sl.legenda) + '</div>' : '') + '</div>' +
       '<img src="img/logo-catecumenato-p.jpg" alt="Catecumenato"></div></div>';
-    return {};
+    var cv = el.querySelector('canvas.papel-picado'), festa = cv ? papelPicado(cv) : null;
+    return { sair: function () { if (festa) festa.parar(); } };
   };
 
   /* ---------- navegação ---------- */

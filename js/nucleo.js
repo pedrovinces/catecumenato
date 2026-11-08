@@ -489,12 +489,13 @@
           lista.forEach(function (l, i) { l.posicao = i + 1; });
           return { data: lista.slice(0, a.p_limite || 10) };
         case 'meu_placar':
-          return { data: { posicao: 4, total: 2380, bonus: 250, acertos: 3, jogadores: Object.keys(s.jogadores).length || 28, respondeu: false, ultima: sala.quiz_revelada ? 846 : null } };
+          var mm = (Demo.minhas || {})[sala.quiz_ordem], acertei = mm != null && mm === sala.quiz_correta;
+          return { data: { posicao: 4, total: 2380, bonus: 250, acertos: 3, jogadores: Object.keys(s.jogadores).length || 28, respondeu: mm != null, ultima: sala.quiz_revelada && mm != null ? (acertei ? 846 : 0) : null } };
         case 'jogador_entrar':
           s.jogadores[APARELHO] = { aparelho: APARELHO, apelido: compacto(a.p_apelido), foto: a.p_foto, cor: 3, criado: new Date().toISOString() };
           setTimeout(function () { s.avisar('jogadores', s.jogadores[APARELHO]); }, 0);
           return { data: { ok: true, apelido: compacto(a.p_apelido), cor: 3 } };
-        case 'quiz_responder': return { data: { ok: true } };
+        case 'quiz_responder': Demo.minhas = Demo.minhas || {}; Demo.minhas[sala.quiz_ordem] = a.p_opcao != null ? a.p_opcao : a.p_valor; return { data: { ok: true } };
         case 'comandar':
           sala.comando = a.p_comando; sala.comando_seq = (sala.comando_seq || 0) + 1; aviso(); return { data: sala.comando_seq };
         case 'mural_pendentes': return { data: s.mural.concat([{ id: 'p1', texto: 'Meu avô já recebeu uma vez; pode receber de novo?', aprovada: false, oculta: false, respondida: false, apoios: 0, criado: new Date().toISOString() }]) };

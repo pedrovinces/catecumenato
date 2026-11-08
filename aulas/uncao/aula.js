@@ -234,6 +234,6 @@ window.AULA = {
         'Uma boa data para a comunidade celebrar a Unção com os seus enfermos (CIC 1517).'
       ] },
 
-    { tipo: 'final', imagem: 'alta.jpg', titulo: 'Obrigado', legenda: 'Alta do plantão.' }
+    { tipo: 'final', imagem: 'alta.jpg', titulo: 'Obrigado' }
   ]
 };
