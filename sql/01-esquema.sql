@@ -149,6 +149,13 @@ create table public.quiz_respostas (
   primary key (sala, ordem, aparelho)
 );
 
+-- roteiro do orador (fala e rubrica por slide): lido somente com a chave, pela função orador_roteiro
+create table public.roteiros (
+  aula text primary key check (aula ~ '^[a-z0-9-]{2,40}$'),
+  dados jsonb not null,
+  atualizado timestamptz not null default now()
+);
+
 create index on public.palavras (sala, interacao);
 create index on public.palavras (aparelho, criado);
 create index on public.votos (sala, interacao);
@@ -579,10 +586,95 @@ language plpgsql security definer set search_path = public, extensions as $$
 declare n int;
 begin
   perform public._exigir_chave(p_chave);
-  if p_comando !~ '^(avancar|voltar|ir:[0-9]{1,3}|qr|recarregar|teste|musica|passagem:([0-9]{1,2}|fechar)|formato:(auto|169|43|43c))$' then raise exception 'comando invalido'; end if;
+  if p_comando !~ '^(avancar|voltar|ir:[0-9]{1,3}|qr|recarregar|teste|musica|preto|mudo:[01]|volume:[0-9]{1,3}|ajuste:[0-9]{2,3}:-?[0-9]{1,2}:-?[0-9]{1,2}|quiz:(abrir|revelar)|passagem:([0-9]{1,2}|fechar)|formato:(auto|169|43|43c))$' then
+    raise exception 'comando invalido';
+  end if;
   update public.salas set comando = p_comando, comando_seq = comando_seq + 1, atualizado = now()
   where id = p_sala returning comando_seq into n;
   return n;
+end $$;
+
+-- ---------- painel do orador (exigem a chave) ----------
+
+create or replace function public.orador_roteiro(p_chave text, p_aula text) returns jsonb
+language plpgsql stable security definer set search_path = public, extensions as $$
+begin
+  perform public._exigir_chave(p_chave);
+  return (select r.dados from public.roteiros r where r.aula = p_aula);
+end $$;
+
+create or replace function public.orador_gabarito(p_chave text, p_aula text) returns jsonb
+language plpgsql stable security definer set search_path = public, extensions as $$
+begin
+  perform public._exigir_chave(p_chave);
+  return coalesce((select jsonb_agg(jsonb_build_object('ordem', g.ordem, 'correta', g.correta, 'valor', g.valor,
+      'comentario', g.comentario, 'fonte', g.fonte) order by g.ordem)
+    from public.quiz_gabarito g where g.aula = p_aula), '[]'::jsonb);
+end $$;
+
+/* respostas da pergunta da vez (com acerto), placar ao vivo incluindo a pergunta em andamento e acerto por pergunta */
+create or replace function public.orador_monitor(p_chave text, p_sala text) returns jsonb
+language plpgsql stable security definer set search_path = public, extensions as $$
+declare
+  s public.salas; q public.quiz_perguntas; g public.quiz_gabarito;
+  v_resp jsonb := '[]'::jsonb; v_rank jsonb; v_hist jsonb; n int;
+begin
+  perform public._exigir_chave(p_chave);
+  select * into s from public.salas where id = p_sala;
+  if s.id is null then return null; end if;
+  select count(*) into n from public.jogadores where sala = p_sala;
+  if s.quiz_ordem is not null then
+    select * into q from public.quiz_perguntas where aula = s.aula and ordem = s.quiz_ordem;
+    select * into g from public.quiz_gabarito where aula = s.aula and ordem = s.quiz_ordem;
+    select coalesce(jsonb_agg(jsonb_build_object('a', r.aparelho, 'o', r.opcao, 'v', r.valor, 'ms', r.ms, 'pts', r.pontos,
+        'ok', case when q.tipo = 'multipla' then r.opcao = g.correta else r.valor = g.valor end) order by r.criado), '[]'::jsonb)
+      into v_resp from public.quiz_respostas r where r.sala = p_sala and r.ordem = s.quiz_ordem;
+  end if;
+
+  with part as (
+    select u.aparelho, count(distinct u.k) n from (
+      select aparelho, 'p:' || interacao k from public.palavras where sala = p_sala
+      union all select aparelho, 'v:' || interacao from public.votos where sala = p_sala
+      union all select aparelho, 'r:' || interacao from public.regua where sala = p_sala
+      union all select aparelho, 'm:' || interacao from public.mapa where sala = p_sala
+      union all select aparelho, 't:' || interacao from public.toques where sala = p_sala
+    ) u group by u.aparelho
+  ),
+  qz as (
+    select r.aparelho, sum(r.pontos)::int pts,
+      (count(*) filter (where r.pontos > 0))::int acertos,
+      (count(*) filter (where qq.tipo = 'multipla'))::int respondidas,
+      coalesce(sum(r.ms) filter (where r.pontos > 0), 0)::int ms,
+      min(abs(r.valor - gg.valor)) filter (where qq.tipo = 'numero') dist
+    from public.quiz_respostas r
+    join public.quiz_perguntas qq on qq.aula = s.aula and qq.ordem = r.ordem
+    left join public.quiz_gabarito gg on gg.aula = s.aula and gg.ordem = r.ordem
+    where r.sala = p_sala
+    group by r.aparelho
+  ),
+  base as (
+    select j.aparelho, j.apelido, j.cor::int cor, coalesce(qz.pts, 0) pq, coalesce(part.n, 0)::int * 50 bonus,
+      coalesce(qz.acertos, 0) acertos, coalesce(qz.respondidas, 0) respondidas, qz.dist, coalesce(qz.ms, 0) ms
+    from public.jogadores j
+    left join qz on qz.aparelho = j.aparelho
+    left join part on part.aparelho = j.aparelho
+    where j.sala = p_sala
+  ),
+  ord as (
+    select row_number() over (order by pq + bonus desc, dist asc nulls last, ms asc, apelido)::int pos, * from base
+  )
+  select coalesce(jsonb_agg(jsonb_build_object('pos', pos, 'a', aparelho, 'apelido', apelido, 'cor', cor,
+      'total', pq + bonus, 'quiz', pq, 'bonus', bonus, 'acertos', acertos, 'respondidas', respondidas, 'dist', dist) order by pos), '[]'::jsonb)
+    into v_rank from ord where pos <= 12;
+
+  select coalesce(jsonb_agg(jsonb_build_object('ordem', h.ordem, 'n', h.n, 'ok', h.ok) order by h.ordem), '[]'::jsonb)
+    into v_hist
+    from (select r.ordem, count(*)::int n, (count(*) filter (where r.pontos > 0))::int ok
+          from public.quiz_respostas r where r.sala = p_sala group by r.ordem) h;
+
+  return jsonb_build_object('ordem', s.quiz_ordem, 'tipo', q.tipo, 'correta', g.correta, 'valor', g.valor,
+    'comentario', g.comentario, 'fonte', g.fonte, 'aberta_em', s.quiz_aberta_em, 'tempo', s.quiz_tempo,
+    'revelada', s.quiz_revelada, 'jogadores', n, 'respostas', v_resp, 'ranking', v_rank, 'historico', v_hist);
 end $$;
 
 -- ---------- segurança por linha ----------
@@ -601,6 +693,7 @@ alter table public.intencoes enable row level security;
 alter table public.quiz_perguntas enable row level security;
 alter table public.quiz_gabarito enable row level security;
 alter table public.quiz_respostas enable row level security;
+alter table public.roteiros enable row level security;
 
 create policy ler on public.salas for select to anon, authenticated using (true);
 create policy ler on public.jogadores for select to anon, authenticated using (true);
@@ -633,6 +726,7 @@ create policy enviar on public.intencoes for insert to anon, authenticated with 
 revoke update, truncate, references, trigger on all tables in schema public from anon, authenticated;
 revoke insert on public.salas, public.jogadores, public.quiz_perguntas, public.quiz_gabarito, public.quiz_respostas, public.config_chave from anon, authenticated;
 revoke select on public.quiz_gabarito, public.quiz_respostas, public.config_chave from anon, authenticated;
+revoke all on public.roteiros from anon, authenticated;
 revoke execute on function public._chave_ok(text), public._exigir_chave(text),
   public._antes_palavra(), public._limite_generico(), public._antes_mapa(), public._antes_mural(),
   public._antes_intencao(), public._depois_apoio(), public._norm(text), public._palavrao(text)

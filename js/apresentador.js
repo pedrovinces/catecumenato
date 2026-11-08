@@ -108,6 +108,7 @@
     $('aula').textContent = A.titulo + ' · sala ' + SALA;
     $('link-telao').href = 'palco.html' + location.search;
     $('link-celular').href = 'index.html' + location.search;
+    $('link-orador').href = 'orador.html' + location.search;
     loja = new C.Loja({ tabelas: ['jogadores'], intervalo: 8000, verPresenca: true });
     loja.ouvir(function (t) { if (t === 'sala' || t === 'carga' || t === 'jogadores') pintarEstado(); if (t === 'presenca' || t === 'carga') pintarPresenca(); });
     loja.iniciar().then(function () {

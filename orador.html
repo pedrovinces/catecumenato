@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3E0D0E">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Orador">
+<title>Painel do orador</title>
+<link rel="icon" href="img/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/orador-180.png">
+<link rel="manifest" href="orador.webmanifest">
+<link rel="stylesheet" href="css/marca.css?v=20261107p">
+<link rel="stylesheet" href="css/orador.css?v=20261107p">
+</head>
+<body>
+
+<form id="login" class="login" hidden>
+  <div class="login-cartao">
+    <img src="img/icone.svg" alt="" width="56" height="56">
+    <div class="kick">Painel do orador</div>
+    <h1><label for="w-chave">Chave do apresentador</label></h1>
+    <input type="password" id="w-chave" autocomplete="current-password" autocapitalize="none" spellcheck="false" placeholder="chave">
+    <button class="bt ouro grande" type="submit">Entrar</button>
+    <p class="msg" id="m-login" aria-live="polite"></p>
+  </div>
+</form>
+
+<div id="app" hidden>
+  <header id="barra">
+    <div class="marca"><img src="img/icone.svg" alt=""><span>Orador</span></div>
+    <div class="pilula" id="p-telao" title="Situação do telão"><i></i><span>telão fechado</span></div>
+    <div class="pilula forte" id="p-slide">–</div>
+    <button class="pilula relogio" id="p-tempo-slide" type="button" title="Tempo neste slide"><small>neste slide</small><b>0:00</b><em></em><span class="trilho"><span></span></span></button>
+    <button class="pilula relogio" id="p-tempo-total" type="button" title="Tempo do encontro: toque para iniciar ou pausar"><small>encontro</small><b>0:00</b><em></em></button>
+    <div class="pilula" id="p-gente"><b>0</b><span>participantes</span></div>
+    <div class="grupo-som">
+      <button class="ic" id="b-mudo" type="button" aria-label="Silenciar o telão"></button>
+      <button class="ic" id="b-vol-menos" type="button" aria-label="Diminuir volume">−</button>
+      <span id="vol-txt">100%</span>
+      <button class="ic" id="b-vol-mais" type="button" aria-label="Aumentar volume">+</button>
+    </div>
+    <div class="grupo-som">
+      <button class="ic letra" id="b-a-menos" type="button" aria-label="Diminuir o texto do roteiro">A−</button>
+      <button class="ic letra" id="b-a-mais" type="button" aria-label="Aumentar o texto do roteiro">A+</button>
+    </div>
+    <button class="ic" id="b-cheia" type="button" aria-label="Tela cheia no iPad"></button>
+  </header>
+
+  <div id="faixa" class="faixa" hidden></div>
+
+  <main id="grade">
+    <section id="col-roteiro" class="coluna" aria-label="Roteiro do slide">
+      <div id="previa" class="previa" hidden></div>
+      <div id="cab-slide" class="cab-slide"></div>
+      <div id="roteiro" class="roteiro"></div>
+      <div id="proximo" class="proximo"></div>
+    </section>
+
+    <section id="col-lado" class="coluna lado" aria-label="Controles">
+      <nav class="abas" role="tablist">
+        <button role="tab" data-aba="vivo" class="on" type="button">Ao vivo</button>
+        <button role="tab" data-aba="slides" type="button">Slides</button>
+        <button role="tab" data-aba="telao" type="button">Telão</button>
+        <button role="tab" data-aba="apoio" type="button">Apoio</button>
+      </nav>
+      <div class="aba on" id="aba-vivo" role="tabpanel"></div>
+      <div class="aba" id="aba-slides" role="tabpanel"><ol id="lista"></ol></div>
+      <div class="aba" id="aba-telao" role="tabpanel"></div>
+      <div class="aba" id="aba-apoio" role="tabpanel"></div>
+    </section>
+  </main>
+
+  <footer id="nav">
+    <button class="bt nav-voltar" id="b-voltar" type="button"><span class="seta">◀</span><span><b>Voltar</b><small id="sub-voltar">passo anterior</small></span></button>
+    <div id="passos" class="passos" aria-hidden="true"></div>
+    <button class="bt ouro nav-avancar" id="b-avancar" type="button"><span><b id="tit-avancar">Avançar</b><small id="sub-avancar"></small></span><span class="seta">▶</span></button>
+  </footer>
+  <div id="toast" class="toast" aria-live="polite"></div>
+</div>
+
+<script src="js/config.js?v=20261107p"></script>
+<script src="vendor/supabase.js?v=20261107p"></script>
+<script src="vendor/qrcode.js?v=20261107p"></script>
+<script src="js/nucleo.js?v=20261107p"></script>
+<script src="js/orador.js?v=20261107p"></script>
+</body>
+</html>

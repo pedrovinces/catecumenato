@@ -1,3 +1,5 @@
 .DS_Store
 *-gabarito.sql
 sql-privado/
+*.local.json
+ferramentas/

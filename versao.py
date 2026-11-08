@@ -3,7 +3,7 @@
 Uso: python3 versao.py 20261107b"""
 import re, sys
 V = sys.argv[1]
-for p in ['index.html', 'palco.html', 'apresentador.html']:
+for p in ['index.html', 'palco.html', 'apresentador.html', 'orador.html']:
     s = open(p).read()
     s = re.sub(r'((?:href|src)="(?:css|js|vendor)/[^"?]+)(\?v=[^"]*)?"', lambda m: m.group(1) + '?v=' + V + '"', s)
     open(p, 'w').write(s)

@@ -211,6 +211,7 @@
     return {
       entrar: function () { setTimeout(function () { desenhar(false); }, 60); },
       atualizar: function (t) { if (t === 'palavras' || t === 'carga') desenhar(true); },
+      passo: function () { return { p: foco, n: passos }; },
       avancar: function () { if (foco < passos - 1) { foco++; aplicar(); return true; } return false; },
       voltar: function () { if (foco > 0) { foco--; aplicar(); return true; } return false; }
     };
@@ -298,6 +299,7 @@
     }
     return {
       entrar: atualizar, atualizar: function (t) { if (t === 'regua' || t === 'carga') atualizar(); },
+      passo: function () { return { p: revelado ? 1 : 0, n: 2 }; },
       avancar: function () { if (!revelado) { revelado = true; aplicar(); return true; } return false; },
       voltar: function () { if (revelado) { revelado = false; aplicar(); return true; } return false; }
     };
@@ -340,6 +342,7 @@
       item: 0,
       entrar: function () { render(false); som(ctx.paraFrente ? 'frente' : 'tras'); },
       atualizar: function (t) { if (t === 'votos' || t === 'carga') contar(); },
+      passo: function () { return { p: p, n: total }; },
       avancar: function () { if (p < total - 1) { var antes = item(); p++; render(item() !== antes); som('frente'); return true; } return false; },
       voltar: function () { if (p > 0) { var antes = item(); p--; render(item() !== antes); som('tras'); return true; } return false; }
     };
@@ -391,6 +394,7 @@
     }
     return {
       entrar: atualizar, atualizar: function (t) { if (t === 'mapa' || t === 'carga') atualizar(); },
+      passo: function () { return { p: passo, n: 3 }; },
       avancar: function () { if (passo < 2) { passo++; aplicar(); return true; } return false; },
       voltar: function () { if (passo > 0) { passo--; aplicar(); return true; } return false; }
     };
@@ -431,6 +435,7 @@
     return {
       entrar: function () { atualizar(); if (comSom) trilhaDaPergunta(sl, ctx.paraFrente); },
       atualizar: function (t) { if (t === 'toques' || t === 'carga') atualizar(); },
+      passo: function () { return { p: revelado ? 1 : 0, n: 2 }; },
       avancar: function () { if (!revelado) { revelado = true; raiz.classList.add('revelado'); if (comSom) silenciarPergunta(); return true; } return false; },
       voltar: function () { if (revelado) { revelado = false; raiz.classList.remove('revelado'); if (comSom) trilhaDaPergunta(sl, false); return true; } return false; }
     };
@@ -492,10 +497,11 @@
     }
     function virar(d) {
       tx.classList.add('virando');
-      setTimeout(function () { pg += d; render(); tx.classList.remove('virando'); }, 260);
+      setTimeout(function () { pg += d; render(); tx.classList.remove('virando'); if (loja) loja.anunciar(); }, 260);
     }
     render();
     return {
+      passo: function () { return { p: pg, n: paginas.length }; },
       avancar: function () { if (pg < paginas.length - 1) { virar(1); return true; } return false; },
       voltar: function () { if (pg > 0) { virar(-1); return true; } return false; }
     };
@@ -580,12 +586,12 @@
       arco.setAttribute('stroke-dashoffset', (282.74 * (1 - rest / tempo)).toFixed(1));
       rel.textContent = Math.ceil(rest);
       if (Date.now() - ultPoll > 1000) { ultPoll = Date.now(); painel(); }
-      if (rest <= 0) { estado = 'encerrada'; est.textContent = 'Tempo esgotado'; agendarRevelar(1700); return; }
+      if (rest <= 0) { estado = 'encerrada'; est.textContent = 'Tempo esgotado'; if (loja) loja.anunciar(); agendarRevelar(1700); return; }
       raf = setTimeout(tick, 100);
     }
     function agendarRevelar(ms) { if (autoTimer || revelando || estado === 'revelada') return; autoTimer = setTimeout(revelar, ms); }
     function abrir() {
-      estado = 'aberta'; est.textContent = 'Valendo!';
+      estado = 'aberta'; est.textContent = 'Valendo!'; if (loja) setTimeout(function () { loja.anunciar(); }, 0);
       return rpcApr('quiz_abrir', {}).then(function (r) {
         abertaEm = r && r.data ? new Date(r.data).getTime() : loja.agora();
         raf = setTimeout(tick, 50);
@@ -602,7 +608,7 @@
     }
     function mostrarRevelada(correta, valor, comentario, fonte) {
       if (sl.musica && estado !== 'revelada') silenciarPergunta();
-      estado = 'revelada'; revelando = false; est.textContent = 'Resposta';
+      estado = 'revelada'; revelando = false; est.textContent = 'Resposta'; if (loja) setTimeout(function () { loja.anunciar(); }, 0);
       raiz.classList.add('revelada'); arco.setAttribute('stroke-dashoffset', '282.74'); rel.textContent = '0';
       if (p.tipo === 'numero') { $('.numero-resp', el).textContent = valor != null ? valor : '?'; }
       Array.prototype.forEach.call(el.querySelectorAll('.op'), function (op, i) { op.classList.toggle('certa', i === +correta); });
@@ -610,6 +616,9 @@
     }
     return {
       quiz: true,
+      passo: function () { return { p: estado === 'preparada' ? 0 : estado === 'revelada' ? 2 : 1, n: 3, q: estado }; },
+      abrirSePronta: function () { if (estado === 'preparada') abrir(); },
+      revelarSeAberta: function () { if (estado === 'aberta' || estado === 'encerrada') revelar(); },
       entrar: function () {
         var s = loja.sala;
         if (s && +s.quiz_ordem === +sl.ordem && s.etapa === 'quiz') {
@@ -689,6 +698,7 @@
     }
     return {
       entrar: function () { loja.rpc('ranking', { p_sala: C.SALA, p_limite: 3 }).then(function (r) { dados = (r && r.data) || []; preencher(); }); },
+      passo: function () { return { p: passo, n: 4 }; },
       avancar: function () { if (passo < 3) { passo++; aplicar(); return true; } return false; },
       voltar: function () { if (passo > 0) { passo--; aplicar(); return true; } return false; }
     };
@@ -815,14 +825,15 @@
     if (!inicial || !loja.sala || loja.sala.slide !== n || sl.tipo !== 'quiz') sincronizar(n, ctl.item || 0);
     atualizarHud();
     qrFlutuante(sl);
+    if (loja) loja.anunciar();
   }
-  function avancar() { if (atual && atual.avancar && atual.avancar()) return; ir(indice + 1); }
-  function voltar() { if (atual && atual.voltar && atual.voltar()) return; ir(indice - 1); }
+  function avancar() { if (atual && atual.avancar && atual.avancar()) { if (loja) loja.anunciar(); return; } ir(indice + 1); }
+  function voltar() { if (atual && atual.voltar && atual.voltar()) { if (loja) loja.anunciar(); return; } ir(indice - 1); }
 
   function executar(cmd) {
     if (cmd === 'avancar') avancar();
     else if (cmd === 'voltar') voltar();
-    else if (cmd === 'qr') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
+    else if (cmd === 'qr') { qrManual = !qrManual; qrFlutuante(slides[indice]); if (loja) loja.anunciar(); }
     else if (cmd === 'recarregar') location.reload();
     else if (cmd === 'teste') alternarTeste();
     else if (cmd === 'musica') Som.alternarMudo();
@@ -830,7 +841,15 @@
     else if (/^passagem:\d+$/.test(cmd)) abrirPassagem(+cmd.slice(9));
     else if (/^formato:/.test(cmd)) definirFormato(cmd.slice(8));
     else if (/^ir:\d+$/.test(cmd)) ir(+cmd.slice(3));
+    else if (cmd === 'preto') alternarPreto();
+    else if (cmd === 'mudo:1') { if (!Som.mudo()) Som.alternarMudo(); }
+    else if (cmd === 'mudo:0') { if (Som.mudo()) Som.alternarMudo(); }
+    else if (/^volume:\d+$/.test(cmd)) Som.volume(+cmd.slice(7));
+    else if (/^ajuste:/.test(cmd)) definirAjuste(cmd.slice(7));
+    else if (cmd === 'quiz:abrir') { if (atual && atual.abrirSePronta) atual.abrirSePronta(); }
+    else if (cmd === 'quiz:revelar') { if (atual && atual.revelarSeAberta) atual.revelarSeAberta(); }
   }
+  function alternarPreto() { $('#preto').hidden = !$('#preto').hidden; if (loja) loja.anunciar(); }
   function verComando() {
     var s = loja.sala; if (!s) return;
     var seq = s.comando_seq || 0;
@@ -856,7 +875,10 @@
   }
   var Som = (function () {
     var au = null, fonte = null, alvo = 0.6, quer = false, tick = null, estado = 'parado', cacheEfeitos = {}, aquecidos = [];
-    var mudo = C.ler('cat-mudo', '') === '1';
+    var mudo = String(C.ler('cat-mudo', '')) === '1';
+    var mestre = Math.max(0, Math.min(150, +C.ler('cat-volume', '100') || 0)) / 100;
+    if (C.ler('cat-volume', '') === '') mestre = 1;
+    function nivel(v) { return Math.max(0, Math.min(1, v * mestre)); }
     function audio() { if (!au) { au = new Audio(); au.loop = true; au.preload = 'auto'; au.volume = 0; } return au; }
     function rampa(vol, ms, depois) {
       clearInterval(tick);
@@ -875,9 +897,9 @@
         if (mudo) { mudar('mudo'); return; }
         var a = audio();
         if (doInicio) { try { a.currentTime = 0; } catch (x) {} }
-        if (estado === 'tocando' && !a.paused) { if (doInicio) rampa(alvo, 1200); return; }
+        if (estado === 'tocando' && !a.paused) { if (doInicio) rampa(nivel(alvo), 1200); return; }
         var p = a.play();
-        var ok = function () { if (!quer) { a.pause(); mudar('parado'); return; } mudar('tocando'); rampa(alvo, 3500); };
+        var ok = function () { if (!quer) { a.pause(); mudar('parado'); return; } mudar('tocando'); rampa(nivel(alvo), 3500); };
         if (p && p.then) p.then(ok).catch(function () { mudar('bloqueado'); }); else ok();
       },
       parar: function (ms) {
@@ -900,7 +922,7 @@
         if (mudo) { disparar(); return; }
         var e = cacheEfeitos[src] || (cacheEfeitos[src] = new Audio(src));
         try { e.pause(); e.currentTime = 0; } catch (x) {}
-        e.volume = Math.max(0, Math.min(1, vol == null ? 1 : vol));
+        e.volume = nivel(vol == null ? 1 : vol);
         var agendar = function () { var d = isFinite(e.duration) && e.duration > 0 ? e.duration : 3; setTimeout(disparar, d * 500); };
         var p = e.play();
         if (p && p.then) p.then(function () { if (e.readyState >= 1) agendar(); else e.addEventListener('loadedmetadata', agendar, { once: true }); }).catch(disparar);
@@ -912,6 +934,13 @@
       },
       estado: function () { return estado; },
       mudo: function () { return mudo; },
+      mestre: function () { return mestre; },
+      volume: function (pc) {
+        mestre = Math.max(0, Math.min(150, pc)) / 100; C.guardar('cat-volume', String(Math.round(mestre * 100)));
+        if (estado === 'tocando' && au && !au.paused) rampa(nivel(alvo), 400);
+        avisoTela('Volume', Math.round(mestre * 100) + '%');
+        if (loja) loja.anunciar();
+      },
       fonte: function () { return quer ? fonte : null; }
     };
     return api;
@@ -977,7 +1006,7 @@
         var agora = c.currentTime; if (agora - ultimo < 0.04) return; ultimo = agora;
         var src = c.createBufferSource(), g = c.createGain();
         src.buffer = buf; src.playbackRate.value = 0.8 + Math.random() * 0.45;
-        g.gain.value = (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3);
+        g.gain.value = (vol == null ? 0.6 : vol) * (0.7 + Math.random() * 0.3) * Som.mestre();
         src.connect(g); g.connect(c.destination); src.start();
       }
     };
@@ -1065,6 +1094,18 @@
   var FORMATOS = { auto: 'Automático', '169': '16:9', '43': '4:3 com faixas pretas', '43c': '4:3 compensado' };
   var ORDEM_FORMATOS = ['auto', '169', '43', '43c'];
   var formato = 'auto', layout43 = null, avisoTimer = null;
+  /* ajuste fino para encaixar a imagem na área projetada: zoom em % e deslocamento em % da janela */
+  var ajuste = (function () {
+    var m = String(C.ler('cat-ajuste', '100:0:0')).match(/^(\d{2,3}):(-?\d{1,2}):(-?\d{1,2})$/);
+    return m ? { z: +m[1], x: +m[2], y: +m[3] } : { z: 100, x: 0, y: 0 };
+  })();
+  function definirAjuste(t) {
+    var m = String(t).match(/^(\d{2,3}):(-?\d{1,2}):(-?\d{1,2})$/); if (!m) return;
+    ajuste = { z: Math.max(60, Math.min(110, +m[1])), x: Math.max(-20, Math.min(20, +m[2])), y: Math.max(-20, Math.min(20, +m[3])) };
+    C.guardar('cat-ajuste', ajuste.z + ':' + ajuste.x + ':' + ajuste.y);
+    escalar();
+    avisoTela('Ajuste da imagem', 'tamanho ' + ajuste.z + '% · horizontal ' + (ajuste.x > 0 ? '+' : '') + ajuste.x + ' · vertical ' + (ajuste.y > 0 ? '+' : '') + ajuste.y);
+  }
   function lerFormato() {
     var f = String(C.params.get('formato') || '').replace(/[^0-9a-z]/gi, '').toLowerCase();
     if (FORMATOS[f]) { C.guardar('cat-formato', f); return f; }
@@ -1077,8 +1118,10 @@
     var LW = em43 ? 1440 : 1920, sx, sy;
     if (formato === '43c') { sx = W / LW; sy = H / 1080; }
     else { sx = sy = Math.min(W / LW, H / 1080); }
+    var z = ajuste.z / 100, dx = W * ajuste.x / 100, dy = H * ajuste.y / 100;
+    sx *= z; sy *= z;
     palco.classList.toggle('f43', em43);
-    palco.style.transform = 'translate(' + (-LW / 2 * sx) + 'px,' + (-540 * sy) + 'px) scale(' + sx + ',' + sy + ')';
+    palco.style.transform = 'translate(' + (-LW / 2 * sx + dx) + 'px,' + (-540 * sy + dy) + 'px) scale(' + sx + ',' + sy + ')';
     var mudou = layout43 !== null && layout43 !== em43;
     layout43 = em43;
     if (mudou) refazer();
@@ -1158,8 +1201,8 @@
     else if (k === 'Home') ir(0);
     else if (k === 'End') ir(slides.length - 1);
     else if (k === 'f' || k === 'F') { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function () {}); else document.exitFullscreen(); }
-    else if (k === 'q' || k === 'Q') { qrManual = !qrManual; qrFlutuante(slides[indice]); }
-    else if (k === 'b' || k === 'B' || k === '.') { $('#preto').hidden = !$('#preto').hidden; }
+    else if (k === 'q' || k === 'Q') { qrManual = !qrManual; qrFlutuante(slides[indice]); if (loja) loja.anunciar(); }
+    else if (k === 'b' || k === 'B' || k === '.') alternarPreto();
     else if (k === 't' || k === 'T') definirFormato(ORDEM_FORMATOS[(ORDEM_FORMATOS.indexOf(formato) + 1) % ORDEM_FORMATOS.length]);
     else if (k === 'g' || k === 'G') alternarTeste();
     else if (k === 'm' || k === 'M') Som.alternarMudo();
@@ -1223,7 +1266,13 @@
     preCarregar();
     document.title = A.titulo + ' · telão';
     loja = new C.Loja({ tabelas: ['jogadores', 'palavras', 'votos', 'regua', 'mapa', 'toques', 'mural', 'intencoes'], fotos: true, intervalo: 9000, presenca: 'palco',
-      dadosPresenca: function () { return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo(), passagem: passagemAberta }; } });
+      dadosPresenca: function () {
+        var ps = atual && atual.passo ? atual.passo() : { p: 0, n: 1 };
+        return { formato: formato, layout: layout43 ? '43' : '169', teste: !$('#teste-tela').hidden, som: Som.estado(), mudo: Som.mudo(), passagem: passagemAberta,
+          vol: Math.round(Som.mestre() * 100), ajuste: ajuste.z + ':' + ajuste.x + ':' + ajuste.y, cheia: !!document.fullscreenElement, preto: !$('#preto').hidden,
+          i: indice, p: ps.p, n: ps.n, q: ps.q || null, qr: qrManual, chave: !!chaveApr };
+      } });
+    document.addEventListener('fullscreenchange', function () { if (loja) loja.anunciar(); });
     chaveApr = C.DEMO ? 'demo' : (C.ler('cat-chave', '') || null);
     loja.ouvir(function (tipo) {
       if (tipo === 'sala') { verComando(); return; }

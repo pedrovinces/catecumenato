@@ -322,6 +322,10 @@
   /* publica na presença o papel e os dados extras deste aparelho (o telão informa o formato da tela) */
   Loja.prototype.anunciar = function (jaConectado) {
     var s = this, pres = s.canalPresenca;
+    if (s.demo) {
+      if (s._ponte && s.opts.presenca) { try { s._ponte.postMessage({ tipo: 'presenca', meta: Object.assign({ papel: s.opts.presenca }, s.opts.dadosPresenca ? s.opts.dadosPresenca() : {}) }); } catch (e) {} }
+      return;
+    }
     if (!pres || !s.opts.presenca || (!jaConectado && pres.state !== 'joined')) return;
     var extra = s.opts.dadosPresenca ? s.opts.dadosPresenca() : {};
     try { var r = pres.track(Object.assign({ papel: s.opts.presenca }, extra)); if (r && r.catch) r.catch(function () {}); } catch (e) {}
@@ -415,8 +419,28 @@
   /* ---------- modo demonstração (sem banco) ---------- */
   var Demo = {
     nomes: ['Ana Paula', 'Bruno', 'Carla', 'Diego', 'Elisa', 'Fábio', 'Gabi', 'Helena', 'Igor', 'Júlia', 'Lucas', 'Marta', 'Nina', 'Otávio', 'Paula', 'Rafael', 'Sílvia', 'Tiago', 'Vera', 'Wagner', 'Zé Carlos', 'Rita', 'Márcio', 'Lúcia', 'Beto', 'Denise', 'Henrique', 'Simone'],
+    /* no modo demonstração, telão, painel e celular abertos no mesmo navegador conversam entre si */
+    ponte: function (s) {
+      if (!window.BroadcastChannel) return;
+      var bc; try { bc = new BroadcastChannel('catequese-demo-' + SALA); } catch (e) { return; }
+      s._ponte = bc;
+      bc.onmessage = function (ev) {
+        var m = ev.data || {};
+        if (m.tipo === 'sala' && m.sala) { var antes = Object.assign({}, s.sala); Object.assign(s.sala, m.sala); s.avisar('sala', { antes: antes }); }
+        else if (m.tipo === 'presenca' && m.meta && s.opts.verPresenca) { s.palcoOnline = true; s.palcoMeta = m.meta; s.avisar('presenca'); }
+        else if (m.tipo === 'saiu' && s.opts.verPresenca) { s.palcoOnline = false; s.palcoMeta = null; s.avisar('presenca'); }
+        else if (m.tipo === 'quem' && s.opts.presenca) s.anunciar(true);
+      };
+      if (s.opts.verPresenca) setTimeout(function () { try { bc.postMessage({ tipo: 'quem' }); } catch (e) {} }, 60);
+      if (s.opts.presenca) {
+        setTimeout(function () { s.anunciar(true); }, 120);
+        window.addEventListener('pagehide', function () { try { bc.postMessage({ tipo: 'saiu' }); } catch (e) {} });
+      }
+    },
+    espalhar: function (s) { if (s._ponte) { try { s._ponte.postMessage({ tipo: 'sala', sala: s.sala }); } catch (e) {} } },
     iniciar: function (s) {
       s.online = true; s.demo = true;
+      Demo.ponte(s);
       s.sala = { id: SALA, aula: AULA_ID, slide: 0, etapa: 'espera', item: 0, quiz_ordem: null, quiz_aberta_em: null, quiz_tempo: 20, quiz_revelada: false, quiz_correta: null, comando_seq: 0 };
       s.perguntas = (window.DEMO_QUIZ || []).slice();
       var D = window.DEMO_DADOS || {};
@@ -447,7 +471,7 @@
     pontos: {},
     rpc: function (s, nome, a) {
       var sala = s.sala;
-      function aviso() { setTimeout(function () { s.avisar('sala', {}); }, 0); }
+      function aviso() { Demo.espalhar(s); setTimeout(function () { s.avisar('sala', {}); }, 0); }
       switch (nome) {
         case 'agora': return { data: new Date().toISOString() };
         case 'chave_valida': return { data: true };
@@ -497,7 +521,16 @@
           return { data: { ok: true, apelido: compacto(a.p_apelido), cor: 3 } };
         case 'quiz_responder': Demo.minhas = Demo.minhas || {}; Demo.minhas[sala.quiz_ordem] = a.p_opcao != null ? a.p_opcao : a.p_valor; return { data: { ok: true } };
         case 'comandar':
-          sala.comando = a.p_comando; sala.comando_seq = (sala.comando_seq || 0) + 1; aviso(); return { data: sala.comando_seq };
+          sala.comando = a.p_comando; sala.comando_seq = Math.max((sala.comando_seq || 0) + 1, Date.now()); aviso(); return { data: sala.comando_seq };
+        case 'orador_roteiro':
+          return fetch('aulas/' + AULA_ID + '/roteiro.local.json', { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { return { data: d }; }).catch(function () { return { data: null }; });
+        case 'orador_gabarito':
+          return { data: s.perguntas.map(function (q) {
+            var g = (window.DEMO_GABARITO || {})[q.ordem] || {};
+            return { ordem: q.ordem, correta: g.correta != null ? g.correta : (q.tipo === 'multipla' ? 0 : null), valor: g.valor != null ? g.valor : null, comentario: g.comentario || 'Gabarito de demonstração: o verdadeiro fica no banco.', fonte: g.fonte || '' };
+          }) };
+        case 'orador_monitor': return { data: Demo.monitor(s) };
         case 'mural_pendentes': return { data: s.mural.concat([{ id: 'p1', texto: 'Meu avô já recebeu uma vez; pode receber de novo?', aprovada: false, oculta: false, respondida: false, apoios: 0, criado: new Date().toISOString() }]) };
         case 'mural_moderar': return { data: null };
         case 'sala_encerrar': return { data: { fotos_apagadas: 0, intencoes_apagadas: s.intencoes.length } };
@@ -505,6 +538,29 @@
         default: return { data: null };
       }
     }
+  };
+
+  /* monitor do orador simulado: respostas chegando aos poucos depois que a pergunta abre */
+  Demo.monitor = function (s) {
+    var sala = s.sala, js = s.listaJogadores(), nj = js.length, resp = [], q = sala.quiz_ordem != null ? s.pergunta(sala.quiz_ordem) : null;
+    var g = q ? ((window.DEMO_GABARITO || {})[q.ordem] || {}) : {}, correta = g.correta != null ? g.correta : 0, nop = q && q.opcoes ? q.opcoes.length : 4;
+    if (q && sala.quiz_aberta_em) {
+      var k = sala.quiz_revelada ? nj - 2 : Math.min(nj - 2, Math.floor((Date.now() - new Date(sala.quiz_aberta_em).getTime()) / 450));
+      for (var i = 0; i < k; i++) {
+        var ok = (i * 7 + q.ordem * 3) % 5 < 3, o = ok ? correta : (correta + 1 + (i % (nop - 1))) % nop;
+        if (q.tipo === 'numero') resp.push({ a: js[i].aparelho, o: null, v: 1960 + (i * 7) % 25, ms: 900 + i * 450, pts: 0, ok: false });
+        else resp.push({ a: js[i].aparelho, o: o, v: null, ms: 900 + i * 450, pts: ok ? 1000 - i * 18 : 0, ok: ok });
+      }
+    }
+    var rank = js.map(function (j, i) {
+      var b = 50 * (3 + (i % 4)), pq = j._pq || 0;
+      return { a: j.aparelho, apelido: j.apelido, cor: j.cor, total: pq + b, quiz: pq, bonus: b, acertos: Math.round(pq / 760), respondidas: Object.keys(Demo.pontos).length };
+    }).sort(function (x, y) { return y.total - x.total; }).slice(0, 12);
+    rank.forEach(function (r, i) { r.pos = i + 1; });
+    return { ordem: sala.quiz_ordem, tipo: q ? q.tipo : null, correta: q && q.tipo === 'multipla' ? correta : null, valor: g.valor != null ? g.valor : null,
+      comentario: g.comentario || 'Gabarito de demonstração: o verdadeiro fica no banco.', fonte: g.fonte || '',
+      aberta_em: sala.quiz_aberta_em, tempo: sala.quiz_tempo, revelada: sala.quiz_revelada, jogadores: nj, respostas: resp, ranking: rank,
+      historico: Object.keys(Demo.pontos).map(function (o) { return { ordem: +o, n: nj - 2, ok: Math.round((nj - 2) * 0.6) }; }) };
   };
 
   /* ---------- silhueta para o mapa do corpo (viewBox 400 x 1000) ---------- */
