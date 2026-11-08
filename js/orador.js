@@ -538,7 +538,7 @@
       if (!confirm('Recomeçar a sala? Participantes, respostas e pontos vão para um arquivo, as fotos são apagadas e todos precisam entrar de novo. Use somente em ensaio.')) return;
       loja.rpc('sala_limpar', { p_chave: chave, p_sala: SALA }).then(function (r) { toast(r && r.data ? 'Sala recomeçada.' : 'Falha ao recomeçar.', !(r && r.data)); cmd('recarregar'); });
     });
-    $('b-sair').addEventListener('click', function () { if (!confirm('Sair do painel neste iPad?')) return; C.guardar('cat-chave', ''); C.guardar('cat-roteiro-' + C.AULA_ID, ''); location.reload(); });
+    $('b-sair').addEventListener('click', function () { if (!confirm('Sair do painel neste iPad?')) return; C.guardar('cat-chave', ''); C.guardar('cat-roteiro-' + C.AULA_ID, ''); history.replaceState(null, '', location.pathname + location.search); location.reload(); });
     $('b-mudo2').addEventListener('click', alternarMudo);
   }
   function ajusteAtual() {
@@ -635,7 +635,11 @@
   }
   function entrar(v) {
     return loja.rpc('chave_valida', { p_chave: v }).then(function (r) {
-      if (!(r && r.data === true)) { $('m-login').textContent = 'Chave incorreta.'; $('login').hidden = false; $('app').hidden = true; return; }
+      if (!(r && r.data === true)) {
+        if (r && r.error && !C.DEMO && /fetch|conex|network/i.test(r.error.message || '')) { $('m-login').textContent = 'Sem conexão com o banco. Confira a internet do iPad e toque em Entrar.'; $('w-chave').value = v; }
+        else { $('m-login').textContent = 'Chave incorreta.'; C.guardar('cat-chave', ''); }
+        $('login').hidden = false; $('app').hidden = true; return;
+      }
       chave = v; if (!C.DEMO) C.guardar('cat-chave', v);
       $('login').hidden = true; $('app').hidden = false;
       if (!loja.sala) loja.rpc('sala_garantir', { p_chave: v, p_sala: SALA, p_aula: C.AULA_ID });

@@ -27,7 +27,11 @@
   (function () {
     try {
       var m = location.hash.replace(/^#/, '').match(/(?:^|&)(?:k|chave)=([^&]+)/);
-      if (m) { guardar('cat-chave', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname + location.search); }
+      if (m) {
+        guardar('cat-chave', decodeURIComponent(m[1]));
+        /* o painel do orador mantém a chave no endereço: assim o atalho na Tela de Início do iPad também entra direto */
+        if (!window.MANTER_CHAVE_NO_LINK) history.replaceState(null, '', location.pathname + location.search);
+      }
     } catch (e) {}
   })();
   var APARELHO = ler('cat-aparelho', null);
