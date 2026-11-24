@@ -234,7 +234,7 @@
     {
       "id": "posCreditos",
       "cor": "escuro",
-      "ativa": true,
+      "ativa": false,
       "wipe": false,
       "cauda": 1.0,
       "locucao": "(sussurrando) E o preto? [pausa] Existe. Mas fica para outro episódio.",

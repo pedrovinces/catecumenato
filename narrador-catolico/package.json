@@ -12,7 +12,12 @@
     "studio": "remotion studio src/index.ts",
     "previa": "remotion render src/index.ts ep01 out/previa-ep01-baixa.mp4 --scale=0.5 --crf=26",
     "tipos": "tsc --noEmit -p .",
-    "vinheta": "python3 -I scripts/vinheta.py"
+    "vinheta": "python3 -I scripts/vinheta.py",
+    "sincronizar": "python3 -I scripts/sincronizar.py roteiro/ep01-cores-liturgicas.json --sem=posCreditos",
+    "sfx": "python3 -I scripts/sfx.py",
+    "trilha": "python3 -I scripts/trilha.py ep01",
+    "mixar": "python3 -I scripts/mixar.py ep01",
+    "final": "bash scripts/final.sh ep01"
   },
   "dependencies": {
     "@remotion/bundler": "4.0.546",

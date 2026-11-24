@@ -212,8 +212,11 @@ def main():
         "cenas": cenas,
         "palavras": palavras,
     }
-    ts = RAIZ / "roteiro" / f"{roteiro['codigo']}-timestamps.json"
+    # a guia sempre grava os seus tempos; só vira o tempo oficial se ainda não houver narração real
+    ts = RAIZ / "roteiro" / f"{roteiro['codigo']}-timestamps-guia.json"
     ts.write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
+    if not (RAIZ / "assets" / roteiro["audio"]["narracao"]).exists():
+        (RAIZ / "roteiro" / f"{roteiro['codigo']}-timestamps.json").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"guia: {destino.relative_to(RAIZ)}  {total:.1f} s, {len(palavras)} palavras, "
           f"{len(palavras) / falado * 60:.0f} ppm durante a fala")
     for c in cenas:
