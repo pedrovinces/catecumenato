@@ -44,8 +44,9 @@ export const Espelho: React.FC<{ x: number; y: number; largura?: number; altura?
 /** Cabide voando para fora do quadro. t = quadros desde que saiu. */
 export const CabideVoando: React.FC<{ x: number; y: number; t: number; cor: string; dir?: number; semente?: string }> = ({ x, y, t, cor, dir = -1, semente = "c" }) => {
   if (t < 0 || t > 14) return null;
-  const vx = dir * (55 + random(semente) * 30);
-  const vy = -48 + random(semente + "y") * 20;
+  // sai por cima e para o lado, longe dos rostos
+  const vx = dir * (62 + random(semente) * 30);
+  const vy = -78 + random(semente + "y") * 18;
   const px = x + vx * t;
   const py = y + vy * t + 4.5 * t * t;
   const rot = dir * t * 38;

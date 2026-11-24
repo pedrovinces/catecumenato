@@ -61,7 +61,7 @@ export const Abertura: React.FC = () => {
           <Ambiente cor={CORES.sepia} piso={1600} />
           <Padre x={275} y={1650} escala={0.82} casula={cor} pose={braçosAcima ? "trocando" : "neutro"} expressao={{ olhos: "feliz" }} />
           {ultimas.map((k) => (
-            <CabideVoando key={k} x={300} y={980} t={f - k * QUADROS_POR_TROCA} cor={CICLO[(k + 4) % 5]} dir={-1} semente={`p${k}`} />
+            <CabideVoando key={k} x={150} y={760} t={f - k * QUADROS_POR_TROCA} cor={CICLO[(k + 4) % 5]} dir={-1} semente={`p${k}`} />
           ))}
         </g>
         <g clipPath="url(#dir)">
@@ -71,7 +71,7 @@ export const Abertura: React.FC = () => {
           <Mala x={830} y={1700} cor="#FFCA28" deitada largura={200} altura={300} />
           <Fiel x={815} y={1620} escala={1.02} tipo="influencer" roupa={LOOKS[troca % LOOKS.length]} bracos="selfie" expressao={{ olhos: "feliz", boca: "sorrisao" }} />
           {ultimas.map((k) => (
-            <CabideVoando key={k} x={800} y={980} t={f - k * QUADROS_POR_TROCA} cor={LOOKS[(k + 4) % 5]} dir={1} semente={`i${k}`} />
+            <CabideVoando key={k} x={960} y={720} t={f - k * QUADROS_POR_TROCA} cor={LOOKS[(k + 4) % 5]} dir={1} semente={`i${k}`} />
           ))}
         </g>
         <rect x={532} y={0} width={16} height={1920} fill="#FFFFFF" />
@@ -90,7 +90,7 @@ export const Abertura: React.FC = () => {
       </Espelho>
       <Padre x={320} y={1660} escala={0.96} casula={cor} pose={braçosAcima ? "trocando" : "neutro"} expressao={{ olhos: "feliz" }} />
       {ultimas.map((k) => (
-        <CabideVoando key={k} x={340} y={830} t={f - k * QUADROS_POR_TROCA} cor={k === troca ? corAnterior : CICLO[(k + 4) % 5]} dir={-1} semente={`a${k}`} />
+        <CabideVoando key={k} x={170} y={700} t={f - k * QUADROS_POR_TROCA} cor={k === troca ? corAnterior : CICLO[(k + 4) % 5]} dir={-1} semente={`a${k}`} />
       ))}
     </Tela>
   );

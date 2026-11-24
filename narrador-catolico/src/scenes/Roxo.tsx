@@ -51,7 +51,7 @@ export const Roxo: React.FC = () => {
               expressao={dSino >= 0 && !trocou ? { olhos: "arregalado", sobrancelhas: "alta", boca: "reta", olhar: [0, 0] } : undefined}
             />
           </g>
-          <SinoIgreja x={860} y={330} f={dSino} escala={0.8} />
+          <SinoIgreja x={880} y={600} f={dSino} escala={0.7} />
         </Tela>
       </Camera>
     );
