@@ -10,6 +10,7 @@ import { QUADROS_WIPE, Wipe } from "./components/motor/Wipe";
 import { cenaPara } from "./scenes";
 import { carregarFontes } from "./lib/fontes";
 import { CORES } from "./lib/paleta";
+import sfxDisponiveis from "./sfx-disponiveis.json";
 
 carregarFontes();
 
@@ -62,6 +63,14 @@ export const Episodio: React.FC<PropsEpisodio> = ({ linha, destaque, audio = tru
           </Sequence>
         ))}
       {legenda && <Legenda linha={linha} destaque={destaque} />}
+      {audio &&
+        linha.sfx
+          .filter((s) => (sfxDisponiveis as string[]).includes(s.arquivo))
+          .map((s, i) => (
+            <Sequence key={`sfx-${i}`} from={s.quadro} durationInFrames={Math.max(1, Math.min(180, linha.duracao - s.quadro))} name={`sfx ${s.arquivo}`}>
+              <Audio src={staticFile(`sfx/${s.arquivo}.wav`)} volume={0.5 * 10 ** (s.volume / 20)} />
+            </Sequence>
+          ))}
       {audio &&
         linha.narracao.segmentos.map((s, i) => (
           <Sequence key={`voz-${i}`} from={q(s.destino)} durationInFrames={q(s.origemFim - s.origemIni) + 1} name={`voz ${i}`}>

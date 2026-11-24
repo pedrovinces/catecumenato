@@ -11,7 +11,8 @@
     "quadros": "tsx scripts/quadros-chave.ts",
     "studio": "remotion studio src/index.ts",
     "previa": "remotion render src/index.ts ep01 out/previa-ep01-baixa.mp4 --scale=0.5 --crf=26",
-    "tipos": "tsc --noEmit -p ."
+    "tipos": "tsc --noEmit -p .",
+    "vinheta": "python3 -I scripts/vinheta.py"
   },
   "dependencies": {
     "@remotion/bundler": "4.0.546",

@@ -14,7 +14,16 @@
     "minPalavras": 2,
     "maxPalavras": 4
   },
-  "glossario": ["Gaudete", "Laetare", "IGMR", "Ap 7,14", "At 2,3", "Canva", "Pentecostes", "Apocalipse"],
+  "glossario": [
+    "Gaudete",
+    "Laetare",
+    "IGMR",
+    "Ap 7,14",
+    "At 2,3",
+    "Canva",
+    "Pentecostes",
+    "Apocalipse"
+  ],
   "pronuncia": {
     "influencer": "influêncer",
     "Gaudete": "gaudéte",
@@ -35,7 +44,15 @@
         { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "posicao": "titulo" }
       ],
       "sfx": [
-        { "arquivo": "swish-cabide", "inicio": 0.15, "repetir": { "intervalo": 8, "ate": "Eu também não" }, "volume": -6 },
+        {
+          "arquivo": "swish-cabide",
+          "inicio": 0.15,
+          "repetir": {
+            "intervalo": 8,
+            "ate": "Eu também não"
+          },
+          "volume": -6
+        },
         { "arquivo": "record-scratch", "gatilho": "Eu também não" },
         { "arquivo": "claque-curta", "gatilho": "descobrir", "deslocamento": 12 }
       ]
@@ -64,7 +81,10 @@
     {
       "id": "verde",
       "cor": "verde",
-      "selo": { "cor": "VERDE", "tempo": "TEMPO COMUM" },
+      "selo": {
+        "cor": "VERDE",
+        "tempo": "TEMPO COMUM"
+      },
       "locucao": "O VERDE é do Tempo Comum, a maior parte do ano. [pausa] É a cor da esperança e do crescimento. [pausa] Se você acha que a missa está sempre verde... [pausa longa] (seco) parabéns: você é um católico de Tempo Comum.",
       "gatilhos": [
         { "palavra": "esperança", "evento": "cresce" },
@@ -85,7 +105,10 @@
     {
       "id": "roxo",
       "cor": "roxo",
-      "selo": { "cor": "ROXO", "tempo": "ADVENTO E QUARESMA" },
+      "selo": {
+        "cor": "ROXO",
+        "tempo": "ADVENTO E QUARESMA"
+      },
       "locucao": "O ROXO aparece no Advento e na Quaresma. [pausa] É penitência, preparação e espera. [pausa] E neste domingo começa o Advento. Então não estranhe: [pausa] o padre não virou torcedor de time roxo. [pausa] (sorrindo) A Igreja entrou em modo preparação para o Natal.",
       "gatilhos": [
         { "palavra": "começa", "evento": "vela" },
@@ -107,7 +130,10 @@
     {
       "id": "branco",
       "cor": "branco",
-      "selo": { "cor": "BRANCO", "tempo": "FESTAS" },
+      "selo": {
+        "cor": "BRANCO",
+        "tempo": "FESTAS"
+      },
       "locucao": "O BRANCO é de festa: Natal, Páscoa, Nossa Senhora e os santos que não foram mártires. [pausa] Lá no Apocalipse, capítulo sete, aparecem os que lavaram suas vestes no sangue do Cordeiro e as deixaram brancas. [pausa longa] Ou seja: [pausa] o único sabão que deixa roupa branca com sangue... [pausa] (sorrindo) é a graça de Deus.",
       "gatilhos": [
         { "palavra": "Natal", "evento": "iconeNatal" },
@@ -132,7 +158,10 @@
     {
       "id": "vermelho",
       "cor": "vermelho",
-      "selo": { "cor": "VERMELHO", "tempo": "PAIXÃO, MÁRTIRES E PENTECOSTES" },
+      "selo": {
+        "cor": "VERMELHO",
+        "tempo": "PAIXÃO, MÁRTIRES E PENTECOSTES"
+      },
       "cauda": 2.2,
       "locucao": "O VERMELHO é sangue e fogo: [pausa] Paixão, Sexta-feira Santa, apóstolos, mártires [pausa] e Pentecostes, quando o Espírito Santo desceu em línguas de fogo. [pausa] É o padre dizendo: [pausa] hoje alguém deu a vida... [pausa] ou hoje o céu pegou fogo.",
       "gatilhos": [
@@ -156,7 +185,10 @@
     {
       "id": "rosa",
       "cor": "rosa",
-      "selo": { "cor": "ROSA", "tempo": "GAUDETE E LAETARE" },
+      "selo": {
+        "cor": "ROSA",
+        "tempo": "GAUDETE E LAETARE"
+      },
       "cauda": 1.4,
       "locucao": "E existe o ROSA. [pausa] Duas vezes por ano: no terceiro domingo do Advento, o Gaudete, e no quarto domingo da Quaresma, o Laetare. [pausa] É a Igreja dizendo: calma, falta pouco. [pausa longa] Então, se você vir o padre de rosa... [pausa] ele NÃO perdeu uma aposta. [pausa] (seco) É liturgia.",
       "gatilhos": [
@@ -183,18 +215,20 @@
     {
       "id": "fechamento",
       "cor": "sepia",
-      "cauda": 1.6,
+      "cauda": 3.8,
       "locucao": "Moral da história: [pausa] na missa, até a roupa do padre está pregando. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] Agora você também.",
       "gatilhos": [
         { "palavra": "pregando", "evento": "balao" },
-        { "palavra": "Agora você também", "evento": "congela", "duracao": 2.4, "semLimite": true }
+        { "palavra": "Agora você também", "evento": "congela", "duracao": 6.0, "semLimite": true }
       ],
       "textos": [
         { "conteudo": "NA MISSA, ATÉ A ROUPA PREGA.", "entrada": "pop", "palavra": "pregando", "ate": "Agora você também", "posicao": "titulo" },
-        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" }
+        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" },
+        { "conteudo": "EVERYBODY LOVES MASS", "entrada": "impacto", "palavra": "Agora você também", "ancora": "fim", "deslocamento": 54, "posicao": "titulo" }
       ],
       "sfx": [
-        { "arquivo": "sino", "gatilho": "Moral", "volume": -3 }
+        { "arquivo": "sino", "gatilho": "Moral", "volume": -3 },
+        { "arquivo": "vinheta-final", "gatilho": "Agora você também", "ancora": "fim", "deslocamento": 3 }
       ]
     },
     {

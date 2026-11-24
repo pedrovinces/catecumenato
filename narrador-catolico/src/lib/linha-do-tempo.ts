@@ -185,6 +185,11 @@ export const resolverLinha = (roteiroBruto: unknown, tsBruto: unknown, opcoes: {
       return i;
     };
     const inicioDaFrase = (frase: string, ocorr?: number, campo?: string) => palavrasAbs[ondeFrase(frase, ocorr, campo)].inicio;
+    const momento = (frase: string, ocorr: number | undefined, campo: string, ancora?: "inicio" | "fim") => {
+      if (ancora !== "fim") return inicioDaFrase(frase, ocorr, campo);
+      const n = frase.split(/\s+/).filter(Boolean).length;
+      return palavrasAbs[ondeFrase(frase, ocorr, campo) + n - 1].fim;
+    };
 
     const eventos: Record<string, number[]> = {};
     const congelas: Janela[] = [];
@@ -208,7 +213,7 @@ export const resolverLinha = (roteiroBruto: unknown, tsBruto: unknown, opcoes: {
         t.inicio !== undefined
           ? q(t.inicio)
           : t.palavra
-            ? rel(inicioDaFrase(t.palavra, t.ocorrencia, "texto.palavra")) + (t.deslocamento ?? 0)
+            ? rel(momento(t.palavra, t.ocorrencia, "texto.palavra", t.ancora)) + (t.deslocamento ?? 0)
             : 0;
       const f = t.ate
         ? rel(inicioDaFrase(t.ate, undefined, "texto.ate"))
@@ -220,7 +225,7 @@ export const resolverLinha = (roteiroBruto: unknown, tsBruto: unknown, opcoes: {
 
     for (const s of cena.sfx) {
       let base: number;
-      if (s.gatilho) base = inicioDaFrase(s.gatilho, s.ocorrencia, "sfx.gatilho");
+      if (s.gatilho) base = momento(s.gatilho, s.ocorrencia, "sfx.gatilho", s.ancora);
       else if (s.evento) {
         const e = eventos[s.evento]?.[0];
         if (e === undefined) throw new ErroRoteiro(`cena "${cena.id}", sfx "${s.arquivo}": evento "${s.evento}" não existe`);

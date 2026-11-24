@@ -20,6 +20,7 @@ export const Texto = z.object({
   inicio: z.number().nonnegative().optional(), // segundos desde o começo da cena
   palavra: z.string().optional(),
   ocorrencia: z.number().int().positive().optional(),
+  ancora: z.enum(["inicio", "fim"]).optional(), // conta do início (padrão) ou do fim da frase
   deslocamento: z.number().int().optional(),
   duracao: z.number().positive().optional(), // segundos
   ate: z.string().optional(), // some no início desta palavra
@@ -29,6 +30,7 @@ export const Sfx = z.object({
   arquivo: z.string().min(1), // nome em assets/sfx, sem extensão
   gatilho: z.string().optional(), // palavra
   ocorrencia: z.number().int().positive().optional(),
+  ancora: z.enum(["inicio", "fim"]).optional(), // toca no início (padrão) ou no fim da frase
   evento: z.string().optional(), // ou o quadro de um evento da cena
   inicio: z.number().nonnegative().optional(), // ou segundos desde o começo da cena
   deslocamento: z.number().int().optional(),

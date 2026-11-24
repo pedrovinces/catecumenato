@@ -66,4 +66,6 @@ out/                renders (fora do git)
 
 Feito: motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 4 (roxo) e 7 (rosa), faixa-guia com tempo exato por palavra, três propostas de logotipo.
 
-Em andamento: cenas 2, 3, 5, 6, 8 e 9; sincronização com a narração real; mixagem e loudness no ffmpeg; efeitos sonoros; capa; SRT.
+Vinheta de fecho original ("Everybody loves Mass"), instrumental e cantada (guia): `npm run vinheta`, detalhes em `docs/vinheta-melodia.md`.
+
+Em andamento: cenas 2, 3, 5, 6, 8 e 9; sincronização com a narração real; mixagem e loudness no ffmpeg; demais efeitos sonoros; capa; SRT.
