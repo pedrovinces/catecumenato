@@ -1,0 +1,8 @@
+node_modules/
+out/
+assets/audio/*.wav
+assets/audio/*.mp3
+!assets/audio/LEIA.md
+.remotion/
+assets/fonts/*.ttf
+__pycache__/

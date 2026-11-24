@@ -1,0 +1,34 @@
+{
+  "name": "narrador-catolico",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reels do Narrador Católico gerados por código (Remotion + ffmpeg)",
+  "type": "module",
+  "scripts": {
+    "fontes": "bash scripts/baixar-fontes.sh",
+    "guia": "python3 -I scripts/guia_espeak.py roteiro/ep01-cores-liturgicas.json",
+    "linha": "tsx scripts/linha-do-tempo.ts",
+    "quadros": "tsx scripts/quadros-chave.ts",
+    "studio": "remotion studio src/index.ts",
+    "previa": "remotion render src/index.ts ep01 out/previa-ep01-baixa.mp4 --scale=0.5 --crf=26",
+    "tipos": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.546",
+    "@remotion/cli": "4.0.546",
+    "@remotion/fonts": "4.0.546",
+    "@remotion/layout-utils": "4.0.546",
+    "@remotion/renderer": "4.0.546",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.546",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

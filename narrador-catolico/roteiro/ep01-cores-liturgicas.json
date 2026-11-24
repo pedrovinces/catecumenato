@@ -1,0 +1,216 @@
+{
+  "episodio": 1,
+  "codigo": "ep01",
+  "slug": "ep01-cores-liturgicas",
+  "titulo": "Por que o padre muda de cor?",
+  "handle": "@narradorcatolico",
+  "audio": {
+    "narracao": "audio/narracao.wav",
+    "guia": "audio/narracao-guia.wav",
+    "trilha": "audio/trilha.mp3"
+  },
+  "legenda": {
+    "destaque": "exata",
+    "minPalavras": 2,
+    "maxPalavras": 4
+  },
+  "glossario": ["Gaudete", "Laetare", "IGMR", "Ap 7,14", "At 2,3", "Canva", "Pentecostes", "Apocalipse"],
+  "pronuncia": {
+    "influencer": "influêncer",
+    "Gaudete": "gaudéte",
+    "Laetare": "letáre",
+    "Canva": "cânva"
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "cor": "sepia",
+      "locucao": "Você já se perguntou por que o padre troca de roupa mais que influencer em viagem? [pausa] (seco) Eu também não. [pausa] Até descobrir.",
+      "gatilhos": [
+        { "palavra": "influencer", "evento": "split" },
+        { "palavra": "Eu também não", "evento": "congela", "ate": "Até descobrir" },
+        { "palavra": "Até descobrir", "evento": "zoomRosto" }
+      ],
+      "textos": [
+        { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "posicao": "titulo" }
+      ],
+      "sfx": [
+        { "arquivo": "swish-cabide", "inicio": 0.15, "repetir": { "intervalo": 8, "ate": "Eu também não" }, "volume": -6 },
+        { "arquivo": "record-scratch", "gatilho": "Eu também não" },
+        { "arquivo": "claque-curta", "gatilho": "descobrir", "deslocamento": 12 }
+      ]
+    },
+    {
+      "id": "regra",
+      "cor": "sepia",
+      "locucao": "As cores NÃO são escolha do padre. [pausa] Nem do humor dele naquela manhã. [pausa] Estão na Instrução Geral do Missal Romano, número trezentos e quarenta e seis. A Igreja tem um manual de estilo há SÉCULOS. [pausa] (sorrindo) Muito antes de existir paleta de cores no Canva.",
+      "gatilhos": [
+        { "palavra": "humor", "evento": "balaoHumor" },
+        { "palavra": "Instrução", "evento": "livroDesce" },
+        { "palavra": "manual", "evento": "livroAbre" },
+        { "palavra": "Canva", "evento": "celularEntra", "deslocamento": -8 }
+      ],
+      "textos": [
+        { "conteudo": "IGMR, n. 346", "entrada": "carimbo", "palavra": "trezentos", "posicao": "carimbo" }
+      ],
+      "sfx": [
+        { "arquivo": "bocejo", "inicio": 0.1, "volume": -4 },
+        { "arquivo": "thud-livro", "gatilho": "Instrução", "deslocamento": 10 },
+        { "arquivo": "plim", "gatilho": "trezentos" },
+        { "arquivo": "pagina", "gatilho": "manual" },
+        { "arquivo": "claque-curta", "gatilho": "Canva", "deslocamento": 14, "volume": -6 }
+      ]
+    },
+    {
+      "id": "verde",
+      "cor": "verde",
+      "selo": { "cor": "VERDE", "tempo": "TEMPO COMUM" },
+      "locucao": "O VERDE é do Tempo Comum, a maior parte do ano. [pausa] É a cor da esperança e do crescimento. [pausa] Se você acha que a missa está sempre verde... [pausa longa] (seco) parabéns: você é um católico de Tempo Comum.",
+      "gatilhos": [
+        { "palavra": "esperança", "evento": "cresce" },
+        { "palavra": "maior parte", "evento": "calendario" },
+        { "palavra": "parabéns", "evento": "medalha" },
+        { "palavra": "católico", "evento": "congela", "duracao": 1.3 }
+      ],
+      "textos": [
+        { "conteudo": "TEMPO COMUM = VERDE", "entrada": "pop", "palavra": "Tempo Comum", "posicao": "titulo" },
+        { "conteudo": "33 OU 34 SEMANAS POR ANO", "entrada": "desliza", "palavra": "maior parte", "duracao": 2, "posicao": "subtitulo" }
+      ],
+      "sfx": [
+        { "arquivo": "blip", "gatilho": "crescimento" },
+        { "arquivo": "flip-calendario", "gatilho": "maior parte" },
+        { "arquivo": "fanfarra-desafinada", "gatilho": "parabéns" }
+      ]
+    },
+    {
+      "id": "roxo",
+      "cor": "roxo",
+      "selo": { "cor": "ROXO", "tempo": "ADVENTO E QUARESMA" },
+      "locucao": "O ROXO aparece no Advento e na Quaresma. [pausa] É penitência, preparação e espera. [pausa] E neste domingo começa o Advento. Então não estranhe: [pausa] o padre não virou torcedor de time roxo. [pausa] (sorrindo) A Igreja entrou em modo preparação para o Natal.",
+      "gatilhos": [
+        { "palavra": "começa", "evento": "vela" },
+        { "palavra": "torcedor", "evento": "torcedor", "deslocamento": -6 },
+        { "palavra": "A Igreja", "evento": "sino", "deslocamento": -14 },
+        { "palavra": "modo", "evento": "loading" }
+      ],
+      "textos": [
+        { "conteudo": "ADVENTO E QUARESMA = ROXO", "entrada": "pop", "palavra": "Advento", "posicao": "titulo" },
+        { "conteudo": "1º DOMINGO DO ADVENTO: 29/11", "entrada": "desliza", "palavra": "neste domingo", "ate": "Então", "posicao": "subtitulo" }
+      ],
+      "sfx": [
+        { "arquivo": "fosforo", "gatilho": "começa" },
+        { "arquivo": "torcida-corneta", "gatilho": "torcedor", "deslocamento": -6 },
+        { "arquivo": "sino", "gatilho": "A Igreja", "deslocamento": -14 },
+        { "arquivo": "loading", "gatilho": "modo" }
+      ]
+    },
+    {
+      "id": "branco",
+      "cor": "branco",
+      "selo": { "cor": "BRANCO", "tempo": "FESTAS" },
+      "locucao": "O BRANCO é de festa: Natal, Páscoa, Nossa Senhora e os santos que não foram mártires. [pausa] Lá no Apocalipse, capítulo sete, aparecem os que lavaram suas vestes no sangue do Cordeiro e as deixaram brancas. [pausa longa] Ou seja: [pausa] o único sabão que deixa roupa branca com sangue... [pausa] (sorrindo) é a graça de Deus.",
+      "gatilhos": [
+        { "palavra": "Natal", "evento": "iconeNatal" },
+        { "palavra": "Páscoa", "evento": "iconePascoa" },
+        { "palavra": "Nossa Senhora", "evento": "iconeMaria" },
+        { "palavra": "santos", "evento": "iconeSantos" },
+        { "palavra": "Apocalipse", "evento": "pergaminho" },
+        { "palavra": "aparecem", "evento": "multidao" },
+        { "palavra": "sabão", "evento": "comercial" },
+        { "palavra": "graça", "evento": "congela", "duracao": 1.4 }
+      ],
+      "textos": [
+        { "conteudo": "FESTAS = BRANCO", "entrada": "pop", "palavra": "BRANCO", "ate": "Apocalipse", "posicao": "titulo" },
+        { "conteudo": "Ap 7,14", "entrada": "carimbo", "palavra": "Apocalipse", "ate": "Ou seja", "posicao": "carimbo" }
+      ],
+      "sfx": [
+        { "arquivo": "ting", "gatilho": "BRANCO" },
+        { "arquivo": "coro", "gatilho": "aparecem" },
+        { "arquivo": "jingle-retro", "gatilho": "sabão" }
+      ]
+    },
+    {
+      "id": "vermelho",
+      "cor": "vermelho",
+      "selo": { "cor": "VERMELHO", "tempo": "PAIXÃO, MÁRTIRES E PENTECOSTES" },
+      "cauda": 2.2,
+      "locucao": "O VERMELHO é sangue e fogo: [pausa] Paixão, Sexta-feira Santa, apóstolos, mártires [pausa] e Pentecostes, quando o Espírito Santo desceu em línguas de fogo. [pausa] É o padre dizendo: [pausa] hoje alguém deu a vida... [pausa] ou hoje o céu pegou fogo.",
+      "gatilhos": [
+        { "palavra": "Paixão", "evento": "martires" },
+        { "palavra": "Pentecostes", "evento": "cenaculo" },
+        { "palavra": "línguas", "evento": "chamas" },
+        { "palavra": "céu", "evento": "extintor", "deslocamento": -6 },
+        { "palavra": "pegou fogo", "evento": "placa", "deslocamento": 10 },
+        { "palavra": "pegou fogo", "evento": "congela", "deslocamento": 22, "duracao": 1.3 }
+      ],
+      "textos": [
+        { "conteudo": "MÁRTIRES E PENTECOSTES\n= VERMELHO", "entrada": "pop", "palavra": "VERMELHO", "ate": "É o padre", "posicao": "titulo" },
+        { "conteudo": "At 2,3", "entrada": "carimbo", "palavra": "línguas", "ate": "É o padre", "posicao": "carimbo" }
+      ],
+      "sfx": [
+        { "arquivo": "chamas", "gatilho": "línguas" },
+        { "arquivo": "extintor", "gatilho": "céu", "deslocamento": 4 },
+        { "arquivo": "claque-curta", "gatilho": "pegou fogo", "deslocamento": 62 }
+      ]
+    },
+    {
+      "id": "rosa",
+      "cor": "rosa",
+      "selo": { "cor": "ROSA", "tempo": "GAUDETE E LAETARE" },
+      "cauda": 1.4,
+      "locucao": "E existe o ROSA. [pausa] Duas vezes por ano: no terceiro domingo do Advento, o Gaudete, e no quarto domingo da Quaresma, o Laetare. [pausa] É a Igreja dizendo: calma, falta pouco. [pausa longa] Então, se você vir o padre de rosa... [pausa] ele NÃO perdeu uma aposta. [pausa] (seco) É liturgia.",
+      "gatilhos": [
+        { "palavra": "Gaudete", "evento": "data1" },
+        { "palavra": "Laetare", "evento": "data2" },
+        { "palavra": "calma", "evento": "loading" },
+        { "palavra": "Então", "evento": "porta" },
+        { "palavra": "aposta", "evento": "oculos" },
+        { "palavra": "liturgia", "evento": "letreiro" }
+      ],
+      "textos": [
+        { "conteudo": "GAUDETE = ALEGRAI-VOS\n13/12/2026", "entrada": "desliza", "palavra": "Gaudete", "ate": "Laetare", "posicao": "titulo" },
+        { "conteudo": "LAETARE = ALEGRA-TE\n07/03/2027", "entrada": "desliza", "palavra": "Laetare", "ate": "calma", "posicao": "titulo" },
+        { "conteudo": "É LITURGIA.", "entrada": "impacto", "palavra": "liturgia", "posicao": "letreiro" }
+      ],
+      "sfx": [
+        { "arquivo": "cochichos", "gatilho": "Então", "volume": -4 },
+        { "arquivo": "whoosh", "gatilho": "aposta", "deslocamento": -16 },
+        { "arquivo": "clack", "gatilho": "aposta" },
+        { "arquivo": "batida-hiphop", "gatilho": "aposta", "deslocamento": 2 },
+        { "arquivo": "claque-forte", "gatilho": "liturgia", "deslocamento": 18 }
+      ]
+    },
+    {
+      "id": "fechamento",
+      "cor": "sepia",
+      "cauda": 1.6,
+      "locucao": "Moral da história: [pausa] na missa, até a roupa do padre está pregando. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] Agora você também.",
+      "gatilhos": [
+        { "palavra": "pregando", "evento": "balao" },
+        { "palavra": "Agora você também", "evento": "congela", "duracao": 2.4, "semLimite": true }
+      ],
+      "textos": [
+        { "conteudo": "NA MISSA, ATÉ A ROUPA PREGA.", "entrada": "pop", "palavra": "pregando", "ate": "Agora você também", "posicao": "titulo" },
+        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" }
+      ],
+      "sfx": [
+        { "arquivo": "sino", "gatilho": "Moral", "volume": -3 }
+      ]
+    },
+    {
+      "id": "posCreditos",
+      "cor": "escuro",
+      "ativa": true,
+      "wipe": false,
+      "cauda": 1.0,
+      "locucao": "(sussurrando) E o preto? [pausa] Existe. Mas fica para outro episódio.",
+      "gatilhos": [
+        { "palavra": "Existe", "evento": "chama" }
+      ],
+      "textos": [
+        { "conteudo": "EPISÓDIO 2?", "entrada": "fade", "palavra": "outro episódio", "posicao": "titulo" }
+      ],
+      "sfx": []
+    }
+  ]
+}
