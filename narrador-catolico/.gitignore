@@ -6,3 +6,6 @@ assets/audio/*.mp3
 .remotion/
 assets/fonts/*.ttf
 __pycache__/
+
+# músicas de terceiros fornecidas pelo autor (direitos autorais): ficam só na máquina, fora do git
+assets/sfx/licenciado-*

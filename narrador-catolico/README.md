@@ -96,6 +96,10 @@ O visual deixou de ser desenhado por código. Cada plano é uma imagem de anima�
 
 A composição `ep01` é o filme (`src/filme/`); a versão desenhada antiga continua como `ep01-desenho`.
 
+## Músicas de terceiros
+
+Trechos de músicas protegidas fornecidos pelo autor (ex.: `assets/sfx/licenciado-turn-down-for-what.wav`, no corte dos óculos escuros do ep. 1) usam o prefixo `licenciado-` e ficam fora do git (`.gitignore`). Para renderizar em outra máquina, coloque o arquivo de novo nessa pasta; sem ele, a mixagem avisa "faltando" e segue sem o trecho. O Instagram detecta música protegida no áudio enviado e pode silenciar o Reel ou limitar o alcance; a alternativa sem esse risco é adicionar a música pelo editor de Reels, que tem a licença.
+
 ## Marca
 
 Nome: **Narrador Católico** (@narradorcatolico). Símbolo oficial: conceito D · Traço, um microfone de podcast em linha, com cruz latina na cápsula e auréola, numa cor só.
