@@ -53,7 +53,7 @@ export const Raiz: React.FC = () => (
         }}
       />
     ))}
-    <Still id="Capa" component={Capa} width={1080} height={1920} defaultProps={{ codigo: "ep01", imagem: "p01-espelho", linhas: ["POR QUE O PADRE", "MUDA DE COR?"] } as PropsCapa} />
+    <Still id="Capa" component={Capa} width={1080} height={1920} defaultProps={{ codigo: "ep01", imagem: "p01-espelho", episodio: "01", titulo: "Cores litúrgicas", cores: ["#2E7D32", "#5E2B7E", "#F4EFE2", "#B71C1C", "#E78FB3"], enquadre: { escala: 1.08, x: 0, y: 150 } } as PropsCapa} />
     <Still id="Marca" component={PranchaMarca} width={1800} height={2400} />
     <Still id="MarcaAvatar" component={MarcaAvatar} width={1080} height={1080} />
     <Still id="MarcaPerfil" component={MarcaPerfil} width={1080} height={1080} />

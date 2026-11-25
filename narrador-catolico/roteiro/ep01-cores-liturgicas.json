@@ -4,6 +4,7 @@
   "slug": "ep01-cores-liturgicas",
   "titulo": "Por que o padre muda de cor?",
   "handle": "@narradorcatolico",
+  "capa": { "titulo": "Cores litúrgicas", "imagem": "p01-espelho", "cores": ["#2E7D32", "#5E2B7E", "#F4EFE2", "#B71C1C", "#E78FB3"], "enquadre": { "escala": 1.08, "x": 0, "y": 150 } },
   "audio": {
     "narracao": "audio/narracao-1.25x.wav",
     "trilha": "audio/fundo.wav",
