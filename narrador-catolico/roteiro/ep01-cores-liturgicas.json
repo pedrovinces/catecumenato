@@ -5,7 +5,8 @@
   "titulo": "Por que o padre muda de cor?",
   "handle": "@narradorcatolico",
   "audio": {
-    "narracao": "audio/narracao.wav",
+    "narracao": "audio/narracao-1.25x.wav",
+    "trilha": "audio/fundo.wav",
     "guia": "audio/narracao-guia.wav"
   },
   "legenda": {

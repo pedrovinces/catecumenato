@@ -65,8 +65,8 @@ Total pedido: 89 s, mais o teste do p04 (3 s) e o p12 refeito (4 s). Preço publ
 
 ## Áudio
 
-- Narração: `assets/audio/narracao.wav` (gravação do autor, mono 48 kHz), alinhada às palavras por `scripts/sincronizar.py`.
-- Trilha: nenhuma (retirada a pedido; competia com a voz).
+- Narração: `assets/audio/narracao.wav` (gravação do autor, mono 48 kHz), alinhada às palavras por `scripts/sincronizar.py` e acelerada para 1,25x por `scripts/acelerar.py` (`assets/audio/narracao-1.25x.wav`); equalização contra o excesso de grave na mixagem.
+- Fundo: `assets/audio/fundo.wav`, tapete de acordes original gerado por `scripts/fundo.py`, 18 dB abaixo da voz nos respiros e 24 dB durante a fala.
 - Efeitos (sintetizados por `scripts/sfx.py` e `scripts/vinheta.py`, originais), a -16 dB da voz sozinhos e -22 dB sob a fala:
 
   - `aplausos` (1x)
@@ -90,7 +90,7 @@ Total pedido: 89 s, mais o teste do p04 (3 s) e o p12 refeito (4 s). Preço publ
   - `plim` (1x)
   - `record-scratch` (4x)
   - `sino` (2x)
-  - `swish-cabide` (24x)
+  - `swish-cabide` (19x)
   - `thud-livro` (1x)
   - `ting` (1x)
   - `torcida-corneta` (1x)
@@ -105,7 +105,7 @@ Total pedido: 89 s, mais o teste do p04 (3 s) e o p12 refeito (4 s). Preço publ
 
 ## Entregáveis
 
-- `out/ep01-cores-liturgicas.mp4`: Reel final 1080 x 1920, 30 fps, H.264, AAC 48 kHz, -14 LUFS
+- `out/ep01-cores-liturgicas.mp4`: Reel final 1080 x 1920, 30 fps, H.264, AAC 48 kHz, -14 LUFS, cerca de 102 s
 - `out/ep01-cores-liturgicas-capa.png` e `-capa-4x5.jpg`
 - `out/ep01-cores-liturgicas.srt`
 

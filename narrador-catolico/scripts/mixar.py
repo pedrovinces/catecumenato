@@ -3,10 +3,12 @@
 
 Uso: python3 -I scripts/mixar.py ep01   (lê out/ep01-linha-do-tempo.json)
 
-- Voz: passa-altas 80 Hz, de-esser, compressão suave; trechos colocados conforme a linha do tempo
-  (inclui o silêncio extra das "caudas" entre cenas).
-- Trilha: 8 dB abaixo da voz nos respiros e 12 dB abaixo durante a fala (ducking de 4 dB), com um vale
-  suave em 2,5 kHz para não disputar com as palavras; muda em cada congelamento e volta no corte seguinte.
+- Voz: a gravação tinha grave demais (125 e 250 Hz uns 21 dB acima de 1 kHz, efeito de proximidade do
+  microfone), o que abafava as consoantes. Corrente: passa-altas 85 Hz (4 polos), cortes em 140 Hz (-13 dB),
+  280 Hz (-9 dB) e 550 Hz (-3 dB), presença em 3,2 kHz (+3 dB), brilho acima de 7,5 kHz (+2 dB), de-esser
+  leve e compressão suave. Trechos colocados conforme a linha do tempo (inclui as "caudas" entre cenas).
+- Fundo (trilha): 18 dB abaixo da voz nos respiros e 24 dB abaixo durante a fala (ducking de 6 dB), com um
+  vale suave em 2,5 kHz; muda em cada congelamento e volta no corte seguinte. A narração vem sempre na frente.
 - Efeitos: 16 dB abaixo da voz quando estão sozinhos; 22 dB abaixo quando coincidem com fala
   (ducking dinâmico, então efeitos longos só abaixam no trecho com voz); param no fim da cena.
   O campo "volume" do JSON soma em dB.
@@ -27,12 +29,19 @@ from scipy.signal import lfilter, resample_poly
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SR = 48000
-# Níveis relativos à voz (dB). O documento pedia trilha 22 dB abaixo; no celular ela sumia,
-# então, a pedido, a trilha subiu e os efeitos desceram.
-TRILHA_RESPIRO = -8.0
-DUCKING = -4.0  # trilha a -12 dB durante a fala
+# Níveis relativos à voz (dB). O fundo é só um tapete: bem baixo, nunca disputa com a narração.
+TRILHA_RESPIRO = -18.0
+DUCKING = -6.0  # fundo a -24 dB durante a fala
 SFX_SOZINHO = -16.0  # efeitos são acessórios: nunca disputam com a voz
 SFX_SOB_FALA = -22.0
+VOZ_FILTROS = (
+    "highpass=f=85:poles=2,highpass=f=85:poles=2,"
+    "equalizer=f=140:t=q:w=0.8:g=-13,equalizer=f=280:t=q:w=0.9:g=-9,equalizer=f=550:t=q:w=1.2:g=-3,"
+    "equalizer=f=3200:t=q:w=1.0:g=3,highshelf=f=7500:g=2,"
+    "deesser=i=0.2:m=0.5:f=0.5,"
+    "acompressor=threshold=-24dB:ratio=2.5:attack=8:release=160:makeup=1.5,"
+    "acompressor=threshold=-14dB:ratio=6:attack=1:release=60:knee=3"  # pega-picos: crista da fala ~13 dB
+)
 SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0}  # a vinheta toca depois da última fala
 
 
@@ -94,13 +103,16 @@ def main():
     fps = linha["fps"]
     n = int(linha["duracao"] / fps * SR)
 
-    # 1. voz tratada
+    # 1. voz tratada (antes, nivela a gravação em -20 LUFS para os compressores trabalharem na faixa certa)
+    taxa_bruta, bruta = wavfile.read(RAIZ / "assets" / linha["narracao"]["arquivo"])
+    bruta = bruta.astype(np.float64) / (32768.0 if bruta.dtype == np.int16 else 1.0)
+    pre_ganho = -20.0 - pyln.Meter(taxa_bruta).integrated_loudness(bruta)
     with tempfile.TemporaryDirectory() as tmp:
         tratada = pathlib.Path(tmp) / "voz.wav"
         subprocess.run(
             [
                 "ffmpeg", "-v", "error", "-y", "-i", str(RAIZ / "assets" / linha["narracao"]["arquivo"]),
-                "-af", "highpass=f=80:poles=2,deesser=i=0.35:m=0.5:f=0.55,acompressor=threshold=-21dB:ratio=2.5:attack=8:release=160:makeup=1.5",
+                "-af", f"volume={pre_ganho:.2f}dB," + VOZ_FILTROS,
                 "-ar", str(SR), "-ac", "1", "-c:a", "pcm_s16le", str(tratada),
             ],
             check=True,
@@ -183,6 +195,16 @@ def main():
         bruto = pathlib.Path(tmp) / "bruto.wav"
         pico = np.max(np.abs(mix))
         wavfile.write(bruto, SR, (mix.T / max(pico, 1) * 0.98).astype(np.float32))
+        # limitador suave antes do master: segura só os picos das consoantes (realçadas pela EQ de presença),
+        # para o loudnorm linear chegar a -14 LUFS sem passar de -1,5 dBTP
+        limitado = pathlib.Path(tmp) / "limitado.wav"
+        ganho_db = -14 - loud(mix / max(pico, 1) * 0.98)  # leva a mixagem a -14 LUFS antes de limitar
+        subprocess.run(
+            ["ffmpeg", "-v", "error", "-y", "-i", str(bruto), "-af", f"volume={ganho_db:.2f}dB,alimiter=limit=0.776:attack=1.5:release=60:level=false",
+             "-c:a", "pcm_f32le", str(limitado)],
+            check=True,
+        )
+        bruto = limitado
         medida = subprocess.run(
             ["ffmpeg", "-hide_banner", "-nostats", "-i", str(bruto), "-af", "loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"],
             capture_output=True, text=True, check=True,
@@ -202,6 +224,7 @@ def main():
     tem_trilha = bool(np.any(trilha))
     print(f"voz {lv:.1f} LUFS antes do master; trilha: {f'{TRILHA_RESPIRO:+.0f}/{TRILHA_RESPIRO + DUCKING:+.0f} dB' if tem_trilha else 'sem'}; efeitos: {'sem' if so_voz else f'{SFX_SOZINHO:+.0f}/{SFX_SOB_FALA:+.0f} dB'}")
     print(f"mix: {destino.relative_to(RAIZ)}  " + "  ".join(resumo[-3:]))
+    print(f"master: ganho {ganho_db:+.1f} dB, limitador a -2,2 dBFS, loudnorm {js['normalization_type'] if 'normalization_type' in js else ''}")
     print(f"efeitos posicionados: {len(relatorio)}")
     if faltando:
         print("faltando:", ", ".join(sorted(faltando)))

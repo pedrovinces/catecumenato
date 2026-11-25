@@ -20,9 +20,11 @@ if [[ " $* " == *" --ressincronizar "* ]] || [ ! -f "roteiro/${COD}-timestamps.j
   python3 -I scripts/sincronizar.py "$ROT" $(printf '%s\n' "$@" | grep -- '--sem=' || true)
 fi
 npx tsx scripts/linha-do-tempo.ts "$COD"
-if python3 -I -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1]))['audio'].get('trilha') else 1)" "$ROT"; then
-  python3 -I scripts/trilha.py "$COD"
-fi
+TRILHA=$(python3 -I -c "import json,sys; print(json.load(open(sys.argv[1]))['audio'].get('trilha') or '')" "$ROT")
+case "$TRILHA" in
+  *fundo.wav) python3 -I scripts/fundo.py "$COD" ;;   # tapete discreto (ep. 1 em diante)
+  ?*) python3 -I scripts/trilha.py "$COD" ;;           # trilha com groove (versão antiga)
+esac
 python3 -I scripts/mixar.py "$COD"
 python3 -I scripts/listar_clipes.py
 npx remotion render src/index.ts "$COD" "out/${COD}-video-mudo.mp4" --muted --crf=18 --concurrency=3 --log=error

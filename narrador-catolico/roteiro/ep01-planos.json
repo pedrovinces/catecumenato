@@ -3,7 +3,7 @@
   "planos": [
     { "id": "p01-espelho", "cena": "abertura" },
     { "id": "p02-influencer", "cena": "abertura", "palavra": "influencer", "deslocamento": -4 },
-    { "id": "p03-surpreso", "cena": "abertura", "palavra": "viagem", "ancora": "fim", "deslocamento": 2, "trecho": 0.72 },
+    { "id": "p03-surpreso", "cena": "abertura", "palavra": "viagem", "ancora": "fim", "deslocamento": 2, "trecho": 1.02 },
     { "id": "p04-sobrancelha", "cena": "abertura", "palavra": "Até descobrir", "deslocamento": -3 },
 
     { "id": "p05-caneca", "cena": "regra" },
@@ -37,6 +37,6 @@
     { "id": "p26-oculos", "cena": "rosa", "palavra": "aposta", "deslocamento": -4 },
 
     { "id": "p27-cabideiro", "cena": "fechamento", "camera": { "de": { "z": 1.12, "x": -60 }, "para": { "z": 1.12, "x": 60 } } },
-    { "id": "p00-padre-referencia", "cena": "fechamento", "palavra": "E foi assim", "deslocamento": -3, "trecho": 0.9 }
+    { "id": "p00-padre-referencia", "cena": "fechamento", "palavra": "E foi assim", "deslocamento": -3, "trecho": 1.27 }
   ]
 }

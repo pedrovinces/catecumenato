@@ -74,6 +74,12 @@ npm run mixar         # voz tratada + efeitos (+ trilha, se houver); master -14 
 npm run final         # tudo acima + vídeo em resolução cheia + MP4 final em out/
 ```
 
+Velocidade da narração: `python3 -I scripts/acelerar.py ep01 1.25` gera `assets/audio/narracao-1.25x.wav` (atempo, mantém o tom), guarda os tempos originais em `roteiro/ep01-timestamps-1x.json` e grava os novos (divididos pelo fator) em `roteiro/ep01-timestamps.json`; o roteiro passa a apontar para o arquivo acelerado. Cortes, legenda, efeitos e congelamentos se recalculam sozinhos. Fator 1 volta ao original. Depois de acelerar, não rode `--ressincronizar` (ele refaz os tempos da gravação original); se precisar, rode-o e depois acelere de novo.
+
+Voz: a gravação do ep. 1 tinha grave demais (efeito de proximidade do microfone), o que abafava as consoantes. A mixagem nivela a voz em -20 LUFS, corta 140, 280 e 550 Hz, realça 3,2 kHz e o brilho acima de 7,5 kHz, aplica de-esser leve e dois compressores (o segundo segura os picos), e o master passa por um limitador a -2,2 dBFS antes do loudnorm.
+
+Fundo: `python3 -I scripts/fundo.py ep01` gera `assets/audio/fundo.wav`, um tapete de acordes sustentados por cena (sem melodia, sem percussão, nada acima de ~2 kHz). Na mixagem fica 18 dB abaixo da voz nos respiros e 24 dB durante a fala, e some nos congelamentos. A trilha antiga com groove (`scripts/trilha.py`) continua disponível: basta apontar `audio.trilha` para `audio/trilha.wav`.
+
 A sincronização não depende de reconhecimento de fala: a faixa-guia sabe o tempo de cada palavra e o DTW leva esses tempos para a gravação real. Se a gravação não tiver uma cena, use `--sem=<id>` (a cena 9 do ep. 1 não foi gravada e está com `"ativa": false`).
 
 ## Visual: filme de animação (desde o ep. 1)
@@ -98,4 +104,4 @@ Antes (versão desenhada): motor (legenda, selo, wipe, congela, textos, câmera)
 
 Em andamento: cenas 2, 5, 6 e 8 (hoje provisórias); capa; SRT.
 
-O ep. 1 ficou sem trilha de fundo (competia com a narração). Para religar: `"trilha": "audio/trilha.wav"` em `audio` no roteiro.
+O ep. 1 usa a narração a 1,25x e o fundo discreto de `scripts/fundo.py` (a trilha com groove competia com a voz).
