@@ -241,15 +241,86 @@ const Balao: React.FC<{ texto: string; direita: number; y: number; op: number; c
   </div>
 );
 
-const Graca: React.FC<{ op: number; caixa: { x: number; y: number; l: number } }> = ({ op, caixa }) => (
-  <div style={{ position: "absolute", left: caixa.x, top: caixa.y, width: caixa.l, textAlign: "center", opacity: op, transform: `scale(${interpolate(op, [0, 1], [1.6, 1])})` }}>
-    <div style={{ fontFamily: TITULO, fontSize: 92, color: "#1F4FA8", WebkitTextStroke: "8px #FFFFFF", paintOrder: "stroke fill", letterSpacing: 2, lineHeight: 1 }}>GRAÇA</div>
-    <div style={{ fontFamily: LEGENDA, fontWeight: 900, fontSize: 28, color: "#C9A227", letterSpacing: "0.18em" }}>DE DEUS</div>
-  </div>
-);
+/** Estrela de brilho de 4 pontas (comercial dos anos 90). */
+const Brilho: React.FC<{ x: number; y: number; tam: number; d: number; ini: number; dur?: number }> = ({ x, y, tam, d, ini, dur = 14 }) => {
+  const k = d - ini;
+  if (k < 0 || k > dur) return null;
+  const e = Math.sin((k / dur) * Math.PI);
+  return (
+    <svg width={tam * 2} height={tam * 2} viewBox="-1 -1 2 2" style={{ position: "absolute", left: x - tam, top: y - tam, overflow: "visible", transform: `rotate(${k * 3}deg) scale(${e})`, filter: "drop-shadow(0 0 10px rgba(255,255,255,0.95)) drop-shadow(0 0 22px rgba(160,210,255,0.8))" }}>
+      <path d="M 0 -1 C 0.08 -0.2 0.2 -0.08 1 0 C 0.2 0.08 0.08 0.2 0 1 C -0.08 0.2 -0.2 0.08 -1 0 C -0.2 -0.08 -0.08 -0.2 0 -1 Z" fill="#FFFFFF" />
+    </svg>
+  );
+};
 
-/** Posição da palavra GRAÇA sobre a caixa do comercial no quadro congelado (calibrada no clipe). */
-export const CAIXA_GRACA = { x: 640, y: 1010, l: 330 };
+/** Rótulo da embalagem "GRAÇA DE DEUS", impresso na face branca da caixa de sabão em pó (p20). */
+const RotuloGraca: React.FC<{ d: number }> = ({ d }) => {
+  const C = CAIXA_GRACA;
+  const op = interpolate(d, [0, 5], [0, 1], clamp);
+  const pop = interpolate(d, [0, 4, 8], [1.22, 0.97, 1], clamp);
+  const faixa = interpolate(d, [6, 22], [-40, 140], clamp); // brilho que atravessa o rótulo
+  const flash = interpolate(d, [0, 3, 12], [0, 0.9, 0], clamp);
+  return (
+    <>
+      <div
+        style={{
+          position: "absolute",
+          left: C.x,
+          top: C.y,
+          width: C.l,
+          height: C.a,
+          opacity: op,
+          transform: `rotate(${C.giro}deg) scale(${pop})`,
+          transformOrigin: "50% 55%",
+          filter: "blur(0.5px) saturate(0.95) brightness(0.97)",
+          overflow: "hidden",
+        }}
+      >
+        {/* explosão de raios atrás da marca, como nas caixas de sabão */}
+        <svg width={C.l} height={C.a} viewBox="0 0 100 64" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, opacity: 0.55 }}>
+          {Array.from({ length: 16 }).map((_, i) => {
+            const a1 = (i / 16) * Math.PI * 2, a2 = ((i + 0.5) / 16) * Math.PI * 2;
+            return <polygon key={i} points={`50,30 ${50 + 70 * Math.cos(a1)},${30 + 70 * Math.sin(a1)} ${50 + 70 * Math.cos(a2)},${30 + 70 * Math.sin(a2)}`} fill={i % 2 ? "#FFE27A" : "#FFF4C2"} />;
+          })}
+        </svg>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 18, display: "flex", flexDirection: "column", alignItems: "center", transform: "rotate(-4deg) skewX(-6deg)" }}>
+          <div
+            style={{
+              fontFamily: TITULO,
+              fontSize: 124,
+              lineHeight: 0.95,
+              letterSpacing: 1,
+              background: "linear-gradient(180deg, #3C86F0 0%, #1747A6 60%, #0F2F78 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 0 0 #fff) drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(4px 6px 0 #0B2463)",
+            }}
+          >
+            GRAÇA
+          </div>
+          <div style={{ position: "relative", marginTop: 6 }}>
+            <div style={{ position: "absolute", left: -18, top: 10, width: 30, height: 40, backgroundColor: "#A3171E", clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%, 35% 50%)" }} />
+            <div style={{ position: "absolute", right: -18, top: 10, width: 30, height: 40, backgroundColor: "#A3171E", clipPath: "polygon(0 0, 100% 0, 65% 50%, 100% 100%, 0 100%)" }} />
+            <div style={{ position: "relative", backgroundColor: "#D7262E", padding: "4px 22px 5px", boxShadow: "0 3px 0 #8E1218", fontFamily: LEGENDA, fontWeight: 900, fontSize: 36, letterSpacing: "0.12em", color: "#FFFFFF" }}>DE DEUS</div>
+          </div>
+        </div>
+        {/* brilho de comercial atravessando a embalagem */}
+        <div style={{ position: "absolute", top: -40, bottom: -40, left: `${faixa}%`, width: 60, transform: "skewX(-20deg)", background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: `radial-gradient(circle at 50% 45%, rgba(255,255,255,${flash}) 0%, rgba(255,255,255,0) 70%)` }} />
+      </div>
+      {/* estrelinhas em volta da caixa */}
+      {[
+        [640, 985, 46, 2], [1000, 1010, 40, 6], [995, 1215, 52, 10], [652, 1190, 36, 13], [820, 965, 34, 17], [1010, 1120, 30, 22], [700, 1060, 26, 26],
+      ].flatMap(([x, y, t, i], k) => [
+        <Brilho key={`a${k}`} x={x} y={y} tam={t} d={d} ini={i} />,
+        <Brilho key={`b${k}`} x={x} y={y} tam={t * 0.8} d={d} ini={i + 30} />,
+      ])}
+    </>
+  );
+};
+
+/** Face branca da caixa no clipe p20 (parada durante o trecho): área do rótulo e inclinação da borda de cima. */
+export const CAIXA_GRACA = { x: 640, y: 1000, l: 356, a: 232, giro: -0.8 };
 
 export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = ({ planos, janelas }) => {
   const { cena, f, ev, pal } = useCena();
@@ -269,8 +340,14 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = 
     let conteudo: React.ReactNode = null;
     if (p.anexo === "placa") conteudo = <Placa op={interpolate(f, [ev("placa") ?? Infinity, (ev("placa") ?? Infinity) + 6], [0, 1], clamp)} />;
     if (p.anexo === "graca") {
-      const g = ev("congela") ?? Infinity;
-      conteudo = <Graca op={interpolate(f, [g, g + 5], [0, 1], clamp)} caixa={CAIXA_GRACA} />;
+      const g = ev("graca") ?? ev("congela") ?? Infinity;
+      const joia = p.inicio - cena.inicio + 13; // o polegar chega ao alto ~0,45 s depois do corte
+      conteudo = (
+        <>
+          <Brilho x={385} y={402} tam={46} d={f} ini={joia} dur={9} />
+          <RotuloGraca d={f - g} />
+        </>
+      );
     }
     if (p.anexo === "baloes") {
       const a = pal("vir o padre");

@@ -25,24 +25,26 @@ import tempfile
 import numpy as np
 import pyloudnorm as pyln
 from scipy.io import wavfile
-from scipy.signal import lfilter, resample_poly
+from scipy.signal import fftconvolve, lfilter, resample_poly
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SR = 48000
 # Níveis relativos à voz (dB). O fundo é só um tapete: bem baixo, nunca disputa com a narração.
 TRILHA_RESPIRO = -18.0
 DUCKING = -6.0  # fundo a -24 dB durante a fala
+PAUSA_DB = 12.0  # quanto a voz desce nas pausas entre frases
 SFX_SOZINHO = -16.0  # efeitos são acessórios: nunca disputam com a voz
 SFX_SOB_FALA = -22.0
 VOZ_FILTROS = (
+    "afftdn=nr=10:nf=-62:tn=1,"  # redutor de ruído: tira o chiado da gravação antes de realçar os agudos
     "highpass=f=85:poles=2,highpass=f=85:poles=2,"
     "equalizer=f=140:t=q:w=0.8:g=-13,equalizer=f=280:t=q:w=0.9:g=-9,equalizer=f=550:t=q:w=1.2:g=-3,"
-    "equalizer=f=3200:t=q:w=1.0:g=3,highshelf=f=7500:g=2,"
+    "equalizer=f=3200:t=q:w=1.0:g=3,highshelf=f=7500:g=1,"
     "deesser=i=0.2:m=0.5:f=0.5,"
     "acompressor=threshold=-24dB:ratio=2.5:attack=8:release=160:makeup=1.5,"
     "acompressor=threshold=-14dB:ratio=6:attack=1:release=60:knee=3"  # pega-picos: crista da fala ~13 dB
 )
-SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0, "vinheta-narrador": 14.0, "licenciado-turn-down-for-what": 14.0}  # a vinheta toca depois da última fala
+SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0, "vinheta-narrador": 14.0, "vinheta-amen": 14.0, "licenciado-turn-down-for-what": 14.0}  # a vinheta toca depois da última fala
 
 
 def ler(caminho) -> np.ndarray:
@@ -112,12 +114,23 @@ def main():
         subprocess.run(
             [
                 "ffmpeg", "-v", "error", "-y", "-i", str(RAIZ / "assets" / linha["narracao"]["arquivo"]),
-                "-af", f"volume={pre_ganho:.2f}dB," + VOZ_FILTROS,
+                "-af", VOZ_FILTROS.replace("highpass=f=85:poles=2,highpass", f"volume={pre_ganho:.2f}dB,highpass=f=85:poles=2,highpass", 1),
                 "-ar", str(SR), "-ac", "1", "-c:a", "pcm_s16le", str(tratada),
             ],
             check=True,
         )
         voz_bruta = ler(tratada)[0]
+    # filtros de FFT (redutor de ruído) atrasam o sinal; mede o atraso contra a gravação crua e compensa,
+    # senão a voz chega depois da legenda e o ataque das sílabas some
+    crua = bruta if bruta.ndim == 1 else bruta.mean(axis=1)
+    if taxa_bruta != SR:
+        crua = resample_poly(crua, SR, taxa_bruta)
+    janela = min(len(crua), len(voz_bruta), 20 * SR)
+    corr = fftconvolve(voz_bruta[:janela], crua[:janela][::-1], mode="full")
+    atraso = int(np.argmax(corr[janela - 1 : janela - 1 + SR // 5]))  # procura de 0 a 200 ms
+    if atraso:
+        voz_bruta = np.concatenate([voz_bruta[atraso:], np.zeros(atraso)])
+    print(f"atraso da cadeia de voz compensado: {atraso / SR * 1000:.1f} ms")
     voz = np.zeros(n)
     for s in linha["narracao"]["segmentos"]:
         a, b = int(s["origemIni"] * SR), int(s["origemFim"] * SR)
@@ -128,6 +141,10 @@ def main():
         i = int(s["destino"] * SR)
         m = min(len(trecho), n - i)
         voz[i : i + m] += trecho[:m]
+    # pausas entre frases: a voz baixa 12 dB fora das palavras (some o chiado que os compressores levantam);
+    # entra 80 ms antes de cada palavra e solta em 300 ms, então começo e fim de sílaba ficam intactos
+    falas = [(w["inicio"] / linha["fps"], w["fim"] / linha["fps"]) for w in linha["fala"]]
+    voz *= curva(n, falas, PAUSA_DB, ataque=0.03, soltura=0.3, antecipa=0.08) * 10 ** (-PAUSA_DB / 20)
     voz_st = np.vstack([voz, voz])
     lv = loud(voz_st)
 

@@ -1,8 +1,8 @@
-// Revelação da marca no fim do episódio, sincronizada com a vinheta "Narrador Católico!" (4,77 s):
-//   0,0 a 1,3 s  batidas: a tela escurece; auréola, cápsula, cruz (brilho na batida de 1,24 s), suporte e base
-//                são desenhados a traço de ouro
-//   1,3 a 2,6 s  voz: NARRADOR surge letra a letra; CATÓLICO em dourado na segunda palavra
-//   2,6 s a fim  acorde: a auréola pulsa, um brilho atravessa o nome, entra a chamada, aproximação lenta
+// Revelação da marca no fim do episódio, sincronizada com a vinheta "Amém" (4,8 s, acorde sustentado):
+//   0,15 s       primeira nota: a tela escurece e a auréola acende
+//   0,45 a 1,6 s entra o grave: cápsula, cruz (com brilho), suporte e base desenhados a traço de ouro
+//   1,6 a 2,6 s  ápice do "mém": NARRADOR e CATÓLICO surgem letra a letra
+//   2,6 s a fim  o acorde se desfaz: a auréola pulsa, um brilho atravessa o nome, entra a chamada
 // `d` é o quadro desde o início da vinheta (pode ser negativo: a tela começa a escurecer antes).
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, random } from "remotion";
@@ -69,16 +69,16 @@ export const RevelacaoMarca: React.FC<{ d: number; chamada: string }> = ({ d, ch
   const veu = interpolate(d, [-6, s(0.45)], [0, 0.94], c);
   const poeira = interpolate(d, [s(0.2), s(1.0)], [0, 1], c);
   // traços
-  const pAureola = prog(d, 0.06, 0.6);
-  const pCapsula = prog(d, 0.62, 1.12);
-  const pCruzV = prog(d, 1.0, 1.16);
-  const pCruzH = prog(d, 1.14, 1.26);
+  const pAureola = prog(d, 0.15, 0.8);
+  const pCapsula = prog(d, 0.5, 1.12);
+  const pCruzV = prog(d, 1.05, 1.22);
+  const pCruzH = prog(d, 1.2, 1.32);
   const pSuporte = prog(d, 1.1, 1.42);
   const pHaste = prog(d, 1.36, 1.5);
   const pBase = prog(d, 1.44, 1.6);
   const botoes = prog(d, 1.36, 1.46, Easing.out(Easing.back(2)));
   // brilhos
-  const flashCruz = interpolate(d, [s(1.24), s(1.3), s(1.8)], [0, 1, 0], c);
+  const flashCruz = interpolate(d, [s(1.32), s(1.42), s(1.95)], [0, 1, 0], c);
   const pulso = interpolate(d, [s(2.62), s(2.8), s(3.6)], [0, 1, 0.35], c);
   const brilhoNome = interpolate(d, [s(2.7), s(3.5)], [-20, 120], c);
   const chamadaOp = prog(d, 2.95, 3.4, Easing.out(Easing.cubic));
@@ -127,8 +127,8 @@ export const RevelacaoMarca: React.FC<{ d: number; chamada: string }> = ({ d, ch
           </svg>
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, top: 1000, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-          <Palavra texto="NARRADOR" d={d} inicio={1.3} fim={1.78} cor={CREME} tamanho={92} brilhoX={brilhoNome > -20 && brilhoNome < 120 ? brilhoNome : undefined} />
-          <Palavra texto="CATÓLICO" d={d} inicio={1.92} fim={2.4} cor={OURO} tamanho={92} brilhoX={brilhoNome > -20 && brilhoNome < 120 ? brilhoNome - 15 : undefined} />
+          <Palavra texto="NARRADOR" d={d} inicio={1.6} fim={2.05} cor={CREME} tamanho={92} brilhoX={brilhoNome > -20 && brilhoNome < 120 ? brilhoNome : undefined} />
+          <Palavra texto="CATÓLICO" d={d} inicio={2.05} fim={2.5} cor={OURO} tamanho={92} brilhoX={brilhoNome > -20 && brilhoNome < 120 ? brilhoNome - 15 : undefined} />
           <div style={{ marginTop: 34, opacity: chamadaOp, transform: `translateY(${(1 - chamadaOp) * 16}px)`, fontFamily: LEGENDA, fontWeight: 800, fontSize: 40, letterSpacing: "0.08em", color: OURO_CLARO }}>
             {chamada}
           </div>

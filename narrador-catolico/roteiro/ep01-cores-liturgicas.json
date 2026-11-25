@@ -135,7 +135,7 @@
         { "palavra": "Apocalipse", "evento": "pergaminho" },
         { "palavra": "aparecem", "evento": "multidao" },
         { "palavra": "sabão", "evento": "comercial" },
-        { "palavra": "graça", "evento": "congela", "duracao": 1.4 }
+        { "palavra": "graça", "evento": "graca" }
       ],
       "textos": [
         { "conteudo": "FESTAS = BRANCO", "entrada": "pop", "palavra": "BRANCO", "ate": "Apocalipse", "posicao": "titulo" },
@@ -219,7 +219,7 @@
       ],
       "sfx": [
         { "arquivo": "sino", "gatilho": "Moral", "volume": -3 },
-        { "arquivo": "vinheta-narrador", "gatilho": "Agora você também", "ancora": "fim", "deslocamento": 3 }
+        { "arquivo": "vinheta-amen", "gatilho": "Agora você também", "ancora": "fim", "deslocamento": 3 }
       ]
     },
     {
