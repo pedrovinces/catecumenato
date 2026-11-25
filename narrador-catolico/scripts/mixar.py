@@ -7,7 +7,7 @@ Uso: python3 -I scripts/mixar.py ep01   (lê out/ep01-linha-do-tempo.json)
   (inclui o silêncio extra das "caudas" entre cenas).
 - Trilha: 8 dB abaixo da voz nos respiros e 12 dB abaixo durante a fala (ducking de 4 dB), com um vale
   suave em 2,5 kHz para não disputar com as palavras; muda em cada congelamento e volta no corte seguinte.
-- Efeitos: 8 dB abaixo da voz quando estão sozinhos; 14 dB abaixo quando coincidem com fala
+- Efeitos: 16 dB abaixo da voz quando estão sozinhos; 22 dB abaixo quando coincidem com fala
   (ducking dinâmico, então efeitos longos só abaixam no trecho com voz); param no fim da cena.
   O campo "volume" do JSON soma em dB.
 - Master: loudnorm em duas passagens para -14 LUFS integrados e -1 dBTP; AAC 48 kHz no vídeo.
@@ -31,9 +31,9 @@ SR = 48000
 # então, a pedido, a trilha subiu e os efeitos desceram.
 TRILHA_RESPIRO = -8.0
 DUCKING = -4.0  # trilha a -12 dB durante a fala
-SFX_SOZINHO = -8.0
-SFX_SOB_FALA = -14.0
-SFX_MUSICAIS = {"vinheta-final": 3.0, "vinheta-final-cantada": 3.0}  # a vinheta de fecho fica um pouco acima
+SFX_SOZINHO = -16.0  # efeitos são acessórios: nunca disputam com a voz
+SFX_SOB_FALA = -22.0
+SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0}  # a vinheta toca depois da última fala
 
 
 def ler(caminho) -> np.ndarray:

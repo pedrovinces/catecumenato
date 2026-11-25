@@ -25,12 +25,14 @@
     "@remotion/fonts": "4.0.546",
     "@remotion/layout-utils": "4.0.546",
     "@remotion/renderer": "4.0.546",
+    "delaunator": "^5.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "remotion": "4.0.546",
     "zod": "3.25.76"
   },
   "devDependencies": {
+    "@types/delaunator": "^5.0.3",
     "@types/node": "22.18.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
