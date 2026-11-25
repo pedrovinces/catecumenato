@@ -109,4 +109,4 @@ Total pedido: 89 s, mais o teste do p04 (3 s) e o p12 refeito (4 s). Preço publ
 - `out/ep01-cores-liturgicas-capa.png` e `-capa-4x5.jpg`
 - `out/ep01-cores-liturgicas.srt`
 
-Pendente: nome e logotipo da marca (cartão final com logo e @ fora desta versão).
+Marca: conceito D · Traço (arquivos em `marca/`), no cartão final com SIGA @narradorcatolico.

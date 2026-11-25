@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <title>Narrador Católico</title>
+  <g fill="none" stroke="#14111C" stroke-linecap="round" stroke-linejoin="round" stroke-width="12">
+    <ellipse cx="200" cy="44" rx="62" ry="13" stroke-width="11"/>
+    <rect x="146" y="78" width="108" height="196" rx="54"/>
+    <path d="M 200 110 L 200 238 M 174 150 L 226 150"/>
+    <path d="M 126 198 L 126 236 C 126 282 160 304 200 304 C 240 304 274 282 274 236 L 274 198"/>
+    <circle cx="126" cy="198" r="8" fill="#14111C" stroke="none"/>
+    <circle cx="274" cy="198" r="8" fill="#14111C" stroke="none"/>
+    <path d="M 200 304 L 200 340"/>
+    <path d="M 160 346 L 240 346" stroke-width="14"/>
+  </g>
+</svg>

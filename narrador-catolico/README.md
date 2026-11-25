@@ -96,9 +96,19 @@ O visual deixou de ser desenhado por código. Cada plano é uma imagem de anima�
 
 A composição `ep01` é o filme (`src/filme/`); a versão desenhada antiga continua como `ep01-desenho`.
 
+## Marca
+
+Nome: **Narrador Católico** (@narradorcatolico). Símbolo oficial: conceito D · Traço, um microfone de podcast em linha, com cruz latina na cápsula e auréola, numa cor só.
+
+- Arquivos prontos em `marca/`: avatar do perfil (1080 x 1080), logotipo horizontal e empilhado para fundo escuro e claro (PNG transparente), símbolo em ouro, branco e preto (PNG 1024 e SVG).
+- Cores: ouro `#E9B949` (ouro escuro `#9C7420` sobre fundo claro), creme `#F6EBD3`, noite `#14111C`. Tipografia: Cinzel 700 (nome), Montserrat 800 (chamadas).
+- Fonte única da geometria: `TRACO` em `src/marca/Marca.tsx`; `npx tsx scripts/marca.ts` regera todos os arquivos (inclusive os SVG).
+- `src/marca/PranchaMarca.tsx` (Still "Marca") guarda os quatro conceitos estudados (A Clássico, B Vitral, C Estola, D Traço).
+- No vídeo, o texto de posição `assinatura` do roteiro vira o cartão final: a imagem congelada escurece e entra o logotipo empilhado com a chamada.
+
 ## Estado atual
 
-Ep. 1 em filme de animação: 27 imagens, 19 clipes animados, montagem com cortes na fala, sobreposições em serifa, congelamento em sépia e legenda karaokê. Falta definir nome e logotipo: o cartão final com logo e @ fica de fora até lá.
+Ep. 1 em filme de animação: 27 imagens, 19 clipes animados, montagem com cortes na fala, sobreposições em serifa, congelamento em sépia e legenda karaokê. Marca definida (conceito D · Traço) e aplicada no cartão final.
 
 Antes (versão desenhada): motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 3 (verde), 4 (roxo) e 7 (rosa), sincronização com a narração real, 24 efeitos, trilha original por cena, mixagem com loudness, vinheta de fecho, três propostas de logotipo.
 

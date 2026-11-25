@@ -10,6 +10,7 @@ import { pop } from "../lib/anim";
 import { AREA } from "../components/motor/area";
 import { useCena } from "../components/motor/contexto";
 import { cameraNoQuadro, janelaEm, type PlanoQ } from "./planos";
+import { LogoEmpilhado } from "../marca/Marca";
 
 const CREME = "#F6EBD3";
 const OURO = "#EBCB86";
@@ -154,7 +155,21 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
         <TituloSerifa texto={t.conteudo} cor={cor} max={132} destaqueTudo ouro />
       </div>
     );
-  return null; // "assinatura" (handle e logo) fica de fora até a marca ser definida
+  if (t.posicao === "assinatura") {
+    // cartão final: a imagem congelada escurece e entra a marca com o convite para seguir
+    const d = f - t.inicio;
+    const veu = interpolate(d, [4, 16], [0, 0.8], clamp);
+    const logo = interpolate(d, [10, 24], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+    return (
+      <AbsoluteFill>
+        <AbsoluteFill style={{ backgroundColor: `rgba(12,10,18,${veu})` }} />
+        <div style={{ position: "absolute", left: 0, right: 0, top: 330, display: "flex", justifyContent: "center", opacity: logo, transform: `translateY(${(1 - logo) * 30}px) scale(${0.94 + 0.06 * logo})` }}>
+          <LogoEmpilhado largura={700} id="cartao-final" linha={t.conteudo} brilho />
+        </div>
+      </AbsoluteFill>
+    );
+  }
+  return null;
 };
 
 /** Barra de carregamento elegante (modo preparação). */
