@@ -6,9 +6,24 @@ import { RAIZ } from "./config-render";
 
 export const carregarEpisodio = (codigo: string) => {
   const pasta = path.join(RAIZ, "roteiro");
-  const arq = fs.readdirSync(pasta).find((f) => f.startsWith(codigo + "-") && !f.includes("timestamps") && !f.includes("ajustes") && f.endsWith(".json"));
+  // há outros <codigo>-*.json (planos, clipes, imagens, tempos): o roteiro é o que tem "cenas" e "slug"
+  const lerJson = (f: string) => {
+    try {
+      return JSON.parse(fs.readFileSync(path.join(pasta, f), "utf8"));
+    } catch {
+      return null;
+    }
+  };
+  const arq = fs
+    .readdirSync(pasta)
+    .filter((f) => f.startsWith(codigo + "-") && f.endsWith(".json"))
+    .sort()
+    .find((f) => {
+      const d = lerJson(f);
+      return d && typeof d === "object" && "cenas" in d && "slug" in d;
+    });
   if (!arq) throw new Error(`roteiro de ${codigo} não encontrado em roteiro/`);
-  const roteiro = JSON.parse(fs.readFileSync(path.join(pasta, arq), "utf8"));
+  const roteiro = lerJson(arq);
   const tsArq = path.join(pasta, `${codigo}-timestamps.json`);
   if (!fs.existsSync(tsArq)) throw new Error(`faltam os tempos: roteiro/${codigo}-timestamps.json (rode a guia ou a sincronização)`);
   const ts = JSON.parse(fs.readFileSync(tsArq, "utf8"));

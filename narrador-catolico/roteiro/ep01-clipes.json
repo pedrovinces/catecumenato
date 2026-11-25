@@ -3,24 +3,101 @@
   "estilo": "High-end 3D animated feature film. Smooth, natural, expressive character animation with subtle secondary motion (breathing, blinking, cloth and hair). Keep exactly the same characters, faces, proportions, outfits and setting as the image. One continuous shot, no cuts, no text.",
   "negativo": "blur, distortion, low quality, morphing face, changing identity, extra fingers, deformed hands, flicker, text, subtitles, watermark, scene cut, camera shake",
   "clipes": [
-    { "id": "p01-espelho", "duracao": 5, "prompt": "The priest stands before a full-length mirror in the sacristy, holding a pink chasuble on a hanger in front of his green vestments. He tilts his head and turns slightly side to side checking the look in the mirror, then lifts the hanger a little higher with a playful, satisfied smile. Soft window light, floating dust. Slow gentle camera push-in." },
-    { "id": "p02-influencer", "duracao": 3, "prompt": "The young influencer in the bright hotel room spins while swapping outfits, colorful clothes flutter through the air around him, he snaps a selfie with his phone and grins. Energetic but smooth motion. Slight handheld camera drift." },
-    { "id": "p03-surpreso", "duracao": 3, "prompt": "The priest in green vestments reacts in comic surprise: his eyes widen further, eyebrows shoot up, mouth opens a little more, the empty hanger held up in his hand trembles slightly, then he holds the pose. Static camera." },
-    { "id": "p04-sobrancelha", "duracao": 3, "prompt": "Close-up of the priest. He slowly raises one eyebrow and his smile turns into a knowing half-smile, as if he just figured something out; a small head tilt and a natural blink. Sacristy background softly out of focus. Very slow push-in." },
-    { "id": "p05-caneca", "duracao": 5, "prompt": "Early morning in the sacristy. The sleepy priest in a white alb sips from the steaming mug, then looks at the open wardrobe of colored vestments with half-closed eyes, scratching his chin, undecided. Steam rises from the mug. Cool dawn light. Slow lateral camera move toward the wardrobe." },
-    { "id": "p09-regando", "duracao": 4, "prompt": "In the sunny church garden, the priest in green vestments waters the small seedling with the watering can; water streams and splashes on the soil, the leaves tremble, he smiles warmly. Gentle breeze. Slow camera push-in." },
-    { "id": "p10-arvore", "duracao": 3, "prompt": "The priest in green vestments looks at the leafy young tree with delighted surprise, opening his hands; leaves sway in the breeze and golden sunlight flickers through them. Slow upward camera tilt." },
-    { "id": "p11-banco", "duracao": 4, "prompt": "Inside the church during Mass, the man sitting in the last pew relaxes calmly, looks up at the stained glass and lets out a content little sigh; light rays shimmer through the windows, distant candles flicker. Slow push-in toward him." },
-    { "id": "p12-medalha", "duracao": 4, "prompt": "The man standing on the last pew celebrates with both arms raised, bouncing with joy, the gold medal swinging on its green ribbon, colorful confetti falling all around. Joyful, energetic, natural motion. Slight upward camera move." },
-    { "id": "p14-torcedor", "duracao": 5, "prompt": "In the stadium stands, the priest in a white alb with a purple stole blows the purple plastic horn and pumps his fist excitedly, cheering together with the crowd around him, who also cheer and clap. Lively crowd motion. Slight handheld camera." },
-    { "id": "p15-estola", "duracao": 4, "prompt": "In the stadium stands, the priest with the purple stole over his white alb keeps his hands joined in prayer, closes his eyes serenely and bows his head slightly; the surprised fans around him exchange puzzled looks. Calm, slow push-in." },
-    { "id": "p18-multidao", "duracao": 8, "prompt": "A large serene crowd dressed in white slowly raises and waves palm branches under radiant golden heavenly light; robes and hair move gently in the breeze, light rays shimmer through the clouds. Reverent, peaceful mood. Slow majestic camera rise." },
-    { "id": "p20-joinha", "duracao": 3, "prompt": "In the colorful 1990s TV commercial studio, the priest in the white and gold chasuble turns to the camera, rests his hand on the plain white box beside him and gives a confident thumbs up with a big warm smile and a little wink. The box stays still. Static camera." },
-    { "id": "p21-martires", "duracao": 11, "prompt": "Serene silhouettes of early Christian martyrs stand on a hill holding palm branches, backlit by a red and golden sunset sky; their robes and the palm fronds sway gently in the wind, clouds drift slowly, sun rays pulse softly. Peaceful, reverent, no violence. Very slow camera dolly forward." },
-    { "id": "p22-cenaculo", "duracao": 4, "prompt": "In the stone Upper Room, small tongues of fire flicker above the heads of the apostles and Mary; Mary looks up in prayer, the apostles raise their eyes in awe, golden light rays pulse from above. Reverent mood. Slow push-in toward Mary." },
-    { "id": "p24-rosa", "duracao": 9, "prompt": "Inside the bright church, the priest in the rose chasuble with gold trim opens his arms wider in a welcoming presentation gesture, smiles proudly and turns slightly from side to side to show off the vestment; light glows through the stained glass, candles flicker. Slow camera orbit." },
-    { "id": "p25-porta", "duracao": 3, "prompt": "At the stone church door at sunset, the priest in the rose chasuble greets people leaving Mass with a warm smile and a handshake; beside him two parishioners lean toward each other and whisper behind their hands, glancing at him. Static camera." },
-    { "id": "p26-oculos", "duracao": 5, "prompt": "At the church door at sunset, the priest in the rose chasuble wearing pixelated sunglasses keeps his arms crossed, lifts his chin with a confident grin and gives a tiny nod; the two parishioners beside him stare open-mouthed. The sunglasses stay on his face. Slow push-in." },
-    { "id": "p00-padre-referencia", "duracao": 3, "prompt": "Portrait of the friendly priest: he looks into the camera, smiles warmly and gives a gentle, knowing nod with a natural blink. Soft light. Static camera." }
+    {
+      "id": "p01-espelho",
+      "duracao": 5,
+      "prompt": "The priest stands before a full-length mirror in the sacristy, holding a pink chasuble on a hanger in front of his green vestments. He tilts his head and turns slightly side to side checking the look in the mirror, then lifts the hanger a little higher with a playful, satisfied smile. Soft window light, floating dust. Slow gentle camera push-in."
+    },
+    {
+      "id": "p02-influencer",
+      "duracao": 3,
+      "prompt": "The young influencer in the bright hotel room spins while swapping outfits, colorful clothes flutter through the air around him, he snaps a selfie with his phone and grins. Energetic but smooth motion. Slight handheld camera drift."
+    },
+    {
+      "id": "p03-surpreso",
+      "duracao": 3,
+      "prompt": "The priest in green vestments reacts in comic surprise: his eyes widen further, eyebrows shoot up, mouth opens a little more, the empty hanger held up in his hand trembles slightly, then he holds the pose. Static camera."
+    },
+    {
+      "id": "p04-sobrancelha",
+      "duracao": 3,
+      "prompt": "Close-up of the priest. He slowly raises one eyebrow and his smile turns into a knowing half-smile, as if he just figured something out; a small head tilt and a natural blink. Sacristy background softly out of focus. Very slow push-in."
+    },
+    {
+      "id": "p05-caneca",
+      "duracao": 5,
+      "prompt": "Early morning in the sacristy. The sleepy priest in a white alb sips from the steaming mug, then looks at the open wardrobe of colored vestments with half-closed eyes, scratching his chin, undecided. Steam rises from the mug. Cool dawn light. Slow lateral camera move toward the wardrobe."
+    },
+    {
+      "id": "p09-regando",
+      "duracao": 4,
+      "prompt": "In the sunny church garden, the priest in green vestments waters the small seedling with the watering can; water streams and splashes on the soil, the leaves tremble, he smiles warmly. Gentle breeze. Slow camera push-in."
+    },
+    {
+      "id": "p10-arvore",
+      "duracao": 3,
+      "prompt": "The priest in green vestments looks at the leafy young tree with delighted surprise, opening his hands; leaves sway in the breeze and golden sunlight flickers through them. Slow upward camera tilt."
+    },
+    {
+      "id": "p11-banco",
+      "duracao": 4,
+      "prompt": "Inside the church during Mass, the man sitting in the last pew relaxes calmly, looks up at the stained glass and lets out a content little sigh; light rays shimmer through the windows, distant candles flicker. Slow push-in toward him."
+    },
+    {
+      "id": "p12-medalha",
+      "duracao": 4,
+      "prompt": "The man standing on the last pew celebrates: he keeps both arms raised high, shakes his fists in joy and laughs, with a small happy bounce on his knees, feet staying on the pew. The gold medal on its green ribbon stays clearly visible hanging on the middle of his chest the whole time, swinging slightly. Colorful confetti keeps falling all around. Slight upward camera move.",
+      "cfg": 0.7
+    },
+    {
+      "id": "p14-torcedor",
+      "duracao": 5,
+      "prompt": "In the stadium stands, the priest in a white alb with a purple stole blows the purple plastic horn and pumps his fist excitedly, cheering together with the crowd around him, who also cheer and clap. Lively crowd motion. Slight handheld camera."
+    },
+    {
+      "id": "p15-estola",
+      "duracao": 4,
+      "prompt": "In the stadium stands, the priest with the purple stole over his white alb keeps his hands joined in prayer, closes his eyes serenely and bows his head slightly; the surprised fans around him exchange puzzled looks. Calm, slow push-in."
+    },
+    {
+      "id": "p18-multidao",
+      "duracao": 8,
+      "prompt": "A large serene crowd dressed in white slowly raises and waves palm branches under radiant golden heavenly light; robes and hair move gently in the breeze, light rays shimmer through the clouds. Reverent, peaceful mood. Slow majestic camera rise."
+    },
+    {
+      "id": "p20-joinha",
+      "duracao": 3,
+      "prompt": "In the colorful 1990s TV commercial studio, the priest in the white and gold chasuble turns to the camera, rests his hand on the plain white box beside him and gives a confident thumbs up with a big warm smile and a little wink. The box stays still. Static camera."
+    },
+    {
+      "id": "p21-martires",
+      "duracao": 11,
+      "prompt": "Serene silhouettes of early Christian martyrs stand on a hill holding palm branches, backlit by a red and golden sunset sky; their robes and the palm fronds sway gently in the wind, clouds drift slowly, sun rays pulse softly. Peaceful, reverent, no violence. Very slow camera dolly forward."
+    },
+    {
+      "id": "p22-cenaculo",
+      "duracao": 4,
+      "prompt": "In the stone Upper Room, small tongues of fire flicker above the heads of the apostles and Mary; Mary looks up in prayer, the apostles raise their eyes in awe, golden light rays pulse from above. Reverent mood. Slow push-in toward Mary."
+    },
+    {
+      "id": "p24-rosa",
+      "duracao": 9,
+      "prompt": "Inside the bright church, the priest in the rose chasuble with gold trim opens his arms wider in a welcoming presentation gesture, smiles proudly and turns slightly from side to side to show off the vestment; light glows through the stained glass, candles flicker. Slow camera orbit."
+    },
+    {
+      "id": "p25-porta",
+      "duracao": 3,
+      "prompt": "At the stone church door at sunset, the priest in the rose chasuble greets people leaving Mass with a warm smile and a handshake; beside him two parishioners lean toward each other and whisper behind their hands, glancing at him. Static camera."
+    },
+    {
+      "id": "p26-oculos",
+      "duracao": 5,
+      "prompt": "At the church door at sunset, the priest in the rose chasuble wearing pixelated sunglasses keeps his arms crossed, lifts his chin with a confident grin and gives a tiny nod; the two parishioners beside him stare open-mouthed. The sunglasses stay on his face. Slow push-in."
+    },
+    {
+      "id": "p00-padre-referencia",
+      "duracao": 3,
+      "prompt": "Portrait of the friendly priest: he looks into the camera, smiles warmly and gives a gentle, knowing nod with a natural blink. Soft light. Static camera."
+    }
   ]
 }

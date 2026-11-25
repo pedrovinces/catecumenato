@@ -40,7 +40,7 @@
         { "palavra": "Até descobrir", "evento": "zoomRosto" }
       ],
       "textos": [
-        { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "posicao": "titulo" }
+        { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "ate": "influencer", "posicao": "titulo" }
       ],
       "sfx": [
         {
@@ -92,7 +92,7 @@
         { "palavra": "católico", "evento": "festa" }
       ],
       "textos": [
-        { "conteudo": "TEMPO COMUM = VERDE", "entrada": "pop", "palavra": "Tempo Comum", "posicao": "titulo" },
+        { "conteudo": "TEMPO COMUM = VERDE", "entrada": "pop", "palavra": "Tempo Comum", "ate": "Se você acha", "posicao": "titulo" },
         { "conteudo": "33 OU 34 SEMANAS POR ANO", "entrada": "desliza", "palavra": "maior parte", "duracao": 2, "posicao": "subtitulo" }
       ],
       "sfx": [
@@ -118,7 +118,7 @@
         { "palavra": "modo", "evento": "loading" }
       ],
       "textos": [
-        { "conteudo": "ADVENTO E QUARESMA = ROXO", "entrada": "pop", "palavra": "Advento", "posicao": "titulo" },
+        { "conteudo": "ADVENTO E QUARESMA = ROXO", "entrada": "pop", "palavra": "Advento", "ate": "Então não estranhe", "posicao": "titulo" },
         { "conteudo": "1º DOMINGO DO ADVENTO: 29/11", "entrada": "desliza", "palavra": "neste domingo", "ate": "Então", "posicao": "subtitulo" }
       ],
       "sfx": [

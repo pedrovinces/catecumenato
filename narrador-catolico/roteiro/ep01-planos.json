@@ -1,0 +1,42 @@
+{
+  "_comentario": "Planos do filme. Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. Vídeo em assets/video/<codigo>/<id>.mp4 quando existe; senão, a imagem em assets/img com movimento de câmera. deslocamento em quadros (negativo adianta), trecho em segundos dentro do clipe, camera de/para: zoom z e deslocamento x/y em px.",
+  "planos": [
+    { "id": "p01-espelho", "cena": "abertura" },
+    { "id": "p02-influencer", "cena": "abertura", "palavra": "influencer", "deslocamento": -4 },
+    { "id": "p03-surpreso", "cena": "abertura", "palavra": "viagem", "ancora": "fim", "deslocamento": 2 },
+    { "id": "p04-sobrancelha", "cena": "abertura", "palavra": "Até descobrir", "deslocamento": -3 },
+
+    { "id": "p05-caneca", "cena": "regra" },
+    { "id": "p06-livro", "cena": "regra", "palavra": "Estão", "deslocamento": -3, "camera": { "de": { "z": 1.0, "y": 0 }, "para": { "z": 1.14, "y": 60 } } },
+    { "id": "p07-livro-aberto", "cena": "regra", "palavra": "A Igreja tem", "deslocamento": -3, "camera": { "de": { "z": 1.12, "y": -40 }, "para": { "z": 1.0, "y": 0 } } },
+    { "id": "p08-celular", "cena": "regra", "palavra": "Muito antes", "deslocamento": -3, "camera": { "de": { "z": 1.0, "x": 0 }, "para": { "z": 1.12, "x": 50 } } },
+
+    { "id": "p09-regando", "cena": "verde" },
+    { "id": "p10-arvore", "cena": "verde", "palavra": "É a cor", "deslocamento": -3 },
+    { "id": "p11-banco", "cena": "verde", "palavra": "Se você acha", "deslocamento": -3 },
+    { "id": "p12-medalha", "cena": "verde", "palavra": "parabéns", "deslocamento": -2 },
+
+    { "id": "p13-coroa", "cena": "roxo", "camera": { "de": { "z": 1.0, "y": 0 }, "para": { "z": 1.16, "x": 120, "y": 40 } } },
+    { "id": "p16-manjedoura", "cena": "roxo", "palavra": "E neste domingo", "deslocamento": -3, "camera": { "de": { "z": 1.0 }, "para": { "z": 1.1, "y": 30 } } },
+    { "id": "p14-torcedor", "cena": "roxo", "palavra": "Então não estranhe", "deslocamento": -3 },
+    { "id": "p15-estola", "cena": "roxo", "palavra": "A Igreja entrou", "deslocamento": -3 },
+
+    { "id": "p17-festa-branco", "cena": "branco", "camera": { "de": { "z": 1.0, "y": 0 }, "para": { "z": 1.12, "y": -30 } } },
+    { "id": "p18-multidao", "cena": "branco", "palavra": "Lá no Apocalipse", "deslocamento": -3 },
+    { "id": "p19-comercial", "cena": "branco", "palavra": "Ou seja", "deslocamento": -3, "camera": { "de": { "z": 1.0, "x": 0 }, "para": { "z": 1.1, "x": -40 } } },
+    { "id": "p20-joinha", "cena": "branco", "palavra": "com sangue", "deslocamento": -2, "anexo": "graca" },
+
+    { "id": "p21-martires", "cena": "vermelho" },
+    { "id": "p22-cenaculo", "cena": "vermelho", "palavra": "e Pentecostes", "deslocamento": -3 },
+    { "id": "p21-martires", "chave": "p21-martires-b", "cena": "vermelho", "palavra": "É o padre", "deslocamento": -3, "trecho": 6.8, "camera": { "de": { "z": 1.35, "y": 80 }, "para": { "z": 1.45, "y": 90 } } },
+    { "id": "p23-extintor", "cena": "vermelho", "palavra": "ou hoje", "deslocamento": -3, "anexo": "placa", "camera": { "de": { "z": 1.0 }, "para": { "z": 1.08, "x": -20 } } },
+
+    { "id": "p24-rosa", "cena": "rosa" },
+    { "id": "p13-coroa", "chave": "p13-coroa-b", "cena": "rosa", "palavra": "É a Igreja dizendo", "deslocamento": -3, "camera": { "de": { "z": 1.35, "x": -270, "y": -160 }, "para": { "z": 1.45, "x": -290, "y": -175 } } },
+    { "id": "p25-porta", "cena": "rosa", "palavra": "Então, se você", "deslocamento": -3, "anexo": "baloes" },
+    { "id": "p26-oculos", "cena": "rosa", "palavra": "aposta", "deslocamento": -4 },
+
+    { "id": "p27-cabideiro", "cena": "fechamento", "camera": { "de": { "z": 1.12, "x": -60 }, "para": { "z": 1.12, "x": 60 } } },
+    { "id": "p00-padre-referencia", "cena": "fechamento", "palavra": "E foi assim", "deslocamento": -3 }
+  ]
+}

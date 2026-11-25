@@ -76,9 +76,25 @@ npm run final         # tudo acima + vídeo em resolução cheia + MP4 final em 
 
 A sincronização não depende de reconhecimento de fala: a faixa-guia sabe o tempo de cada palavra e o DTW leva esses tempos para a gravação real. Se a gravação não tiver uma cena, use `--sem=<id>` (a cena 9 do ep. 1 não foi gravada e está com `"ativa": false`).
 
+## Visual: filme de animação (desde o ep. 1)
+
+O visual deixou de ser desenhado por código. Cada plano é uma imagem de animação 3D gerada no Canva e animada por IA (image-to-video) no fal.ai; a montagem, os textos e a legenda continuam no Remotion.
+
+1. **Imagens:** `roteiro/<codigo>-imagens.json` guarda os prompts; as imagens ficam em `assets/img/<codigo>/<id>.png` (1536 x 2720). O Padre mantém o rosto porque toda imagem dele parte da referência `p00-padre-referencia`.
+2. **Clipes:** `roteiro/<codigo>-clipes.json` lista os planos que ganham movimento (modelo, duração de 3 a 15 s, prompt de movimento em inglês). `python3 -I scripts/fal_clipes.py <codigo>` envia à fila do fal.ai, acompanha, baixa em `assets/video/<codigo>/` e registra cada pedido em `roteiro/<codigo>-clipes-registro.json`. Opções: `--so id1,id2`, `--refazer id`, `--saldo`. Se o acompanhamento cair, rodar de novo retoma os pedidos pendentes sem pagar outra vez.
+   - Chave: neste ambiente de nuvem o proxy injeta a chave do fal.ai (hosts `queue.fal.run` e `api.fal.ai`); em outra máquina, `export FAL_KEY=...`.
+   - Custo do ep. 1: Kling 3 Pro, sem áudio, US$ 0,112 por segundo; 19 clipes (89 s) mais um refeito, cerca de US$ 10.
+3. **Planos:** `roteiro/<codigo>-planos.json` diz em que palavra da narração cada plano entra (`palavra`, `ocorrencia`, `ancora`, `deslocamento` em quadros), o movimento de câmera das imagens paradas (`camera.de/para`: zoom `z`, `x`, `y`), o trecho do clipe (`trecho`, em s) quando ele é usado duas vezes e os anexos presos à imagem (`placa`, `graca`, `baloes`). Sem clipe, o plano usa a imagem com aproximação lenta.
+4. **Inventário:** `python3 -I scripts/listar_clipes.py` grava `src/clipes-disponiveis.json` (o `final.sh` já roda).
+5. **Conferência:** `npx tsx scripts/quadros-filme.ts ep01 1.0 17.5 75.3` renderiza quadros nos segundos pedidos em `out/quadros-filme/`.
+
+A composição `ep01` é o filme (`src/filme/`); a versão desenhada antiga continua como `ep01-desenho`.
+
 ## Estado atual
 
-Feito: motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 3 (verde), 4 (roxo) e 7 (rosa), sincronização com a narração real, 24 efeitos, trilha original por cena, mixagem com loudness, vinheta de fecho, três propostas de logotipo.
+Ep. 1 em filme de animação: 27 imagens, 19 clipes animados, montagem com cortes na fala, sobreposições em serifa, congelamento em sépia e legenda karaokê. Falta definir nome e logotipo: o cartão final com logo e @ fica de fora até lá.
+
+Antes (versão desenhada): motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 3 (verde), 4 (roxo) e 7 (rosa), sincronização com a narração real, 24 efeitos, trilha original por cena, mixagem com loudness, vinheta de fecho, três propostas de logotipo.
 
 Em andamento: cenas 2, 5, 6 e 8 (hoje provisórias); capa; SRT.
 
