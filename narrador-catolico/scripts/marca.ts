@@ -8,6 +8,7 @@ import { TRACO } from "../src/marca/Marca";
 const pasta = path.join(RAIZ, "marca");
 const pedidos = [
   { nome: "narrador-catolico-avatar", comp: "MarcaAvatar" },
+  { nome: "narrador-catolico-perfil-instagram-1080", comp: "MarcaPerfil" },
   { nome: "narrador-catolico-horizontal-fundo-escuro", comp: "MarcaHorizontal", props: { claro: false } },
   { nome: "narrador-catolico-horizontal-fundo-claro", comp: "MarcaHorizontal", props: { claro: true } },
   { nome: "narrador-catolico-empilhado-fundo-escuro", comp: "MarcaEmpilhada", props: { claro: false } },

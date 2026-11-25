@@ -163,8 +163,8 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
     return (
       <AbsoluteFill>
         <AbsoluteFill style={{ backgroundColor: `rgba(12,10,18,${veu})` }} />
-        <div style={{ position: "absolute", left: 0, right: 0, top: 330, display: "flex", justifyContent: "center", opacity: logo, transform: `translateY(${(1 - logo) * 30}px) scale(${0.94 + 0.06 * logo})` }}>
-          <LogoEmpilhado largura={700} id="cartao-final" linha={t.conteudo} brilho />
+        <div style={{ position: "absolute", left: 0, right: 0, top: 560, display: "flex", justifyContent: "center", opacity: logo, transform: `translateY(${(1 - logo) * 30}px) scale(${0.94 + 0.06 * logo})` }}>
+          <LogoEmpilhado largura={760} id="cartao-final" linha={t.conteudo} brilho />
         </div>
       </AbsoluteFill>
     );

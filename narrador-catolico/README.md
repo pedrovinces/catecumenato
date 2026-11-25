@@ -100,7 +100,7 @@ A composição `ep01` é o filme (`src/filme/`); a versão desenhada antiga cont
 
 Nome: **Narrador Católico** (@narradorcatolico). Símbolo oficial: conceito D · Traço, um microfone de podcast em linha, com cruz latina na cápsula e auréola, numa cor só.
 
-- Arquivos prontos em `marca/`: avatar do perfil (1080 x 1080), logotipo horizontal e empilhado para fundo escuro e claro (PNG transparente), símbolo em ouro, branco e preto (PNG 1024 e SVG).
+- Arquivos prontos em `marca/`: foto de perfil do Instagram (`narrador-catolico-perfil-instagram-1080.png`, símbolo maior e traço mais grosso para ler a 32 px; também em 320 px), avatar genérico (1080 x 1080), logotipo horizontal e empilhado para fundo escuro e claro (PNG transparente), símbolo em ouro, branco e preto (PNG 1024 e SVG).
 - Cores: ouro `#E9B949` (ouro escuro `#9C7420` sobre fundo claro), creme `#F6EBD3`, noite `#14111C`. Tipografia: Cinzel 700 (nome), Montserrat 800 (chamadas).
 - Fonte única da geometria: `TRACO` em `src/marca/Marca.tsx`; `npx tsx scripts/marca.ts` regera todos os arquivos (inclusive os SVG).
 - `src/marca/PranchaMarca.tsx` (Still "Marca") guarda os quatro conceitos estudados (A Clássico, B Vitral, C Estola, D Traço).

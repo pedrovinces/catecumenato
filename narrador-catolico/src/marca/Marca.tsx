@@ -189,8 +189,8 @@ export const TRACO = {
   base: "M 160 346 L 240 346",
   traco: 12,
 };
-const Traco: React.FC<{ id: string; cor?: string; brilho?: boolean }> = ({ id, cor = OURO, brilho }) => {
-  const T = TRACO;
+const Traco: React.FC<{ id: string; cor?: string; brilho?: boolean; espessura?: number }> = ({ id, cor = OURO, brilho, espessura }) => {
+  const T = { ...TRACO, traco: espessura ?? TRACO.traco };
   return (
     <g fill="none" stroke={cor} strokeLinecap="round" strokeLinejoin="round" strokeWidth={T.traco}>
       <g filter={brilho ? `url(#${id}-brilho)` : undefined}>
@@ -209,13 +209,13 @@ const Traco: React.FC<{ id: string; cor?: string; brilho?: boolean }> = ({ id, c
 
 export const CONCEITO_OFICIAL: Conceito = "traco";
 
-export const Simbolo: React.FC<{ conceito: Conceito; tamanho: number; id: string; corTraco?: string; corEstola?: string; brilho?: boolean }> = ({ conceito, tamanho, id, corTraco, corEstola = CORES_ESTOLA.verde, brilho }) => (
+export const Simbolo: React.FC<{ conceito: Conceito; tamanho: number; id: string; corTraco?: string; corEstola?: string; brilho?: boolean; espessura?: number }> = ({ conceito, tamanho, id, corTraco, corEstola = CORES_ESTOLA.verde, brilho, espessura }) => (
   <svg width={tamanho} height={tamanho} viewBox="0 0 400 400" style={{ overflow: "visible" }}>
     <Defs id={id} />
     {conceito === "classico" && <Classico id={id} />}
     {conceito === "vitral" && <Vitral id={id} />}
     {conceito === "estola" && <Estola id={id} cor={corEstola} />}
-    {conceito === "traco" && <Traco id={id} cor={corTraco} brilho={brilho} />}
+    {conceito === "traco" && <Traco id={id} cor={corTraco} brilho={brilho} espessura={espessura} />}
   </svg>
 );
 

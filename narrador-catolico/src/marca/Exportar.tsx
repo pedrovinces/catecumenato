@@ -20,6 +20,15 @@ export const MarcaAvatar: React.FC = () => (
   </Centro>
 );
 
+/** Foto de perfil do Instagram: símbolo maior e traço mais grosso, para ler a 32 px no feed. */
+export const MarcaPerfil: React.FC = () => (
+  <Centro fundo={`radial-gradient(circle at 50% 42%, #2A2338 0%, ${NOITE} 60%, #0B0910 100%)`}>
+    <div style={{ marginTop: 34 }}>
+      <Simbolo conceito={CONCEITO_OFICIAL} tamanho={960} id="perfil" brilho espessura={16} />
+    </div>
+  </Centro>
+);
+
 export const MarcaHorizontal: React.FC<{ claro?: boolean }> = ({ claro }) => (
   <Centro>
     <LogoHorizontal conceito={CONCEITO_OFICIAL} altura={640} id="horizontal" claro={claro} />

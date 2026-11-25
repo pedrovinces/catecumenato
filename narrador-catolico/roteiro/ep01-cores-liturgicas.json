@@ -225,8 +225,7 @@
       ],
       "textos": [
         { "conteudo": "NA MISSA, ATÉ A ROUPA PREGA.", "entrada": "pop", "palavra": "pregando", "ate": "Agora você também", "posicao": "titulo" },
-        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" },
-        { "conteudo": "EVERYBODY LOVES MASS", "entrada": "impacto", "palavra": "Agora você também", "ancora": "fim", "deslocamento": 54, "posicao": "titulo" }
+        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" }
       ],
       "sfx": [
         { "arquivo": "sino", "gatilho": "Moral", "volume": -3 },
