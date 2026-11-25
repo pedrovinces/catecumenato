@@ -1,0 +1,9 @@
+{
+  "p04-sobrancelha": {
+    "request_id": "01a21298-9f9e-7d51-abdc-56c12dc76995",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "Close-up of the priest. He slowly raises one eyebrow and his smile turns into a knowing half-smile, as if he just figured something out; a small head tilt and a natural blink. Sacristy background softly out of focus. Very slow push-in.",
+    "enviado": "2026-11-25 12:05:21"
+  }
+}
