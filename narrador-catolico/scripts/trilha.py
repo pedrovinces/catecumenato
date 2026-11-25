@@ -5,15 +5,17 @@ Uso: python3 -I scripts/trilha.py ep01   (lê out/ep01-linha-do-tempo.json; rode
 Saída: assets/audio/trilha.wav (48 kHz, estéreo, duração exata do episódio).
 
 Cada bloco tem um tema conforme a situação:
-  abertura    groove de sitcom (Si♭, 140 bpm): baixo caminhando, piano elétrico, estalos, metais
-  regra       pizzicato na ponta dos pés (Fá, 108 bpm)
-  verde       pastoral: cavaquinho, assobio, chocalho (Dó, 118 bpm)
+  base comum: groove de crônica de sitcom em swing (120 bpm): baixo acústico caminhando, prato de condução,
+  vassourinha, piano elétrico, tapete de cordas e um tema de vibrafone que respira entre as falas
+  abertura    groove completo em Si♭, com metais
+  regra       o mesmo groove em Fá, com pizzicato e tema "curioso"
+  verde       em Dó, com cavaquinho no lugar do piano e tema de esperança
   roxo        órgão e celesta do Advento → bateria de arquibancada → acorde solene → música de espera
   branco      festa com glockenspiel → cordas majestosas no Apocalipse → silêncio para o comercial
   vermelho    cordas graves e tímpano, respeitosos → cordas subindo no Pentecostes
   rosa        funk (Lá menor, 100 bpm) até os óculos, quando a batida de hip-hop assume
-  fechamento  reprise suave do tema de abertura
-A mixagem cuida do ducking (22 dB abaixo da voz na fala, 16 dB nos respiros) e do silêncio nos congelamentos.
+  fechamento  reprise suave do groove de abertura
+A mixagem cuida do ducking (12 dB abaixo da voz na fala, 8 dB nos respiros) e do silêncio nos congelamentos.
 """
 import importlib.util
 import json
@@ -193,6 +195,105 @@ def tempos(bpm, dur):
     return b, int(np.ceil(dur / b)) + 1
 
 
+def ride(vel=1.0):
+    """Prato de condução: parciais inarmônicos com batida curta e cauda metálica."""
+    t = t_(0.9)
+    x = sum((1 / (k + 1)) * np.sin(2 * np.pi * f * t + RNG.uniform(0, 6)) for k, f in enumerate((3215.0, 4127.0, 5003.0, 5911.0, 6870.0, 8240.0)))
+    x = x * np.exp(-t / 0.5) + filtro(RNG.standard_normal(len(t)), "highpass", 7000) * np.exp(-t / 0.2) * 0.5
+    x += np.sin(2 * np.pi * 4600 * t) * np.exp(-t / 0.06) * 0.6
+    return x * 0.06 * vel
+
+
+def vassoura(vel=1.0):
+    t = t_(0.25)
+    env = np.minimum(1, t / 0.012) * np.exp(-t / 0.09)
+    return filtro(RNG.standard_normal(len(t)), "bandpass", [1500, 6500]) * env * 0.22 * vel
+
+
+def vibrafone(nota, d, vol=1.0):
+    t = t_(d + 1.2)
+    f = hz(nota)
+    x = np.sin(2 * np.pi * f * t) + 0.25 * np.sin(2 * np.pi * f * 3.93 * t) * np.exp(-t / 0.15) + 0.05 * np.sin(2 * np.pi * f * 9.8 * t) * np.exp(-t / 0.05)
+    x *= (1 - 0.25 * (0.5 + 0.5 * np.sin(2 * np.pi * 5.2 * t))) * np.exp(-t / 1.3) * np.minimum(1, t / 0.003)
+    return soltar(x, d + 0.6, 0.4) * 0.2 * vol
+
+
+QUALIDADES = {"maj7": [0, 4, 7, 11], "7": [0, 4, 7, 10], "m7": [0, 3, 7, 10], "6": [0, 4, 7, 9], "m": [0, 3, 7], "": [0, 4, 7], "m6": [0, 3, 7, 9]}
+
+
+def acorde(simbolo):
+    """'Bbmaj7' → (raiz do baixo, [notas do piano em voicing fechado], [notas do acorde])."""
+    raiz = simbolo[:2] if len(simbolo) > 1 and simbolo[1] in "b#" else simbolo[:1]
+    qual = simbolo[len(raiz):]
+    pc = NOTAS[raiz]
+    graus = QUALIDADES[qual]
+    baixo = 36 + pc if 36 + pc <= 46 else 24 + pc
+    cores = [graus[1], graus[-1], 14, graus[2]]  # terça, sétima/sexta, nona, quinta
+    voicing = sorted(58 + ((pc + g - 58) % 12) for g in cores)
+    return baixo, voicing, [pc + g for g in graus]
+
+
+MELODIAS = {  # (semitons acima da tônica, início em tempos, duração em tempos), frase de 2 compassos; os 2 seguintes ficam livres
+    "tema": [(4, 0, 1), (7, 1, 0.5), (9, 1.5, 0.5), (7, 2, 1.5), (4, 4.5, 0.5), (2, 5, 1), (0, 6, 2)],
+    "curioso": [(7, 0, 0.5), (4, 1, 0.5), (7, 2, 0.5), (9, 2.5, 0.5), (7, 3, 1), (5, 4.5, 0.5), (4, 5, 0.5), (2, 5.5, 0.5), (0, 6, 1)],
+    "esperanca": [(4, 0, 1.5), (5, 1.5, 0.5), (7, 2, 2), (9, 4, 1), (7, 5, 1), (4, 6, 2)],
+    "festa": [(7, 0, 0.5), (9, 0.5, 0.5), (11, 1, 0.5), (12, 1.5, 1.5), (11, 4, 0.5), (9, 4.5, 0.5), (7, 5, 1), (4, 6, 2)],
+}
+
+
+def groove(dur, tonica, cifras, bpm=120, metais=False, melodia=None, cavaco=False, pizzicato=False, palmas_=False, glock=False, ep=True, suave=False):
+    """Groove de crônica de sitcom em swing: baixo caminhando, condução, vassourinha, piano elétrico, tapete de cordas, vibrafone."""
+    f = Faixa(dur)
+    b = 60 / bpm
+    sw = b * 2 / 3  # colcheia com balanço
+    compassos = int(np.ceil(dur / (4 * b))) + 1
+    ton = m(tonica)
+    for c in range(compassos):
+        o = c * 4 * b
+        baixo, voicing, notas = acorde(cifras[c % len(cifras)])
+        prox = acorde(cifras[(c + 1) % len(cifras)])[0]
+        terca = baixo + (notas[1] - notas[0])
+        quinta = baixo + 7
+        linha = [baixo, terca if c % 2 else quinta, quinta if c % 2 else baixo + (notas[-1] - notas[0]) - 12 + 12, prox + (1 if (c % 3) else -1)]
+        for k, nt in enumerate(linha):
+            nt = nt if nt < 52 else nt - 12
+            f.por(V.contrabaixo(nt + 12, b * 0.9), o + k * b, 0.95, 0)
+            if pizzicato:
+                f.por(pizz(nt + 24, brilho=0.6), o + k * b, 0.35, 0.2)
+        # condução e vassourinha
+        for k, pos in enumerate((0, 1, 1 + sw / b, 2, 3, 3 + sw / b)):
+            f.por(ride(0.8 if k in (0, 3) else 1.0), o + pos * b, 0.55 if suave else 0.8, 0.35)
+        for s in (1, 3):
+            f.por(vassoura(), o + s * b, 0.9, -0.15)
+        f.por(V.bumbo(), o, 0.18, 0)
+        # tapete de cordas (corpo da trilha)
+        for j, nt in enumerate(voicing):
+            f.por(cordas(nt - 12, 4 * b + 0.2, 0.5, 0.55), o, 1.0, -0.4 + 0.25 * j)
+        # comping
+        if ep:
+            for pos, dd in ((0, 0.9), (1 + sw / b, 0.5)) if c % 2 == 0 else ((1 + sw / b, 0.6), (3, 0.8)):
+                for j, nt in enumerate(voicing):
+                    f.por(piano_eletrico(nt, dd * b, 0.6 if suave else 0.75), o + pos * b + j * 0.006, 0.9, -0.25 + j * 0.15)
+        if cavaco:
+            for k in range(8):
+                for j, nt in enumerate(voicing if k % 2 == 0 else voicing[::-1]):
+                    f.por(cavaquinho(nt + 12), o + (k // 2) * b + (sw if k % 2 else 0) + j * 0.007, 0.4 if k % 2 == 0 else 0.25, 0.3)
+        if glock:
+            for k in range(4):
+                f.por(celesta(notas[k % len(notas)] + 72 - 12 * (notas[0] + 72 > 90), 0.3, 0.7), o + k * b + sw, 0.6, 0.4)
+        if palmas_:
+            for s in (1, 3):
+                f.por(palma(), o + s * b, 0.45, 0.1)
+        if metais and c % 4 == 3:
+            for nt in voicing[-2:]:
+                f.por(V.metal(nt + 12, 0.12, 0.06), o + 3 * b + sw, 0.3, 0.1)
+        # tema no vibrafone: frase nos compassos 1-2 de cada 4 (respiro para a narração)
+        if melodia and c % 4 == 0:
+            for semi, ini, dd in MELODIAS[melodia]:
+                f.por(vibrafone(ton + 12 + semi, dd * b, 0.8 if suave else 1.0), o + ini * b + (sw - b / 2 if ini % 1 else 0), 0.8, -0.1)
+    return f
+
+
 # ---------- temas ----------
 
 ACORDES_SITCOM = [  # (fundamental do baixo, terça, quinta, voicing do piano)
@@ -281,6 +382,10 @@ def tema_advento(dur):
         acorde = prog[c % 4]
         for nt in acorde:
             f.por(orgao(m(nt), 4 * b, 0.9), o, 1.0, 0)
+        f.por(pizz(m(acorde[0]) - 12 + 12, brilho=0.6), o, 0.8, 0)
+        f.por(pizz(m(acorde[0]) - 12 + 12, brilho=0.6), o + 2 * b, 0.6, 0)
+        for nt in acorde[1:]:
+            f.por(cordas(m(nt), 4 * b + 0.2, 0.6, 0.6), o, 1.0, 0)
         arpejo = [acorde[1], acorde[2], acorde[3], acorde[2]] * 2
         for k, nt in enumerate(arpejo):
             f.por(celesta(m(nt) + 12, 0.5, 0.7), o + k * b / 2, 0.7, 0.3 if k % 2 else -0.3)
@@ -423,25 +528,28 @@ def montar(linha):
         partes = []  # (início relativo, fim relativo, gerador, ganho)
         cid = c["id"]
         if cid == "abertura":
-            partes = [(0, dur, lambda d: tema_sitcom(d), 1.0)]
+            partes = [(0, dur, lambda d: groove(d, "Bb4", ["Bbmaj7", "G7", "Cm7", "F7"], metais=True, melodia="tema"), 1.0)]
         elif cid == "regra":
-            partes = [(0, dur, tema_pizz, 1.0)]
+            partes = [(0, dur, lambda d: groove(d, "F4", ["Fmaj7", "Dm7", "Gm7", "C7"], pizzicato=True, melodia="curioso"), 1.0)]
         elif cid == "verde":
-            partes = [(0, dur, tema_pastoral, 1.0)]
+            partes = [(0, dur, lambda d: groove(d, "C5", ["C6", "Am7", "Dm7", "G7"], cavaco=True, ep=False, melodia="esperanca"), 1.0)]
         elif cid == "roxo":
             tor, sino, load = ev(c, "torcedor"), ev(c, "sino"), ev(c, "loading")
-            partes = [(0, tor, tema_advento, 1.0), (tor, sino, tema_arquibancada, 0.9), (sino + 0.3, load, acorde_solene, 0.8), (load, dur, tema_espera, 0.9)]
+            partes = [(0, tor, tema_advento, 1.0), (tor, sino, tema_arquibancada, 0.9), (sino + 0.3, load, acorde_solene, 0.9), (load, dur, tema_espera, 1.0)]
         elif cid == "branco":
             per, com = ev(c, "pergaminho"), ev(c, "comercial")
-            partes = [(0, per, tema_festa, 1.0), (per, com - 0.1, tema_majestoso, 1.0)]  # no comercial, só o jingle
+            partes = [
+                (0, per, lambda d: groove(d, "G4", ["Gmaj7", "Em7", "Am7", "D7"], glock=True, palmas_=True, melodia="festa"), 1.0),
+                (per, com - 0.1, tema_majestoso, 1.0),
+            ]  # no comercial, só o jingle
         elif cid == "vermelho":
-            cen, ext = ev(c, "cenaculo"), ev(c, "extintor")
-            partes = [(0, cen, tema_solene_vermelho, 1.0), (cen, ext, tema_pentecostes, 1.0)]
+            cen = ev(c, "cenaculo")
+            partes = [(0, cen, tema_solene_vermelho, 1.0), (cen, dur, tema_pentecostes, 1.0)]
         elif cid == "rosa":
             oc = ev(c, "oculos")
             partes = [(0, oc - 0.5, tema_funk, 1.0)]  # nos óculos, entra a batida de hip-hop
         elif cid == "fechamento":
-            partes = [(0, dur, lambda d: tema_sitcom(d, suave=True), 0.9)]
+            partes = [(0, dur, lambda d: groove(d, "Bb4", ["Bbmaj7", "G7", "Cm7", "F7"], melodia="tema", suave=True), 0.95)]
         for a, b, gerar, g in partes:
             if a is None or b is None or b - a < 0.2:
                 continue

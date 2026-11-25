@@ -5,10 +5,11 @@ Uso: python3 -I scripts/mixar.py ep01   (lê out/ep01-linha-do-tempo.json)
 
 - Voz: passa-altas 80 Hz, de-esser, compressão suave; trechos colocados conforme a linha do tempo
   (inclui o silêncio extra das "caudas" entre cenas).
-- Trilha: 16 dB abaixo da voz nos respiros e 22 dB abaixo durante a fala (ducking de 6 dB);
-  muda em cada congelamento e volta no corte seguinte.
-- Efeitos: 3 dB abaixo da voz quando estão sozinhos; 10 dB abaixo quando coincidem com fala
-  (ducking dinâmico, então efeitos longos só abaixam no trecho com voz). O campo "volume" do JSON soma em dB.
+- Trilha: 8 dB abaixo da voz nos respiros e 12 dB abaixo durante a fala (ducking de 4 dB), com um vale
+  suave em 2,5 kHz para não disputar com as palavras; muda em cada congelamento e volta no corte seguinte.
+- Efeitos: 8 dB abaixo da voz quando estão sozinhos; 14 dB abaixo quando coincidem com fala
+  (ducking dinâmico, então efeitos longos só abaixam no trecho com voz); param no fim da cena.
+  O campo "volume" do JSON soma em dB.
 - Master: loudnorm em duas passagens para -14 LUFS integrados e -1 dBTP; AAC 48 kHz no vídeo.
 
 Saída: out/<codigo>-mix.wav e o relatório de loudness.
@@ -22,14 +23,17 @@ import tempfile
 import numpy as np
 import pyloudnorm as pyln
 from scipy.io import wavfile
-from scipy.signal import resample_poly
+from scipy.signal import lfilter, resample_poly
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 SR = 48000
-TRILHA_RESPIRO = -16.0  # dB relativos à voz
-DUCKING = -6.0
-SFX_SOZINHO = -3.0
-SFX_SOB_FALA = -10.0
+# Níveis relativos à voz (dB). O documento pedia trilha 22 dB abaixo; no celular ela sumia,
+# então, a pedido, a trilha subiu e os efeitos desceram.
+TRILHA_RESPIRO = -8.0
+DUCKING = -4.0  # trilha a -12 dB durante a fala
+SFX_SOZINHO = -8.0
+SFX_SOB_FALA = -14.0
+SFX_MUSICAIS = {"vinheta-final": 3.0, "vinheta-final-cantada": 3.0, "jingle-retro": 2.0, "batida-hiphop": 2.0}  # efeitos que fazem papel de música
 
 
 def ler(caminho) -> np.ndarray:
@@ -42,6 +46,16 @@ def ler(caminho) -> np.ndarray:
     if taxa != SR:
         x = resample_poly(x, SR, taxa, axis=1)
     return x
+
+
+def vale(x: np.ndarray, f0=2500.0, ganho_db=-3.5, q=0.8) -> np.ndarray:
+    """Equalizador de pico (RBJ) para abrir espaço para a voz."""
+    a_ = 10 ** (ganho_db / 40)
+    w0 = 2 * np.pi * f0 / SR
+    alfa = np.sin(w0) / (2 * q)
+    b = [1 + alfa * a_, -2 * np.cos(w0), 1 - alfa * a_]
+    a = [1 + alfa / a_, -2 * np.cos(w0), 1 - alfa / a_]
+    return lfilter(np.array(b) / a[0], np.array(a) / a[0], x, axis=-1)
 
 
 def loud(x: np.ndarray) -> float:
@@ -116,7 +130,8 @@ def main():
         trilha[:, : t.shape[1]] = t
         lt = loud(trilha)
         trilha *= 10 ** ((lv + TRILHA_RESPIRO - lt) / 20)
-        trilha *= curva(n, fala, DUCKING)
+        trilha = vale(trilha)
+        trilha *= curva(n, fala, DUCKING, ataque=0.08, soltura=0.4)
         corte = np.ones(n)
         r = int(0.01 * SR)
         for a, b in muda:
@@ -135,9 +150,16 @@ def main():
             faltando.add(s["arquivo"])
             continue
         x = ler(arq)
-        alvo = lv + SFX_SOZINHO + s.get("volume", 0)
+        alvo = lv + SFX_SOZINHO + s.get("volume", 0) + SFX_MUSICAIS.get(s["arquivo"], 0)
         x *= 10 ** ((alvo - loud(x)) / 20)
         t0 = s["quadro"] / fps
+        cena = next((c for c in linha["cenas"] if c["id"] == s["cena"]), None)
+        if cena is not None:
+            limite = int((cena["fim"] / fps + 0.4 - t0) * SR)
+            if 0 < limite < x.shape[1]:
+                r = min(int(0.2 * SR), limite)
+                x = x[:, :limite].copy()
+                x[:, -r:] *= np.linspace(1, 0, r)
         # ducking só onde há voz: leva o efeito de -3 para -10 dB em relação à voz
         locais = [(a - t0, b - t0) for a, b in fala if b > t0 and a < t0 + x.shape[1] / SR]
         if locais:
