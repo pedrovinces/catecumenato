@@ -217,19 +217,19 @@
     {
       "id": "fechamento",
       "cor": "sepia",
-      "cauda": 3.8,
+      "cauda": 5.3,
       "locucao": "Moral da história: [pausa] na missa, até a roupa do padre está pregando. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] Agora você também.",
       "gatilhos": [
         { "palavra": "pregando", "evento": "balao" },
-        { "palavra": "Agora você também", "evento": "congela", "duracao": 6.0, "semLimite": true }
+        { "palavra": "Agora você também", "evento": "congela", "duracao": 7.5, "semLimite": true }
       ],
       "textos": [
         { "conteudo": "NA MISSA, ATÉ A ROUPA PREGA.", "entrada": "pop", "palavra": "pregando", "ate": "Agora você também", "posicao": "titulo" },
-        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "posicao": "assinatura" }
+        { "conteudo": "SIGA @narradorcatolico", "entrada": "pop", "palavra": "Agora você também", "ancora": "fim", "deslocamento": 3, "posicao": "assinatura" }
       ],
       "sfx": [
         { "arquivo": "sino", "gatilho": "Moral", "volume": -3 },
-        { "arquivo": "vinheta-final", "gatilho": "Agora você também", "ancora": "fim", "deslocamento": 3 }
+        { "arquivo": "vinheta-narrador", "gatilho": "Agora você também", "ancora": "fim", "deslocamento": 3 }
       ]
     },
     {

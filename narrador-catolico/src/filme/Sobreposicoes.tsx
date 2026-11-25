@@ -10,7 +10,7 @@ import { pop } from "../lib/anim";
 import { AREA } from "../components/motor/area";
 import { useCena } from "../components/motor/contexto";
 import { cameraNoQuadro, janelaEm, type PlanoQ } from "./planos";
-import { LogoEmpilhado } from "../marca/Marca";
+import { RevelacaoMarca } from "../marca/Revelacao";
 
 const CREME = "#F6EBD3";
 const OURO = "#EBCB86";
@@ -156,18 +156,8 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
       </div>
     );
   if (t.posicao === "assinatura") {
-    // cartão final: a imagem congelada escurece e entra a marca com o convite para seguir
-    const d = f - t.inicio;
-    const veu = interpolate(d, [4, 16], [0, 0.8], clamp);
-    const logo = interpolate(d, [10, 24], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-    return (
-      <AbsoluteFill>
-        <AbsoluteFill style={{ backgroundColor: `rgba(12,10,18,${veu})` }} />
-        <div style={{ position: "absolute", left: 0, right: 0, top: 560, display: "flex", justifyContent: "center", opacity: logo, transform: `translateY(${(1 - logo) * 30}px) scale(${0.94 + 0.06 * logo})` }}>
-          <LogoEmpilhado largura={760} id="cartao-final" linha={t.conteudo} brilho />
-        </div>
-      </AbsoluteFill>
-    );
+    // cartão final: revelação animada da marca, sincronizada com a vinheta (começa junto com ela)
+    return <RevelacaoMarca d={f - t.inicio} chamada={t.conteudo} />;
   }
   return null;
 };

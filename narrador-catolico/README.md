@@ -104,7 +104,7 @@ Nome: **Narrador Católico** (@narradorcatolico). Símbolo oficial: conceito D �
 - Cores: ouro `#E9B949` (ouro escuro `#9C7420` sobre fundo claro), creme `#F6EBD3`, noite `#14111C`. Tipografia: Cinzel 700 (nome), Montserrat 800 (chamadas).
 - Fonte única da geometria: `TRACO` em `src/marca/Marca.tsx`; `npx tsx scripts/marca.ts` regera todos os arquivos (inclusive os SVG).
 - `src/marca/PranchaMarca.tsx` (Still "Marca") guarda os quatro conceitos estudados (A Clássico, B Vitral, C Estola, D Traço).
-- No vídeo, o texto de posição `assinatura` do roteiro vira o cartão final: a imagem congelada escurece e entra o logotipo empilhado com a chamada.
+- No vídeo, o texto de posição `assinatura` do roteiro vira a revelação da marca (`src/marca/Revelacao.tsx`), sincronizada com a vinheta do autor `assets/sfx/vinheta-narrador.wav` (4,77 s, "Narrador Católico!"): nas batidas a auréola, o microfone e a cruz são desenhados a traço de ouro; na voz entram NARRADOR e CATÓLICO; no acorde final a auréola pulsa e entra a chamada. A cena final tem `cauda` de 5,3 s para caber a vinheta inteira.
 
 ## Estado atual
 
