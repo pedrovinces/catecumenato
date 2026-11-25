@@ -119,12 +119,17 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
   if (f < t.inicio || f >= t.fim) return null;
   const a = animar(t, f);
   const base: React.CSSProperties = { position: "absolute", left: AREA.esquerda, width: LARGURA, opacity: a.opacidade, transform: `translateX(${a.dx}px) scale(${a.escala})` };
-  if (t.posicao === "titulo" && t.entrada === "impacto")
+  if (t.posicao === "titulo" && t.entrada === "impacto") {
+    // assinatura de fecho: em duas linhas, na faixa da legenda (livre no congelamento final), longe do rosto
+    const palavras = t.conteudo.split(/\s+/);
+    const meio = Math.ceil(palavras.length / 3);
+    const texto = t.conteudo.includes("\n") || palavras.length < 3 ? t.conteudo : `${palavras.slice(0, meio).join(" ")}\n${palavras.slice(meio).join(" ")}`;
     return (
-      <div style={{ ...base, top: 760, filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.75))" }}>
-        <TituloSerifa texto={t.conteudo} cor={cor} max={92} destaqueTudo ouro />
+      <div style={{ ...base, top: 1240, filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.75))" }}>
+        <TituloSerifa texto={texto} cor={cor} max={118} destaqueTudo ouro />
       </div>
     );
+  }
   if (t.posicao === "titulo")
     return (
       <div style={{ ...base, top: Y_TITULO(temSelo) }}>
@@ -226,7 +231,7 @@ const Placa: React.FC<{ op: number }> = ({ op }) => (
 /** Balão de fala ancorado pela borda direita (para não invadir os 120 px dos botões do Instagram). */
 const Balao: React.FC<{ texto: string; direita: number; y: number; op: number; cauda: number }> = ({ texto, direita, y, op, cauda }) => (
   <div style={{ position: "absolute", right: 1080 - direita, top: y, opacity: op, transform: `scale(${0.6 + 0.4 * op})`, transformOrigin: `calc(100% - ${cauda}px) 100%` }}>
-    <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 32, color: "#1A1410", backgroundColor: "#FFF8EC", borderRadius: 30, padding: "12px 24px", boxShadow: "0 8px 22px rgba(0,0,0,0.4)", whiteSpace: "nowrap" }}>{texto}</div>
+    <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 38, color: "#1A1410", backgroundColor: "#FFF8EC", borderRadius: 34, padding: "14px 26px", boxShadow: "0 8px 22px rgba(0,0,0,0.4)", whiteSpace: "nowrap" }}>{texto}</div>
     <div style={{ position: "absolute", right: cauda, bottom: -18, width: 0, height: 0, borderLeft: "13px solid transparent", borderRight: "13px solid transparent", borderTop: "22px solid #FFF8EC" }} />
   </div>
 );
@@ -267,7 +272,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = 
       conteudo = (
         <>
           <Balao texto="PERDEU APOSTA?" direita={952} y={312} cauda={60} op={interpolate(f, [a, a + 6], [0, 1], clamp)} />
-          <Balao texto="MUDOU DE TIME?" direita={940} y={420} cauda={40} op={interpolate(f, [a + 14, a + 20], [0, 1], clamp)} />
+          <Balao texto="MUDOU DE TIME?" direita={940} y={440} cauda={40} op={interpolate(f, [a + 14, a + 20], [0, 1], clamp)} />
         </>
       );
     }

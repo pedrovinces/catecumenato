@@ -84,7 +84,10 @@
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 4,
     "prompt": "The man standing on the last pew celebrates: he keeps both arms raised high, shakes his fists in joy and laughs, with a small happy bounce on his knees, feet staying on the pew. The gold medal on its green ribbon stays clearly visible hanging on the middle of his chest the whole time, swinging slightly. Colorful confetti keeps falling all around. Slight upward camera move.",
-    "enviado": "2026-11-25 12:42:53"
+    "enviado": "2026-11-25 12:42:53",
+    "url": "https://v3b.fal.media/files/b/0ab3e26b/3TYe93xauHMBnn65e374W_output.mp4",
+    "arquivo": "assets/video/ep01/p12-medalha.mp4",
+    "concluido": "2026-11-25 12:44:33"
   },
   "p14-torcedor": {
     "request_id": "01a212b1-43b8-77f2-a714-0065299f15ae",

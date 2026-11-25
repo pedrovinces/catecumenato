@@ -3,6 +3,7 @@ import { Composition, Still } from "remotion";
 import { Episodio, type PropsEpisodio } from "./Episodio";
 import { Filme, type PropsFilme } from "./filme/Filme";
 import { resolverPlanos } from "./filme/planos";
+import { Capa, type PropsCapa } from "./filme/Capa";
 import clipes from "./clipes-disponiveis.json";
 import { EPISODIOS } from "./episodios";
 import { resolverLinha, FPS, LARGURA, ALTURA } from "./lib/linha-do-tempo";
@@ -50,6 +51,7 @@ export const Raiz: React.FC = () => (
         }}
       />
     ))}
+    <Still id="Capa" component={Capa} width={1080} height={1920} defaultProps={{ codigo: "ep01", imagem: "p01-espelho", linhas: ["POR QUE O PADRE", "MUDA DE COR?"] } as PropsCapa} />
     <Still id="Logos" component={PranchaLogos} width={1080} height={1920} />
     <Still id="Estilo" component={QuadrosEstilo} width={1080} height={1920} defaultProps={{ quadro: 1 } as PropsEstilo} />
     <Still id="TestePadre" component={TestePadre} width={1080} height={1920} />
