@@ -34,7 +34,7 @@
     { "id": "p24-rosa", "cena": "rosa" },
     { "id": "p13-coroa", "chave": "p13-coroa-b", "cena": "rosa", "palavra": "É a Igreja dizendo", "deslocamento": -3, "camera": { "de": { "z": 1.35, "x": -270, "y": -160 }, "para": { "z": 1.45, "x": -290, "y": -175 } } },
     { "id": "p25-porta", "cena": "rosa", "palavra": "Então, se você", "deslocamento": -3, "anexo": "baloes" },
-    { "id": "p26-oculos", "cena": "rosa", "palavra": "aposta", "deslocamento": -4 },
+    { "id": "p26-oculos", "cena": "rosa", "palavra": "É liturgia", "deslocamento": -1 },
 
     { "id": "p27-cabideiro", "cena": "fechamento", "camera": { "de": { "z": 1.12, "x": -60 }, "para": { "z": 1.12, "x": 60 } } },
     { "id": "p00-padre-referencia", "cena": "fechamento", "palavra": "E foi assim", "deslocamento": -3, "trecho": 1.27 }

@@ -281,7 +281,10 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = 
         </>
       );
     }
-    anexo = <AbsoluteFill style={{ transform, transformOrigin: "50% 50%" }}>{conteudo}</AbsoluteFill>;
+    // sai junto com a transição: se o plano seguinte entra em fusão, o anexo some no mesmo ritmo
+    const q = planos[planos.indexOf(p) + 1];
+    const saida = q && q.fusao ? interpolate(fAbs, [q.inicio - q.fusao, q.inicio], [1, 0], clamp) : 1;
+    anexo = <AbsoluteFill style={{ transform, transformOrigin: "50% 50%", opacity: saida }}>{conteudo}</AbsoluteFill>;
   }
 
   return (

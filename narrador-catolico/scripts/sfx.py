@@ -360,18 +360,19 @@ def jingle_retro():
     """Jingle de comercial dos anos 90 (melodia original): sino FM, baixo sintético e bateria eletrônica."""
     bpm = 116
     b = 60 / bpm
-    d = 8 * b + 0.8
+    # termina no sino: a última nota (com o "ting") é o joia do Padre; a bateria para ali, sem cauda de sinos
+    d = 5.5 * b + 1.9
     base = np.zeros((2, int(d * SR)))
     melodia = [(72, 0, 0.5), (76, 0.5, 0.5), (79, 1, 0.5), (81, 1.5, 0.5), (79, 2, 1), (76, 3, 0.5), (77, 3.5, 0.5), (79, 4, 0.5), (84, 4.5, 0.5), (83, 5, 0.5), (84, 5.5, 2.5)]
     for nota, ini, dur in melodia:
         somar(base, fm_sino(nota, dur * b + 0.3), ini * b, 0.45, 0.15)
         somar(base, fm_sino(nota - 12, dur * b + 0.3, 1.5, 1.0), ini * b, 0.2, -0.15)
-    for k, nota in enumerate([48, 48, 53, 53, 55, 55, 48, 48]):
+    for k, nota in enumerate([48, 48, 53, 53, 55, 55]):
         t = t_(b * 0.9)
         f = V.hz(nota)
         s = filtro(np.sign(np.sin(2 * np.pi * f * t)) * np.exp(-t / 0.3), "lowpass", 900) * 0.35
         somar(base, s, k * b, 1.0, 0)
-    for k in range(8):
+    for k in range(6):
         if k % 2 == 0:
             somar(base, V.bumbo() * 0.5, k * b, 1.0, 0)
         else:
@@ -379,6 +380,21 @@ def jingle_retro():
         somar(base, V.chimbal(), k * b + b / 2, 0.25, -0.3)
     somar(base, ting(), 5.5 * b, 0.5, 0)
     return sala(base, 0.8, 0.2)
+
+
+def alarme_industrial():
+    """Alarme de evacuação de fábrica: dois "uóóóm" de sirene subindo, timbre metálico, eco de galpão."""
+    base = np.zeros((2, int(1.6 * SR)))
+    for k in range(2):
+        dur = 0.62
+        t = t_(dur)
+        f = 470 * (1150 / 470) ** np.minimum(1, t / 0.5)
+        fase = 2 * np.pi * np.cumsum(f) / SR
+        x = np.tanh(2.2 * (0.6 * np.sign(np.sin(fase)) + 0.3 * np.sin(2 * fase) + 0.2 * np.sin(3 * fase)))
+        x = filtro(filtro(x, "lowpass", 3200), "highpass", 250)
+        env = np.minimum(1, t / 0.02) * np.clip((dur - t) / 0.06, 0, 1)
+        somar(base, x * env * 0.6, 0.03 + k * 0.68, 1.0, 0)
+    return sala(base, 1.4, 0.35)
 
 
 def ting():
@@ -529,6 +545,7 @@ GERADORES = {
     "loading": loading,
     "coro": coro,
     "jingle-retro": jingle_retro,
+    "alarme-industrial": alarme_industrial,
     "ting": ting,
     "chamas": chamas,
     "extintor": extintor,
