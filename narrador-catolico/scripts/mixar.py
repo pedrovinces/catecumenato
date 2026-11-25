@@ -42,7 +42,7 @@ VOZ_FILTROS = (
     "acompressor=threshold=-24dB:ratio=2.5:attack=8:release=160:makeup=1.5,"
     "acompressor=threshold=-14dB:ratio=6:attack=1:release=60:knee=3"  # pega-picos: crista da fala ~13 dB
 )
-SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0, "vinheta-narrador": 14.0, "licenciado-turn-down-for-what": 12.0}  # a vinheta toca depois da última fala
+SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0, "vinheta-narrador": 14.0, "licenciado-turn-down-for-what": 14.0}  # a vinheta toca depois da última fala
 
 
 def ler(caminho) -> np.ndarray:
