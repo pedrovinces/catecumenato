@@ -44,15 +44,6 @@
         { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "ate": "influencer", "posicao": "titulo" }
       ],
       "sfx": [
-        {
-          "arquivo": "swish-cabide",
-          "inicio": 0.15,
-          "repetir": {
-            "intervalo": 8,
-            "ate": "Eu também não"
-          },
-          "volume": -6
-        },
         { "arquivo": "record-scratch", "gatilho": "Eu também não" },
         { "arquivo": "claque-curta", "gatilho": "descobrir", "deslocamento": 12 }
       ]
@@ -98,7 +89,6 @@
       ],
       "sfx": [
         { "arquivo": "blip", "gatilho": "crescimento" },
-        { "arquivo": "flip-calendario", "gatilho": "maior parte" },
         { "arquivo": "fanfarra", "gatilho": "parabéns" },
         { "arquivo": "confete", "gatilho": "católico" },
         { "arquivo": "aplausos", "gatilho": "católico", "deslocamento": 3 }
@@ -123,7 +113,6 @@
         { "conteudo": "1º DOMINGO DO ADVENTO: 29/11", "entrada": "desliza", "palavra": "neste domingo", "ate": "Então", "posicao": "subtitulo" }
       ],
       "sfx": [
-        { "arquivo": "fosforo", "gatilho": "começa" },
         { "arquivo": "torcida-corneta", "gatilho": "torcedor", "deslocamento": -6 },
         { "arquivo": "sino", "gatilho": "A Igreja", "deslocamento": -14 },
         { "arquivo": "loading", "gatilho": "modo" }
