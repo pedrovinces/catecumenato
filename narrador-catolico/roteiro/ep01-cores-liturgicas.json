@@ -6,8 +6,7 @@
   "handle": "@narradorcatolico",
   "audio": {
     "narracao": "audio/narracao.wav",
-    "guia": "audio/narracao-guia.wav",
-    "trilha": "audio/trilha.mp3"
+    "guia": "audio/narracao-guia.wav"
   },
   "legenda": {
     "destaque": "exata",
@@ -90,7 +89,7 @@
         { "palavra": "esperança", "evento": "cresce" },
         { "palavra": "maior parte", "evento": "calendario" },
         { "palavra": "parabéns", "evento": "medalha" },
-        { "palavra": "católico", "evento": "congela", "duracao": 1.3 }
+        { "palavra": "católico", "evento": "festa" }
       ],
       "textos": [
         { "conteudo": "TEMPO COMUM = VERDE", "entrada": "pop", "palavra": "Tempo Comum", "posicao": "titulo" },
@@ -99,7 +98,9 @@
       "sfx": [
         { "arquivo": "blip", "gatilho": "crescimento" },
         { "arquivo": "flip-calendario", "gatilho": "maior parte" },
-        { "arquivo": "fanfarra-desafinada", "gatilho": "parabéns" }
+        { "arquivo": "fanfarra", "gatilho": "parabéns" },
+        { "arquivo": "confete", "gatilho": "católico" },
+        { "arquivo": "aplausos", "gatilho": "católico", "deslocamento": 3 }
       ]
     },
     {

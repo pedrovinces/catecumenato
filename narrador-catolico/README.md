@@ -68,8 +68,9 @@ out/                renders (fora do git)
 npm run sincronizar   # narração real × roteiro (DTW contra a guia + encaixe nas bordas de silêncio)
 npm run sfx           # 24 efeitos sintetizados em assets/sfx (originais)
 npm run vinheta       # vinheta de fecho
-npm run trilha        # trilha original por cena em assets/audio/trilha.wav
-npm run mixar         # voz tratada + trilha com ducking + efeitos; master -14 LUFS / -1 dBTP
+npm run trilha        # trilha original por cena em assets/audio/trilha.wav (só entra se o roteiro tiver "audio.trilha")
+npm run mixar         # voz tratada + efeitos (+ trilha, se houver); master -14 LUFS / -1 dBTP
+                      # com -- --so-voz: só a narração
 npm run final         # tudo acima + vídeo em resolução cheia + MP4 final em out/
 ```
 
@@ -77,6 +78,8 @@ A sincronização não depende de reconhecimento de fala: a faixa-guia sabe o te
 
 ## Estado atual
 
-Feito: motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 4 (roxo) e 7 (rosa), sincronização com a narração real, 24 efeitos, trilha original por cena, mixagem com loudness, vinheta de fecho, três propostas de logotipo.
+Feito: motor (legenda, selo, wipe, congela, textos, câmera), Padre com 16 poses, fiéis, influencer, cenário, cenas 1 (abertura), 3 (verde), 4 (roxo) e 7 (rosa), sincronização com a narração real, 24 efeitos, trilha original por cena, mixagem com loudness, vinheta de fecho, três propostas de logotipo.
 
-Em andamento: cenas 2, 3, 5, 6 e 8 (hoje provisórias); capa; SRT.
+Em andamento: cenas 2, 5, 6 e 8 (hoje provisórias); capa; SRT.
+
+O ep. 1 ficou sem trilha de fundo (competia com a narração). Para religar: `"trilha": "audio/trilha.wav"` em `audio` no roteiro.

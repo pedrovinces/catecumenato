@@ -105,7 +105,7 @@ const Carimbo: React.FC<{ texto: string }> = ({ texto }) => (
 export const TextoTela: React.FC<{ textos: TextoQ[]; f: number; temSelo: boolean; cor: NomeCor; handle?: string }> = ({ textos, f, temSelo, cor, handle }) => {
   const ativos = textos.filter((t) => f >= t.inicio && f < t.fim);
   if (!ativos.length) return null;
-  const esquerda = temSelo ? AREA.selo.x + AREA.selo.d + 18 : AREA.esquerda + 16;
+  const esquerda = temSelo ? AREA.selo.x + AREA.selo.d + 18 : AREA.esquerda;
   const largura = AREA.direita - esquerda;
   const coluna = ativos.filter((t) => ORDEM.includes(t.posicao)).sort((a, b) => ORDEM.indexOf(a.posicao) - ORDEM.indexOf(b.posicao) || a.inicio - b.inicio);
   const letreiro = ativos.find((t) => t.posicao === "letreiro");

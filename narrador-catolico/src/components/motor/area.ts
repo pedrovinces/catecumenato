@@ -3,8 +3,8 @@
 export const AREA = {
   topo: 288, // 15% de 1920
   base: 1536, // 1920 - 20%
-  direita: 940, // 1080 - 120, com 20 px de folga
-  esquerda: 44,
+  direita: 960, // 1080 - 120 (botões do Instagram)
+  esquerda: 120, // margem igual à da direita: texto centrado na tela
   legendaTopo: 1262,
   legendaBase: 1526,
   selo: { x: 36, y: 300, d: 200 },

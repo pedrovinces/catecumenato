@@ -470,6 +470,44 @@ def batida_hiphop():
     return base
 
 
+def fanfarra():
+    """Fanfarra afinada e festiva (arpejo de Dó maior, harmonizado), com rufo e prato no acorde final."""
+    base = np.zeros((2, int(2.6 * SR)))
+    frase = [((67, 64), 0.0, 0.14), ((67, 64), 0.17, 0.14), ((72, 67), 0.34, 0.14), ((76, 72), 0.52, 1.3)]
+    for (alta, baixa), t0, d in frase:
+        for nota, pan, g in ((alta, -0.25, 1.0), (baixa, 0.25, 0.8), (alta - 12, 0.0, 0.5)):
+            somar(base, V.metal(nota, d, 0.12, 3400, vib=d > 0.5), t0, g * 0.55, pan)
+    for k in range(8):  # rufo curto até o acorde
+        somar(base, V.caixa(0.35 + k * 0.08), 0.34 + k * 0.022, 0.4, 0.1)
+    somar(base, V.prato(), 0.52, 0.35, 0.2)
+    somar(base, V.bumbo(), 0.52, 0.6, 0)
+    return sala(base, 0.9, 0.18)
+
+
+def confete():
+    """Lança-confete: estouro seco e papel picado chovendo."""
+    d = 1.2
+    t = t_(d)
+    estouro = filtro(ruido(d), "lowpass", 2500) * np.exp(-t / 0.012) * 1.2 + np.sin(2 * np.pi * 90 * t) * np.exp(-t / 0.05) * 0.6
+    papel = filtro(ruido(d), "bandpass", [2500, 9000]) * (0.4 + 0.6 * np.abs(filtro(ruido(d), "lowpass", 30))) * np.exp(-np.maximum(0, t - 0.05) / 0.5) * (t > 0.04) * 0.25
+    return sala(estouro + papel, 0.5, 0.15)
+
+
+def aplausos():
+    """Aplausos calorosos com alguns "uhu!" de alegria."""
+    d = 2.4
+    base = np.zeros((2, int((d + 0.6) * SR)))
+    p = palmas(d, 260)
+    env = np.minimum(1, np.arange(len(p)) / (0.12 * SR)) * np.exp(-np.maximum(0, np.arange(len(p)) / SR - 1.2) / 0.7)
+    somar(base, estereo(p * env, -0.3) * 0.5 + estereo(np.roll(p, 1500) * env, 0.3) * 0.5, 0)
+    for _ in range(5):
+        voz, lo, hi = [("br3", 150, 220), ("br1", 140, 200), ("br4", 260, 380)][RNG.integers(0, 3)]
+        f0 = RNG.uniform(lo, hi)
+        x = mbrola(voz, [("_", 10, []), ("u", 120, [(0, f0), (100, f0 * 1.1)]), ("u", 260, [(0, f0 * 1.25), (60, f0 * 1.6), (100, f0 * 1.45)]), ("_", 30, [])])
+        somar(base, x, RNG.uniform(0.05, 0.6), RNG.uniform(0.25, 0.45), RNG.uniform(-0.7, 0.7))
+    return sala(base, 0.9, 0.3)
+
+
 GERADORES = {
     "record-scratch": record_scratch,
     "claque-curta": lambda: claque(1.3, 16, False),
@@ -482,6 +520,9 @@ GERADORES = {
     "blip": blip,
     "flip-calendario": flip_calendario,
     "fanfarra-desafinada": fanfarra_desafinada,
+    "fanfarra": fanfarra,
+    "confete": confete,
+    "aplausos": aplausos,
     "fosforo": fosforo,
     "torcida-corneta": torcida_corneta,
     "sino": sino,

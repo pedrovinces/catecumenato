@@ -33,7 +33,7 @@ TRILHA_RESPIRO = -8.0
 DUCKING = -4.0  # trilha a -12 dB durante a fala
 SFX_SOZINHO = -8.0
 SFX_SOB_FALA = -14.0
-SFX_MUSICAIS = {"vinheta-final": 3.0, "vinheta-final-cantada": 3.0, "jingle-retro": 2.0, "batida-hiphop": 2.0}  # efeitos que fazem papel de música
+SFX_MUSICAIS = {"vinheta-final": 3.0, "vinheta-final-cantada": 3.0}  # a vinheta de fecho fica um pouco acima
 
 
 def ler(caminho) -> np.ndarray:
@@ -123,9 +123,11 @@ def main():
     muda = [(w["inicio"] / fps, w["fim"] / fps) for w in linha["trilhaMuda"]]
 
     # 2. trilha
-    trilha_arq = RAIZ / "assets" / "audio" / "trilha.wav"
+    # a trilha só entra se o roteiro tiver "audio.trilha" (o ep. 1 ficou sem, a pedido: competia com a narração)
+    so_voz = "--so-voz" in sys.argv
+    trilha_arq = RAIZ / "assets" / linha["trilha"] if linha.get("trilha") else None
     trilha = np.zeros((2, n))
-    if trilha_arq.exists():
+    if trilha_arq is not None and trilha_arq.exists() and not so_voz:
         t = ler(trilha_arq)[:, :n]
         trilha[:, : t.shape[1]] = t
         lt = loud(trilha)
@@ -144,7 +146,7 @@ def main():
     efeitos = np.zeros((2, n))
     faltando = set()
     relatorio = []
-    for s in linha["sfx"]:
+    for s in [] if so_voz else linha["sfx"]:
         arq = RAIZ / "assets" / "sfx" / f"{s['arquivo']}.wav"
         if not arq.exists():
             faltando.add(s["arquivo"])
@@ -186,7 +188,7 @@ def main():
             capture_output=True, text=True, check=True,
         ).stderr
         js = json.loads(medida[medida.rindex("{") : medida.rindex("}") + 1])
-        destino = RAIZ / "out" / f"{codigo}-mix.wav"
+        destino = RAIZ / "out" / f"{codigo}-mix{'-so-voz' if so_voz else ''}.wav"
         filtro = (
             f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
             f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true"
@@ -197,7 +199,8 @@ def main():
         capture_output=True, text=True,
     ).stderr
     resumo = [l.strip() for l in final.splitlines() if l.strip().startswith(("I:", "LRA:", "Peak:"))]
-    print(f"voz {lv:.1f} LUFS antes do master; trilha {TRILHA_RESPIRO:+.0f}/{TRILHA_RESPIRO + DUCKING:+.0f} dB; efeitos {SFX_SOZINHO:+.0f}/{SFX_SOB_FALA:+.0f} dB")
+    tem_trilha = bool(np.any(trilha))
+    print(f"voz {lv:.1f} LUFS antes do master; trilha: {f'{TRILHA_RESPIRO:+.0f}/{TRILHA_RESPIRO + DUCKING:+.0f} dB' if tem_trilha else 'sem'}; efeitos: {'sem' if so_voz else f'{SFX_SOZINHO:+.0f}/{SFX_SOB_FALA:+.0f} dB'}")
     print(f"mix: {destino.relative_to(RAIZ)}  " + "  ".join(resumo[-3:]))
     print(f"efeitos posicionados: {len(relatorio)}")
     if faltando:
