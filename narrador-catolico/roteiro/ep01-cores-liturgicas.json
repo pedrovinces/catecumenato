@@ -45,8 +45,7 @@
         { "conteudo": "POR QUE O PADRE\nMUDA DE COR?", "entrada": "pop", "inicio": 0.5, "ate": "influencer", "posicao": "titulo" }
       ],
       "sfx": [
-        { "arquivo": "record-scratch", "gatilho": "Eu também não" },
-        { "arquivo": "claque-curta", "gatilho": "descobrir", "deslocamento": 12 }
+        { "arquivo": "record-scratch", "gatilho": "Eu também não" }
       ]
     },
     {
@@ -66,8 +65,7 @@
         { "arquivo": "bocejo", "inicio": 0.1, "volume": -4 },
         { "arquivo": "thud-livro", "gatilho": "Instrução", "deslocamento": 10 },
         { "arquivo": "plim", "gatilho": "trezentos" },
-        { "arquivo": "pagina", "gatilho": "manual" },
-        { "arquivo": "claque-curta", "gatilho": "Canva", "deslocamento": 14, "volume": -6 }
+        { "arquivo": "pagina", "gatilho": "manual" }
       ]
     },
     {
@@ -171,8 +169,7 @@
       "sfx": [
         { "arquivo": "chamas", "gatilho": "línguas" },
         { "arquivo": "extintor", "gatilho": "céu", "deslocamento": 4 },
-        { "arquivo": "alarme-industrial", "gatilho": "pegou fogo", "deslocamento": 34, "volume": 4 },
-        { "arquivo": "claque-curta", "gatilho": "pegou fogo", "deslocamento": 70 }
+        { "arquivo": "alarme-industrial", "gatilho": "pegou fogo", "deslocamento": 34, "volume": 4 }
       ]
     },
     {
