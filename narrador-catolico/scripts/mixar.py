@@ -165,8 +165,14 @@ def main():
         trilha *= curva(n, fala, DUCKING, ataque=0.08, soltura=0.4)
         corte = np.ones(n)
         r = int(0.01 * SR)
-        for a, b in muda:
+        for k, (a, b) in enumerate(muda):
             i, j = int(a * SR), int(b * SR)
+            if k == len(muda) - 1 and j >= n - SR:
+                # congelamento final (cartão da marca): o fundo desce em 0,6 s em vez de parar seco
+                rf = int(0.6 * SR)
+                corte[i : i + rf] = np.minimum(corte[i : i + rf], np.linspace(1, 0, len(corte[i : i + rf])))
+                corte[i + rf : j] = 0
+                continue
             corte[i:j] = 0
             corte[max(0, i - r) : i] = np.minimum(corte[max(0, i - r) : i], np.linspace(1, 0, i - max(0, i - r)))
         trilha *= corte
@@ -188,7 +194,7 @@ def main():
         if cena is not None:
             limite = int((cena["fim"] / fps + 0.4 - t0) * SR)
             if 0 < limite < x.shape[1]:
-                r = min(int(0.2 * SR), limite)
+                r = min(int(s.get("saida", 0.2) * SR), limite)  # fade-out no fim da cena ("saida" no roteiro)
                 x = x[:, :limite].copy()
                 x[:, -r:] *= np.linspace(1, 0, r)
         # ducking só onde há voz: leva o efeito de -3 para -10 dB em relação à voz

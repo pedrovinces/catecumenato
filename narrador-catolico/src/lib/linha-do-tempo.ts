@@ -40,7 +40,7 @@ export type CenaQ = {
   quadro?: unknown;
 };
 export type GrupoLegenda = { inicio: number; fim: number; cor: NomeCor; palavras: PalavraQ[] }; // absolutos
-export type SfxQ = { arquivo: string; quadro: number; volume: number; cena: string };
+export type SfxQ = { arquivo: string; quadro: number; volume: number; cena: string; saida?: number };
 export type SegmentoNarracao = { origemIni: number; origemFim: number; destino: number }; // segundos
 
 export type Linha = {
@@ -236,7 +236,7 @@ export const resolverLinha = (roteiroBruto: unknown, tsBruto: unknown, opcoes: {
       if (s.repetir) {
         const ate = inicioDaFrase(s.repetir.ate, undefined, "sfx.repetir.ate");
         for (let f = base; f < ate; f += s.repetir.intervalo) sfx.push({ arquivo: s.arquivo, quadro: f, volume: vol, cena: cena.id });
-      } else sfx.push({ arquivo: s.arquivo, quadro: base, volume: vol, cena: cena.id });
+      } else sfx.push({ arquivo: s.arquivo, quadro: base, volume: vol, cena: cena.id, ...(s.saida ? { saida: s.saida } : {}) });
     }
     // todo congelamento leva record scratch, a não ser que já exista um no mesmo instante
     for (const c of congelas) {

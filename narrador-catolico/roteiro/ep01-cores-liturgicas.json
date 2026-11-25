@@ -182,7 +182,7 @@
         "cor": "ROSA",
         "tempo": "GAUDETE E LAETARE"
       },
-      "cauda": 2.4,
+      "cauda": 3.1,
       "locucao": "E existe o ROSA. [pausa] Duas vezes por ano: no terceiro domingo do Advento, o Gaudete, e no quarto domingo da Quaresma, o Laetare. [pausa] É a Igreja dizendo: calma, falta pouco. [pausa longa] Então, se você vir o padre de rosa... [pausa] ele NÃO perdeu uma aposta. [pausa] (seco) É liturgia.",
       "gatilhos": [
         { "palavra": "Gaudete", "evento": "data1" },
@@ -201,7 +201,7 @@
         { "arquivo": "cochichos", "gatilho": "Então", "volume": -4 },
         { "arquivo": "whoosh", "gatilho": "É liturgia", "deslocamento": -12 },
         { "arquivo": "clack", "gatilho": "É liturgia" },
-        { "arquivo": "licenciado-turn-down-for-what", "gatilho": "É liturgia" }
+        { "arquivo": "licenciado-turn-down-for-what", "gatilho": "É liturgia", "saida": 0.9 }
       ]
     },
     {

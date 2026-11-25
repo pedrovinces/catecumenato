@@ -35,6 +35,7 @@ export const Sfx = z.object({
   inicio: z.number().nonnegative().optional(), // ou segundos desde o começo da cena
   deslocamento: z.number().int().optional(),
   volume: z.number().optional(), // dB relativos ao nível padrão de efeitos
+  saida: z.number().positive().optional(), // segundos de fade-out quando a cena acaba (padrão 0,2)
   repetir: z.object({ intervalo: z.number().int().positive(), ate: z.string() }).optional(),
 });
 
