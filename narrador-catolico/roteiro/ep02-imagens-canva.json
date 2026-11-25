@@ -1,28 +1,28 @@
 {
   "design_exportacao": "DAHb629araw",
-  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor.",
+  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor. Papa e Tia refeitos no estilo caricato do Padre (opção 2 escolhida pelo autor).",
   "midias": {
-    "ref-papa": "MAHb9MCWP7w",
-    "ref-tia": "MAHb9PhJ270",
+    "ref-papa": "MAHb9JjBnoI",
+    "ref-tia": "MAHb9ER4h2E",
     "ref-padre": "MAHb9Ao4xZA",
     "s01-celular": "MAHb9PtpXHE",
-    "s02-tia-digitando": "MAHb9CvTecs",
+    "s02-tia-digitando": "MAHb9Afd8ME",
     "s03-padre-lendo": "MAHb9HUZySo",
-    "s04-papa-aviao": "MAHb9KBaJEI",
-    "s05-papa-oculos": "MAHb9OYE6Tc",
-    "s06-papa-praca": "MAHb9POW87I",
+    "s04-papa-aviao": "MAHb9DI9Bsc",
+    "s05-papa-oculos": "MAHb9ES_jNA",
+    "s06-papa-praca": "MAHb9Nf8BqI",
     "s07-concilio": "MAHb9IKXSkM",
     "s08-cofre": "MAHb9NJgRvQ",
-    "s09-papa-catedra": "MAHb9JaL31A",
-    "s12-papa-evangelhos": "MAHb9FyRL7E",
+    "s09-papa-catedra": "MAHb9PTjWWc",
+    "s12-papa-evangelhos": "MAHb9AT0dBU",
     "s14-cofre-luz": "MAHb9BquTy8",
     "s15-assuncao": "MAHb9EKxUso",
     "s16-torcedor": "MAHb9BSetgE",
     "s17-pedro-rocha": "MAHb9NwOru8",
     "s19-ceia": "MAHb9KMN96Q",
-    "s20-tia-catecismo": "MAHb9BP8UTM",
+    "s20-tia-catecismo": "MAHb9AFugl0",
     "s21a-padre-digitando": "MAHb9IRBacE",
-    "s21b-tia-sem-graca": "MAHb9G3tJOk",
+    "s21b-tia-sem-graca": "MAHb9KrtckY",
     "s23-padre-close": "MAHb9IfMXk4"
   },
   "paginas": {
@@ -50,22 +50,42 @@
     "s23-padre-close": 51
   },
   "referencias": {
-    "papa": "MAHb9MCWP7w",
-    "tia": "MAHb9PhJ270",
+    "papa": "MAHb9JjBnoI",
+    "tia": "MAHb9ER4h2E",
     "padre": "MAHb9Ao4xZA",
-    "padre_ep01": "MAHb6ylHboQ"
+    "padre_ep01": "MAHb6ylHboQ",
+    "papa_realista": "MAHb9MCWP7w",
+    "tia_realista": "MAHb9PhJ270"
   },
   "descartadas": {
     "papa-inventado": "substituído pela semelhança com Leão XIV",
     "MAHb9Ozjj4g": "s03 com o Padre antigo",
-    "MAHb9IoD3Kw": "s21a com o Padre antigo"
+    "MAHb9IoD3Kw": "s21a com o Padre antigo",
+    "MAHb9MCWP7w": "ref-papa: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9PhJ270": "ref-tia: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9CvTecs": "s02-tia-digitando: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9KBaJEI": "s04-papa-aviao: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9OYE6Tc": "s05-papa-oculos: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9POW87I": "s06-papa-praca: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9JaL31A": "s09-papa-catedra: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9FyRL7E": "s12-papa-evangelhos: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9BP8UTM": "s20-tia-catecismo: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9G3tJOk": "s21b-tia-sem-graca: versão realista, trocada pela caricata (opção 2)"
   },
   "prompts": {
     "ref-papa": {
-      "prompt": "Personagem de animação 3D realista com luz de cinema, formato vertical: o Papa Leão XIV retratado como personagem de animação 3D, com semelhança ao papa atual: homem de uns 70 anos, rosto fino e alongado, cabelo curto grisalho com entradas, sorriso gentil e contido, óculos de armação fina de metal; batina branca com pelegrina branca, solidéu branco, cruz peitoral dourada presa a um cordão. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio. Tom respeitoso."
+      "prompt": "Personagem de animação 3D caricata no estilo de longa-metragem de animação, formato vertical: o mesmo papa da primeira imagem de referência, redesenhado exatamente no mesmo estilo de animação do padre da segunda imagem (olhos grandes e expressivos, traços arredondados e simplificados, pele lisa estilizada, proporções de desenho animado). Manter os traços de semelhança do papa: rosto fino e alongado, nariz marcado, cabelo grisalho curto com entradas, óculos de armação fina de metal, sorriso gentil e contido; batina branca com pelegrina branca, solidéu branco, cruz peitoral dourada presa a um cordão. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio. Tom respeitoso.",
+      "referencias": [
+        "MAHb9MCWP7w",
+        "MAHb9Ao4xZA"
+      ]
     },
     "ref-tia": {
-      "prompt": "Personagem de animação 3D realista com luz de cinema, formato vertical: uma tia brasileira de uns 60 anos, cabelo curto grisalho com mechas, óculos de armação vermelha, blusa florida colorida, brincos pequenos, expressão animada e calorosa. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio."
+      "prompt": "Personagem de animação 3D caricata no estilo de longa-metragem de animação, formato vertical: a mesma senhora da primeira imagem de referência, redesenhada exatamente no mesmo estilo de animação do padre da segunda imagem (olhos grandes e expressivos, traços arredondados e simplificados, pele lisa estilizada, proporções de desenho animado). Manter as características dela: uns 60 anos, cabelo curto grisalho e ondulado, óculos de armação vermelha, brincos pequenos, blusa florida colorida, expressão animada e calorosa. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
+      "referencias": [
+        "MAHb9PhJ270",
+        "MAHb9Ao4xZA"
+      ]
     },
     "ref-padre": {
       "prompt": "Personagem de animação 3D realista com luz de cinema, formato vertical: o mesmo padre da imagem de referência, com o mesmo estilo de animação, o mesmo rosto arredondado e as mesmas sobrancelhas expressivas, porém bem mais novo, com uns 35 anos: cabelo castanho-escuro cheio e bem penteado, sem fios grisalhos, pele sem rugas, barba feita, sorriso simpático e olhar esperto. De batina preta com colarinho clerical branco. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
@@ -77,9 +97,9 @@
       "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: mãos de uma pessoa segurando um celular moderno genérico, sem marca, na sala de casa aconchegante, luz dourada de fim de tarde entrando pela janela, sofá e almofadas desfocados ao fundo. A tela do celular está acesa, lisa e clara, sem nenhum texto, ícone ou interface. Plano próximo, de cima para baixo."
     },
     "s02-tia-digitando": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) sentada no sofá da sala, digitando no celular com os dois polegares, sorriso orgulhoso e sobrancelhas erguidas, como quem manda uma notícia bombástica no grupo da família. Luz quente de fim de tarde, sala aconchegante desfocada. A tela do celular não aparece. Sem texto.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) sentada no sofá da sala, digitando no celular com os dois polegares, sorriso orgulhoso e sobrancelhas erguidas, como quem manda uma notícia bombástica no grupo da família. Luz quente de fim de tarde, sala aconchegante desfocada. A tela do celular não aparece. Sem texto.",
       "referencias": [
-        "MAHb9PhJ270"
+        "MAHb9ER4h2E"
       ]
     },
     "s03-padre-lendo": {
@@ -89,21 +109,21 @@
       ]
     },
     "s04-papa-aviao": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina e solidéu brancos, cruz peitoral dourada), em pé no corredor estreito de um avião, sorrindo e respondendo com calma, cercado de jornalistas que estendem microfones genéricos e celulares em direção a ele. Luz das janelinhas do avião, clima de entrevista coletiva em voo. Sem texto, sem logotipos.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina, pelegrina e solidéu brancos, cruz peitoral dourada), em pé no corredor estreito de um avião, sorrindo e respondendo com calma, cercado de jornalistas caricatos que estendem microfones genéricos e celulares em direção a ele. Luz das janelinhas do avião, clima de entrevista coletiva em voo. Sem texto, sem logotipos.",
       "referencias": [
-        "MAHb9MCWP7w"
+        "MAHb9JjBnoI"
       ]
     },
     "s05-papa-oculos": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo papa da imagem de referência (mesmo rosto, batina e solidéu brancos, cruz peitoral dourada), no seu escritório com estante de livros e mesa de madeira, apalpando os bolsos da batina com expressão simpática de quem procura alguma coisa, enquanto os próprios óculos de armação fina estão levantados sobre a testa. Humor leve e carinhoso, luz quente de janela. Sem texto.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo papa da imagem de referência (mesmo rosto, batina, pelegrina e solidéu brancos, cruz peitoral dourada), no seu escritório com estante de livros e mesa de madeira, apalpando os bolsos da batina com expressão simpática e intrigada de quem procura alguma coisa, enquanto os próprios óculos de armação fina estão levantados e bem visíveis no alto da cabeça. Humor leve e carinhoso, luz quente de janela. Sem texto.",
       "referencias": [
-        "MAHb9MCWP7w"
+        "MAHb9JjBnoI"
       ]
     },
     "s06-papa-praca": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina e solidéu brancos, cruz peitoral dourada), falando de braços abertos numa praça cheia de fiéis atentos, colunas de pedra ao fundo, luz clara de manhã. O papa em primeiro plano, a multidão se estendendo atrás e ao redor. Sem texto, sem bandeiras com escrita.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina, pelegrina e solidéu brancos, cruz peitoral dourada), falando de braços abertos numa praça cheia de fiéis caricatos e atentos, colunas de pedra ao fundo, luz clara de manhã. O papa em primeiro plano, a multidão se estendendo atrás e ao redor. Sem texto, sem bandeiras com escrita.",
       "referencias": [
-        "MAHb9MCWP7w"
+        "MAHb9JjBnoI"
       ]
     },
     "s07-concilio": {
@@ -113,15 +133,15 @@
       "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: um baú antigo de madeira escura com reforços de ferro, fechado por três cadeados dourados grandes alinhados na frente, e duas chaves antigas cruzadas, uma dourada e uma prateada, apoiadas sobre a tampa, como as chaves de São Pedro. Fundo de pedra escura de uma sala antiga, luz quente lateral, brilho suave nos metais. Sem texto."
     },
     "s09-papa-catedra": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina e solidéu brancos, cruz peitoral dourada), agora com uma estola vermelha bordada a ouro sobre os ombros, sentado numa cátedra grande e solene de madeira entalhada e dourada, com a mão direita erguida em gesto de ensino, expressão serena e firme. Fundo de basílica com mármore e luz dourada vinda do alto. Sem texto.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina e solidéu brancos, cruz peitoral dourada), agora com uma estola vermelha bordada a ouro sobre os ombros, sentado numa cátedra grande e solene de madeira entalhada e dourada, com a mão direita erguida em gesto de ensino, expressão serena e firme. Fundo de basílica com mármore e luz dourada vinda do alto. Sem texto.",
       "referencias": [
-        "MAHb9MCWP7w"
+        "MAHb9JjBnoI"
       ]
     },
     "s12-papa-evangelhos": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina e solidéu brancos, cruz peitoral dourada), de pé junto a uma mesa, abrindo com cuidado e reverência um grande livro antigo dos Evangelhos com capa de couro e cantos dourados, páginas iluminadas por um feixe de luz de janela, poeira dourada no ar. Plano médio, sem texto legível.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina, pelegrina e solidéu brancos, cruz peitoral dourada), de pé junto a uma mesa, abrindo com cuidado e reverência um grande livro antigo dos Evangelhos com capa de couro e cantos dourados, páginas iluminadas por um feixe de luz de janela, poeira dourada no ar. Plano médio, sem texto legível.",
       "referencias": [
-        "MAHb9MCWP7w"
+        "MAHb9JjBnoI"
       ]
     },
     "s14-cofre-luz": {
@@ -146,9 +166,9 @@
       ]
     },
     "s20-tia-catecismo": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida), agora tranquila e em paz, sentada numa poltrona lendo um livro grosso de capa vermelha, uma xícara de chá fumegando na mesinha ao lado, abajur aceso, sorriso sereno. Luz quente e aconchegante. Sem texto legível.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida), agora tranquila e em paz, sentada numa poltrona lendo um livro grosso de capa vermelha, uma xícara de chá fumegando na mesinha ao lado, abajur aceso, sorriso sereno. Luz quente e aconchegante. Sem texto legível.",
       "referencias": [
-        "MAHb9PhJ270"
+        "MAHb9ER4h2E"
       ]
     },
     "s21a-padre-digitando": {
@@ -158,9 +178,9 @@
       ]
     },
     "s21b-tia-sem-graca": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) no sofá, olhando o celular com um sorriso amarelo e sem graça, bochechas coradas, uma mão na testa, como quem acaba de levar uma correção divertida no grupo da família. Sala aconchegante desfocada, luz quente. A tela do celular não aparece. Sem texto.",
+      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) no sofá, olhando o celular com um sorriso amarelo e sem graça, bochechas coradas, uma mão na testa, como quem acaba de levar uma correção divertida no grupo da família. Sala aconchegante desfocada, luz quente. A tela do celular não aparece. Sem texto.",
       "referencias": [
-        "MAHb9PhJ270"
+        "MAHb9ER4h2E"
       ]
     },
     "s23-padre-close": {
