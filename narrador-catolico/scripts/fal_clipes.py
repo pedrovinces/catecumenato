@@ -62,7 +62,7 @@ def enviar(modelo: str, corpo: dict) -> dict:
     return r.json()
 
 
-def acompanhar(pedido: dict, rotulo: str, limite_s=1200) -> dict:
+def acompanhar(pedido: dict, rotulo: str, limite_s=3600) -> dict:
     t0 = time.time()
     ultimo = None
     while time.time() - t0 < limite_s:
@@ -111,14 +111,27 @@ def main():
         print("nada a gerar")
         return
 
-    custo = sum(c["duracao"] for c in fila) * PRECO_TETO
+    def pendente(c):
+        a = registro.get(c["id"], {})
+        return a.get("request_id") and "url" not in a and "erro" not in a and c["id"] not in refazer
+
+    novos = [c for c in fila if not pendente(c)]
+    custo = sum(c["duracao"] for c in novos) * PRECO_TETO
     s = saldo()
-    print(f"{len(fila)} clipe(s), {sum(c['duracao'] for c in fila)} s, até US$ {custo:.2f}; saldo: US$ {s}")
+    print(f"{len(novos)} clipe(s) novos, {sum(c['duracao'] for c in novos)} s, até US$ {custo:.2f}; {len(fila) - len(novos)} retomado(s); saldo: US$ {s}")
     if s is not None and custo > s:
         sys.exit("saldo insuficiente para este lote; nada foi enviado")
 
     pedidos = []
     for c in fila:
+        anterior = registro.get(c["id"], {})
+        if anterior.get("request_id") and "url" not in anterior and "erro" not in anterior and c["id"] not in refazer:
+            # pedido já enviado e ainda sem resultado: retoma o acompanhamento, não paga de novo
+            app = "/".join(plano["modelo"].split("/")[:2])
+            base = f"{FILA}/{app}/requests/{anterior['request_id']}"
+            print(f"retomando {c['id']}: {anterior['request_id']}", flush=True)
+            pedidos.append((c, {"status_url": f"{base}/status", "response_url": base}))
+            continue
         img = RAIZ / "assets" / "img" / codigo / f"{c['id']}.png"
         corpo = {
             "prompt": f"{c['prompt']} {plano['estilo']}",
