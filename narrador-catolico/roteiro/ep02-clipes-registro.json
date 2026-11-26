@@ -4,104 +4,149 @@
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The woman sits on the sofa typing fast on her phone with both thumbs, then taps send with a little flourish and lifts her chin, proud and satisfied, eyebrows raised. Warm late-afternoon light. Very slow push-in.",
-    "enviado": "2026-11-26 13:36:35"
+    "enviado": "2026-11-26 13:36:35",
+    "url": "https://v3b.fal.media/files/b/0ab4057e/yTvm6PLKfiT856cETKrcx_wSLS2c1R.mp4",
+    "arquivo": "assets/video/ep02/s02-tia-digitando.mp4",
+    "concluido": "2026-11-26 13:41:13"
   },
   "s03-padre-lendo": {
     "request_id": "01a21812-824c-7212-986e-c8cc5f09c97e",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The priest reads his phone with his hand on his chin; he slowly raises one eyebrow and his skeptical half-smile grows, with a natural blink, as if thinking that is not quite right. Sacristy softly out of focus. Static camera with a very slight push-in.",
-    "enviado": "2026-11-26 13:36:35"
+    "enviado": "2026-11-26 13:36:35",
+    "url": "https://v3b.fal.media/files/b/0ab4057b/-6BjKrAlePGLyWVIND4vX_tSNu8cAn.mp4",
+    "arquivo": "assets/video/ep02/s03-padre-lendo.mp4",
+    "concluido": "2026-11-26 13:41:15"
   },
   "s04-papa-aviao": {
     "request_id": "01a21812-83ac-71e1-903a-aeb31bd1635d",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 5,
     "prompt": "The Pope stands in the airplane aisle answering the reporters with a calm smile, gesturing gently with both open hands while he speaks; the journalists around him hold out microphones and phones and shift slightly. Soft light from the cabin windows. Slow gentle camera push-in.",
-    "enviado": "2026-11-26 13:36:36"
+    "enviado": "2026-11-26 13:36:36",
+    "url": "https://v3b.fal.media/files/b/0ab4058c/PQQeJ0WtzpZyiCqosSyZh_omxNaXxG.mp4",
+    "arquivo": "assets/video/ep02/s04-papa-aviao.mp4",
+    "concluido": "2026-11-26 13:43:36"
   },
   "s05-papa-oculos": {
     "request_id": "01a21812-84bd-7853-8dc9-69c9d9b6236c",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The Pope pats the pockets of his white cassock and looks down and around with a puzzled, good-natured expression, searching for his glasses, while the glasses stay resting on top of his head the whole time. Light, affectionate humor. Slow camera tilt up toward his head.",
-    "enviado": "2026-11-26 13:36:36"
+    "enviado": "2026-11-26 13:36:36",
+    "url": "https://v3b.fal.media/files/b/0ab40579/t5EPksRsfOXa-b3zsm4Bw_1QFJaNl3.mp4",
+    "arquivo": "assets/video/ep02/s05-papa-oculos.mp4",
+    "concluido": "2026-11-26 13:43:37"
   },
   "s06-papa-praca": {
     "request_id": "01a21812-866e-70d2-acdb-23a072a45bd1",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 5,
     "prompt": "The Pope speaks with open arms to the attentive crowd in the sunny square, warm smile and gentle gestures; people in the crowd listen and nod. Slow camera pull-back revealing more of the crowd.",
-    "enviado": "2026-11-26 13:36:37"
+    "enviado": "2026-11-26 13:36:37",
+    "url": "https://v3b.fal.media/files/b/0ab4057f/o_QY3ToOAio47vgiYzxE__luzui1IR.mp4",
+    "arquivo": "assets/video/ep02/s06-papa-praca.mp4",
+    "concluido": "2026-11-26 13:43:38"
   },
   "s09-papa-catedra": {
     "request_id": "01a21812-8a71-78b0-b617-af9ce7a3794a",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 4,
     "prompt": "Seated on the solemn carved golden chair, the Pope raises his right hand in a teaching gesture and speaks calmly and firmly, with a slight nod. Golden light from above, floating dust. Very slow push-in.",
-    "enviado": "2026-11-26 13:36:38"
+    "enviado": "2026-11-26 13:36:38",
+    "url": "https://v3b.fal.media/files/b/0ab4057e/ymksBVyc_pc2VAkz0IZJw_moQGD9Cd.mp4",
+    "arquivo": "assets/video/ep02/s09-papa-catedra.mp4",
+    "concluido": "2026-11-26 13:43:40"
   },
   "s12-papa-evangelhos": {
     "request_id": "01a21812-8c74-7be0-a2a9-831395f1b651",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 6,
     "prompt": "The Pope carefully turns a page of the large ancient Gospel book, then points to a line with his finger and looks up gently, as if explaining it. A beam of window light, golden dust floating. Slow push-in.",
-    "enviado": "2026-11-26 13:36:38"
+    "enviado": "2026-11-26 13:36:38",
+    "url": "https://v3b.fal.media/files/b/0ab4057b/r3_nJ1HC8rpk4gkUytflG_xkGCyvXI.mp4",
+    "arquivo": "assets/video/ep02/s12-papa-evangelhos.mp4",
+    "concluido": "2026-11-26 13:43:42"
   },
   "s15-assuncao": {
     "request_id": "01a21812-8eda-7fd2-bbd0-e7c44d22d126",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "Our Lady rises slowly and serenely among golden clouds, her blue mantle and white veil moving softly; the little angels around her float gently and the rays of light pulse softly. Reverent and calm. Slow upward camera movement.",
-    "enviado": "2026-11-26 13:36:39"
+    "enviado": "2026-11-26 13:36:39",
+    "url": "https://v3b.fal.media/files/b/0ab4057b/IiPx6eccHqiry7RFYSiIt_ObZ7aAci.mp4",
+    "arquivo": "assets/video/ep02/s15-assuncao.mp4",
+    "concluido": "2026-11-26 13:43:44"
   },
   "s16-torcedor": {
     "request_id": "01a21812-8ffa-7381-9f48-5cf362140474",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 4,
     "prompt": "The fan lifts the golden trophy even higher and shouts with joy, bouncing slightly, the flag on his back waving, green and yellow confetti falling all around. Festive energy with smooth motion. Slight camera drift.",
-    "enviado": "2026-11-26 13:36:39"
+    "enviado": "2026-11-26 13:36:39",
+    "url": "https://v3b.fal.media/files/b/0ab4057f/vcfr-mpkI1fi3EM9YUjDN_Mrg9ywl3.mp4",
+    "arquivo": "assets/video/ep02/s16-torcedor.mp4",
+    "concluido": "2026-11-26 13:43:45"
   },
   "s17-pedro-rocha": {
     "request_id": "01a21812-9121-7df3-8f4e-43b18f975b44",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 6,
     "prompt": "Jesus rests his hand on Peter's shoulder and speaks to him with tenderness; Peter listens, moved, and nods slowly. Golden late-afternoon light and a gentle breeze moving their robes. The camera slowly rises and tilts up toward the great rock wall behind them.",
-    "enviado": "2026-11-26 13:36:39"
+    "enviado": "2026-11-26 13:36:39",
+    "url": "https://v3b.fal.media/files/b/0ab40583/kulq9YS5ZXVCk4TmDm0zn_uczOyK42.mp4",
+    "arquivo": "assets/video/ep02/s17-pedro-rocha.mp4",
+    "concluido": "2026-11-26 13:43:46"
   },
   "s19-ceia": {
     "request_id": "01a21812-9238-7412-9089-3d72fb9a8918",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 5,
     "prompt": "By warm oil-lamp light, Jesus speaks softly to Peter, looking into his eyes, his hand resting on Peter's hand; Peter listens with emotion. The flames flicker gently; the other apostles stay still in the soft-focus background. Slow, reverent push-in.",
-    "enviado": "2026-11-26 13:36:40"
+    "enviado": "2026-11-26 13:36:40",
+    "url": "https://v3b.fal.media/files/b/0ab40591/3br1Z1tgjcvIkNixovkZh_DK06kpFM.mp4",
+    "arquivo": "assets/video/ep02/s19-ceia.mp4",
+    "concluido": "2026-11-26 13:44:20"
   },
   "s20-tia-catecismo": {
     "request_id": "01a21812-95eb-79b0-ab25-998072aa36df",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 4,
     "prompt": "The woman reading in the armchair turns a page of the red book and smiles serenely, breathing calmly; steam rises from the teacup beside her. Warm lamp light. Very slow push-in.",
-    "enviado": "2026-11-26 13:36:40"
+    "enviado": "2026-11-26 13:36:40",
+    "url": "https://v3b.fal.media/files/b/0ab4059a/k-Y-PQ6-sWnZpWFLLAM4B_Au3HysWj.mp4",
+    "arquivo": "assets/video/ep02/s20-tia-catecismo.mp4",
+    "concluido": "2026-11-26 13:45:52"
   },
   "s21a-padre-digitando": {
     "request_id": "01a21812-9770-7760-9698-7f6ca947d564",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The priest types on his phone with both thumbs, a playful half-smile growing at the corner of his mouth, then gives a small satisfied nod as he sends the message. Sacristy softly out of focus. Static camera.",
-    "enviado": "2026-11-26 13:36:41"
+    "enviado": "2026-11-26 13:36:41",
+    "url": "https://v3b.fal.media/files/b/0ab4058c/YR5oraVTw6ksCVBnOzFXm_NDVnETjL.mp4",
+    "arquivo": "assets/video/ep02/s21a-padre-digitando.mp4",
+    "concluido": "2026-11-26 13:45:53"
   },
   "s21b-tia-sem-graca": {
     "request_id": "01a21812-9884-78f2-97e9-413619b7bf2c",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The woman on the sofa reads her phone; her smile turns awkward and embarrassed, she rubs her forehead and lets out a small laugh, cheeks blushing. Warm living-room light. Static camera.",
-    "enviado": "2026-11-26 13:36:41"
+    "enviado": "2026-11-26 13:36:41",
+    "url": "https://v3b.fal.media/files/b/0ab4058a/kabux_LR10nO1HtivxOuB_output.mp4",
+    "arquivo": "assets/video/ep02/s21b-tia-sem-graca.mp4",
+    "concluido": "2026-11-26 13:45:54"
   },
   "s23-padre-close": {
     "request_id": "01a21812-99c3-7192-8ba3-e599b279e63a",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "Close-up of the priest looking straight at the camera; after a natural blink he points at the viewer with a knowing, friendly smile and raises one eyebrow slightly. Sacristy softly out of focus. Very slow push-in.",
-    "enviado": "2026-11-26 13:36:41"
+    "enviado": "2026-11-26 13:36:41",
+    "url": "https://v3b.fal.media/files/b/0ab4058d/JMtdQTcrWjbY41-QKeHo-_MCcijJTi.mp4",
+    "arquivo": "assets/video/ep02/s23-padre-close.mp4",
+    "concluido": "2026-11-26 13:45:55"
   }
 }
