@@ -1,13 +1,13 @@
 {
   "design_exportacao": "DAHb629araw",
-  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor. Papa e Tia refeitos no estilo caricato do Padre (opção 2 escolhida pelo autor).",
+  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor. Papa e Tia refeitos no estilo caricato do Padre (opção 2 escolhida pelo autor). Padre inspirado no pároco do autor, a partir de foto enviada por ele; todos os personagens fixos no estilo de longa de animação (Disney Pixar).",
   "midias": {
     "ref-papa": "MAHb9JjBnoI",
     "ref-tia": "MAHb9ER4h2E",
-    "ref-padre": "MAHb9Ao4xZA",
+    "ref-padre": "MAHcBTvky9Y",
     "s01-celular": "MAHb9PtpXHE",
     "s02-tia-digitando": "MAHb9Afd8ME",
-    "s03-padre-lendo": "MAHb9HUZySo",
+    "s03-padre-lendo": "MAHcBRDdZ74",
     "s04-papa-aviao": "MAHb9DI9Bsc",
     "s05-papa-oculos": "MAHb9ES_jNA",
     "s06-papa-praca": "MAHb9Nf8BqI",
@@ -21,9 +21,9 @@
     "s17-pedro-rocha": "MAHb9NwOru8",
     "s19-ceia": "MAHb9KMN96Q",
     "s20-tia-catecismo": "MAHb9AFugl0",
-    "s21a-padre-digitando": "MAHb9IRBacE",
+    "s21a-padre-digitando": "MAHcBUlrrRE",
     "s21b-tia-sem-graca": "MAHb9KrtckY",
-    "s23-padre-close": "MAHb9IfMXk4"
+    "s23-padre-close": "MAHcBbM8Cl4"
   },
   "paginas": {
     "ref-papa": 30,
@@ -52,10 +52,12 @@
   "referencias": {
     "papa": "MAHb9JjBnoI",
     "tia": "MAHb9ER4h2E",
-    "padre": "MAHb9Ao4xZA",
+    "padre": "MAHcBTvky9Y",
     "padre_ep01": "MAHb6ylHboQ",
     "papa_realista": "MAHb9MCWP7w",
-    "tia_realista": "MAHb9PhJ270"
+    "tia_realista": "MAHb9PhJ270",
+    "padre_jovem_generico": "MAHb9Ao4xZA",
+    "foto_paroco_upload": "MAHcBRt2CJA"
   },
   "descartadas": {
     "papa-inventado": "substituído pela semelhança com Leão XIV",
@@ -70,7 +72,14 @@
     "MAHb9JaL31A": "s09-papa-catedra: versão realista, trocada pela caricata (opção 2)",
     "MAHb9FyRL7E": "s12-papa-evangelhos: versão realista, trocada pela caricata (opção 2)",
     "MAHb9BP8UTM": "s20-tia-catecismo: versão realista, trocada pela caricata (opção 2)",
-    "MAHb9G3tJOk": "s21b-tia-sem-graca: versão realista, trocada pela caricata (opção 2)"
+    "MAHb9G3tJOk": "s21b-tia-sem-graca: versão realista, trocada pela caricata (opção 2)",
+    "MAHb9Ao4xZA": "ref-padre: Padre jovem genérico, trocado pelo Padre inspirado no pároco",
+    "MAHb9HUZySo": "s03-padre-lendo: Padre jovem genérico, trocado pelo Padre inspirado no pároco",
+    "MAHb9IRBacE": "s21a-padre-digitando: Padre jovem genérico, trocado pelo Padre inspirado no pároco",
+    "MAHb9IfMXk4": "s23-padre-close: Padre jovem genérico, trocado pelo Padre inspirado no pároco",
+    "MAHcBdKlbeI": "Papa realista A (estilo Disney Pixar escolhido)",
+    "MAHcBX-yde4": "Papa realista B (estilo Disney Pixar escolhido)",
+    "MAHcBV-w4Q4": "Padre-pároco realista (estilo Disney Pixar escolhido)"
   },
   "prompts": {
     "ref-papa": {
@@ -88,9 +97,10 @@
       ]
     },
     "ref-padre": {
-      "prompt": "Personagem de animação 3D realista com luz de cinema, formato vertical: o mesmo padre da imagem de referência, com o mesmo estilo de animação, o mesmo rosto arredondado e as mesmas sobrancelhas expressivas, porém bem mais novo, com uns 35 anos: cabelo castanho-escuro cheio e bem penteado, sem fios grisalhos, pele sem rugas, barba feita, sorriso simpático e olhar esperto. De batina preta com colarinho clerical branco. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
+      "prompt": "Personagem de animação 3D caricata no estilo de longa-metragem de animação, formato vertical: o mesmo homem da primeira imagem de referência, agora como padre católico, redesenhado no mesmo estilo de animação da segunda imagem (olhos grandes e expressivos, traços arredondados, pele lisa estilizada), mantendo a semelhança com ele: cabelo escuro bem curto, barba cheia e aparada com alguns fios grisalhos, óculos redondos de armação escura e grossa, sorriso largo e simpático, corpo robusto. Veste batina preta com colarinho clerical branco. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
       "referencias": [
-        "MAHb6ylHboQ"
+        "MAHcBRt2CJA",
+        "MAHb9Ao4xZA"
       ]
     },
     "s01-celular": {
@@ -103,9 +113,9 @@
       ]
     },
     "s03-padre-lendo": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo padre jovem da imagem de referência (cabelo castanho-escuro, rosto arredondado, sobrancelhas expressivas, batina preta com colarinho branco), em pé na sacristia, lendo o celular com uma sobrancelha erguida e um meio sorriso cético, como quem pensa \"não é bem assim\". Armários de madeira, paramentos pendurados e luz de janela ao fundo, desfocados. A tela do celular não aparece. Plano médio, sem texto.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo padre da imagem de referência (cabelo escuro bem curto, barba cheia e aparada com fios grisalhos, óculos redondos de armação escura e grossa, corpo robusto, batina preta com colarinho clerical branco), em pé na sacristia, lendo o celular com uma sobrancelha erguida, a mão no queixo e um meio sorriso cético, como quem pensa \"não é bem assim\". Armários de madeira, paramentos pendurados e luz de janela ao fundo, desfocados. A tela do celular não aparece. Plano médio, sem texto.",
       "referencias": [
-        "MAHb9Ao4xZA"
+        "MAHcBTvky9Y"
       ]
     },
     "s04-papa-aviao": {
@@ -172,9 +182,9 @@
       ]
     },
     "s21a-padre-digitando": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo padre jovem da imagem de referência (cabelo castanho-escuro, rosto arredondado, sobrancelhas expressivas, batina preta com colarinho branco), na sacristia, digitando no celular com os polegares e um sorriso maroto de canto de boca, como quem responde com bom humor. Fundo de sacristia com armários de madeira e luz de janela, desfocado. A tela do celular não aparece. Plano médio, sem texto.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo padre da imagem de referência (cabelo escuro bem curto, barba cheia e aparada com fios grisalhos, óculos redondos de armação escura e grossa, corpo robusto, batina preta com colarinho clerical branco), na sacristia, digitando no celular com os polegares e um sorriso maroto de canto de boca, como quem responde com bom humor. Fundo de sacristia com armários de madeira e luz de janela, desfocado. A tela do celular não aparece. Plano médio, sem texto.",
       "referencias": [
-        "MAHb9Ao4xZA"
+        "MAHcBTvky9Y"
       ]
     },
     "s21b-tia-sem-graca": {
@@ -184,9 +194,9 @@
       ]
     },
     "s23-padre-close": {
-      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo padre jovem da imagem de referência (cabelo castanho-escuro, rosto arredondado, sobrancelhas expressivas, batina preta com colarinho branco), em close do peito para cima, olhando direto para a câmera com um sorriso cúmplice e uma sobrancelha levemente erguida, como quem diz \"agora você também sabe\". Sacristia aconchegante desfocada ao fundo, luz quente de janela. Sem texto.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo padre da imagem de referência (cabelo escuro bem curto, barba cheia e aparada com fios grisalhos, óculos redondos de armação escura e grossa, corpo robusto, batina preta com colarinho clerical branco), em close do peito para cima, olhando direto para a câmera com um sorriso cúmplice e uma sobrancelha levemente erguida, apontando o dedo para quem assiste, como quem diz \"agora você também sabe\". Sacristia aconchegante desfocada ao fundo, luz quente de janela. Sem texto.",
       "referencias": [
-        "MAHb9Ao4xZA"
+        "MAHcBTvky9Y"
       ]
     }
   }
