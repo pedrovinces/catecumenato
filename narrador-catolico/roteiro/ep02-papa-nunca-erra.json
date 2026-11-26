@@ -188,7 +188,7 @@
           "evento": "cadeado3"
         },
         {
-          "palavra": "bate o martelo",
+          "palavra": "martelo",
           "evento": "martelo"
         },
         {
@@ -256,8 +256,15 @@
         },
         {
           "arquivo": "thud-livro",
-          "gatilho": "bate o martelo",
-          "deslocamento": 7
+          "gatilho": "martelo",
+          "deslocamento": 1,
+          "volume": 2
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "martelo",
+          "deslocamento": 1,
+          "volume": -2
         },
         {
           "arquivo": "cadeado-fecha",

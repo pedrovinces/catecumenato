@@ -56,7 +56,7 @@ const Bolha: React.FC<{ d: number; children: React.ReactNode; carimbo: number }>
   return (
     <div style={{ position: "relative", alignSelf: "flex-start", maxWidth: "88%", transform: `scale(${e})`, transformOrigin: "0% 100%" }}>
       <div style={{ backgroundColor: "#FFFFFF", borderRadius: "4px 16px 16px 16px", padding: "8px 12px 10px", boxShadow: "0 1px 1px rgba(0,0,0,0.18)" }}>
-        <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 15, color: "#C2185B", marginBottom: 2 }}>Tia</div>
+        <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 15, color: "#C2185B", marginBottom: 2 }}>Fátima</div>
         {children}
       </div>
       {carimbo >= 0 && (
@@ -97,7 +97,7 @@ export const ChatGrupo: React.FC = () => {
         <div style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: "#F2C14E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>🙏</div>
         <div>
           <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 19, color: "#FFFFFF" }}>Família ❤️</div>
-          <div style={{ fontFamily: LEGENDA, fontWeight: 500, fontSize: 13, color: "#CFE9E4" }}>Tia está digitando...</div>
+          <div style={{ fontFamily: LEGENDA, fontWeight: 500, fontSize: 13, color: "#CFE9E4" }}>Fátima está digitando...</div>
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 14, padding: "26px 14px" }}>
@@ -198,12 +198,15 @@ const Cadeados: React.FC = () => {
   // some enquanto o Papa brinca com a bola (título próprio) e volta na terceira chave
   const bola = pal("Palpite");
   const volta3 = ev("cadeado3") ?? Infinity;
-  const pausaBola = Math.max(interpolate(f, [bola - 6, bola], [1, 0], clamp), interpolate(f, [volta3 - 4, volta3 + 2], [0, 1], clamp));
+  const mart = (ev("martelo") ?? Infinity) - 8; // o plano do martelo entra ~0,27 s antes da palavra
+  const voltaM = pal("que a Igreja inteira");
+  const oculta = (a: number, b: number) => (f < a - 6 || f > b + 2 ? 1 : Math.max(interpolate(f, [a - 6, a], [1, 0], clamp), interpolate(f, [b - 4, b + 2], [0, 1], clamp)));
+  const pausaBola = Math.min(oculta(bola, volta3), oculta(mart, voltaM));
   const entrada = interpolate(f, [c1, c1 + 8], [0, 1], clamp);
   const saida = interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp);
   return (
     <>
-      <div style={{ position: "absolute", left: AREA.esquerda - 30, width: LARGURA + 60, top: 720, display: "flex", justifyContent: "center", gap: 26, opacity: Math.min(entrada, saida, f >= bola - 6 ? pausaBola : 1) }}>
+      <div style={{ position: "absolute", left: AREA.esquerda - 30, width: LARGURA + 60, top: 720, display: "flex", justifyContent: "center", gap: 26, opacity: Math.min(entrada, saida, pausaBola) }}>
         {[1, 2, 3].map((k) => {
           const e = ev(`cadeado${k}`) ?? Infinity;
           const abre = interpolate(f, [e + 2, e + 8], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2)) });
@@ -239,39 +242,14 @@ const Cadeados: React.FC = () => {
 const Martelo: React.FC = () => {
   const { f, ev, pal } = useCena();
   const m = ev("martelo");
-  if (m === undefined || f < m - 4) return null;
-  const fim = pal("declara que aquilo") - 2;
-  if (f >= fim) return null;
-  const golpe = m + 7; // instante da batida (o efeito sonoro toca aqui)
-  const giro = interpolate(f, [m - 4, m + 2, golpe], [-8, -48, 6], { ...clamp, easing: Easing.in(Easing.quad) });
-  const assenta = f > golpe ? interpolate(f, [golpe, golpe + 4], [6, 0], clamp) : giro;
-  const onda = f - golpe;
-  const op = Math.min(interpolate(f, [m - 4, m], [0, 1], clamp), interpolate(f, [fim - 6, fim], [1, 0], clamp));
-  const tremor = onda >= 0 && onda < 8 ? Math.sin(onda * 3) * 6 * (1 - onda / 8) : 0;
+  if (m === undefined) return null;
+  const golpe = m + 1; // batida no clipe s11m-martelo (o efeito sonoro toca aqui)
+  const fim = pal("que a Igreja inteira") - 2;
+  if (f < golpe + 2 || f >= fim) return null;
+  const op = interpolate(f, [fim - 6, fim], [1, 0], clamp);
   return (
-    <div style={{ position: "absolute", left: 0, width: 1080, top: 330, height: 360, opacity: op, transform: `translateY(${tremor}px) scale(1.3)`, transformOrigin: "47% 70%" }}>
-      <svg width={1080} height={360} viewBox="0 0 1080 360" style={{ overflow: "visible" }}>
-        {/* base de madeira */}
-        <ellipse cx={470} cy={300} rx={120} ry={22} fill="#3B2412" />
-        <rect x={350} y={262} width={240} height={38} rx={10} fill="#6E4320" stroke={OURO} strokeWidth={3} />
-        {/* ondas da batida */}
-        {onda >= 0 && onda < 14 &&
-          [0, 1].map((k) => (
-            <ellipse key={k} cx={470} cy={262} rx={60 + (onda - k * 3) * 16} ry={12 + (onda - k * 3) * 4} fill="none" stroke={OURO_FORTE} strokeWidth={4} opacity={Math.max(0, 1 - (onda - k * 3) / 12)} />
-          ))}
-        {/* martelo: gira em torno da ponta do cabo (à direita) */}
-        <g transform={`rotate(${assenta} 760 120)`}>
-          <rect x={500} y={104} width={268} height={30} rx={14} fill="#8A5A2B" stroke="#3B2412" strokeWidth={3} />
-          <rect x={385} y={52} width={170} height={130} rx={22} fill="#7A4A22" stroke="#3B2412" strokeWidth={4} />
-          <rect x={372} y={60} width={26} height={114} rx={8} fill={OURO_FORTE} />
-          <rect x={542} y={60} width={26} height={114} rx={8} fill={OURO_FORTE} />
-        </g>
-      </svg>
-      {onda >= 2 && (
-        <div style={{ position: "absolute", left: 600, top: 210 }}>
-          <CarimboVermelho texto="DEFINITIVO" d={onda - 2} tam={46} giro={-8} />
-        </div>
-      )}
+    <div style={{ position: "absolute", left: AREA.esquerda, width: LARGURA, top: 560, display: "flex", justifyContent: "center", opacity: op }}>
+      <CarimboVermelho texto="DEFINITIVO" d={f - golpe - 2} tam={72} giro={-7} />
     </div>
   );
 };
@@ -452,14 +430,14 @@ const RespostaGrupo: React.FC = () => {
     d < 0 ? null : (
       <div style={{ alignSelf: minha ? "flex-end" : "flex-start", transform: `scale(${pop(d, 0, 8)})`, transformOrigin: minha ? "100% 100%" : "0% 100%", maxWidth: "86%" }}>
         <div style={{ backgroundColor: minha ? "#D9FDD3" : "#FFFFFF", borderRadius: minha ? "22px 6px 22px 22px" : "6px 22px 22px 22px", padding: "12px 18px 14px", boxShadow: "0 6px 18px rgba(0,0,0,0.35)" }}>
-          <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 26, color: minha ? "#1F7A55" : "#C2185B", marginBottom: 2 }}>{minha ? "Padre" : "Tia"}</div>
+          <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 26, color: minha ? "#1F7A55" : "#C2185B", marginBottom: 2 }}>{minha ? "Padre" : "Fátima"}</div>
           <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 46, lineHeight: 1.18, color: "#1B1B1B" }}>{texto}</div>
         </div>
       </div>
     );
   return (
     <div style={{ position: "absolute", left: AREA.esquerda - 20, width: LARGURA + 40, top: 900, display: "flex", flexDirection: "column", gap: 16, opacity: op }}>
-      {bolha("Tia, nem tudo é dogma 😉", d1, true)}
+      {bolha("Fátima, nem tudo é dogma 😉", d1, true)}
       {bolha("kkkkk 🙈 entendi, padre", d2, false)}
     </div>
   );

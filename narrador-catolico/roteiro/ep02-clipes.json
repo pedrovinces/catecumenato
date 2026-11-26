@@ -113,6 +113,12 @@
    "id": "s20-tia-longa",
    "duracao": 8,
    "prompt": "The woman in the armchair reads the red book calmly, turns a page slowly, smiles serenely, glances up as if reflecting and goes back to reading; steam rises from the teacup beside her. Warm lamp light. Very slow push-in."
+  },
+  {
+   "id": "s11m-martelo",
+   "duracao": 3,
+   "cfg": 0.7,
+   "prompt": "The heavy wooden gavel with gold rings swings down quickly and strikes the round wooden block once with force, a small burst of golden dust and a subtle shockwave in the light on impact, the gavel bounces slightly and comes to rest on the block. The red velvet and the hall stay still. Static camera with a very slight push-in."
   }
  ]
 }

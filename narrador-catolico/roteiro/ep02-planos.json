@@ -135,10 +135,26 @@
    }
   },
   {
+   "id": "s11m-martelo",
+   "cena": "cofre",
+   "palavra": "martelo",
+   "deslocamento": -8,
+   "trecho": 1.4,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.1,
+     "y": -20
+    }
+   }
+  },
+  {
    "id": "s09-papa-catedra",
    "chave": "s11b-catedra",
    "cena": "cofre",
-   "palavra": "declara que aquilo",
+   "palavra": "que a Igreja inteira",
    "deslocamento": -3,
    "trecho": 0.6
   },
