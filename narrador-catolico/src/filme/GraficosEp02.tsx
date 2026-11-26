@@ -189,14 +189,13 @@ const Cadeado: React.FC<{ aberto: number; vermelho: number; tremor: number }> = 
 };
 
 const Cadeados: React.FC = () => {
-  const { f, ev, cena } = useCena();
+  const { f, ev, cena, pal } = useCena();
   const c1 = ev("cadeado1");
   if (c1 === undefined || f < c1) return null;
   const faltou = (ev("faltou") ?? Infinity) + 6;
   const fechado = ev("fechado") ?? Infinity;
   const rotulos = ["QUEM FALA\n(OFICIAL)", "SOBRE O QUÊ\n(FÉ OU MORAL)", "COMO\n(DEFINITIVO)"];
   // some enquanto o Papa brinca com a bola (título próprio) e volta na terceira chave
-  const pal = useCena().pal;
   const bola = pal("Palpite");
   const volta3 = ev("cadeado3") ?? Infinity;
   const pausaBola = Math.max(interpolate(f, [bola - 6, bola], [1, 0], clamp), interpolate(f, [volta3 - 4, volta3 + 2], [0, 1], clamp));
