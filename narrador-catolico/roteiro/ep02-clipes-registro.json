@@ -154,48 +154,69 @@
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 3,
     "prompt": "The Pope balances the spinning football on his fingertip, then lets it bounce once and catches it with a playful, amused smile and a little shrug. Sunny garden. Slight camera drift.",
-    "enviado": "2026-11-26 17:28:03"
+    "enviado": "2026-11-26 17:28:03",
+    "url": "https://v3b.fal.media/files/b/0ab40aed/Wnrg13JPV8v13KOa1eEy-_KfqSzhfN.mp4",
+    "arquivo": "assets/video/ep02/s10b-papa-futebol.mp4",
+    "concluido": "2026-11-26 17:32:53"
   },
   "s16b-jesus-apostolos": {
     "request_id": "01a218e6-6c52-7313-81c7-0a8956932b49",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 5,
     "prompt": "Jesus walks slowly along the dirt road, gesturing gently with his open hand as he teaches; Peter beside him and the apostles behind walk with him, listening attentively. Golden late-afternoon light, dust in the air. Slow tracking camera moving backward with them.",
-    "enviado": "2026-11-26 17:28:03"
+    "enviado": "2026-11-26 17:28:03",
+    "url": "https://v3b.fal.media/files/b/0ab40ae4/gdUeKTZX1RkEQ-5ssFEb3_tfIEtACB.mp4",
+    "arquivo": "assets/video/ep02/s16b-jesus-apostolos.mp4",
+    "concluido": "2026-11-26 17:32:55"
   },
   "s18-chaves-pedro": {
     "request_id": "01a218e6-6d82-72f2-964f-70e86c855d64",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 6,
     "prompt": "Jesus places the two great keys into Peter's hands and closes Peter's fingers over them; Peter looks at the keys, then up at Jesus, deeply moved. Golden late-afternoon light, a gentle breeze in their robes. Slow push-in.",
-    "enviado": "2026-11-26 17:28:04"
+    "enviado": "2026-11-26 17:28:04",
+    "url": "https://v3b.fal.media/files/b/0ab40ae5/x-RFcqtP4PTzcvfEybKPM_szr1tJIv.mp4",
+    "arquivo": "assets/video/ep02/s18-chaves-pedro.mp4",
+    "concluido": "2026-11-26 17:32:56"
   },
   "s19-ceia-longa": {
     "request_id": "01a218e6-6f13-7972-ab4e-1ed58f3bda48",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 10,
     "prompt": "By warm oil-lamp light at the supper table, Jesus speaks softly and at length to Peter, looking into his eyes, his hand resting on Peter's hand; Peter listens with emotion, nods slowly, lowers his gaze and looks up at Jesus again. The flames flicker gently; the other apostles stay in the soft-focus background. Slow, reverent push-in.",
-    "enviado": "2026-11-26 17:28:04"
+    "enviado": "2026-11-26 17:28:04",
+    "url": "https://v3b.fal.media/files/b/0ab40af1/TFYL_LYPXik-kcuJfJd8B_rZgfs4VP.mp4",
+    "arquivo": "assets/video/ep02/s19-ceia-longa.mp4",
+    "concluido": "2026-11-26 17:33:39"
   },
   "s19b-apascenta": {
     "request_id": "01a218e6-7006-7493-afa3-5de986273546",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 5,
     "prompt": "By the small fire at dawn on the shore, Jesus speaks to Peter with tenderness; Peter, moved, keeps his hand on his heart and nods. The waves move softly, the fire crackles. Very slow push-in.",
-    "enviado": "2026-11-26 17:28:04"
+    "enviado": "2026-11-26 17:28:04",
+    "url": "https://v3b.fal.media/files/b/0ab40aea/gJHDuRVsqUBhks5n8DEVB_jLmSmOqQ.mp4",
+    "arquivo": "assets/video/ep02/s19b-apascenta.mp4",
+    "concluido": "2026-11-26 17:33:41"
   },
   "s19c-convosco": {
     "request_id": "01a218e6-714f-7263-812d-ac40e402bc51",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 7,
     "prompt": "On the mountaintop at dawn, Jesus opens his arms wide over the apostles as he speaks; they look up at him, some kneeling, light rays moving through the clouds. Reverent and grand. Slow camera rise.",
-    "enviado": "2026-11-26 17:28:05"
+    "enviado": "2026-11-26 17:28:05",
+    "url": "https://v3b.fal.media/files/b/0ab40aee/AAt3BKvDJ18J6veVyPqtS_D1JbeRka.mp4",
+    "arquivo": "assets/video/ep02/s19c-convosco.mp4",
+    "concluido": "2026-11-26 17:33:42"
   },
   "s20-tia-longa": {
     "request_id": "01a218e6-723b-7bf0-93c0-cc54bddd7124",
     "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
     "duracao": 8,
     "prompt": "The woman in the armchair reads the red book calmly, turns a page slowly, smiles serenely, glances up as if reflecting and goes back to reading; steam rises from the teacup beside her. Warm lamp light. Very slow push-in.",
-    "enviado": "2026-11-26 17:28:05"
+    "enviado": "2026-11-26 17:28:05",
+    "url": "https://v3b.fal.media/files/b/0ab40aeb/35AkVKihE_A7MFcLvydHH_8xZjCppw.mp4",
+    "arquivo": "assets/video/ep02/s20-tia-longa.mp4",
+    "concluido": "2026-11-26 17:33:44"
   }
 }
