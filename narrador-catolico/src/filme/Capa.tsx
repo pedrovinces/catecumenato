@@ -34,7 +34,18 @@ export const Capa: React.FC<PropsCapa> = ({ codigo, imagem, episodio, titulo, co
   const tamanho = Math.min(150, ...linhas.map((l) => fitText({ text: l, withinWidth: largura, fontFamily: SERIFA, fontWeight: "700", letterSpacing: "0.04em" }).fontSize));
   return (
     <AbsoluteFill style={{ backgroundColor: NOITE }}>
-      <AbsoluteFill style={{ transform: `translate(${enquadre.x}px, ${enquadre.y}px) scale(${enquadre.escala})`, transformOrigin: "50% 50%" }}>
+      {/* fundo: a própria imagem desfocada, para não sobrar faixa vazia quando a foto desce (cabeça longe da marca) */}
+      <AbsoluteFill style={{ transform: "scale(1.25)", filter: "blur(36px) brightness(0.55) saturate(0.9)" }}>
+        <Img src={staticFile(`img/${codigo}/${imagem}.png`)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          transform: `translate(${enquadre.x}px, ${enquadre.y}px) scale(${enquadre.escala})`,
+          transformOrigin: "50% 50%",
+          WebkitMaskImage: enquadre.y > 0 ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 9%)" : undefined,
+          maskImage: enquadre.y > 0 ? "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 9%)" : undefined,
+        }}
+      >
         <Img src={staticFile(`img/${codigo}/${imagem}.png`)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       </AbsoluteFill>
       {/* véus: topo para a marca, base para o título */}
@@ -75,7 +86,7 @@ export const Capa: React.FC<PropsCapa> = ({ codigo, imagem, episodio, titulo, co
             {l}
           </div>
         ))}
-        {cores && (
+        {cores && cores.length > 0 && (
           <div style={{ display: "flex", gap: 14, marginTop: 26 }}>
             {cores.map((c, i) => (
               <div key={i} style={{ width: 92, height: 16, borderRadius: 8, backgroundColor: c, border: "2px solid rgba(233,185,73,0.85)", boxShadow: "0 4px 12px rgba(0,0,0,0.5)" }} />
