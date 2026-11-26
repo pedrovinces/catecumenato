@@ -15,9 +15,9 @@
     "cores": []
   },
   "audio": {
-    "narracao": "audio/ep02/narracao-1.25x.wav",
-    "original": "audio/ep02/narracao.wav",
-    "guia": "audio/ep02/narracao-guia.wav",
+    "narracao": "audio/ep02/narracao-v3-1.2x.wav",
+    "original": "audio/ep02/narracao-v3.wav",
+    "guia": "audio/ep02/narracao-guia-v2.wav",
     "trilha": "audio/ep02/fundo.wav",
     "voz": "estudio"
   },
@@ -173,19 +173,23 @@
         "cor": "AS 3 FECHADURAS",
         "tempo": ""
       },
-      "locucao": "O dogma é de 1870, do Concílio Vaticano Primeiro, [pausa] e funciona como um cofre de três fechaduras. [pausa] Primeira: o papa fala oficialmente, como pastor de todos os cristãos. [pausa] Segunda: o assunto é fé ou moral. [pausa] Terceira: ele define aquilo de forma definitiva, para a Igreja inteira. [pausa] Faltou uma chave? (seco) Cofre fechado.",
+      "locucao": "O dogma é de 1870, do Concílio Vaticano Primeiro, [pausa] e funciona como um cofre de três fechaduras. [pausa] Pra abrir, precisa das três chaves ao mesmo tempo. [pausa] Primeira chave: quem fala. [pausa] Não é o papa dando opinião pessoal: [pausa] é o papa falando oficialmente, como pastor da Igreja inteira. [pausa] Segunda chave: sobre o quê ele fala. [pausa] Tem que ser fé ou moral: [pausa] aquilo em que a gente crê e o jeito como a gente deve viver. [pausa] (sorrindo) Palpite de futebol não conta. [pausa] Terceira chave: como ele fala. [pausa] Ele bate o martelo: [pausa] declara que aquilo é verdade definitiva, que a Igreja inteira deve crer. [pausa] Faltou uma chave? (seco) Cofre fechado.",
       "gatilhos": [
         {
-          "palavra": "Primeira",
+          "palavra": "Primeira chave",
           "evento": "cadeado1"
         },
         {
-          "palavra": "Segunda",
+          "palavra": "Segunda chave",
           "evento": "cadeado2"
         },
         {
-          "palavra": "Terceira",
+          "palavra": "Terceira chave",
           "evento": "cadeado3"
+        },
+        {
+          "palavra": "bate o martelo",
+          "evento": "martelo"
         },
         {
           "palavra": "Faltou uma chave",
@@ -208,8 +212,23 @@
           "conteudo": "UM COFRE,\n{TRÊS FECHADURAS}",
           "entrada": "pop",
           "palavra": "cofre de três",
-          "ate": "Primeira",
+          "ate": "Primeira chave",
           "posicao": "titulo"
+        },
+        {
+          "conteudo": "3 CHAVES\nAO MESMO TEMPO",
+          "entrada": "pop",
+          "palavra": "precisa das três",
+          "ate": "Primeira chave",
+          "posicao": "subtitulo"
+        },
+        {
+          "conteudo": "PALPITE DE FUTEBOL\n{NÃO CONTA}",
+          "entrada": "pop",
+          "palavra": "Palpite",
+          "ate": "Terceira chave",
+          "posicao": "titulo",
+          "y": 1040
         }
       ],
       "sfx": [
@@ -220,15 +239,25 @@
         },
         {
           "arquivo": "cadeado-abre",
-          "gatilho": "Primeira"
+          "gatilho": "Primeira chave"
         },
         {
           "arquivo": "cadeado-abre",
-          "gatilho": "Segunda"
+          "gatilho": "Segunda chave"
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Palpite",
+          "volume": -4
         },
         {
           "arquivo": "cadeado-abre",
-          "gatilho": "Terceira"
+          "gatilho": "Terceira chave"
+        },
+        {
+          "arquivo": "thud-livro",
+          "gatilho": "bate o martelo",
+          "deslocamento": 7
         },
         {
           "arquivo": "cadeado-fecha",
@@ -341,7 +370,7 @@
         "cor": "POR QUÊ?",
         "tempo": ""
       },
-      "locucao": "Por quê? [pausa] Jesus disse: \"Tu és Pedro, e sobre esta pedra edificarei a minha Igreja\". [pausa] (sorrindo) O trocadilho é dele: Pedro quer dizer pedra. [pausa] E depois: \"eu roguei por ti, para que a tua fé não desfaleça; e tu, por tua vez, confirma os teus irmãos\". [pausa] A infalibilidade é uma garantia para você: quando a Igreja define a fé, ela não te ensina errado.",
+      "locucao": "Tá, mas por que a Igreja acredita nisso? [pausa] Porque Jesus não deixou a fé solta no mundo. [pausa] Primeiro, ele muda o nome de Simão: \"Tu és Pedro, e sobre esta pedra edificarei a minha Igreja\". [pausa] (sorrindo) O trocadilho é dele: Pedro quer dizer pedra. [pausa] E na mesma hora: \"Eu te darei as chaves do Reino dos céus\". [pausa] Lembra do cofre? As chaves estão com Pedro. [pausa] Na Última Ceia, Jesus reza por ele, só por ele: \"Eu roguei por ti, para que a tua confiança não desfaleça; e tu, por tua vez, confirma os teus irmãos\". [pausa] E, ressuscitado, repete três vezes: \"Apascenta as minhas ovelhas\". [pausa] Pedro morreu, mas a Igreja não morreu com ele, [pausa] porque Jesus prometeu: \"Eis que estou convosco todos os dias, até o fim do mundo\". [pausa] A missão passou aos seus sucessores, os bispos de Roma. [pausa] A infalibilidade é uma garantia para você: quando a Igreja define a fé, ela não te ensina errado.",
       "gatilhos": [
         {
           "palavra": "O trocadilho",
@@ -350,6 +379,10 @@
         {
           "palavra": "quer dizer pedra",
           "evento": "vira"
+        },
+        {
+          "palavra": "A missão passou",
+          "evento": "missao"
         }
       ],
       "textos": [
@@ -358,13 +391,46 @@
           "entrada": "carimbo",
           "palavra": "Tu és Pedro",
           "ate": "O trocadilho",
-          "posicao": "carimbo"
+          "posicao": "carimbo",
+          "y": 1060
+        },
+        {
+          "conteudo": "MT 16,19",
+          "entrada": "carimbo",
+          "palavra": "Eu te darei",
+          "ate": "Lembra do cofre",
+          "posicao": "carimbo",
+          "y": 1060
+        },
+        {
+          "conteudo": "AS CHAVES\n{ESTÃO COM PEDRO}",
+          "entrada": "pop",
+          "palavra": "As chaves estão",
+          "ate": "Na Última Ceia",
+          "posicao": "titulo",
+          "y": 1000
         },
         {
           "conteudo": "LC 22,32",
           "entrada": "carimbo",
-          "palavra": "eu roguei",
-          "ate": "A infalibilidade",
+          "palavra": "Eu roguei",
+          "ate": "E, ressuscitado",
+          "posicao": "carimbo",
+          "y": 1060
+        },
+        {
+          "conteudo": "JO 21,15-17",
+          "entrada": "carimbo",
+          "palavra": "Apascenta",
+          "ate": "Pedro morreu",
+          "posicao": "carimbo",
+          "y": 1060
+        },
+        {
+          "conteudo": "MT 28,20",
+          "entrada": "carimbo",
+          "palavra": "Eis que estou",
+          "ate": "A missão",
           "posicao": "carimbo",
           "y": 1060
         },
@@ -377,6 +443,11 @@
         }
       ],
       "sfx": [
+        {
+          "arquivo": "whoosh",
+          "gatilho": "Porque Jesus",
+          "volume": -6
+        },
         {
           "arquivo": "clack",
           "gatilho": "Tu és Pedro",
@@ -394,8 +465,33 @@
         },
         {
           "arquivo": "clack",
-          "gatilho": "eu roguei",
+          "gatilho": "Eu te darei",
           "volume": -4
+        },
+        {
+          "arquivo": "cadeado-abre",
+          "gatilho": "As chaves estão",
+          "volume": -3
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Eu roguei",
+          "volume": -4
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Apascenta",
+          "volume": -4
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Eis que estou",
+          "volume": -4
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "A missão passou",
+          "volume": -2
         }
       ]
     },

@@ -38,7 +38,8 @@ def main():
     rot = roteiro_de(codigo)
     ts = RAIZ / "roteiro" / f"{codigo}-timestamps.json"
     ts1 = RAIZ / "roteiro" / f"{codigo}-timestamps-1x.json"
-    if not ts1.exists():
+    # tempos recém-sincronizados (sem "a <fator>x" na fonte) substituem a cópia 1x antiga
+    if not ts1.exists() or not json.loads(ts.read_text(encoding="utf-8"))["fonte"].rstrip().endswith("x"):
         shutil.copy(ts, ts1)
     orig = json.loads(ts1.read_text(encoding="utf-8"))
 

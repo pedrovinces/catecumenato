@@ -1,43 +1,43 @@
 {
  "fonte": "narracao-alinhada+pausas",
  "metodo": "DTW de MFCC contra a faixa-guia + encaixe nas bordas de silêncio",
- "gerado": "2026-11-26T16:01:52",
- "duracao": 117.71,
+ "gerado": "2026-11-26T20:31:29",
+ "duracao": 146.483,
  "cenas": [
   {
    "id": "abertura",
-   "inicio": 1.415,
-   "fim": 10.9
+   "inicio": 1.285,
+   "fim": 9.38
   },
   {
    "id": "nao-e",
-   "inicio": 11.6,
-   "fim": 24.74
+   "inicio": 9.81,
+   "fim": 20.1
   },
   {
    "id": "cofre",
-   "inicio": 25.5,
-   "fim": 49.69
+   "inicio": 20.53,
+   "fim": 58.66
   },
   {
    "id": "nada-novo",
-   "inicio": 50.4,
-   "fim": 60.23
+   "inicio": 59.09,
+   "fim": 67.39
   },
   {
    "id": "quantas",
-   "inicio": 61.21,
-   "fim": 73.0
+   "inicio": 67.82,
+   "fim": 78.46
   },
   {
    "id": "porque",
-   "inicio": 73.66,
-   "fim": 102.29
+   "inicio": 78.86,
+   "fim": 133.06
   },
   {
    "id": "fecho",
-   "inicio": 102.98,
-   "fim": 117.37
+   "inicio": 133.5,
+   "fim": 146.15
   }
  ],
  "palavras": [
@@ -45,1891 +45,2913 @@
    "cena": "abertura",
    "i": 0,
    "texto": "Tem",
-   "inicio": 1.415,
-   "fim": 1.569
+   "inicio": 1.285,
+   "fim": 1.408
   },
   {
    "cena": "abertura",
    "i": 1,
    "texto": "gente",
-   "inicio": 1.569,
-   "fim": 1.891
+   "inicio": 1.408,
+   "fim": 1.631
   },
   {
    "cena": "abertura",
    "i": 2,
    "texto": "que",
-   "inicio": 1.891,
-   "fim": 2.066
+   "inicio": 1.631,
+   "fim": 1.77
   },
   {
    "cena": "abertura",
    "i": 3,
    "texto": "acha",
-   "inicio": 2.066,
-   "fim": 2.36
+   "inicio": 1.77,
+   "fim": 1.952
   },
   {
    "cena": "abertura",
    "i": 4,
    "texto": "que,",
-   "inicio": 2.36,
-   "fim": 2.672
+   "inicio": 1.952,
+   "fim": 2.253
   },
   {
    "cena": "abertura",
    "i": 5,
    "texto": "pra",
-   "inicio": 2.672,
-   "fim": 2.896
+   "inicio": 2.253,
+   "fim": 2.418
   },
   {
    "cena": "abertura",
    "i": 6,
    "texto": "quem",
-   "inicio": 2.896,
-   "fim": 3.077
+   "inicio": 2.418,
+   "fim": 2.566
   },
   {
    "cena": "abertura",
    "i": 7,
    "texto": "é",
-   "inicio": 3.077,
-   "fim": 3.127
+   "inicio": 2.566,
+   "fim": 2.616
   },
   {
    "cena": "abertura",
    "i": 8,
    "texto": "católico,",
-   "inicio": 3.106,
-   "fim": 4.07
+   "inicio": 2.597,
+   "fim": 3.52
   },
   {
    "cena": "abertura",
    "i": 9,
    "texto": "tudo",
-   "inicio": 4.39,
-   "fim": 4.795
+   "inicio": 3.69,
+   "fim": 3.968
   },
   {
    "cena": "abertura",
    "i": 10,
    "texto": "o",
-   "inicio": 4.795,
-   "fim": 4.845
+   "inicio": 3.968,
+   "fim": 4.018
   },
   {
    "cena": "abertura",
    "i": 11,
    "texto": "que",
-   "inicio": 4.825,
-   "fim": 4.964
+   "inicio": 3.999,
+   "fim": 4.119
   },
   {
    "cena": "abertura",
    "i": 12,
    "texto": "o",
-   "inicio": 4.964,
-   "fim": 5.014
+   "inicio": 4.119,
+   "fim": 4.169
   },
   {
    "cena": "abertura",
    "i": 13,
    "texto": "papa",
-   "inicio": 4.999,
-   "fim": 5.47
+   "inicio": 4.149,
+   "fim": 4.539
   },
   {
    "cena": "abertura",
    "i": 14,
    "texto": "fala",
-   "inicio": 5.47,
-   "fim": 5.75
+   "inicio": 4.539,
+   "fim": 4.77
   },
   {
    "cena": "abertura",
    "i": 15,
    "texto": "vira",
-   "inicio": 5.75,
-   "fim": 6.032
+   "inicio": 4.77,
+   "fim": 5.003
   },
   {
    "cena": "abertura",
    "i": 16,
    "texto": "dogma",
-   "inicio": 6.032,
-   "fim": 6.425
+   "inicio": 5.003,
+   "fim": 5.421
   },
   {
    "cena": "abertura",
    "i": 17,
    "texto": "na",
-   "inicio": 6.425,
-   "fim": 6.683
+   "inicio": 5.421,
+   "fim": 5.651
   },
   {
    "cena": "abertura",
    "i": 18,
    "texto": "hora.",
-   "inicio": 6.683,
-   "fim": 6.91
+   "inicio": 5.651,
+   "fim": 5.87
   },
   {
    "cena": "abertura",
    "i": 19,
    "texto": "Basta",
-   "inicio": 7.42,
-   "fim": 7.793
+   "inicio": 6.25,
+   "fim": 6.582
   },
   {
    "cena": "abertura",
    "i": 20,
    "texto": "a",
-   "inicio": 7.793,
-   "fim": 7.843
+   "inicio": 6.582,
+   "fim": 6.632
   },
   {
    "cena": "abertura",
    "i": 21,
    "texto": "tia",
-   "inicio": 7.83,
-   "fim": 8.101
+   "inicio": 6.62,
+   "fim": 6.83
   },
   {
    "cena": "abertura",
    "i": 22,
    "texto": "mandar",
-   "inicio": 8.101,
-   "fim": 8.384
+   "inicio": 6.83,
+   "fim": 7.117
   },
   {
    "cena": "abertura",
    "i": 23,
    "texto": "no",
-   "inicio": 8.384,
-   "fim": 8.486
+   "inicio": 7.117,
+   "fim": 7.195
   },
   {
    "cena": "abertura",
    "i": 24,
    "texto": "grupo",
-   "inicio": 8.486,
-   "fim": 8.76
+   "inicio": 7.195,
+   "fim": 7.48
   },
   {
    "cena": "abertura",
    "i": 25,
    "texto": "da",
-   "inicio": 8.76,
-   "fim": 8.871
+   "inicio": 7.48,
+   "fim": 7.591
   },
   {
    "cena": "abertura",
    "i": 26,
    "texto": "família.",
-   "inicio": 8.871,
-   "fim": 9.35
+   "inicio": 7.591,
+   "fim": 8.05
   },
   {
    "cena": "abertura",
    "i": 27,
    "texto": "Não",
-   "inicio": 10.03,
-   "fim": 10.275
+   "inicio": 8.48,
+   "fim": 8.769
   },
   {
    "cena": "abertura",
    "i": 28,
    "texto": "é",
-   "inicio": 10.275,
-   "fim": 10.325
+   "inicio": 8.769,
+   "fim": 8.819
   },
   {
    "cena": "abertura",
    "i": 29,
    "texto": "bem",
-   "inicio": 10.318,
-   "fim": 10.495
+   "inicio": 8.814,
+   "fim": 9.01
   },
   {
    "cena": "abertura",
    "i": 30,
    "texto": "assim.",
-   "inicio": 10.495,
-   "fim": 10.9
+   "inicio": 9.01,
+   "fim": 9.38
   },
   {
    "cena": "nao-e",
    "i": 0,
    "texto": "Entrevista,",
-   "inicio": 11.6,
-   "fim": 12.487
+   "inicio": 9.81,
+   "fim": 10.566
   },
   {
    "cena": "nao-e",
    "i": 1,
    "texto": "livro,",
-   "inicio": 12.487,
-   "fim": 13.35
+   "inicio": 10.566,
+   "fim": 11.131
   },
   {
    "cena": "nao-e",
    "i": 2,
    "texto": "post",
-   "inicio": 13.77,
-   "fim": 14.172
+   "inicio": 11.131,
+   "fim": 11.46
   },
   {
    "cena": "nao-e",
    "i": 3,
    "texto": "nas",
-   "inicio": 14.172,
-   "fim": 14.412
+   "inicio": 11.46,
+   "fim": 11.703
   },
   {
    "cena": "nao-e",
    "i": 4,
    "texto": "redes:",
-   "inicio": 14.412,
-   "fim": 15.0
+   "inicio": 11.703,
+   "fim": 12.3
   },
   {
    "cena": "nao-e",
    "i": 5,
    "texto": "nada",
-   "inicio": 15.23,
-   "fim": 15.746
+   "inicio": 12.51,
+   "fim": 12.922
   },
   {
    "cena": "nao-e",
    "i": 6,
    "texto": "disso",
-   "inicio": 15.746,
-   "fim": 16.092
+   "inicio": 12.922,
+   "fim": 13.207
   },
   {
    "cena": "nao-e",
    "i": 7,
    "texto": "é",
-   "inicio": 16.092,
-   "fim": 16.196
+   "inicio": 13.207,
+   "fim": 13.323
   },
   {
    "cena": "nao-e",
    "i": 8,
    "texto": "infalível.",
-   "inicio": 16.196,
-   "fim": 16.95
+   "inicio": 13.323,
+   "fim": 13.999
   },
   {
    "cena": "nao-e",
    "i": 9,
    "texto": "O",
-   "inicio": 17.27,
-   "fim": 17.375
+   "inicio": 14.186,
+   "fim": 14.275
   },
   {
    "cena": "nao-e",
    "i": 10,
    "texto": "papa",
-   "inicio": 17.375,
-   "fim": 17.933
+   "inicio": 14.275,
+   "fim": 14.557
   },
   {
    "cena": "nao-e",
    "i": 11,
    "texto": "erra",
-   "inicio": 17.933,
-   "fim": 18.19
+   "inicio": 14.557,
+   "fim": 14.76
   },
   {
    "cena": "nao-e",
    "i": 12,
    "texto": "como",
-   "inicio": 18.19,
-   "fim": 18.515
+   "inicio": 14.76,
+   "fim": 15.044
   },
   {
    "cena": "nao-e",
    "i": 13,
    "texto": "qualquer",
-   "inicio": 18.515,
-   "fim": 19.253
+   "inicio": 15.044,
+   "fim": 15.641
   },
   {
    "cena": "nao-e",
    "i": 14,
    "texto": "pessoa.",
-   "inicio": 19.253,
-   "fim": 19.87
+   "inicio": 15.641,
+   "fim": 16.24
   },
   {
    "cena": "nao-e",
    "i": 15,
    "texto": "Mas",
-   "inicio": 20.4,
-   "fim": 20.486
+   "inicio": 16.59,
+   "fim": 16.682
   },
   {
    "cena": "nao-e",
    "i": 16,
    "texto": "atenção:",
-   "inicio": 20.486,
-   "fim": 21.19
+   "inicio": 16.682,
+   "fim": 17.36
   },
   {
    "cena": "nao-e",
    "i": 17,
    "texto": "não",
-   "inicio": 21.83,
-   "fim": 21.979
+   "inicio": 17.54,
+   "fim": 17.679
   },
   {
    "cena": "nao-e",
    "i": 18,
    "texto": "ser",
-   "inicio": 21.979,
-   "fim": 22.14
+   "inicio": 17.679,
+   "fim": 17.857
   },
   {
    "cena": "nao-e",
    "i": 19,
    "texto": "infalível",
-   "inicio": 22.14,
-   "fim": 22.673
+   "inicio": 17.857,
+   "fim": 18.518
   },
   {
    "cena": "nao-e",
    "i": 20,
    "texto": "não",
-   "inicio": 22.673,
-   "fim": 22.838
+   "inicio": 18.518,
+   "fim": 18.727
   },
   {
    "cena": "nao-e",
    "i": 21,
    "texto": "quer",
-   "inicio": 22.838,
-   "fim": 23.08
+   "inicio": 18.727,
+   "fim": 18.928
   },
   {
    "cena": "nao-e",
    "i": 22,
    "texto": "dizer",
-   "inicio": 23.34,
-   "fim": 23.734
+   "inicio": 18.928,
+   "fim": 19.209
   },
   {
    "cena": "nao-e",
    "i": 23,
    "texto": "que",
-   "inicio": 23.734,
-   "fim": 23.926
+   "inicio": 19.209,
+   "fim": 19.372
   },
   {
    "cena": "nao-e",
    "i": 24,
    "texto": "não",
-   "inicio": 23.926,
-   "fim": 24.149
+   "inicio": 19.372,
+   "fim": 19.549
   },
   {
    "cena": "nao-e",
    "i": 25,
    "texto": "vale",
-   "inicio": 24.149,
-   "fim": 24.419
+   "inicio": 19.549,
+   "fim": 19.797
   },
   {
    "cena": "nao-e",
    "i": 26,
    "texto": "nada.",
-   "inicio": 24.419,
-   "fim": 24.74
+   "inicio": 19.797,
+   "fim": 20.1
   },
   {
    "cena": "cofre",
    "i": 0,
    "texto": "O",
-   "inicio": 25.5,
-   "fim": 25.553
+   "inicio": 20.53,
+   "fim": 20.616
   },
   {
    "cena": "cofre",
    "i": 1,
    "texto": "dogma",
-   "inicio": 25.553,
-   "fim": 25.923
+   "inicio": 20.616,
+   "fim": 20.916
   },
   {
    "cena": "cofre",
    "i": 2,
    "texto": "é",
-   "inicio": 25.923,
-   "fim": 26.017
+   "inicio": 20.916,
+   "fim": 21.015
   },
   {
    "cena": "cofre",
    "i": 3,
    "texto": "de",
-   "inicio": 26.017,
-   "fim": 26.113
+   "inicio": 21.015,
+   "fim": 21.1
   },
   {
    "cena": "cofre",
    "i": 4,
    "texto": "1870,",
-   "inicio": 26.113,
-   "fim": 27.553
+   "inicio": 21.1,
+   "fim": 22.254
   },
   {
    "cena": "cofre",
    "i": 5,
    "texto": "do",
-   "inicio": 27.553,
-   "fim": 27.659
+   "inicio": 22.254,
+   "fim": 22.365
   },
   {
    "cena": "cofre",
    "i": 6,
    "texto": "Concílio",
-   "inicio": 27.659,
-   "fim": 28.0
+   "inicio": 22.365,
+   "fim": 22.723
   },
   {
    "cena": "cofre",
    "i": 7,
    "texto": "Vaticano",
-   "inicio": 28.0,
-   "fim": 28.383
+   "inicio": 22.723,
+   "fim": 23.131
   },
   {
    "cena": "cofre",
    "i": 8,
    "texto": "Primeiro,",
-   "inicio": 28.383,
-   "fim": 29.01
+   "inicio": 23.131,
+   "fim": 23.62
   },
   {
    "cena": "cofre",
    "i": 9,
    "texto": "e",
-   "inicio": 29.41,
-   "fim": 29.487
+   "inicio": 23.9,
+   "fim": 23.962
   },
   {
    "cena": "cofre",
    "i": 10,
    "texto": "funciona",
-   "inicio": 29.487,
-   "fim": 30.132
+   "inicio": 23.962,
+   "fim": 24.371
   },
   {
    "cena": "cofre",
    "i": 11,
    "texto": "como",
-   "inicio": 30.132,
-   "fim": 30.468
+   "inicio": 24.371,
+   "fim": 24.534
   },
   {
    "cena": "cofre",
    "i": 12,
    "texto": "um",
-   "inicio": 30.468,
-   "fim": 30.641
+   "inicio": 24.534,
+   "fim": 24.607
   },
   {
    "cena": "cofre",
    "i": 13,
    "texto": "cofre",
-   "inicio": 30.641,
-   "fim": 31.431
+   "inicio": 24.607,
+   "fim": 24.945
   },
   {
    "cena": "cofre",
    "i": 14,
    "texto": "de",
-   "inicio": 31.431,
-   "fim": 31.562
+   "inicio": 24.945,
+   "fim": 25.015
   },
   {
    "cena": "cofre",
    "i": 15,
    "texto": "três",
-   "inicio": 31.562,
-   "fim": 32.104
+   "inicio": 25.015,
+   "fim": 25.318
   },
   {
    "cena": "cofre",
    "i": 16,
    "texto": "fechaduras.",
-   "inicio": 32.104,
-   "fim": 32.91
+   "inicio": 25.318,
+   "fim": 26.01
   },
   {
    "cena": "cofre",
    "i": 17,
-   "texto": "Primeira:",
-   "inicio": 33.45,
-   "fim": 33.94
+   "texto": "Pra",
+   "inicio": 26.31,
+   "fim": 26.366
   },
   {
    "cena": "cofre",
    "i": 18,
-   "texto": "o",
-   "inicio": 34.15,
-   "fim": 34.235
+   "texto": "abrir,",
+   "inicio": 26.366,
+   "fim": 26.922
   },
   {
    "cena": "cofre",
    "i": 19,
-   "texto": "papa",
-   "inicio": 34.235,
-   "fim": 34.647
+   "texto": "precisa",
+   "inicio": 26.922,
+   "fim": 27.281
   },
   {
    "cena": "cofre",
    "i": 20,
-   "texto": "fala",
-   "inicio": 34.647,
-   "fim": 34.959
+   "texto": "das",
+   "inicio": 27.281,
+   "fim": 27.494
   },
   {
    "cena": "cofre",
    "i": 21,
-   "texto": "oficialmente,",
-   "inicio": 34.959,
-   "fim": 36.045
+   "texto": "três",
+   "inicio": 27.494,
+   "fim": 27.794
   },
   {
    "cena": "cofre",
    "i": 22,
-   "texto": "como",
-   "inicio": 36.045,
-   "fim": 36.29
+   "texto": "chaves",
+   "inicio": 27.794,
+   "fim": 28.161
   },
   {
    "cena": "cofre",
    "i": 23,
-   "texto": "pastor",
-   "inicio": 36.29,
-   "fim": 36.738
+   "texto": "ao",
+   "inicio": 28.161,
+   "fim": 28.232
   },
   {
    "cena": "cofre",
    "i": 24,
-   "texto": "de",
-   "inicio": 36.738,
-   "fim": 36.857
+   "texto": "mesmo",
+   "inicio": 28.232,
+   "fim": 28.522
   },
   {
    "cena": "cofre",
    "i": 25,
-   "texto": "todos",
-   "inicio": 36.857,
-   "fim": 37.174
+   "texto": "tempo.",
+   "inicio": 28.522,
+   "fim": 28.84
   },
   {
    "cena": "cofre",
    "i": 26,
-   "texto": "os",
-   "inicio": 37.174,
-   "fim": 37.356
+   "texto": "Primeira",
+   "inicio": 29.27,
+   "fim": 29.49
   },
   {
    "cena": "cofre",
    "i": 27,
-   "texto": "cristãos.",
-   "inicio": 37.356,
-   "fim": 37.95
+   "texto": "chave:",
+   "inicio": 29.49,
+   "fim": 29.97
   },
   {
    "cena": "cofre",
    "i": 28,
-   "texto": "Segunda:",
-   "inicio": 38.49,
-   "fim": 39.1
+   "texto": "quem",
+   "inicio": 30.29,
+   "fim": 30.602
   },
   {
    "cena": "cofre",
    "i": 29,
-   "texto": "o",
-   "inicio": 39.34,
-   "fim": 39.429
+   "texto": "fala.",
+   "inicio": 30.602,
+   "fim": 30.98
   },
   {
    "cena": "cofre",
    "i": 30,
-   "texto": "assunto",
-   "inicio": 39.429,
-   "fim": 40.018
+   "texto": "Não",
+   "inicio": 31.34,
+   "fim": 31.468
   },
   {
    "cena": "cofre",
    "i": 31,
    "texto": "é",
-   "inicio": 40.018,
-   "fim": 40.141
+   "inicio": 31.468,
+   "fim": 31.518
   },
   {
    "cena": "cofre",
    "i": 32,
-   "texto": "fé",
-   "inicio": 40.141,
-   "fim": 40.461
+   "texto": "o",
+   "inicio": 31.502,
+   "fim": 31.578
   },
   {
    "cena": "cofre",
    "i": 33,
-   "texto": "ou",
-   "inicio": 40.461,
-   "fim": 40.644
+   "texto": "papa",
+   "inicio": 31.578,
+   "fim": 31.772
   },
   {
    "cena": "cofre",
    "i": 34,
-   "texto": "moral.",
-   "inicio": 40.644,
-   "fim": 41.39
+   "texto": "dando",
+   "inicio": 31.772,
+   "fim": 31.983
   },
   {
    "cena": "cofre",
    "i": 35,
-   "texto": "Terceira:",
-   "inicio": 42.09,
-   "fim": 42.68
+   "texto": "opinião",
+   "inicio": 31.983,
+   "fim": 32.398
   },
   {
    "cena": "cofre",
    "i": 36,
-   "texto": "ele",
-   "inicio": 42.94,
-   "fim": 43.11
+   "texto": "pessoal:",
+   "inicio": 32.398,
+   "fim": 32.97
   },
   {
    "cena": "cofre",
    "i": 37,
-   "texto": "define",
-   "inicio": 43.11,
-   "fim": 43.568
+   "texto": "é",
+   "inicio": 33.22,
+   "fim": 33.282
   },
   {
    "cena": "cofre",
    "i": 38,
-   "texto": "aquilo",
-   "inicio": 43.568,
-   "fim": 43.882
+   "texto": "o",
+   "inicio": 33.282,
+   "fim": 33.332
   },
   {
    "cena": "cofre",
    "i": 39,
-   "texto": "de",
-   "inicio": 43.882,
-   "fim": 44.004
+   "texto": "papa",
+   "inicio": 33.325,
+   "fim": 33.533
   },
   {
    "cena": "cofre",
    "i": 40,
-   "texto": "forma",
-   "inicio": 44.004,
-   "fim": 44.366
+   "texto": "falando",
+   "inicio": 33.533,
+   "fim": 34.048
   },
   {
    "cena": "cofre",
    "i": 41,
-   "texto": "definitiva,",
-   "inicio": 44.366,
-   "fim": 45.515
+   "texto": "oficialmente,",
+   "inicio": 34.048,
+   "fim": 35.204
   },
   {
    "cena": "cofre",
    "i": 42,
-   "texto": "para",
-   "inicio": 45.515,
-   "fim": 45.779
+   "texto": "como",
+   "inicio": 35.204,
+   "fim": 35.453
   },
   {
    "cena": "cofre",
    "i": 43,
-   "texto": "a",
-   "inicio": 45.779,
-   "fim": 45.881
+   "texto": "pastor",
+   "inicio": 35.453,
+   "fim": 35.946
   },
   {
    "cena": "cofre",
    "i": 44,
-   "texto": "Igreja",
-   "inicio": 45.881,
-   "fim": 46.265
+   "texto": "da",
+   "inicio": 35.946,
+   "fim": 36.025
   },
   {
    "cena": "cofre",
    "i": 45,
-   "texto": "inteira.",
-   "inicio": 46.265,
-   "fim": 46.56
+   "texto": "Igreja",
+   "inicio": 36.025,
+   "fim": 36.377
   },
   {
    "cena": "cofre",
    "i": 46,
-   "texto": "Faltou",
-   "inicio": 47.24,
-   "fim": 47.604
+   "texto": "inteira.",
+   "inicio": 36.377,
+   "fim": 36.84
   },
   {
    "cena": "cofre",
    "i": 47,
-   "texto": "uma",
-   "inicio": 47.604,
-   "fim": 47.752
+   "texto": "Segunda",
+   "inicio": 37.26,
+   "fim": 37.719
   },
   {
    "cena": "cofre",
    "i": 48,
-   "texto": "chave?",
-   "inicio": 47.752,
-   "fim": 48.47
+   "texto": "chave:",
+   "inicio": 37.719,
+   "fim": 38.304
   },
   {
    "cena": "cofre",
    "i": 49,
-   "texto": "Cofre",
-   "inicio": 48.89,
-   "fim": 49.25
+   "texto": "sobre",
+   "inicio": 38.304,
+   "fim": 38.99
   },
   {
    "cena": "cofre",
    "i": 50,
+   "texto": "o",
+   "inicio": 38.99,
+   "fim": 39.095
+  },
+  {
+   "cena": "cofre",
+   "i": 51,
+   "texto": "quê",
+   "inicio": 39.095,
+   "fim": 39.305
+  },
+  {
+   "cena": "cofre",
+   "i": 52,
+   "texto": "ele",
+   "inicio": 39.305,
+   "fim": 39.462
+  },
+  {
+   "cena": "cofre",
+   "i": 53,
+   "texto": "fala.",
+   "inicio": 39.462,
+   "fim": 39.82
+  },
+  {
+   "cena": "cofre",
+   "i": 54,
+   "texto": "Tem",
+   "inicio": 40.22,
+   "fim": 40.418
+  },
+  {
+   "cena": "cofre",
+   "i": 55,
+   "texto": "que",
+   "inicio": 40.418,
+   "fim": 40.591
+  },
+  {
+   "cena": "cofre",
+   "i": 56,
+   "texto": "ser",
+   "inicio": 40.591,
+   "fim": 40.877
+  },
+  {
+   "cena": "cofre",
+   "i": 57,
+   "texto": "fé",
+   "inicio": 40.877,
+   "fim": 41.168
+  },
+  {
+   "cena": "cofre",
+   "i": 58,
+   "texto": "ou",
+   "inicio": 41.168,
+   "fim": 41.339
+  },
+  {
+   "cena": "cofre",
+   "i": 59,
+   "texto": "moral:",
+   "inicio": 41.339,
+   "fim": 42.08
+  },
+  {
+   "cena": "cofre",
+   "i": 60,
+   "texto": "aquilo",
+   "inicio": 42.27,
+   "fim": 42.819
+  },
+  {
+   "cena": "cofre",
+   "i": 61,
+   "texto": "em",
+   "inicio": 42.819,
+   "fim": 43.044
+  },
+  {
+   "cena": "cofre",
+   "i": 62,
+   "texto": "que",
+   "inicio": 43.044,
+   "fim": 43.161
+  },
+  {
+   "cena": "cofre",
+   "i": 63,
+   "texto": "a",
+   "inicio": 43.161,
+   "fim": 43.286
+  },
+  {
+   "cena": "cofre",
+   "i": 64,
+   "texto": "gente",
+   "inicio": 43.286,
+   "fim": 43.531
+  },
+  {
+   "cena": "cofre",
+   "i": 65,
+   "texto": "crê",
+   "inicio": 43.531,
+   "fim": 43.693
+  },
+  {
+   "cena": "cofre",
+   "i": 66,
+   "texto": "e",
+   "inicio": 43.693,
+   "fim": 43.769
+  },
+  {
+   "cena": "cofre",
+   "i": 67,
+   "texto": "o",
+   "inicio": 43.769,
+   "fim": 43.869
+  },
+  {
+   "cena": "cofre",
+   "i": 68,
+   "texto": "jeito",
+   "inicio": 43.869,
+   "fim": 44.103
+  },
+  {
+   "cena": "cofre",
+   "i": 69,
+   "texto": "como",
+   "inicio": 44.103,
+   "fim": 44.354
+  },
+  {
+   "cena": "cofre",
+   "i": 70,
+   "texto": "a",
+   "inicio": 44.354,
+   "fim": 44.46
+  },
+  {
+   "cena": "cofre",
+   "i": 71,
+   "texto": "gente",
+   "inicio": 44.46,
+   "fim": 44.754
+  },
+  {
+   "cena": "cofre",
+   "i": 72,
+   "texto": "deve",
+   "inicio": 44.754,
+   "fim": 44.975
+  },
+  {
+   "cena": "cofre",
+   "i": 73,
+   "texto": "viver.",
+   "inicio": 44.975,
+   "fim": 45.39
+  },
+  {
+   "cena": "cofre",
+   "i": 74,
+   "texto": "Palpite",
+   "inicio": 45.81,
+   "fim": 46.327
+  },
+  {
+   "cena": "cofre",
+   "i": 75,
+   "texto": "de",
+   "inicio": 46.327,
+   "fim": 46.436
+  },
+  {
+   "cena": "cofre",
+   "i": 76,
+   "texto": "futebol",
+   "inicio": 46.436,
+   "fim": 47.151
+  },
+  {
+   "cena": "cofre",
+   "i": 77,
+   "texto": "não",
+   "inicio": 47.151,
+   "fim": 47.333
+  },
+  {
+   "cena": "cofre",
+   "i": 78,
+   "texto": "conta.",
+   "inicio": 47.333,
+   "fim": 47.83
+  },
+  {
+   "cena": "cofre",
+   "i": 79,
+   "texto": "Terceira",
+   "inicio": 48.25,
+   "fim": 48.505
+  },
+  {
+   "cena": "cofre",
+   "i": 80,
+   "texto": "chave:",
+   "inicio": 48.505,
+   "fim": 49.06
+  },
+  {
+   "cena": "cofre",
+   "i": 81,
+   "texto": "como",
+   "inicio": 49.37,
+   "fim": 49.825
+  },
+  {
+   "cena": "cofre",
+   "i": 82,
+   "texto": "ele",
+   "inicio": 49.825,
+   "fim": 50.051
+  },
+  {
+   "cena": "cofre",
+   "i": 83,
+   "texto": "fala.",
+   "inicio": 50.051,
+   "fim": 50.44
+  },
+  {
+   "cena": "cofre",
+   "i": 84,
+   "texto": "Ele",
+   "inicio": 50.78,
+   "fim": 50.967
+  },
+  {
+   "cena": "cofre",
+   "i": 85,
+   "texto": "bate",
+   "inicio": 50.967,
+   "fim": 51.307
+  },
+  {
+   "cena": "cofre",
+   "i": 86,
+   "texto": "o",
+   "inicio": 51.307,
+   "fim": 51.362
+  },
+  {
+   "cena": "cofre",
+   "i": 87,
+   "texto": "martelo:",
+   "inicio": 51.362,
+   "fim": 51.84
+  },
+  {
+   "cena": "cofre",
+   "i": 88,
+   "texto": "declara",
+   "inicio": 52.04,
+   "fim": 52.482
+  },
+  {
+   "cena": "cofre",
+   "i": 89,
+   "texto": "que",
+   "inicio": 52.482,
+   "fim": 52.584
+  },
+  {
+   "cena": "cofre",
+   "i": 90,
+   "texto": "aquilo",
+   "inicio": 52.584,
+   "fim": 52.799
+  },
+  {
+   "cena": "cofre",
+   "i": 91,
+   "texto": "é",
+   "inicio": 52.799,
+   "fim": 52.884
+  },
+  {
+   "cena": "cofre",
+   "i": 92,
+   "texto": "verdade",
+   "inicio": 52.884,
+   "fim": 53.301
+  },
+  {
+   "cena": "cofre",
+   "i": 93,
+   "texto": "definitiva,",
+   "inicio": 53.301,
+   "fim": 54.29
+  },
+  {
+   "cena": "cofre",
+   "i": 94,
+   "texto": "que",
+   "inicio": 54.56,
+   "fim": 54.697
+  },
+  {
+   "cena": "cofre",
+   "i": 95,
+   "texto": "a",
+   "inicio": 54.697,
+   "fim": 54.795
+  },
+  {
+   "cena": "cofre",
+   "i": 96,
+   "texto": "Igreja",
+   "inicio": 54.795,
+   "fim": 55.145
+  },
+  {
+   "cena": "cofre",
+   "i": 97,
+   "texto": "inteira",
+   "inicio": 55.145,
+   "fim": 55.518
+  },
+  {
+   "cena": "cofre",
+   "i": 98,
+   "texto": "deve",
+   "inicio": 55.518,
+   "fim": 55.774
+  },
+  {
+   "cena": "cofre",
+   "i": 99,
+   "texto": "crer.",
+   "inicio": 55.774,
+   "fim": 56.09
+  },
+  {
+   "cena": "cofre",
+   "i": 100,
+   "texto": "Faltou",
+   "inicio": 56.48,
+   "fim": 56.733
+  },
+  {
+   "cena": "cofre",
+   "i": 101,
+   "texto": "uma",
+   "inicio": 56.733,
+   "fim": 56.873
+  },
+  {
+   "cena": "cofre",
+   "i": 102,
+   "texto": "chave?",
+   "inicio": 56.873,
+   "fim": 57.52
+  },
+  {
+   "cena": "cofre",
+   "i": 103,
+   "texto": "Cofre",
+   "inicio": 57.83,
+   "fim": 58.133
+  },
+  {
+   "cena": "cofre",
+   "i": 104,
    "texto": "fechado.",
-   "inicio": 49.25,
-   "fim": 49.69
+   "inicio": 58.133,
+   "fim": 58.66
   },
   {
    "cena": "nada-novo",
    "i": 0,
    "texto": "E",
-   "inicio": 50.4,
-   "fim": 50.475
+   "inicio": 59.09,
+   "fim": 59.14
   },
   {
    "cena": "nada-novo",
    "i": 1,
    "texto": "mesmo",
-   "inicio": 50.475,
-   "fim": 50.791
+   "inicio": 59.129,
+   "fim": 59.397
   },
   {
    "cena": "nada-novo",
    "i": 2,
    "texto": "com",
-   "inicio": 50.791,
-   "fim": 50.927
+   "inicio": 59.397,
+   "fim": 59.581
   },
   {
    "cena": "nada-novo",
    "i": 3,
    "texto": "o",
-   "inicio": 50.927,
-   "fim": 51.03
+   "inicio": 59.581,
+   "fim": 59.721
   },
   {
    "cena": "nada-novo",
    "i": 4,
    "texto": "cofre",
-   "inicio": 51.03,
-   "fim": 51.327
+   "inicio": 59.721,
+   "fim": 59.952
   },
   {
    "cena": "nada-novo",
    "i": 5,
    "texto": "aberto,",
-   "inicio": 51.327,
-   "fim": 51.92
+   "inicio": 59.952,
+   "fim": 60.34
   },
   {
    "cena": "nada-novo",
    "i": 6,
    "texto": "o",
-   "inicio": 52.2,
-   "fim": 52.292
+   "inicio": 60.34,
+   "fim": 60.424
   },
   {
    "cena": "nada-novo",
    "i": 7,
    "texto": "papa",
-   "inicio": 52.292,
-   "fim": 52.811
+   "inicio": 60.424,
+   "fim": 60.765
   },
   {
    "cena": "nada-novo",
    "i": 8,
    "texto": "não",
-   "inicio": 52.811,
-   "fim": 53.026
+   "inicio": 60.765,
+   "fim": 60.923
   },
   {
    "cena": "nada-novo",
    "i": 9,
    "texto": "inventa",
-   "inicio": 53.026,
-   "fim": 53.767
+   "inicio": 60.923,
+   "fim": 61.49
   },
   {
    "cena": "nada-novo",
    "i": 10,
    "texto": "doutrina:",
-   "inicio": 53.767,
-   "fim": 54.57
+   "inicio": 61.49,
+   "fim": 62.17
   },
   {
    "cena": "nada-novo",
    "i": 11,
    "texto": "ele",
-   "inicio": 54.92,
-   "fim": 55.118
+   "inicio": 62.4,
+   "fim": 62.6
   },
   {
    "cena": "nada-novo",
    "i": 12,
    "texto": "guarda",
-   "inicio": 55.118,
-   "fim": 55.767
+   "inicio": 62.6,
+   "fim": 63.206
   },
   {
    "cena": "nada-novo",
    "i": 13,
    "texto": "e",
-   "inicio": 55.767,
-   "fim": 55.849
+   "inicio": 63.206,
+   "fim": 63.318
   },
   {
    "cena": "nada-novo",
    "i": 14,
    "texto": "explica",
-   "inicio": 55.849,
-   "fim": 56.417
+   "inicio": 63.318,
+   "fim": 63.831
   },
   {
    "cena": "nada-novo",
    "i": 15,
    "texto": "a",
-   "inicio": 56.417,
-   "fim": 56.538
+   "inicio": 63.831,
+   "fim": 63.905
   },
   {
    "cena": "nada-novo",
    "i": 16,
    "texto": "fé",
-   "inicio": 56.538,
-   "fim": 56.759
+   "inicio": 63.905,
+   "fim": 64.105
   },
   {
    "cena": "nada-novo",
    "i": 17,
    "texto": "que",
-   "inicio": 56.759,
-   "fim": 56.932
+   "inicio": 64.105,
+   "fim": 64.218
   },
   {
    "cena": "nada-novo",
    "i": 18,
    "texto": "veio",
-   "inicio": 56.932,
-   "fim": 57.122
+   "inicio": 64.218,
+   "fim": 64.376
   },
   {
    "cena": "nada-novo",
    "i": 19,
    "texto": "dos",
-   "inicio": 57.122,
-   "fim": 57.311
+   "inicio": 64.376,
+   "fim": 64.564
   },
   {
    "cena": "nada-novo",
    "i": 20,
    "texto": "apóstolos.",
-   "inicio": 57.311,
-   "fim": 58.07
+   "inicio": 64.564,
+   "fim": 65.25
   },
   {
    "cena": "nada-novo",
    "i": 21,
    "texto": "Nada",
-   "inicio": 58.43,
-   "fim": 58.768
+   "inicio": 65.6,
+   "fim": 65.941
   },
   {
    "cena": "nada-novo",
    "i": 22,
    "texto": "de",
-   "inicio": 58.768,
-   "fim": 58.895
+   "inicio": 65.941,
+   "fim": 66.066
   },
   {
    "cena": "nada-novo",
    "i": 23,
    "texto": "atualização",
-   "inicio": 58.895,
-   "fim": 59.666
+   "inicio": 66.066,
+   "fim": 66.775
   },
   {
    "cena": "nada-novo",
    "i": 24,
    "texto": "de",
-   "inicio": 59.666,
-   "fim": 59.74
+   "inicio": 66.775,
+   "fim": 66.825
   },
   {
    "cena": "nada-novo",
    "i": 25,
    "texto": "sistema.",
-   "inicio": 59.74,
-   "fim": 60.23
+   "inicio": 66.807,
+   "fim": 67.39
   },
   {
    "cena": "quantas",
    "i": 0,
    "texto": "Desde",
-   "inicio": 61.21,
-   "fim": 61.509
+   "inicio": 67.82,
+   "fim": 68.122
   },
   {
    "cena": "quantas",
    "i": 1,
    "texto": "1870,",
-   "inicio": 61.509,
-   "fim": 63.678
+   "inicio": 68.122,
+   "fim": 69.555
   },
   {
    "cena": "quantas",
    "i": 2,
    "texto": "esse",
-   "inicio": 63.678,
-   "fim": 63.879
+   "inicio": 69.555,
+   "fim": 69.779
   },
   {
    "cena": "quantas",
    "i": 3,
    "texto": "cofre",
-   "inicio": 63.879,
-   "fim": 64.083
+   "inicio": 69.779,
+   "fim": 70.119
   },
   {
    "cena": "quantas",
    "i": 4,
    "texto": "abriu",
-   "inicio": 64.083,
-   "fim": 64.426
+   "inicio": 70.119,
+   "fim": 70.385
   },
   {
    "cena": "quantas",
    "i": 5,
    "texto": "de",
-   "inicio": 64.426,
-   "fim": 64.54
+   "inicio": 70.385,
+   "fim": 70.483
   },
   {
    "cena": "quantas",
    "i": 6,
    "texto": "forma",
-   "inicio": 64.54,
-   "fim": 64.84
+   "inicio": 70.483,
+   "fim": 70.966
   },
   {
    "cena": "quantas",
    "i": 7,
    "texto": "indiscutível",
-   "inicio": 65.18,
-   "fim": 65.921
+   "inicio": 70.966,
+   "fim": 71.876
   },
   {
    "cena": "quantas",
    "i": 8,
    "texto": "uma",
-   "inicio": 65.921,
-   "fim": 65.974
+   "inicio": 71.876,
+   "fim": 72.029
   },
   {
    "cena": "quantas",
    "i": 9,
    "texto": "única",
-   "inicio": 65.974,
-   "fim": 66.261
+   "inicio": 72.029,
+   "fim": 72.22
   },
   {
    "cena": "quantas",
    "i": 10,
    "texto": "vez:",
-   "inicio": 66.261,
-   "fim": 66.64
+   "inicio": 72.22,
+   "fim": 72.6
   },
   {
    "cena": "quantas",
    "i": 11,
    "texto": "a",
-   "inicio": 67.07,
-   "fim": 67.18
+   "inicio": 72.98,
+   "fim": 73.064
   },
   {
    "cena": "quantas",
    "i": 12,
    "texto": "Assunção",
-   "inicio": 67.18,
-   "fim": 67.764
+   "inicio": 73.064,
+   "fim": 73.487
   },
   {
    "cena": "quantas",
    "i": 13,
    "texto": "de",
-   "inicio": 67.764,
-   "fim": 67.833
+   "inicio": 73.487,
+   "fim": 73.595
   },
   {
    "cena": "quantas",
    "i": 14,
    "texto": "Maria,",
-   "inicio": 67.833,
-   "fim": 68.403
+   "inicio": 73.595,
+   "fim": 74.135
   },
   {
    "cena": "quantas",
    "i": 15,
    "texto": "em",
-   "inicio": 68.403,
-   "fim": 68.565
+   "inicio": 74.135,
+   "fim": 74.233
   },
   {
    "cena": "quantas",
    "i": 16,
    "texto": "1950.",
-   "inicio": 68.565,
-   "fim": 69.82
+   "inicio": 74.233,
+   "fim": 75.29
   },
   {
    "cena": "quantas",
    "i": 17,
    "texto": "O",
-   "inicio": 70.39,
-   "fim": 70.454
+   "inicio": 75.72,
+   "fim": 75.805
   },
   {
    "cena": "quantas",
    "i": 18,
    "texto": "Brasil",
-   "inicio": 70.454,
-   "fim": 70.912
+   "inicio": 75.805,
+   "fim": 76.257
   },
   {
    "cena": "quantas",
    "i": 19,
    "texto": "tem",
-   "inicio": 70.912,
-   "fim": 71.187
+   "inicio": 76.257,
+   "fim": 76.513
   },
   {
    "cena": "quantas",
    "i": 20,
    "texto": "muito",
-   "inicio": 71.187,
-   "fim": 71.491
+   "inicio": 76.513,
+   "fim": 76.89
   },
   {
    "cena": "quantas",
    "i": 21,
    "texto": "mais",
-   "inicio": 71.491,
-   "fim": 71.698
+   "inicio": 76.89,
+   "fim": 77.188
   },
   {
    "cena": "quantas",
    "i": 22,
    "texto": "Copa",
-   "inicio": 71.698,
-   "fim": 71.935
+   "inicio": 77.188,
+   "fim": 77.46
   },
   {
    "cena": "quantas",
    "i": 23,
    "texto": "do",
-   "inicio": 71.935,
-   "fim": 72.078
+   "inicio": 77.46,
+   "fim": 77.594
   },
   {
    "cena": "quantas",
    "i": 24,
    "texto": "Mundo",
-   "inicio": 72.078,
-   "fim": 72.4
+   "inicio": 77.594,
+   "fim": 77.877
   },
   {
    "cena": "quantas",
    "i": 25,
    "texto": "do",
-   "inicio": 72.4,
-   "fim": 72.502
+   "inicio": 77.877,
+   "fim": 77.991
   },
   {
    "cena": "quantas",
    "i": 26,
    "texto": "que",
-   "inicio": 72.502,
-   "fim": 72.648
+   "inicio": 77.991,
+   "fim": 78.138
   },
   {
    "cena": "quantas",
    "i": 27,
    "texto": "isso.",
-   "inicio": 72.648,
-   "fim": 73.0
+   "inicio": 78.138,
+   "fim": 78.46
   },
   {
    "cena": "porque",
    "i": 0,
-   "texto": "Por",
-   "inicio": 73.66,
-   "fim": 73.751
+   "texto": "Tá,",
+   "inicio": 78.86,
+   "fim": 79.278
   },
   {
    "cena": "porque",
    "i": 1,
-   "texto": "quê?",
-   "inicio": 73.751,
-   "fim": 74.14
+   "texto": "mas",
+   "inicio": 79.278,
+   "fim": 79.412
   },
   {
    "cena": "porque",
    "i": 2,
-   "texto": "Jesus",
-   "inicio": 74.82,
-   "fim": 75.106
+   "texto": "por",
+   "inicio": 79.412,
+   "fim": 79.603
   },
   {
    "cena": "porque",
    "i": 3,
-   "texto": "disse:",
-   "inicio": 75.106,
-   "fim": 75.76
+   "texto": "que",
+   "inicio": 79.603,
+   "fim": 79.758
   },
   {
    "cena": "porque",
    "i": 4,
-   "texto": "\"Tu",
-   "inicio": 76.42,
-   "fim": 76.627
+   "texto": "a",
+   "inicio": 79.758,
+   "fim": 79.863
   },
   {
    "cena": "porque",
    "i": 5,
-   "texto": "és",
-   "inicio": 76.627,
-   "fim": 76.789
+   "texto": "Igreja",
+   "inicio": 79.863,
+   "fim": 80.281
   },
   {
    "cena": "porque",
    "i": 6,
-   "texto": "Pedro,",
-   "inicio": 76.789,
-   "fim": 77.39
+   "texto": "acredita",
+   "inicio": 80.281,
+   "fim": 80.782
   },
   {
    "cena": "porque",
    "i": 7,
-   "texto": "e",
-   "inicio": 77.57,
-   "fim": 77.664
+   "texto": "nisso?",
+   "inicio": 80.782,
+   "fim": 81.18
   },
   {
    "cena": "porque",
    "i": 8,
-   "texto": "sobre",
-   "inicio": 77.664,
-   "fim": 78.058
+   "texto": "Porque",
+   "inicio": 81.59,
+   "fim": 81.782
   },
   {
    "cena": "porque",
    "i": 9,
-   "texto": "esta",
-   "inicio": 78.058,
-   "fim": 78.36
+   "texto": "Jesus",
+   "inicio": 81.782,
+   "fim": 82.205
   },
   {
    "cena": "porque",
    "i": 10,
-   "texto": "pedra",
-   "inicio": 78.36,
-   "fim": 78.792
+   "texto": "não",
+   "inicio": 82.205,
+   "fim": 82.386
   },
   {
    "cena": "porque",
    "i": 11,
-   "texto": "edificarei",
-   "inicio": 78.792,
-   "fim": 79.43
+   "texto": "deixou",
+   "inicio": 82.386,
+   "fim": 82.776
   },
   {
    "cena": "porque",
    "i": 12,
    "texto": "a",
-   "inicio": 79.43,
-   "fim": 79.504
+   "inicio": 82.776,
+   "fim": 82.898
   },
   {
    "cena": "porque",
    "i": 13,
-   "texto": "minha",
-   "inicio": 79.504,
-   "fim": 79.725
+   "texto": "fé",
+   "inicio": 82.898,
+   "fim": 83.115
   },
   {
    "cena": "porque",
    "i": 14,
-   "texto": "Igreja\".",
-   "inicio": 79.725,
-   "fim": 80.5
+   "texto": "solta",
+   "inicio": 83.115,
+   "fim": 83.543
   },
   {
    "cena": "porque",
    "i": 15,
-   "texto": "O",
-   "inicio": 81.19,
-   "fim": 81.24
+   "texto": "no",
+   "inicio": 83.543,
+   "fim": 83.661
   },
   {
    "cena": "porque",
    "i": 16,
-   "texto": "trocadilho",
-   "inicio": 81.238,
-   "fim": 81.837
+   "texto": "mundo.",
+   "inicio": 83.661,
+   "fim": 84.04
   },
   {
    "cena": "porque",
    "i": 17,
-   "texto": "é",
-   "inicio": 81.837,
-   "fim": 81.921
+   "texto": "Primeiro,",
+   "inicio": 84.47,
+   "fim": 84.931
   },
   {
    "cena": "porque",
    "i": 18,
-   "texto": "dele:",
-   "inicio": 81.921,
-   "fim": 82.44
+   "texto": "ele",
+   "inicio": 84.931,
+   "fim": 85.047
   },
   {
    "cena": "porque",
    "i": 19,
-   "texto": "Pedro",
-   "inicio": 82.97,
-   "fim": 83.47
+   "texto": "muda",
+   "inicio": 85.047,
+   "fim": 85.287
   },
   {
    "cena": "porque",
    "i": 20,
-   "texto": "quer",
-   "inicio": 83.67,
-   "fim": 83.955
+   "texto": "o",
+   "inicio": 85.287,
+   "fim": 85.36
   },
   {
    "cena": "porque",
    "i": 21,
-   "texto": "dizer",
-   "inicio": 83.955,
-   "fim": 84.253
+   "texto": "nome",
+   "inicio": 85.36,
+   "fim": 85.554
   },
   {
    "cena": "porque",
    "i": 22,
-   "texto": "pedra.",
-   "inicio": 84.253,
-   "fim": 84.63
+   "texto": "de",
+   "inicio": 85.554,
+   "fim": 85.669
   },
   {
    "cena": "porque",
    "i": 23,
-   "texto": "E",
-   "inicio": 85.31,
-   "fim": 85.366
+   "texto": "Simão:",
+   "inicio": 85.669,
+   "fim": 86.24
   },
   {
    "cena": "porque",
    "i": 24,
-   "texto": "depois:",
-   "inicio": 85.366,
-   "fim": 86.08
+   "texto": "\"Tu",
+   "inicio": 86.57,
+   "fim": 86.753
   },
   {
    "cena": "porque",
    "i": 25,
-   "texto": "\"eu",
-   "inicio": 86.74,
-   "fim": 86.945
+   "texto": "és",
+   "inicio": 86.753,
+   "fim": 86.888
   },
   {
    "cena": "porque",
    "i": 26,
-   "texto": "roguei",
-   "inicio": 86.945,
-   "fim": 87.311
+   "texto": "Pedro,",
+   "inicio": 86.888,
+   "fim": 87.3
   },
   {
    "cena": "porque",
    "i": 27,
-   "texto": "por",
-   "inicio": 87.311,
-   "fim": 87.502
+   "texto": "e",
+   "inicio": 87.5,
+   "fim": 87.603
   },
   {
    "cena": "porque",
    "i": 28,
-   "texto": "ti,",
-   "inicio": 87.502,
-   "fim": 88.08
+   "texto": "sobre",
+   "inicio": 87.603,
+   "fim": 87.865
   },
   {
    "cena": "porque",
    "i": 29,
-   "texto": "para",
-   "inicio": 88.57,
-   "fim": 88.988
+   "texto": "esta",
+   "inicio": 87.865,
+   "fim": 88.084
   },
   {
    "cena": "porque",
    "i": 30,
-   "texto": "que",
-   "inicio": 88.988,
-   "fim": 89.038
+   "texto": "pedra",
+   "inicio": 88.084,
+   "fim": 88.362
   },
   {
    "cena": "porque",
    "i": 31,
-   "texto": "a",
-   "inicio": 89.012,
-   "fim": 89.078
+   "texto": "edificarei",
+   "inicio": 88.362,
+   "fim": 88.923
   },
   {
    "cena": "porque",
    "i": 32,
-   "texto": "tua",
-   "inicio": 89.078,
-   "fim": 89.353
+   "texto": "a",
+   "inicio": 88.923,
+   "fim": 89.044
   },
   {
    "cena": "porque",
    "i": 33,
-   "texto": "fé",
-   "inicio": 89.353,
-   "fim": 89.563
+   "texto": "minha",
+   "inicio": 89.044,
+   "fim": 89.215
   },
   {
    "cena": "porque",
    "i": 34,
-   "texto": "não",
-   "inicio": 89.563,
-   "fim": 89.716
+   "texto": "Igreja\".",
+   "inicio": 89.215,
+   "fim": 89.82
   },
   {
    "cena": "porque",
    "i": 35,
-   "texto": "desfaleça;",
-   "inicio": 89.716,
-   "fim": 90.61
+   "texto": "O",
+   "inicio": 90.22,
+   "fim": 90.283
   },
   {
    "cena": "porque",
    "i": 36,
-   "texto": "e",
-   "inicio": 91.08,
-   "fim": 91.143
+   "texto": "trocadilho",
+   "inicio": 90.283,
+   "fim": 90.883
   },
   {
    "cena": "porque",
    "i": 37,
-   "texto": "tu,",
-   "inicio": 91.143,
-   "fim": 91.451
+   "texto": "é",
+   "inicio": 90.883,
+   "fim": 90.962
   },
   {
    "cena": "porque",
    "i": 38,
-   "texto": "por",
-   "inicio": 91.451,
-   "fim": 91.603
+   "texto": "dele:",
+   "inicio": 90.962,
+   "fim": 91.28
   },
   {
    "cena": "porque",
    "i": 39,
-   "texto": "tua",
-   "inicio": 91.603,
-   "fim": 91.738
+   "texto": "Pedro",
+   "inicio": 91.48,
+   "fim": 91.864
   },
   {
    "cena": "porque",
    "i": 40,
-   "texto": "vez,",
-   "inicio": 91.738,
-   "fim": 92.38
+   "texto": "quer",
+   "inicio": 91.864,
+   "fim": 92.127
   },
   {
    "cena": "porque",
    "i": 41,
-   "texto": "confirma",
-   "inicio": 92.81,
-   "fim": 93.405
+   "texto": "dizer",
+   "inicio": 92.127,
+   "fim": 92.354
   },
   {
    "cena": "porque",
    "i": 42,
-   "texto": "os",
-   "inicio": 93.405,
-   "fim": 93.56
+   "texto": "pedra.",
+   "inicio": 92.354,
+   "fim": 92.74
   },
   {
    "cena": "porque",
    "i": 43,
-   "texto": "teus",
-   "inicio": 93.56,
-   "fim": 93.776
+   "texto": "E",
+   "inicio": 93.17,
+   "fim": 93.232
   },
   {
    "cena": "porque",
    "i": 44,
-   "texto": "irmãos\".",
-   "inicio": 93.776,
-   "fim": 94.47
+   "texto": "na",
+   "inicio": 93.232,
+   "fim": 93.322
   },
   {
    "cena": "porque",
    "i": 45,
-   "texto": "A",
-   "inicio": 95.14,
-   "fim": 95.245
+   "texto": "mesma",
+   "inicio": 93.322,
+   "fim": 93.551
   },
   {
    "cena": "porque",
    "i": 46,
-   "texto": "infalibilidade",
-   "inicio": 95.245,
-   "fim": 96.296
+   "texto": "hora:",
+   "inicio": 93.551,
+   "fim": 94.03
   },
   {
    "cena": "porque",
    "i": 47,
-   "texto": "é",
-   "inicio": 96.296,
-   "fim": 96.373
+   "texto": "\"Eu",
+   "inicio": 94.42,
+   "fim": 94.661
   },
   {
    "cena": "porque",
    "i": 48,
-   "texto": "uma",
-   "inicio": 96.373,
-   "fim": 96.53
+   "texto": "te",
+   "inicio": 94.661,
+   "fim": 94.814
   },
   {
    "cena": "porque",
    "i": 49,
-   "texto": "garantia",
-   "inicio": 96.76,
-   "fim": 97.287
+   "texto": "darei",
+   "inicio": 94.814,
+   "fim": 95.124
   },
   {
    "cena": "porque",
    "i": 50,
-   "texto": "para",
-   "inicio": 97.287,
-   "fim": 97.499
+   "texto": "as",
+   "inicio": 95.124,
+   "fim": 95.29
   },
   {
    "cena": "porque",
    "i": 51,
-   "texto": "você:",
-   "inicio": 97.499,
-   "fim": 98.39
+   "texto": "chaves",
+   "inicio": 95.29,
+   "fim": 95.633
   },
   {
    "cena": "porque",
    "i": 52,
-   "texto": "quando",
-   "inicio": 99.05,
-   "fim": 99.383
+   "texto": "do",
+   "inicio": 95.633,
+   "fim": 95.757
   },
   {
    "cena": "porque",
    "i": 53,
-   "texto": "a",
-   "inicio": 99.383,
-   "fim": 99.47
+   "texto": "Reino",
+   "inicio": 95.757,
+   "fim": 96.003
   },
   {
    "cena": "porque",
    "i": 54,
-   "texto": "Igreja",
-   "inicio": 99.47,
-   "fim": 99.818
+   "texto": "dos",
+   "inicio": 96.003,
+   "fim": 96.204
   },
   {
    "cena": "porque",
    "i": 55,
-   "texto": "define",
-   "inicio": 99.818,
-   "fim": 100.164
+   "texto": "céus\".",
+   "inicio": 96.204,
+   "fim": 96.65
   },
   {
    "cena": "porque",
    "i": 56,
-   "texto": "a",
-   "inicio": 100.164,
-   "fim": 100.247
+   "texto": "Lembra",
+   "inicio": 97.06,
+   "fim": 97.24
   },
   {
    "cena": "porque",
    "i": 57,
-   "texto": "fé,",
-   "inicio": 100.247,
-   "fim": 100.54
+   "texto": "do",
+   "inicio": 97.24,
+   "fim": 97.321
   },
   {
    "cena": "porque",
    "i": 58,
-   "texto": "ela",
-   "inicio": 100.92,
-   "fim": 101.127
+   "texto": "cofre?",
+   "inicio": 97.321,
+   "fim": 97.89
   },
   {
    "cena": "porque",
    "i": 59,
-   "texto": "não",
-   "inicio": 101.127,
-   "fim": 101.308
+   "texto": "As",
+   "inicio": 98.27,
+   "fim": 98.446
   },
   {
    "cena": "porque",
    "i": 60,
-   "texto": "te",
-   "inicio": 101.308,
-   "fim": 101.476
+   "texto": "chaves",
+   "inicio": 98.446,
+   "fim": 98.772
   },
   {
    "cena": "porque",
    "i": 61,
-   "texto": "ensina",
-   "inicio": 101.476,
-   "fim": 101.923
+   "texto": "estão",
+   "inicio": 98.772,
+   "fim": 99.049
   },
   {
    "cena": "porque",
    "i": 62,
+   "texto": "com",
+   "inicio": 99.049,
+   "fim": 99.214
+  },
+  {
+   "cena": "porque",
+   "i": 63,
+   "texto": "Pedro.",
+   "inicio": 99.214,
+   "fim": 99.57
+  },
+  {
+   "cena": "porque",
+   "i": 64,
+   "texto": "Na",
+   "inicio": 99.99,
+   "fim": 100.04
+  },
+  {
+   "cena": "porque",
+   "i": 65,
+   "texto": "Última",
+   "inicio": 100.018,
+   "fim": 100.316
+  },
+  {
+   "cena": "porque",
+   "i": 66,
+   "texto": "Ceia,",
+   "inicio": 100.316,
+   "fim": 100.725
+  },
+  {
+   "cena": "porque",
+   "i": 67,
+   "texto": "Jesus",
+   "inicio": 100.725,
+   "fim": 101.064
+  },
+  {
+   "cena": "porque",
+   "i": 68,
+   "texto": "reza",
+   "inicio": 101.064,
+   "fim": 101.33
+  },
+  {
+   "cena": "porque",
+   "i": 69,
+   "texto": "por",
+   "inicio": 101.33,
+   "fim": 101.542
+  },
+  {
+   "cena": "porque",
+   "i": 70,
+   "texto": "ele,",
+   "inicio": 101.542,
+   "fim": 101.939
+  },
+  {
+   "cena": "porque",
+   "i": 71,
+   "texto": "só",
+   "inicio": 101.939,
+   "fim": 102.347
+  },
+  {
+   "cena": "porque",
+   "i": 72,
+   "texto": "por",
+   "inicio": 102.347,
+   "fim": 102.576
+  },
+  {
+   "cena": "porque",
+   "i": 73,
+   "texto": "ele:",
+   "inicio": 102.576,
+   "fim": 103.15
+  },
+  {
+   "cena": "porque",
+   "i": 74,
+   "texto": "\"Eu",
+   "inicio": 103.58,
+   "fim": 103.768
+  },
+  {
+   "cena": "porque",
+   "i": 75,
+   "texto": "roguei",
+   "inicio": 103.768,
+   "fim": 104.058
+  },
+  {
+   "cena": "porque",
+   "i": 76,
+   "texto": "por",
+   "inicio": 104.058,
+   "fim": 104.225
+  },
+  {
+   "cena": "porque",
+   "i": 77,
+   "texto": "ti,",
+   "inicio": 104.225,
+   "fim": 104.7
+  },
+  {
+   "cena": "porque",
+   "i": 78,
+   "texto": "para",
+   "inicio": 105.11,
+   "fim": 105.508
+  },
+  {
+   "cena": "porque",
+   "i": 79,
+   "texto": "que",
+   "inicio": 105.508,
+   "fim": 105.558
+  },
+  {
+   "cena": "porque",
+   "i": 80,
+   "texto": "a",
+   "inicio": 105.532,
+   "fim": 105.597
+  },
+  {
+   "cena": "porque",
+   "i": 81,
+   "texto": "tua",
+   "inicio": 105.597,
+   "fim": 105.77
+  },
+  {
+   "cena": "porque",
+   "i": 82,
+   "texto": "confiança",
+   "inicio": 105.77,
+   "fim": 106.225
+  },
+  {
+   "cena": "porque",
+   "i": 83,
+   "texto": "não",
+   "inicio": 106.225,
+   "fim": 106.317
+  },
+  {
+   "cena": "porque",
+   "i": 84,
+   "texto": "desfaleça;",
+   "inicio": 106.317,
+   "fim": 107.14
+  },
+  {
+   "cena": "porque",
+   "i": 85,
+   "texto": "e",
+   "inicio": 107.37,
+   "fim": 107.435
+  },
+  {
+   "cena": "porque",
+   "i": 86,
+   "texto": "tu,",
+   "inicio": 107.435,
+   "fim": 107.637
+  },
+  {
+   "cena": "porque",
+   "i": 87,
+   "texto": "por",
+   "inicio": 107.637,
+   "fim": 107.755
+  },
+  {
+   "cena": "porque",
+   "i": 88,
+   "texto": "tua",
+   "inicio": 107.755,
+   "fim": 107.921
+  },
+  {
+   "cena": "porque",
+   "i": 89,
+   "texto": "vez,",
+   "inicio": 107.921,
+   "fim": 108.45
+  },
+  {
+   "cena": "porque",
+   "i": 90,
+   "texto": "confirma",
+   "inicio": 108.72,
+   "fim": 109.349
+  },
+  {
+   "cena": "porque",
+   "i": 91,
+   "texto": "os",
+   "inicio": 109.349,
+   "fim": 109.506
+  },
+  {
+   "cena": "porque",
+   "i": 92,
+   "texto": "teus",
+   "inicio": 109.506,
+   "fim": 109.693
+  },
+  {
+   "cena": "porque",
+   "i": 93,
+   "texto": "irmãos\".",
+   "inicio": 109.693,
+   "fim": 110.18
+  },
+  {
+   "cena": "porque",
+   "i": 94,
+   "texto": "E,",
+   "inicio": 110.59,
+   "fim": 110.64
+  },
+  {
+   "cena": "porque",
+   "i": 95,
+   "texto": "ressuscitado,",
+   "inicio": 110.621,
+   "fim": 111.515
+  },
+  {
+   "cena": "porque",
+   "i": 96,
+   "texto": "repete",
+   "inicio": 111.515,
+   "fim": 111.922
+  },
+  {
+   "cena": "porque",
+   "i": 97,
+   "texto": "três",
+   "inicio": 111.922,
+   "fim": 112.235
+  },
+  {
+   "cena": "porque",
+   "i": 98,
+   "texto": "vezes:",
+   "inicio": 112.235,
+   "fim": 112.81
+  },
+  {
+   "cena": "porque",
+   "i": 99,
+   "texto": "\"Apascenta",
+   "inicio": 113.02,
+   "fim": 113.598
+  },
+  {
+   "cena": "porque",
+   "i": 100,
+   "texto": "as",
+   "inicio": 113.598,
+   "fim": 113.66
+  },
+  {
+   "cena": "porque",
+   "i": 101,
+   "texto": "minhas",
+   "inicio": 113.66,
+   "fim": 113.775
+  },
+  {
+   "cena": "porque",
+   "i": 102,
+   "texto": "ovelhas\".",
+   "inicio": 113.775,
+   "fim": 114.49
+  },
+  {
+   "cena": "porque",
+   "i": 103,
+   "texto": "Pedro",
+   "inicio": 114.9,
+   "fim": 115.149
+  },
+  {
+   "cena": "porque",
+   "i": 104,
+   "texto": "morreu,",
+   "inicio": 115.149,
+   "fim": 115.689
+  },
+  {
+   "cena": "porque",
+   "i": 105,
+   "texto": "mas",
+   "inicio": 115.689,
+   "fim": 115.905
+  },
+  {
+   "cena": "porque",
+   "i": 106,
+   "texto": "a",
+   "inicio": 115.905,
+   "fim": 115.978
+  },
+  {
+   "cena": "porque",
+   "i": 107,
+   "texto": "Igreja",
+   "inicio": 115.978,
+   "fim": 116.382
+  },
+  {
+   "cena": "porque",
+   "i": 108,
+   "texto": "não",
+   "inicio": 116.382,
+   "fim": 116.56
+  },
+  {
+   "cena": "porque",
+   "i": 109,
+   "texto": "morreu",
+   "inicio": 116.56,
+   "fim": 116.943
+  },
+  {
+   "cena": "porque",
+   "i": 110,
+   "texto": "com",
+   "inicio": 116.943,
+   "fim": 117.087
+  },
+  {
+   "cena": "porque",
+   "i": 111,
+   "texto": "ele,",
+   "inicio": 117.087,
+   "fim": 117.36
+  },
+  {
+   "cena": "porque",
+   "i": 112,
+   "texto": "porque",
+   "inicio": 117.66,
+   "fim": 117.832
+  },
+  {
+   "cena": "porque",
+   "i": 113,
+   "texto": "Jesus",
+   "inicio": 117.832,
+   "fim": 118.162
+  },
+  {
+   "cena": "porque",
+   "i": 114,
+   "texto": "prometeu:",
+   "inicio": 118.162,
+   "fim": 118.91
+  },
+  {
+   "cena": "porque",
+   "i": 115,
+   "texto": "\"Eis",
+   "inicio": 119.24,
+   "fim": 119.632
+  },
+  {
+   "cena": "porque",
+   "i": 116,
+   "texto": "que",
+   "inicio": 119.632,
+   "fim": 119.735
+  },
+  {
+   "cena": "porque",
+   "i": 117,
+   "texto": "estou",
+   "inicio": 119.735,
+   "fim": 120.087
+  },
+  {
+   "cena": "porque",
+   "i": 118,
+   "texto": "convosco",
+   "inicio": 120.087,
+   "fim": 120.633
+  },
+  {
+   "cena": "porque",
+   "i": 119,
+   "texto": "todos",
+   "inicio": 120.633,
+   "fim": 120.946
+  },
+  {
+   "cena": "porque",
+   "i": 120,
+   "texto": "os",
+   "inicio": 120.946,
+   "fim": 121.103
+  },
+  {
+   "cena": "porque",
+   "i": 121,
+   "texto": "dias,",
+   "inicio": 121.103,
+   "fim": 121.64
+  },
+  {
+   "cena": "porque",
+   "i": 122,
+   "texto": "até",
+   "inicio": 121.82,
+   "fim": 122.088
+  },
+  {
+   "cena": "porque",
+   "i": 123,
+   "texto": "o",
+   "inicio": 122.088,
+   "fim": 122.182
+  },
+  {
+   "cena": "porque",
+   "i": 124,
+   "texto": "fim",
+   "inicio": 122.182,
+   "fim": 122.465
+  },
+  {
+   "cena": "porque",
+   "i": 125,
+   "texto": "do",
+   "inicio": 122.465,
+   "fim": 122.517
+  },
+  {
+   "cena": "porque",
+   "i": 126,
+   "texto": "mundo\".",
+   "inicio": 122.517,
+   "fim": 122.92
+  },
+  {
+   "cena": "porque",
+   "i": 127,
+   "texto": "A",
+   "inicio": 123.37,
+   "fim": 123.47
+  },
+  {
+   "cena": "porque",
+   "i": 128,
+   "texto": "missão",
+   "inicio": 123.47,
+   "fim": 123.914
+  },
+  {
+   "cena": "porque",
+   "i": 129,
+   "texto": "passou",
+   "inicio": 123.914,
+   "fim": 124.426
+  },
+  {
+   "cena": "porque",
+   "i": 130,
+   "texto": "aos",
+   "inicio": 124.426,
+   "fim": 124.649
+  },
+  {
+   "cena": "porque",
+   "i": 131,
+   "texto": "seus",
+   "inicio": 124.649,
+   "fim": 124.848
+  },
+  {
+   "cena": "porque",
+   "i": 132,
+   "texto": "sucessores,",
+   "inicio": 124.848,
+   "fim": 125.879
+  },
+  {
+   "cena": "porque",
+   "i": 133,
+   "texto": "os",
+   "inicio": 125.879,
+   "fim": 126.058
+  },
+  {
+   "cena": "porque",
+   "i": 134,
+   "texto": "bispos",
+   "inicio": 126.058,
+   "fim": 126.498
+  },
+  {
+   "cena": "porque",
+   "i": 135,
+   "texto": "de",
+   "inicio": 126.498,
+   "fim": 126.627
+  },
+  {
+   "cena": "porque",
+   "i": 136,
+   "texto": "Roma.",
+   "inicio": 126.627,
+   "fim": 126.98
+  },
+  {
+   "cena": "porque",
+   "i": 137,
+   "texto": "A",
+   "inicio": 127.41,
+   "fim": 127.46
+  },
+  {
+   "cena": "porque",
+   "i": 138,
+   "texto": "infalibilidade",
+   "inicio": 127.437,
+   "fim": 128.387
+  },
+  {
+   "cena": "porque",
+   "i": 139,
+   "texto": "é",
+   "inicio": 128.387,
+   "fim": 128.472
+  },
+  {
+   "cena": "porque",
+   "i": 140,
+   "texto": "uma",
+   "inicio": 128.472,
+   "fim": 128.644
+  },
+  {
+   "cena": "porque",
+   "i": 141,
+   "texto": "garantia",
+   "inicio": 128.644,
+   "fim": 129.156
+  },
+  {
+   "cena": "porque",
+   "i": 142,
+   "texto": "para",
+   "inicio": 129.156,
+   "fim": 129.302
+  },
+  {
+   "cena": "porque",
+   "i": 143,
+   "texto": "você:",
+   "inicio": 129.302,
+   "fim": 130.03
+  },
+  {
+   "cena": "porque",
+   "i": 144,
+   "texto": "quando",
+   "inicio": 130.48,
+   "fim": 130.776
+  },
+  {
+   "cena": "porque",
+   "i": 145,
+   "texto": "a",
+   "inicio": 130.776,
+   "fim": 130.838
+  },
+  {
+   "cena": "porque",
+   "i": 146,
+   "texto": "Igreja",
+   "inicio": 130.838,
+   "fim": 131.238
+  },
+  {
+   "cena": "porque",
+   "i": 147,
+   "texto": "define",
+   "inicio": 131.238,
+   "fim": 131.483
+  },
+  {
+   "cena": "porque",
+   "i": 148,
+   "texto": "a",
+   "inicio": 131.483,
+   "fim": 131.578
+  },
+  {
+   "cena": "porque",
+   "i": 149,
+   "texto": "fé,",
+   "inicio": 131.578,
+   "fim": 131.955
+  },
+  {
+   "cena": "porque",
+   "i": 150,
+   "texto": "ela",
+   "inicio": 131.955,
+   "fim": 132.145
+  },
+  {
+   "cena": "porque",
+   "i": 151,
+   "texto": "não",
+   "inicio": 132.145,
+   "fim": 132.317
+  },
+  {
+   "cena": "porque",
+   "i": 152,
+   "texto": "te",
+   "inicio": 132.317,
+   "fim": 132.44
+  },
+  {
+   "cena": "porque",
+   "i": 153,
+   "texto": "ensina",
+   "inicio": 132.44,
+   "fim": 132.75
+  },
+  {
+   "cena": "porque",
+   "i": 154,
    "texto": "errado.",
-   "inicio": 101.923,
-   "fim": 102.29
+   "inicio": 132.75,
+   "fim": 133.06
   },
   {
    "cena": "fecho",
    "i": 0,
    "texto": "Moral",
-   "inicio": 102.98,
-   "fim": 103.167
+   "inicio": 133.5,
+   "fim": 133.712
   },
   {
    "cena": "fecho",
    "i": 1,
    "texto": "da",
-   "inicio": 103.167,
-   "fim": 103.231
+   "inicio": 133.712,
+   "fim": 133.773
   },
   {
    "cena": "fecho",
    "i": 2,
    "texto": "história:",
-   "inicio": 103.231,
-   "fim": 103.86
+   "inicio": 133.773,
+   "fim": 134.37
   },
   {
    "cena": "fecho",
    "i": 3,
    "texto": "nem",
-   "inicio": 104.38,
-   "fim": 104.6
+   "inicio": 134.71,
+   "fim": 135.006
   },
   {
    "cena": "fecho",
    "i": 4,
    "texto": "tudo",
-   "inicio": 104.6,
-   "fim": 104.892
+   "inicio": 135.006,
+   "fim": 135.298
   },
   {
    "cena": "fecho",
    "i": 5,
    "texto": "o",
-   "inicio": 104.892,
-   "fim": 104.993
+   "inicio": 135.298,
+   "fim": 135.399
   },
   {
    "cena": "fecho",
    "i": 6,
    "texto": "que",
-   "inicio": 104.993,
-   "fim": 105.141
+   "inicio": 135.399,
+   "fim": 135.515
   },
   {
    "cena": "fecho",
    "i": 7,
    "texto": "o",
-   "inicio": 105.141,
-   "fim": 105.243
+   "inicio": 135.515,
+   "fim": 135.567
   },
   {
    "cena": "fecho",
    "i": 8,
    "texto": "papa",
-   "inicio": 105.243,
-   "fim": 105.626
+   "inicio": 135.567,
+   "fim": 135.91
   },
   {
    "cena": "fecho",
    "i": 9,
    "texto": "fala",
-   "inicio": 105.626,
-   "fim": 105.928
+   "inicio": 135.91,
+   "fim": 136.171
   },
   {
    "cena": "fecho",
    "i": 10,
    "texto": "é",
-   "inicio": 105.928,
-   "fim": 106.027
+   "inicio": 136.171,
+   "fim": 136.271
   },
   {
    "cena": "fecho",
    "i": 11,
    "texto": "dogma,",
-   "inicio": 106.027,
-   "fim": 106.55
+   "inicio": 136.271,
+   "fim": 136.79
   },
   {
    "cena": "fecho",
    "i": 12,
    "texto": "e",
-   "inicio": 107.05,
-   "fim": 107.153
+   "inicio": 137.1,
+   "fim": 137.177
   },
   {
    "cena": "fecho",
    "i": 13,
    "texto": "nem",
-   "inicio": 107.153,
-   "fim": 107.423
+   "inicio": 137.177,
+   "fim": 137.427
   },
   {
    "cena": "fecho",
    "i": 14,
    "texto": "tudo",
-   "inicio": 107.423,
-   "fim": 107.605
+   "inicio": 137.427,
+   "fim": 137.649
   },
   {
    "cena": "fecho",
    "i": 15,
    "texto": "o",
-   "inicio": 107.605,
-   "fim": 107.694
+   "inicio": 137.649,
+   "fim": 137.732
   },
   {
    "cena": "fecho",
    "i": 16,
    "texto": "que",
-   "inicio": 107.694,
-   "fim": 107.791
+   "inicio": 137.732,
+   "fim": 137.785
   },
   {
    "cena": "fecho",
    "i": 17,
    "texto": "a",
-   "inicio": 107.791,
-   "fim": 107.894
+   "inicio": 137.785,
+   "fim": 137.889
   },
   {
    "cena": "fecho",
    "i": 18,
    "texto": "tia",
-   "inicio": 107.894,
-   "fim": 108.158
+   "inicio": 137.889,
+   "fim": 138.193
   },
   {
    "cena": "fecho",
    "i": 19,
    "texto": "manda",
-   "inicio": 108.158,
-   "fim": 108.448
+   "inicio": 138.193,
+   "fim": 138.372
   },
   {
    "cena": "fecho",
    "i": 20,
    "texto": "no",
-   "inicio": 108.448,
-   "fim": 108.58
+   "inicio": 138.372,
+   "fim": 138.516
   },
   {
    "cena": "fecho",
    "i": 21,
    "texto": "grupo",
-   "inicio": 108.58,
-   "fim": 108.861
+   "inicio": 138.516,
+   "fim": 138.925
   },
   {
    "cena": "fecho",
    "i": 22,
    "texto": "é",
-   "inicio": 108.861,
-   "fim": 108.99
+   "inicio": 138.925,
+   "fim": 139.067
   },
   {
    "cena": "fecho",
    "i": 23,
    "texto": "verdade.",
-   "inicio": 108.99,
-   "fim": 109.52
+   "inicio": 139.067,
+   "fim": 139.69
   },
   {
    "cena": "fecho",
    "i": 24,
    "texto": "Mas",
-   "inicio": 110.12,
-   "fim": 110.293
+   "inicio": 140.09,
+   "fim": 140.235
   },
   {
    "cena": "fecho",
    "i": 25,
    "texto": "quando",
-   "inicio": 110.293,
-   "fim": 110.683
+   "inicio": 140.235,
+   "fim": 140.489
   },
   {
    "cena": "fecho",
    "i": 26,
    "texto": "a",
-   "inicio": 110.683,
-   "fim": 110.775
+   "inicio": 140.489,
+   "fim": 140.598
   },
   {
    "cena": "fecho",
    "i": 27,
    "texto": "Igreja",
-   "inicio": 110.775,
-   "fim": 111.188
+   "inicio": 140.598,
+   "fim": 141.0
   },
   {
    "cena": "fecho",
    "i": 28,
    "texto": "define",
-   "inicio": 111.188,
-   "fim": 111.647
+   "inicio": 141.0,
+   "fim": 141.252
   },
   {
    "cena": "fecho",
    "i": 29,
    "texto": "a",
-   "inicio": 111.647,
-   "fim": 111.734
+   "inicio": 141.252,
+   "fim": 141.351
   },
   {
    "cena": "fecho",
    "i": 30,
    "texto": "fé,",
-   "inicio": 111.734,
-   "fim": 112.09
+   "inicio": 141.351,
+   "fim": 141.78
   },
   {
    "cena": "fecho",
    "i": 31,
    "texto": "dá",
-   "inicio": 112.72,
-   "fim": 112.862
+   "inicio": 142.05,
+   "fim": 142.188
   },
   {
    "cena": "fecho",
    "i": 32,
    "texto": "para",
-   "inicio": 112.862,
-   "fim": 113.12
+   "inicio": 142.188,
+   "fim": 142.446
   },
   {
    "cena": "fecho",
    "i": 33,
    "texto": "confiar.",
-   "inicio": 113.12,
-   "fim": 113.61
+   "inicio": 142.446,
+   "fim": 142.9
   },
   {
    "cena": "fecho",
    "i": 34,
    "texto": "E",
-   "inicio": 114.3,
-   "fim": 114.365
+   "inicio": 143.34,
+   "fim": 143.439
   },
   {
    "cena": "fecho",
    "i": 35,
    "texto": "foi",
-   "inicio": 114.365,
-   "fim": 114.574
+   "inicio": 143.439,
+   "fim": 143.578
   },
   {
    "cena": "fecho",
    "i": 36,
    "texto": "assim",
-   "inicio": 114.574,
-   "fim": 114.884
+   "inicio": 143.578,
+   "fim": 143.828
   },
   {
    "cena": "fecho",
    "i": 37,
    "texto": "que",
-   "inicio": 114.884,
-   "fim": 114.934
+   "inicio": 143.828,
+   "fim": 143.878
   },
   {
    "cena": "fecho",
    "i": 38,
    "texto": "eu",
-   "inicio": 114.927,
-   "fim": 114.977
+   "inicio": 143.867,
+   "fim": 143.968
   },
   {
    "cena": "fecho",
    "i": 39,
    "texto": "aprendi.",
-   "inicio": 114.971,
-   "fim": 115.61
+   "inicio": 143.968,
+   "fim": 144.55
   },
   {
    "cena": "fecho",
    "i": 40,
    "texto": "E",
-   "inicio": 116.2,
-   "fim": 116.258
+   "inicio": 144.94,
+   "fim": 145.008
   },
   {
    "cena": "fecho",
    "i": 41,
    "texto": "agora",
-   "inicio": 116.258,
-   "fim": 116.615
+   "inicio": 145.008,
+   "fim": 145.367
   },
   {
    "cena": "fecho",
    "i": 42,
    "texto": "você",
-   "inicio": 116.615,
-   "fim": 116.961
+   "inicio": 145.367,
+   "fim": 145.723
   },
   {
    "cena": "fecho",
    "i": 43,
    "texto": "também.",
-   "inicio": 116.961,
-   "fim": 117.37
+   "inicio": 145.723,
+   "fim": 146.15
   }
  ],
  "ausentes": []

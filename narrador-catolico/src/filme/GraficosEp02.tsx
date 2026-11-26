@@ -194,12 +194,17 @@ const Cadeados: React.FC = () => {
   if (c1 === undefined || f < c1) return null;
   const faltou = (ev("faltou") ?? Infinity) + 6;
   const fechado = ev("fechado") ?? Infinity;
-  const rotulos = ["OFICIAL\n(EX CATHEDRA)", "FÉ OU\nMORAL", "DEFINITIVO,\nPARA TODOS"];
+  const rotulos = ["QUEM FALA\n(OFICIAL)", "SOBRE O QUÊ\n(FÉ OU MORAL)", "COMO\n(DEFINITIVO)"];
+  // some enquanto o Papa brinca com a bola (título próprio) e volta na terceira chave
+  const pal = useCena().pal;
+  const bola = pal("Palpite");
+  const volta3 = ev("cadeado3") ?? Infinity;
+  const pausaBola = Math.max(interpolate(f, [bola - 6, bola], [1, 0], clamp), interpolate(f, [volta3 - 4, volta3 + 2], [0, 1], clamp));
   const entrada = interpolate(f, [c1, c1 + 8], [0, 1], clamp);
   const saida = interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp);
   return (
     <>
-      <div style={{ position: "absolute", left: AREA.esquerda - 30, width: LARGURA + 60, top: 720, display: "flex", justifyContent: "center", gap: 26, opacity: Math.min(entrada, saida) }}>
+      <div style={{ position: "absolute", left: AREA.esquerda - 30, width: LARGURA + 60, top: 720, display: "flex", justifyContent: "center", gap: 26, opacity: Math.min(entrada, saida, f >= bola - 6 ? pausaBola : 1) }}>
         {[1, 2, 3].map((k) => {
           const e = ev(`cadeado${k}`) ?? Infinity;
           const abre = interpolate(f, [e + 2, e + 8], [0, 1], { ...clamp, easing: Easing.out(Easing.back(2)) });
@@ -214,19 +219,61 @@ const Cadeados: React.FC = () => {
                 <div style={{ position: "absolute", top: -14, left: -6, width: 44, height: 44, borderRadius: 22, backgroundColor: aberto > 0.5 ? OURO_FORTE : "#6E5A3A", color: "#1A1208", fontFamily: SERIFA, fontWeight: 700, fontSize: 26, display: "flex", alignItems: "center", justifyContent: "center" }}>{k}</div>
                 <Cadeado aberto={aberto} vermelho={vermelho} tremor={tremor} />
               </div>
-              <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 25, lineHeight: 1.15, letterSpacing: "0.03em", textAlign: "center", whiteSpace: "pre-line", color: f >= e ? CREME : "rgba(246,235,211,0.35)", textShadow: SOMBRA, backgroundColor: f >= e ? "rgba(18,13,10,0.55)" : "transparent", padding: "4px 10px", borderRadius: 8 }}>
+              <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 24, lineHeight: 1.15, letterSpacing: "0.02em", textAlign: "center", whiteSpace: "pre-line", color: f >= e ? CREME : "rgba(246,235,211,0.35)", textShadow: SOMBRA, backgroundColor: f >= e ? "rgba(18,13,10,0.55)" : "transparent", padding: "4px 10px", borderRadius: 8 }}>
                 {rotulos[k - 1]}
               </div>
             </div>
           );
         })}
       </div>
+      <Martelo />
       {f >= fechado && (
         <div style={{ position: "absolute", left: AREA.esquerda, width: LARGURA, top: 1060, display: "flex", justifyContent: "center", opacity: saida }}>
           <CarimboVermelho texto="COFRE FECHADO" d={f - fechado} tam={62} giro={-5} sub="CÂN. 749 §3" />
         </div>
       )}
     </>
+  );
+};
+
+// ───────────────────────── 3b. martelo: "ele bate o martelo"
+const Martelo: React.FC = () => {
+  const { f, ev, pal } = useCena();
+  const m = ev("martelo");
+  if (m === undefined || f < m - 4) return null;
+  const fim = pal("declara que aquilo") - 2;
+  if (f >= fim) return null;
+  const golpe = m + 7; // instante da batida (o efeito sonoro toca aqui)
+  const giro = interpolate(f, [m - 4, m + 2, golpe], [-8, -48, 6], { ...clamp, easing: Easing.in(Easing.quad) });
+  const assenta = f > golpe ? interpolate(f, [golpe, golpe + 4], [6, 0], clamp) : giro;
+  const onda = f - golpe;
+  const op = Math.min(interpolate(f, [m - 4, m], [0, 1], clamp), interpolate(f, [fim - 6, fim], [1, 0], clamp));
+  const tremor = onda >= 0 && onda < 8 ? Math.sin(onda * 3) * 6 * (1 - onda / 8) : 0;
+  return (
+    <div style={{ position: "absolute", left: 0, width: 1080, top: 330, height: 360, opacity: op, transform: `translateY(${tremor}px) scale(1.3)`, transformOrigin: "47% 70%" }}>
+      <svg width={1080} height={360} viewBox="0 0 1080 360" style={{ overflow: "visible" }}>
+        {/* base de madeira */}
+        <ellipse cx={470} cy={300} rx={120} ry={22} fill="#3B2412" />
+        <rect x={350} y={262} width={240} height={38} rx={10} fill="#6E4320" stroke={OURO} strokeWidth={3} />
+        {/* ondas da batida */}
+        {onda >= 0 && onda < 14 &&
+          [0, 1].map((k) => (
+            <ellipse key={k} cx={470} cy={262} rx={60 + (onda - k * 3) * 16} ry={12 + (onda - k * 3) * 4} fill="none" stroke={OURO_FORTE} strokeWidth={4} opacity={Math.max(0, 1 - (onda - k * 3) / 12)} />
+          ))}
+        {/* martelo: gira em torno da ponta do cabo (à direita) */}
+        <g transform={`rotate(${assenta} 760 120)`}>
+          <rect x={500} y={104} width={268} height={30} rx={14} fill="#8A5A2B" stroke="#3B2412" strokeWidth={3} />
+          <rect x={385} y={52} width={170} height={130} rx={22} fill="#7A4A22" stroke="#3B2412" strokeWidth={4} />
+          <rect x={372} y={60} width={26} height={114} rx={8} fill={OURO_FORTE} />
+          <rect x={542} y={60} width={26} height={114} rx={8} fill={OURO_FORTE} />
+        </g>
+      </svg>
+      {onda >= 2 && (
+        <div style={{ position: "absolute", left: 600, top: 210 }}>
+          <CarimboVermelho texto="DEFINITIVO" d={onda - 2} tam={46} giro={-8} />
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -329,7 +376,7 @@ const PedroPedra: React.FC = () => {
   const { f, ev, pal } = useCena();
   const p = ev("pedra");
   if (p === undefined || f < p) return null;
-  const fim = pal("E depois") - 2;
+  const fim = pal("E na mesma hora") - 2;
   if (f >= fim) return null;
   const d = f - p;
   const v = f - ((ev("vira") ?? Infinity) + 8);
@@ -348,6 +395,46 @@ const PedroPedra: React.FC = () => {
           NO GREGO: PÉTROS · PÉTRA
         </div>
       )}
+    </div>
+  );
+};
+
+// ───────────────────────── 6b. sucessão: de Pedro a Leão XIV
+const Sucessao: React.FC = () => {
+  const { f, ev, pal } = useCena();
+  const m = ev("missao");
+  if (m === undefined || f < m) return null;
+  const fim = pal("A infalibilidade") - 2;
+  if (f >= fim) return null;
+  const d = f - m;
+  const op = Math.min(interpolate(d, [0, 6], [0, 1], clamp), interpolate(f, [fim - 6, fim], [1, 0], clamp));
+  const linha = interpolate(d, [6, 30], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const n = Math.round(interpolate(d, [6, 30], [1, 267], { ...clamp, easing: Easing.inOut(Easing.cubic) }));
+  const chegou = d >= 30;
+  const X0 = 280;
+  const L = 520;
+  const medalha = (texto: string, sub: string, x: number, aceso: boolean, dEntrada: number) => (
+    <div style={{ position: "absolute", left: x - 120, top: 0, width: 240, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, transform: `scale(${pop(dEntrada, 0, 8)})` }}>
+      <div style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: FUNDO, border: `4px solid ${aceso ? OURO_FORTE : OURO}`, boxShadow: aceso ? "0 0 26px rgba(242,193,78,0.7)" : "none", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIFA, fontWeight: 700, fontSize: 40, color: OURO_FORTE }}>✝</div>
+      <div style={{ fontFamily: SERIFA, fontWeight: 700, fontSize: 28, letterSpacing: "0.06em", color: CREME, textShadow: SOMBRA, whiteSpace: "nowrap" }}>{texto}</div>
+      <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 22, letterSpacing: "0.06em", color: OURO, textShadow: SOMBRA, whiteSpace: "nowrap" }}>{sub}</div>
+    </div>
+  );
+  return (
+    <div style={{ position: "absolute", left: 0, width: 1080, top: 860, height: 330, opacity: op }}>
+      <div style={{ position: "absolute", left: 140, width: 800, top: -20, height: 320, borderRadius: 24, backgroundColor: "rgba(10,8,6,0.72)", border: `2px solid ${OURO}` }} />
+      <div style={{ position: "absolute", left: X0, top: 48, width: L * linha, height: 4, background: `linear-gradient(90deg, ${OURO}, ${OURO_FORTE})` }} />
+      {Array.from({ length: 9 }).map((_, i) => {
+        const x = X0 + ((i + 1) / 10) * L;
+        return linha * L >= x - X0 ? <div key={i} style={{ position: "absolute", left: x - 5, top: 45, width: 10, height: 10, borderRadius: 5, backgroundColor: OURO }} /> : null;
+      })}
+      {medalha("SÃO PEDRO", "1º PAPA", X0, false, d)}
+      {d >= 28 && medalha("LEÃO XIV", "HOJE", X0 + L, chegou, d - 28)}
+      <div style={{ position: "absolute", left: 0, width: 1080, top: 172, display: "flex", justifyContent: "center" }}>
+        <div style={{ fontFamily: SERIFA, fontWeight: 700, fontSize: 64, letterSpacing: "0.04em", color: chegou ? OURO_FORTE : CREME, textShadow: SOMBRA, fontVariantNumeric: "tabular-nums" }}>
+          {n}º PAPA
+        </div>
+      </div>
     </div>
   );
 };
@@ -402,7 +489,12 @@ export const GraficosEp02: React.FC = () => {
           <Placar />
         </>
       )}
-      {cena.id === "porque" && <PedroPedra />}
+      {cena.id === "porque" && (
+        <>
+          <PedroPedra />
+          <Sucessao />
+        </>
+      )}
       {cena.id === "fecho" && <RespostaGrupo />}
     </>
   );

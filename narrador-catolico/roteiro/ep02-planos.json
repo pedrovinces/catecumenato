@@ -60,7 +60,7 @@
    }
   },
   {
-   "id": "s08-cofre",
+   "id": "s08b-cofre-3chaves",
    "cena": "cofre",
    "palavra": "e funciona",
    "deslocamento": -3,
@@ -69,21 +69,37 @@
      "z": 1.0
     },
     "para": {
-     "z": 1.08
+     "z": 1.1
     }
    }
   },
   {
    "id": "s09-papa-catedra",
    "cena": "cofre",
-   "palavra": "Primeira",
+   "palavra": "Primeira chave",
    "deslocamento": -3
   },
   {
-   "id": "s08-cofre",
+   "id": "s04-papa-aviao",
+   "chave": "s09a-opiniao",
+   "cena": "cofre",
+   "palavra": "Não é o papa dando",
+   "deslocamento": -3,
+   "trecho": 0.8
+  },
+  {
+   "id": "s09-papa-catedra",
+   "chave": "s09b-catedra",
+   "cena": "cofre",
+   "palavra": "é o papa falando oficialmente",
+   "deslocamento": -3,
+   "trecho": 0.3
+  },
+  {
+   "id": "s08b-cofre-3chaves",
    "chave": "s10-cofre",
    "cena": "cofre",
-   "palavra": "Segunda",
+   "palavra": "Segunda chave",
    "deslocamento": -3,
    "camera": {
     "de": {
@@ -92,6 +108,52 @@
     "para": {
      "z": 1.16,
      "y": -30
+    }
+   }
+  },
+  {
+   "id": "s10b-papa-futebol",
+   "cena": "cofre",
+   "palavra": "Palpite",
+   "deslocamento": -3
+  },
+  {
+   "id": "s08b-cofre-3chaves",
+   "chave": "s11-cofre",
+   "cena": "cofre",
+   "palavra": "Terceira chave",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.16,
+     "y": -30
+    },
+    "para": {
+     "z": 1.04,
+     "y": 0
+    }
+   }
+  },
+  {
+   "id": "s09-papa-catedra",
+   "chave": "s11b-catedra",
+   "cena": "cofre",
+   "palavra": "declara que aquilo",
+   "deslocamento": -3,
+   "trecho": 0.6
+  },
+  {
+   "id": "s08b-cofre-3chaves",
+   "chave": "s11c-cofre",
+   "cena": "cofre",
+   "palavra": "Faltou uma chave",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.04
+    },
+    "para": {
+     "z": 1.12
     }
    }
   },
@@ -133,44 +195,83 @@
    "deslocamento": -3
   },
   {
+   "id": "s16b-jesus-apostolos",
+   "cena": "porque"
+  },
+  {
    "id": "s17-pedro-rocha",
    "cena": "porque",
-   "camera": {
-    "de": {
-     "z": 1.0
-    },
-    "para": {
-     "z": 1.09
-    }
-   }
-  },
-  {
-   "id": "s19-ceia",
-   "cena": "porque",
-   "palavra": "E depois",
+   "palavra": "Primeiro, ele muda",
    "deslocamento": -3,
    "camera": {
     "de": {
      "z": 1.0
     },
     "para": {
-     "z": 1.09
+     "z": 1.06
     }
    }
   },
   {
-   "id": "s20-tia-catecismo",
+   "id": "s18-chaves-pedro",
+   "cena": "porque",
+   "palavra": "E na mesma hora",
+   "deslocamento": -3
+  },
+  {
+   "id": "s08b-cofre-3chaves",
+   "chave": "s18-cofre",
+   "cena": "porque",
+   "palavra": "Lembra do cofre",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.12
+    },
+    "para": {
+     "z": 1.0
+    }
+   }
+  },
+  {
+   "id": "s18-chaves-pedro",
+   "chave": "s18-chaves-b",
+   "cena": "porque",
+   "palavra": "As chaves estão",
+   "deslocamento": -3,
+   "trecho": 3.0
+  },
+  {
+   "id": "s19-ceia-longa",
+   "cena": "porque",
+   "palavra": "Na Última Ceia",
+   "deslocamento": -3
+  },
+  {
+   "id": "s19b-apascenta",
+   "cena": "porque",
+   "palavra": "E, ressuscitado",
+   "deslocamento": -3
+  },
+  {
+   "id": "s19c-convosco",
+   "cena": "porque",
+   "palavra": "Pedro morreu",
+   "deslocamento": -3
+  },
+  {
+   "id": "s06-papa-praca",
+   "chave": "s19d-sucessor",
+   "cena": "porque",
+   "palavra": "A missão passou",
+   "deslocamento": -3,
+   "trecho": 1.0
+  },
+  {
+   "id": "s20-tia-longa",
    "cena": "porque",
    "palavra": "A infalibilidade",
-   "deslocamento": -3,
-   "camera": {
-    "de": {
-     "z": 1.0
-    },
-    "para": {
-     "z": 1.09
-    }
-   }
+   "deslocamento": -3
   },
   {
    "id": "s21a-padre-digitando",
@@ -183,7 +284,7 @@
    "deslocamento": -3
   },
   {
-   "id": "s08-cofre",
+   "id": "s08b-cofre-3chaves",
    "chave": "s22-cofre",
    "cena": "fecho",
    "palavra": "Mas quando",
