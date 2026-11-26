@@ -1,0 +1,83 @@
+{
+ "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+ "estilo": "High-end 3D animated feature film. Smooth, natural, expressive character animation with subtle secondary motion (breathing, blinking, cloth and hair). Keep exactly the same characters, faces, proportions, outfits and setting as the image. One continuous shot, no cuts, no text.",
+ "negativo": "blur, distortion, low quality, morphing face, changing identity, extra fingers, deformed hands, flicker, text, subtitles, watermark, scene cut, camera shake",
+ "nota": "Durações pelo storyboard (narração a 1,25x) com folga de até 1 s; o corte fino é feito com o áudio real. Plano 21 em dois clipes (Padre e Tia).",
+ "clipes": [
+  {
+   "id": "s02-tia-digitando",
+   "duracao": 3,
+   "prompt": "The woman sits on the sofa typing fast on her phone with both thumbs, then taps send with a little flourish and lifts her chin, proud and satisfied, eyebrows raised. Warm late-afternoon light. Very slow push-in."
+  },
+  {
+   "id": "s03-padre-lendo",
+   "duracao": 3,
+   "prompt": "The priest reads his phone with his hand on his chin; he slowly raises one eyebrow and his skeptical half-smile grows, with a natural blink, as if thinking that is not quite right. Sacristy softly out of focus. Static camera with a very slight push-in."
+  },
+  {
+   "id": "s04-papa-aviao",
+   "duracao": 5,
+   "prompt": "The Pope stands in the airplane aisle answering the reporters with a calm smile, gesturing gently with both open hands while he speaks; the journalists around him hold out microphones and phones and shift slightly. Soft light from the cabin windows. Slow gentle camera push-in."
+  },
+  {
+   "id": "s05-papa-oculos",
+   "duracao": 3,
+   "prompt": "The Pope pats the pockets of his white cassock and looks down and around with a puzzled, good-natured expression, searching for his glasses, while the glasses stay resting on top of his head the whole time. Light, affectionate humor. Slow camera tilt up toward his head."
+  },
+  {
+   "id": "s06-papa-praca",
+   "duracao": 5,
+   "prompt": "The Pope speaks with open arms to the attentive crowd in the sunny square, warm smile and gentle gestures; people in the crowd listen and nod. Slow camera pull-back revealing more of the crowd."
+  },
+  {
+   "id": "s09-papa-catedra",
+   "duracao": 4,
+   "prompt": "Seated on the solemn carved golden chair, the Pope raises his right hand in a teaching gesture and speaks calmly and firmly, with a slight nod. Golden light from above, floating dust. Very slow push-in."
+  },
+  {
+   "id": "s12-papa-evangelhos",
+   "duracao": 6,
+   "prompt": "The Pope carefully turns a page of the large ancient Gospel book, then points to a line with his finger and looks up gently, as if explaining it. A beam of window light, golden dust floating. Slow push-in."
+  },
+  {
+   "id": "s15-assuncao",
+   "duracao": 3,
+   "prompt": "Our Lady rises slowly and serenely among golden clouds, her blue mantle and white veil moving softly; the little angels around her float gently and the rays of light pulse softly. Reverent and calm. Slow upward camera movement."
+  },
+  {
+   "id": "s16-torcedor",
+   "duracao": 4,
+   "prompt": "The fan lifts the golden trophy even higher and shouts with joy, bouncing slightly, the flag on his back waving, green and yellow confetti falling all around. Festive energy with smooth motion. Slight camera drift."
+  },
+  {
+   "id": "s17-pedro-rocha",
+   "duracao": 6,
+   "prompt": "Jesus rests his hand on Peter's shoulder and speaks to him with tenderness; Peter listens, moved, and nods slowly. Golden late-afternoon light and a gentle breeze moving their robes. The camera slowly rises and tilts up toward the great rock wall behind them."
+  },
+  {
+   "id": "s19-ceia",
+   "duracao": 5,
+   "prompt": "By warm oil-lamp light, Jesus speaks softly to Peter, looking into his eyes, his hand resting on Peter's hand; Peter listens with emotion. The flames flicker gently; the other apostles stay still in the soft-focus background. Slow, reverent push-in."
+  },
+  {
+   "id": "s20-tia-catecismo",
+   "duracao": 4,
+   "prompt": "The woman reading in the armchair turns a page of the red book and smiles serenely, breathing calmly; steam rises from the teacup beside her. Warm lamp light. Very slow push-in."
+  },
+  {
+   "id": "s21a-padre-digitando",
+   "duracao": 3,
+   "prompt": "The priest types on his phone with both thumbs, a playful half-smile growing at the corner of his mouth, then gives a small satisfied nod as he sends the message. Sacristy softly out of focus. Static camera."
+  },
+  {
+   "id": "s21b-tia-sem-graca",
+   "duracao": 3,
+   "prompt": "The woman on the sofa reads her phone; her smile turns awkward and embarrassed, she rubs her forehead and lets out a small laugh, cheeks blushing. Warm living-room light. Static camera."
+  },
+  {
+   "id": "s23-padre-close",
+   "duracao": 3,
+   "prompt": "Close-up of the priest looking straight at the camera; after a natural blink he points at the viewer with a knowing, friendly smile and raises one eyebrow slightly. Sacristy softly out of focus. Very slow push-in."
+  }
+ ]
+}
