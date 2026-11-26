@@ -1,12 +1,12 @@
 {
   "design_exportacao": "DAHb629araw",
-  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor. Papa e Tia refeitos no estilo caricato do Padre (opção 2 escolhida pelo autor). Padre inspirado no pároco do autor, a partir de foto enviada por ele; todos os personagens fixos no estilo de longa de animação (Disney Pixar).",
+  "observacao": "Imagens em assets/img/ep02/ (1536x2720). Papa com semelhança ao Papa Leão XIV e Padre rejuvenescido (uns 35 anos) a pedido do autor. Papa e Tia refeitos no estilo caricato do Padre (opção 2 escolhida pelo autor). Padre inspirado no pároco do autor, a partir de foto enviada por ele; todos os personagens fixos no estilo de longa de animação (Disney Pixar). Tia inspirada numa senhora real, a partir de foto enviada pelo autor.",
   "midias": {
     "ref-papa": "MAHb9JjBnoI",
-    "ref-tia": "MAHb9ER4h2E",
+    "ref-tia": "MAHcBQCax9c",
     "ref-padre": "MAHcBTvky9Y",
     "s01-celular": "MAHb9PtpXHE",
-    "s02-tia-digitando": "MAHb9Afd8ME",
+    "s02-tia-digitando": "MAHcBTU9arU",
     "s03-padre-lendo": "MAHcBRDdZ74",
     "s04-papa-aviao": "MAHb9DI9Bsc",
     "s05-papa-oculos": "MAHb9ES_jNA",
@@ -20,9 +20,9 @@
     "s16-torcedor": "MAHb9BSetgE",
     "s17-pedro-rocha": "MAHb9NwOru8",
     "s19-ceia": "MAHb9KMN96Q",
-    "s20-tia-catecismo": "MAHb9AFugl0",
+    "s20-tia-catecismo": "MAHcBT-u3FA",
     "s21a-padre-digitando": "MAHcBUlrrRE",
-    "s21b-tia-sem-graca": "MAHb9KrtckY",
+    "s21b-tia-sem-graca": "MAHcBXTrMBY",
     "s23-padre-close": "MAHcBbM8Cl4"
   },
   "paginas": {
@@ -51,13 +51,15 @@
   },
   "referencias": {
     "papa": "MAHb9JjBnoI",
-    "tia": "MAHb9ER4h2E",
+    "tia": "MAHcBQCax9c",
     "padre": "MAHcBTvky9Y",
     "padre_ep01": "MAHb6ylHboQ",
     "papa_realista": "MAHb9MCWP7w",
     "tia_realista": "MAHb9PhJ270",
     "padre_jovem_generico": "MAHb9Ao4xZA",
-    "foto_paroco_upload": "MAHcBRt2CJA"
+    "foto_paroco_upload": "MAHcBRt2CJA",
+    "tia_oculos_vermelhos": "MAHb9ER4h2E",
+    "foto_tia_upload": "MAHcBcE8tKA"
   },
   "descartadas": {
     "papa-inventado": "substituído pela semelhança com Leão XIV",
@@ -79,7 +81,12 @@
     "MAHb9IfMXk4": "s23-padre-close: Padre jovem genérico, trocado pelo Padre inspirado no pároco",
     "MAHcBdKlbeI": "Papa realista A (estilo Disney Pixar escolhido)",
     "MAHcBX-yde4": "Papa realista B (estilo Disney Pixar escolhido)",
-    "MAHcBV-w4Q4": "Padre-pároco realista (estilo Disney Pixar escolhido)"
+    "MAHcBV-w4Q4": "Padre-pároco realista (estilo Disney Pixar escolhido)",
+    "MAHb9ER4h2E": "ref-tia: Tia de óculos vermelhos, trocada pela Tia inspirada na foto",
+    "MAHb9Afd8ME": "s02-tia-digitando: Tia de óculos vermelhos, trocada pela Tia inspirada na foto",
+    "MAHb9AFugl0": "s20-tia-catecismo: Tia de óculos vermelhos, trocada pela Tia inspirada na foto",
+    "MAHb9KrtckY": "s21b-tia-sem-graca: Tia de óculos vermelhos, trocada pela Tia inspirada na foto",
+    "MAHcBR4L6yQ": "ref-tia variação 1 (ficou mais jovem que a foto)"
   },
   "prompts": {
     "ref-papa": {
@@ -90,10 +97,10 @@
       ]
     },
     "ref-tia": {
-      "prompt": "Personagem de animação 3D caricata no estilo de longa-metragem de animação, formato vertical: a mesma senhora da primeira imagem de referência, redesenhada exatamente no mesmo estilo de animação do padre da segunda imagem (olhos grandes e expressivos, traços arredondados e simplificados, pele lisa estilizada, proporções de desenho animado). Manter as características dela: uns 60 anos, cabelo curto grisalho e ondulado, óculos de armação vermelha, brincos pequenos, blusa florida colorida, expressão animada e calorosa. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
+      "prompt": "Personagem de animação 3D caricata no estilo de longa-metragem de animação, formato vertical: a mesma senhora da primeira imagem de referência, redesenhada no mesmo estilo de animação da segunda imagem (olhos grandes e expressivos, traços arredondados, proporções de desenho animado), com forte semelhança com ela e a mesma idade, uns 70 anos: rugas suaves ao redor dos olhos e da boca, bochechas mais cheias, pele madura, cabelo castanho curto e volumoso, ondulado, na altura do queixo, sem óculos, sorriso largo e caloroso com batom rosado, brincos de argola dourados grandes, colar dourado fino, pulseiras douradas. Veste uma blusa sem mangas com gola de camisa e estampa animal em azul-marinho e bege. Retrato de meio corpo, de frente, fundo neutro em tom creme com luz suave de estúdio.",
       "referencias": [
-        "MAHb9PhJ270",
-        "MAHb9Ao4xZA"
+        "MAHcBcE8tKA",
+        "MAHb9ER4h2E"
       ]
     },
     "ref-padre": {
@@ -107,9 +114,9 @@
       "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: mãos de uma pessoa segurando um celular moderno genérico, sem marca, na sala de casa aconchegante, luz dourada de fim de tarde entrando pela janela, sofá e almofadas desfocados ao fundo. A tela do celular está acesa, lisa e clara, sem nenhum texto, ícone ou interface. Plano próximo, de cima para baixo."
     },
     "s02-tia-digitando": {
-      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) sentada no sofá da sala, digitando no celular com os dois polegares, sorriso orgulhoso e sobrancelhas erguidas, como quem manda uma notícia bombástica no grupo da família. Luz quente de fim de tarde, sala aconchegante desfocada. A tela do celular não aparece. Sem texto.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (uns 70 anos, cabelo castanho curto e ondulado, sem óculos, brincos de argola dourados, blusa sem mangas com estampa animal azul-marinho e bege, pulseiras douradas), sentada no sofá da sala, digitando no celular com os dois polegares, sorriso orgulhoso e sobrancelhas erguidas, como quem manda uma notícia bombástica no grupo da família. Luz quente de fim de tarde, sala aconchegante desfocada. A tela do celular não aparece. Sem texto.",
       "referencias": [
-        "MAHb9ER4h2E"
+        "MAHcBQCax9c"
       ]
     },
     "s03-padre-lendo": {
@@ -176,9 +183,9 @@
       ]
     },
     "s20-tia-catecismo": {
-      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida), agora tranquila e em paz, sentada numa poltrona lendo um livro grosso de capa vermelha, uma xícara de chá fumegando na mesinha ao lado, abajur aceso, sorriso sereno. Luz quente e aconchegante. Sem texto legível.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (uns 70 anos, cabelo castanho curto e ondulado, sem óculos, brincos de argola dourados, blusa sem mangas com estampa animal azul-marinho e bege, pulseiras douradas), agora tranquila e em paz, sentada numa poltrona lendo um livro grosso de capa vermelha, uma xícara de chá fumegando na mesinha ao lado, abajur aceso, sorriso sereno. Luz quente e aconchegante. Sem texto legível.",
       "referencias": [
-        "MAHb9ER4h2E"
+        "MAHcBQCax9c"
       ]
     },
     "s21a-padre-digitando": {
@@ -188,9 +195,9 @@
       ]
     },
     "s21b-tia-sem-graca": {
-      "prompt": "Visual de animação 3D caricata com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (óculos de armação vermelha, cabelo curto grisalho, blusa florida) no sofá, olhando o celular com um sorriso amarelo e sem graça, bochechas coradas, uma mão na testa, como quem acaba de levar uma correção divertida no grupo da família. Sala aconchegante desfocada, luz quente. A tela do celular não aparece. Sem texto.",
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: a mesma senhora da imagem de referência (uns 70 anos, cabelo castanho curto e ondulado, sem óculos, brincos de argola dourados, blusa sem mangas com estampa animal azul-marinho e bege, pulseiras douradas) no sofá, olhando o celular com um sorriso amarelo e sem graça, bochechas coradas, uma mão na testa, como quem acaba de levar uma correção divertida no grupo da família. Sala aconchegante desfocada, luz quente. A tela do celular não aparece. Sem texto.",
       "referencias": [
-        "MAHb9ER4h2E"
+        "MAHcBQCax9c"
       ]
     },
     "s23-padre-close": {
