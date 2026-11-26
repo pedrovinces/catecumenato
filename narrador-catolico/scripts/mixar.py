@@ -44,6 +44,13 @@ VOZ_FILTROS = (
     "acompressor=threshold=-24dB:ratio=2.5:attack=8:release=160:makeup=1.5,"
     "acompressor=threshold=-14dB:ratio=6:attack=1:release=60:knee=3"  # pega-picos: crista da fala ~13 dB
 )
+# voz já tratada por scripts/voz_estudio.py (eco, ruído e EQ casada com o ep. 1): só de-esser e dinâmica
+VOZ_FILTROS_ESTUDIO = (
+    "highpass=f=75:poles=2,"
+    "deesser=i=0.3:m=0.5:f=0.5,"
+    "acompressor=threshold=-24dB:ratio=2.5:attack=8:release=160:makeup=1.5,"
+    "acompressor=threshold=-14dB:ratio=6:attack=1:release=60:knee=3"
+)
 SFX_MUSICAIS = {"vinheta-final": 6.0, "vinheta-final-cantada": 6.0, "vinheta-narrador": 14.0, "vinheta-amen": 14.0, "licenciado-turn-down-for-what": 14.0}  # a vinheta toca depois da última fala
 
 
@@ -106,6 +113,13 @@ def main():
     n = int(linha["duracao"] / fps * SR)
 
     # 1. voz tratada (antes, nivela a gravação em -20 LUFS para os compressores trabalharem na faixa certa)
+    roteiro = next(
+        (d for d in (json.loads(q.read_text(encoding="utf-8")) for q in sorted((RAIZ / "roteiro").glob(f"{codigo}-*.json")))
+         if isinstance(d, dict) and "cenas" in d and "slug" in d),
+        {},
+    )
+    estudio = roteiro.get("audio", {}).get("voz") == "estudio"
+    print("cadeia de voz:", "estúdio (voz pré-tratada)" if estudio else "padrão")
     taxa_bruta, bruta = wavfile.read(RAIZ / "assets" / linha["narracao"]["arquivo"])
     bruta = bruta.astype(np.float64) / (32768.0 if bruta.dtype == np.int16 else 1.0)
     pre_ganho = -20.0 - pyln.Meter(taxa_bruta).integrated_loudness(bruta)
@@ -114,7 +128,8 @@ def main():
         subprocess.run(
             [
                 "ffmpeg", "-v", "error", "-y", "-i", str(RAIZ / "assets" / linha["narracao"]["arquivo"]),
-                "-af", VOZ_FILTROS.replace("highpass=f=85:poles=2,highpass", f"volume={pre_ganho:.2f}dB,highpass=f=85:poles=2,highpass", 1),
+                "-af", f"volume={pre_ganho:.2f}dB," + VOZ_FILTROS_ESTUDIO if estudio
+                else VOZ_FILTROS.replace("highpass=f=85:poles=2,highpass", f"volume={pre_ganho:.2f}dB,highpass=f=85:poles=2,highpass", 1),
                 "-ar", str(SR), "-ac", "1", "-c:a", "pcm_s16le", str(tratada),
             ],
             check=True,

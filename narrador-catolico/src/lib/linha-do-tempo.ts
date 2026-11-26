@@ -23,6 +23,7 @@ export type TextoQ = {
   posicao: "titulo" | "subtitulo" | "carimbo" | "letreiro" | "assinatura";
   inicio: number;
   fim: number;
+  y?: number;
 };
 export type CenaQ = {
   id: string;
@@ -220,7 +221,7 @@ export const resolverLinha = (roteiroBruto: unknown, tsBruto: unknown, opcoes: {
         : t.duracao
           ? ini + q(t.duracao)
           : fim - inicio;
-      return { conteudo: t.conteudo, entrada: t.entrada, posicao: t.posicao, inicio: ini, fim: Math.max(f, ini + 6) };
+      return { conteudo: t.conteudo, entrada: t.entrada, posicao: t.posicao, inicio: ini, fim: Math.max(f, ini + 6), y: t.y };
     });
 
     for (const s of cena.sfx) {

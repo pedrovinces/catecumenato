@@ -2,7 +2,7 @@
 """Fundo musical discreto: tapete de acordes sustentados, sem melodia e sem percussão.
 
 Uso: python3 -I scripts/fundo.py ep01   (lê out/<codigo>-linha-do-tempo.json)
-Saída: assets/audio/fundo.wav (48 kHz, estéreo, duração exata do episódio).
+Saída: o arquivo de "audio.trilha" do roteiro, ex. assets/audio/fundo.wav (48 kHz, estéreo, duração exata do episódio).
 
 Feito para ficar atrás da voz: só acordes longos (ataque e soltura lentos), graves suaves, nada acima de
 ~2 kHz (a faixa das consoantes fica livre). A harmonia muda com o clima de cada bloco litúrgico e as
@@ -31,6 +31,13 @@ CLIMA = {
     "vermelho":   [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"])],          # intenso, reverente
     "rosa":       [("D2", ["F#4", "A4", "D5"]), ("C#2", ["E4", "A4", "C#5"]), ("B1", ["D4", "F#4", "B4"]), ("G1", ["D4", "G4", "B4"])],     # alegria
     "fechamento": [("F1", ["C4", "F4", "A4"]), ("G1", ["D4", "G4", "B4"]), ("C2", ["E4", "G4", "C5"])],                                    # resolução
+    # ep. 2
+    "nao-e":      [("G1", ["D4", "G4", "B4"]), ("E2", ["E4", "G4", "B4"]), ("C2", ["E4", "G4", "C5"]), ("D2", ["D4", "F#4", "A4"])],     # ágil, leve
+    "cofre":      [("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"]), ("C2", ["E4", "G4", "C5"]), ("A1", ["C#4", "E4", "A4"])],    # mistério didático
+    "nada-novo":  [("F1", ["C4", "F4", "A4"]), ("D2", ["D4", "F4", "A4", "C5"]), ("Bb1", ["D4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"])],  # firme
+    "quantas":    [("C2", ["E4", "G4", "C5"]), ("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4", "E5"]), ("G1", ["D4", "G4", "B4"])],  # curiosidade
+    "porque":     [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"])],       # reverente
+    "fecho":      [("F1", ["C4", "F4", "A4"]), ("G1", ["D4", "G4", "B4"]), ("C2", ["E4", "G4", "C5"])],                                    # resolução
 }
 DUR_ACORDE = 3.6  # segundos por acorde (alvo)
 CRUZA = 1.6       # sobreposição entre acordes e entre cenas
@@ -105,7 +112,8 @@ def main():
     saida = sosfilt(sos_pb, sosfilt(sos_pa, saida, axis=1), axis=1)
     saida = saida[:, : int(linha["duracao"] / fps * SR)]
     saida *= 0.5 / (np.max(np.abs(saida)) + 1e-9)
-    destino = RAIZ / "assets" / "audio" / "fundo.wav"
+    destino = RAIZ / "assets" / (linha.get("trilha") or "audio/fundo.wav")
+    destino.parent.mkdir(parents=True, exist_ok=True)
     wavfile.write(destino, SR, saida.T.astype(np.float32))
     print(f"{destino.relative_to(RAIZ)}: {saida.shape[1] / SR:.2f} s, {len(linha['cenas'])} blocos")
 

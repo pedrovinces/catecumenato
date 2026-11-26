@@ -11,6 +11,7 @@ import { AREA } from "../components/motor/area";
 import { useCena } from "../components/motor/contexto";
 import { cameraNoQuadro, janelaEm, type PlanoQ } from "./planos";
 import { RevelacaoMarca } from "../marca/Revelacao";
+import { ChatGrupo, GraficosEp02 } from "./GraficosEp02";
 
 const CREME = "#F6EBD3";
 const OURO = "#EBCB86";
@@ -44,16 +45,26 @@ const animar = (t: { inicio: number; fim: number; entrada: TextoQ["entrada"] }, 
 /** Título em serifa; o que vem depois de "=" ganha a cor da cena. */
 const TituloSerifa: React.FC<{ texto: string; cor: NomeCor; max: number; destaqueTudo?: boolean; ouro?: boolean }> = ({ texto, cor, max, destaqueTudo, ouro }) => {
   const linhas = texto.split("\n");
-  const tamanho = Math.min(max, ...linhas.map((l) => fitText({ text: l, withinWidth: LARGURA - 20, fontFamily: SERIFA, fontWeight: "700", letterSpacing: "0.06em" }).fontSize));
+  const tamanho = Math.min(max, ...linhas.map((l) => fitText({ text: l.replace(/[{}]/g, ""), withinWidth: LARGURA - 20, fontFamily: SERIFA, fontWeight: "700", letterSpacing: "0.06em" }).fontSize));
   return (
     <div style={{ textAlign: "center" }}>
       {linhas.map((l, i) => {
         const k = l.indexOf("=");
+        const destaque = ouro ? OURO_FORTE : corDaCena(cor);
+        if (!destaqueTudo && l.includes("{")) {
+          // {trecho} em destaque, em qualquer ponto da linha
+          const pedacos = l.split(/(\{[^}]*\})/).filter(Boolean);
+          return (
+            <div key={i} style={{ fontFamily: SERIFA, fontWeight: 700, fontSize: tamanho, letterSpacing: "0.06em", lineHeight: 1.14, color: CREME, textShadow: SOMBRA, whiteSpace: "nowrap" }}>
+              {pedacos.map((p, j) => (p.startsWith("{") ? <span key={j} style={{ color: destaque }}>{p.slice(1, -1)}</span> : <span key={j}>{p}</span>))}
+            </div>
+          );
+        }
         const partes = destaqueTudo ? [["", l]] : k >= 0 ? [[l.slice(0, k), l.slice(k)]] : [[l, ""]];
         return (
           <div key={i} style={{ fontFamily: SERIFA, fontWeight: 700, fontSize: tamanho, letterSpacing: "0.06em", lineHeight: 1.14, color: CREME, textShadow: SOMBRA, whiteSpace: "nowrap" }}>
             {partes[0][0]}
-            {partes[0][1] && <span style={{ color: ouro ? OURO_FORTE : corDaCena(cor) }}>{partes[0][1]}</span>}
+            {partes[0][1] && <span style={{ color: destaque }}>{partes[0][1]}</span>}
           </div>
         );
       })}
@@ -109,7 +120,7 @@ const Carimbo: React.FC<{ texto: string }> = ({ texto }) => (
 const RotuloBloco: React.FC<{ cor: string; tempo: string; opacidade: number }> = ({ cor, tempo, opacidade }) => (
   <div style={{ position: "absolute", left: AREA.esquerda, width: LARGURA, top: AREA.topo + 8, display: "flex", justifyContent: "center", opacity: opacidade }}>
     <div style={{ fontFamily: SERIFA, fontWeight: 600, fontSize: 28, letterSpacing: "0.24em", color: OURO, backgroundColor: FUNDO, border: `2px solid #A8832E`, padding: "8px 18px 8px 26px", whiteSpace: "nowrap" }}>
-      {cor} · {tempo}
+      {tempo ? `${cor} · ${tempo}` : cor}
     </div>
   </div>
 );
@@ -133,7 +144,7 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
   }
   if (t.posicao === "titulo")
     return (
-      <div style={{ ...base, top: Y_TITULO(temSelo) }}>
+      <div style={{ ...base, top: t.y ?? Y_TITULO(temSelo) }}>
         <TituloSerifa texto={t.conteudo} cor={cor} max={74} />
       </div>
     );
@@ -145,7 +156,7 @@ const TextoFilme: React.FC<{ t: TextoQ; f: number; cor: NomeCor; temSelo: boolea
     );
   if (t.posicao === "carimbo")
     return (
-      <div style={{ ...base, top: 640 }}>
+      <div style={{ ...base, top: t.y ?? 640 }}>
         <Carimbo texto={t.conteudo} />
       </div>
     );
@@ -322,12 +333,16 @@ const RotuloGraca: React.FC<{ d: number }> = ({ d }) => {
 /** Face branca da caixa no clipe p20 (parada durante o trecho): área do rótulo e inclinação da borda de cima. */
 export const CAIXA_GRACA = { x: 640, y: 1000, l: 356, a: 232, giro: -0.8 };
 
-export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = ({ planos, janelas }) => {
+export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codigo?: string }> = ({ planos, janelas, codigo }) => {
   const { cena, f, ev, pal } = useCena();
   const fAbs = cena.inicio + f;
   const temSelo = !!cena.selo;
-  const opSelo = Math.min(interpolate(f, [4, 12], [0, 1], clamp), interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp));
-  const tituloNaTela = cena.textos.some((t) => t.posicao === "titulo" && t.entrada !== "impacto" && f >= t.inicio && f < t.fim);
+  const opSelo = Math.min(
+    interpolate(f, [4, 12], [0, 1], clamp),
+    interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp),
+    codigo === "ep02" ? interpolate(f, [84, 96], [1, 0], clamp) : 1, // no ep. 2 o rótulo sai em 3 s: os rostos ficam no alto
+  );
+  const tituloNaTela = cena.textos.some((t) => t.posicao === "titulo" && t.entrada !== "impacto" && t.y === undefined && f >= t.inicio && f < t.fim);
   const opVeu = temSelo || tituloNaTela ? (tituloNaTela ? 1 : 0.55) : 0;
 
   // anexos: plano visível nesta cena com sobreposição presa à imagem
@@ -338,6 +353,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = 
     const fCam = j ? j.inicio : fAbs;
     const transform = `${j ? "scale(1.05) " : ""}${cameraNoQuadro(p, fCam)}`;
     let conteudo: React.ReactNode = null;
+    if (p.anexo === "grupo") conteudo = <ChatGrupo />;
     if (p.anexo === "placa") conteudo = <Placa op={interpolate(f, [ev("placa") ?? Infinity, (ev("placa") ?? Infinity) + 6], [0, 1], clamp)} />;
     if (p.anexo === "graca") {
       const g = ev("graca") ?? ev("congela") ?? Infinity;
@@ -383,6 +399,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[] }> = 
           ]}
         />
       )}
+      {codigo === "ep02" && <GraficosEp02 />}
       {cena.textos.map((t, i) => (
         <TextoFilme key={i} t={t} f={f} cor={cena.cor} temSelo={temSelo} />
       ))}

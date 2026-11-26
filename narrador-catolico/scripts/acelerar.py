@@ -3,7 +3,7 @@
 
 Uso: python3 -I scripts/acelerar.py ep01 1.25
 
-- Áudio: assets/audio/narracao.wav (original) → assets/audio/narracao-<fator>x.wav, com o atempo do ffmpeg
+- Áudio: o original ("audio.original" do roteiro; padrão assets/audio/narracao.wav) → <mesmo nome>-<fator>x.wav, com o atempo do ffmpeg
   (WSOLA, o mesmo tipo de algoritmo dos players de podcast: preserva o timbre da fala).
 - Tempos: roteiro/<codigo>-timestamps-1x.json guarda os tempos da gravação original (criado na primeira vez);
   roteiro/<codigo>-timestamps.json passa a ter os tempos divididos pelo fator. Rodar de novo com outro
@@ -42,11 +42,12 @@ def main():
         shutil.copy(ts, ts1)
     orig = json.loads(ts1.read_text(encoding="utf-8"))
 
-    fonte = RAIZ / "assets" / "audio" / "narracao.wav"
+    original_rel = json.loads(rot.read_text(encoding="utf-8"))["audio"].get("original", "audio/narracao.wav")
+    fonte = RAIZ / "assets" / original_rel
     if fator == 1:
-        destino_rel = "audio/narracao.wav"
+        destino_rel = original_rel
     else:
-        destino_rel = f"audio/narracao-{fator:g}x.wav"
+        destino_rel = original_rel.rsplit(".", 1)[0] + f"-{fator:g}x.wav"
         destino = RAIZ / "assets" / destino_rel
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(fonte), "-af", f"atempo={fator}", "-c:a", "pcm_s16le", str(destino)], check=True)
         dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(destino)], capture_output=True, text=True, check=True).stdout)

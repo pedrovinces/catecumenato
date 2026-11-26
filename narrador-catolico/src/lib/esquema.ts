@@ -24,6 +24,7 @@ export const Texto = z.object({
   deslocamento: z.number().int().optional(),
   duracao: z.number().positive().optional(), // segundos
   ate: z.string().optional(), // some no início desta palavra
+  y: z.number().optional(), // px do topo (títulos e carimbos fora da posição padrão, longe dos rostos)
 });
 
 export const Sfx = z.object({
@@ -60,7 +61,13 @@ export const Roteiro = z.object({
   slug: z.string(),
   titulo: z.string(),
   handle: z.string().startsWith("@"),
-  audio: z.object({ narracao: z.string(), guia: z.string().optional(), trilha: z.string().optional() }),
+  audio: z.object({
+    narracao: z.string(),
+    guia: z.string().optional(),
+    trilha: z.string().optional(),
+    original: z.string().optional(), // narração em 1x (scripts/acelerar.py parte dela)
+    voz: z.enum(["padrao", "estudio"]).optional(), // "estudio": voz já tratada por scripts/voz_estudio.py
+  }),
   legenda: z
     .object({
       destaque: z.enum(["exata", "clara"]).default("exata"),

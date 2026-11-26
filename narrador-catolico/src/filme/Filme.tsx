@@ -108,7 +108,7 @@ export const Filme: React.FC<PropsFilme> = ({ codigo, linha, planos, audio = tru
       {linha.cenas.map((c) => (
         <Sequence key={c.id} from={c.inicio} durationInFrames={c.duracao} name={`sobreposições ${c.id}`}>
           <ProvedorCena cena={c} linha={linha}>
-            <Sobreposicoes planos={planos} janelas={janelas} />
+            <Sobreposicoes planos={planos} janelas={janelas} codigo={codigo} />
           </ProvedorCena>
         </Sequence>
       ))}

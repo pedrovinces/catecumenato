@@ -9,8 +9,8 @@ const Clipe: React.FC<{ p: PlanoQ; codigo: string; quadros: number }> = ({ p, co
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const disponivel = Math.floor((p.video!.duracao * fps) - p.trecho) - 1;
-  // clipe um pouco curto para o plano: desacelera até 75%; mais curto que isso, segura o último quadro
-  const taxa = disponivel >= quadros ? 1 : disponivel / quadros >= 0.75 ? disponivel / quadros : 1;
+  // clipe um pouco curto para o plano: desacelera até 68%; mais curto que isso, segura o último quadro
+  const taxa = disponivel >= quadros ? 1 : disponivel / quadros >= 0.68 ? disponivel / quadros : 1;
   const video = <OffthreadVideo src={staticFile(`video/${codigo}/${p.id}.mp4`)} trimBefore={p.trecho} playbackRate={taxa} muted style={COBRIR} />;
   if (taxa === 1 && f >= disponivel) return <Freeze frame={disponivel - 1}>{video}</Freeze>;
   return video;

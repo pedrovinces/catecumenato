@@ -1,0 +1,217 @@
+{
+ "_comentario": "Planos do ep. 2. Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. Clipe em assets/video/ep02/<id>.mp4 quando existe; senão, a imagem com movimento de câmera. deslocamento em quadros, trecho em segundos dentro do clipe.",
+ "planos": [
+  {
+   "id": "s01-celular",
+   "cena": "abertura",
+   "anexo": "grupo",
+   "camera": {
+    "de": {
+     "z": 1.0,
+     "y": 0
+    },
+    "para": {
+     "z": 1.07,
+     "y": -20
+    }
+   }
+  },
+  {
+   "id": "s02-tia-digitando",
+   "cena": "abertura",
+   "palavra": "Basta",
+   "deslocamento": -4
+  },
+  {
+   "id": "s03-padre-lendo",
+   "cena": "abertura",
+   "palavra": "Não é bem assim",
+   "deslocamento": -8,
+   "trecho": 1.9
+  },
+  {
+   "id": "s04-papa-aviao",
+   "cena": "nao-e"
+  },
+  {
+   "id": "s05-papa-oculos",
+   "cena": "nao-e",
+   "palavra": "O papa erra",
+   "deslocamento": -3
+  },
+  {
+   "id": "s06-papa-praca",
+   "cena": "nao-e",
+   "palavra": "Mas atenção",
+   "deslocamento": -3
+  },
+  {
+   "id": "s07-concilio",
+   "cena": "cofre",
+   "camera": {
+    "de": {
+     "z": 1.0,
+     "y": 0
+    },
+    "para": {
+     "z": 1.12,
+     "y": 40
+    }
+   }
+  },
+  {
+   "id": "s08-cofre",
+   "cena": "cofre",
+   "palavra": "e funciona",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.08
+    }
+   }
+  },
+  {
+   "id": "s09-papa-catedra",
+   "cena": "cofre",
+   "palavra": "Primeira",
+   "deslocamento": -3
+  },
+  {
+   "id": "s08-cofre",
+   "chave": "s10-cofre",
+   "cena": "cofre",
+   "palavra": "Segunda",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.06
+    },
+    "para": {
+     "z": 1.16,
+     "y": -30
+    }
+   }
+  },
+  {
+   "id": "s12-papa-evangelhos",
+   "cena": "nada-novo",
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.09
+    }
+   }
+  },
+  {
+   "id": "s14-cofre-luz",
+   "cena": "quantas",
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.1,
+     "y": 30
+    }
+   }
+  },
+  {
+   "id": "s15-assuncao",
+   "cena": "quantas",
+   "palavra": "a Assunção",
+   "deslocamento": -3
+  },
+  {
+   "id": "s16-torcedor",
+   "cena": "quantas",
+   "palavra": "O Brasil",
+   "deslocamento": -3
+  },
+  {
+   "id": "s17-pedro-rocha",
+   "cena": "porque",
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.09
+    }
+   }
+  },
+  {
+   "id": "s19-ceia",
+   "cena": "porque",
+   "palavra": "E depois",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.09
+    }
+   }
+  },
+  {
+   "id": "s20-tia-catecismo",
+   "cena": "porque",
+   "palavra": "A infalibilidade",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.09
+    }
+   }
+  },
+  {
+   "id": "s21a-padre-digitando",
+   "cena": "fecho"
+  },
+  {
+   "id": "s21b-tia-sem-graca",
+   "cena": "fecho",
+   "palavra": "e nem tudo o que a tia",
+   "deslocamento": -3
+  },
+  {
+   "id": "s08-cofre",
+   "chave": "s22-cofre",
+   "cena": "fecho",
+   "palavra": "Mas quando",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.14,
+     "y": -20
+    },
+    "para": {
+     "z": 1.0,
+     "y": 0
+    }
+   }
+  },
+  {
+   "id": "s23-padre-close",
+   "cena": "fecho",
+   "palavra": "E foi assim",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.09
+    }
+   }
+  }
+ ]
+}

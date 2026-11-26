@@ -462,6 +462,29 @@ def clack():
     return sala(x, 0.3, 0.1)
 
 
+def cadeado_abre():
+    """Cadeado abrindo: clique metálico duplo (a chave gira e a haste salta) com ressonância curta de latão."""
+    base = np.zeros(int(0.5 * SR))
+    for t0, g in ((0.0, 0.7), (0.07, 1.0)):
+        t = t_(0.3)
+        x = filtro(ruido(0.3), "bandpass", [2500, 9000]) * np.exp(-t / 0.004) * 0.8
+        x += sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t / d) for f, a, d in ((1870, 0.5, 0.05), (3240, 0.35, 0.03), (5100, 0.2, 0.02)))
+        i = int(t0 * SR)
+        base[i : i + len(x)] += x * g
+    t = t_(0.5)
+    base += np.sin(2 * np.pi * 980 * t) * np.exp(-np.maximum(0, t - 0.07) / 0.12) * (t > 0.07) * 0.18
+    return sala(base, 0.35, 0.12)
+
+
+def cadeado_fecha():
+    """Cadeado fechando com força: estalo seco e grave da haste batendo no corpo."""
+    t = t_(0.45)
+    x = filtro(ruido(0.45), "bandpass", [1500, 7000]) * np.exp(-t / 0.006) * 1.0
+    x += np.sin(2 * np.pi * 220 * t) * np.exp(-t / 0.06) * 0.8
+    x += sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t / d) for f, a, d in ((1450, 0.45, 0.07), (2610, 0.3, 0.05)))
+    return sala(x, 0.4, 0.15)
+
+
 def batida_hiphop():
     bpm = 92
     b = 60 / bpm
@@ -552,6 +575,8 @@ GERADORES = {
     "cochichos": cochichos,
     "whoosh": whoosh,
     "clack": clack,
+    "cadeado-abre": cadeado_abre,
+    "cadeado-fecha": cadeado_fecha,
     "batida-hiphop": batida_hiphop,
 }
 

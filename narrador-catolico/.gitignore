@@ -9,3 +9,4 @@ __pycache__/
 
 # músicas de terceiros fornecidas pelo autor (direitos autorais): ficam só na máquina, fora do git
 assets/sfx/licenciado-*
+assets/audio/*/

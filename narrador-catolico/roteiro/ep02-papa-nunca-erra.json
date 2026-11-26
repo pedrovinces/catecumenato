@@ -1,0 +1,464 @@
+{
+  "episodio": 2,
+  "codigo": "ep02",
+  "slug": "ep02-o-papa-nunca-erra",
+  "titulo": "O papa nunca erra?",
+  "handle": "@narradorcatolico",
+  "capa": {
+    "titulo": "O papa nunca erra?",
+    "imagem": "s05-papa-oculos",
+    "enquadre": {
+      "escala": 1.06,
+      "x": 0,
+      "y": 120
+    }
+  },
+  "audio": {
+    "narracao": "audio/ep02/narracao-1.25x.wav",
+    "original": "audio/ep02/narracao.wav",
+    "guia": "audio/ep02/narracao-guia.wav",
+    "trilha": "audio/ep02/fundo.wav",
+    "voz": "estudio"
+  },
+  "legenda": {
+    "destaque": "exata",
+    "minPalavras": 2,
+    "maxPalavras": 4
+  },
+  "glossario": [
+    "Vaticano",
+    "Concílio",
+    "Assunção",
+    "infalível",
+    "infalibilidade",
+    "Pedro",
+    "Igreja"
+  ],
+  "pronuncia": {
+    "1870,": "mil oitocentos e setenta,",
+    "1950.": "mil novecentos e cinquenta."
+  },
+  "cenas": [
+    {
+      "id": "abertura",
+      "cor": "sepia",
+      "cauda": 0.7,
+      "locucao": "Tem gente que acha que, pra quem é católico, tudo o que o papa fala vira dogma na hora. [pausa] Basta a tia mandar no grupo da família. [pausa] (seco) Não é bem assim.",
+      "gatilhos": [
+        {
+          "palavra": "católico",
+          "evento": "msg1"
+        },
+        {
+          "palavra": "o papa fala",
+          "evento": "msg2"
+        },
+        {
+          "palavra": "vira dogma",
+          "evento": "msg3"
+        },
+        {
+          "palavra": "dogma",
+          "evento": "dogma"
+        },
+        {
+          "palavra": "família",
+          "evento": "enviou"
+        },
+        {
+          "palavra": "Não é bem assim",
+          "evento": "congela",
+          "duracao": 1.4
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "O PAPA NUNCA {ERRA?}",
+          "entrada": "pop",
+          "inicio": 0.35,
+          "ate": "Basta",
+          "posicao": "titulo"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "blip",
+          "gatilho": "católico"
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "o papa fala"
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "vira dogma"
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "dogma",
+          "deslocamento": 3
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "família",
+          "volume": -4
+        }
+      ]
+    },
+    {
+      "id": "nao-e",
+      "cor": "sepia",
+      "selo": {
+        "cor": "O QUE NÃO É",
+        "tempo": ""
+      },
+      "locucao": "Entrevista, livro, post nas redes: [pausa] nada disso é infalível. [pausa] O papa erra como qualquer pessoa. [pausa] (seco) Mas atenção: não ser infalível não quer dizer que não vale nada.",
+      "gatilhos": [
+        {
+          "palavra": "Entrevista",
+          "evento": "et1"
+        },
+        {
+          "palavra": "livro",
+          "evento": "et2"
+        },
+        {
+          "palavra": "post",
+          "evento": "et3"
+        },
+        {
+          "palavra": "nada disso",
+          "evento": "naoE"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "NÃO INFALÍVEL\n{≠ SEM VALOR}",
+          "entrada": "pop",
+          "palavra": "não ser infalível",
+          "posicao": "titulo",
+          "y": 1000
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "plim",
+          "gatilho": "Entrevista",
+          "volume": -3
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "livro"
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "post"
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "nada disso"
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas atenção",
+          "volume": -3
+        }
+      ]
+    },
+    {
+      "id": "cofre",
+      "cor": "sepia",
+      "selo": {
+        "cor": "AS 3 FECHADURAS",
+        "tempo": ""
+      },
+      "locucao": "O dogma é de 1870, do Concílio Vaticano Primeiro, [pausa] e funciona como um cofre de três fechaduras. [pausa] Primeira: o papa fala oficialmente, como pastor de todos os cristãos. [pausa] Segunda: o assunto é fé ou moral. [pausa] Terceira: ele define aquilo de forma definitiva, para a Igreja inteira. [pausa] Faltou uma chave? (seco) Cofre fechado.",
+      "gatilhos": [
+        {
+          "palavra": "Primeira",
+          "evento": "cadeado1"
+        },
+        {
+          "palavra": "Segunda",
+          "evento": "cadeado2"
+        },
+        {
+          "palavra": "Terceira",
+          "evento": "cadeado3"
+        },
+        {
+          "palavra": "Faltou uma chave",
+          "evento": "faltou"
+        },
+        {
+          "palavra": "Cofre fechado",
+          "evento": "fechado"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "VATICANO I · 1870",
+          "entrada": "carimbo",
+          "palavra": "Concílio",
+          "ate": "e funciona",
+          "posicao": "carimbo"
+        },
+        {
+          "conteudo": "UM COFRE,\n{TRÊS FECHADURAS}",
+          "entrada": "pop",
+          "palavra": "cofre de três",
+          "ate": "Primeira",
+          "posicao": "titulo"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "clack",
+          "gatilho": "Concílio",
+          "volume": -3
+        },
+        {
+          "arquivo": "cadeado-abre",
+          "gatilho": "Primeira"
+        },
+        {
+          "arquivo": "cadeado-abre",
+          "gatilho": "Segunda"
+        },
+        {
+          "arquivo": "cadeado-abre",
+          "gatilho": "Terceira"
+        },
+        {
+          "arquivo": "cadeado-fecha",
+          "gatilho": "Faltou uma chave",
+          "deslocamento": 6
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Cofre fechado"
+        }
+      ]
+    },
+    {
+      "id": "nada-novo",
+      "cor": "sepia",
+      "selo": {
+        "cor": "NADA DE NOVO",
+        "tempo": ""
+      },
+      "locucao": "E mesmo com o cofre aberto, o papa não inventa doutrina: [pausa] ele guarda e explica a fé que veio dos apóstolos. [pausa] (seco) Nada de atualização de sistema.",
+      "gatilhos": [
+        {
+          "palavra": "Nada de atualização",
+          "evento": "update"
+        },
+        {
+          "palavra": "sistema",
+          "evento": "negado"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "NÃO INVENTA:\n{GUARDA E EXPLICA}",
+          "entrada": "pop",
+          "palavra": "ele guarda",
+          "ate": "Nada de atualização",
+          "posicao": "titulo",
+          "y": 1000
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "pagina",
+          "gatilho": "ele guarda",
+          "volume": -3
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "Nada de atualização"
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "sistema"
+        }
+      ]
+    },
+    {
+      "id": "quantas",
+      "cor": "sepia",
+      "selo": {
+        "cor": "QUANTAS VEZES?",
+        "tempo": ""
+      },
+      "locucao": "Desde 1870, esse cofre abriu de forma indiscutível uma única vez: [pausa] a Assunção de Maria, em 1950. [pausa] (sorrindo) O Brasil tem muito mais Copa do Mundo do que isso.",
+      "gatilhos": [
+        {
+          "palavra": "Desde",
+          "evento": "contador"
+        },
+        {
+          "palavra": "uma única vez",
+          "evento": "uma"
+        },
+        {
+          "palavra": "O Brasil",
+          "evento": "placar"
+        }
+      ],
+      "textos": [],
+      "sfx": [
+        {
+          "arquivo": "flip-calendario",
+          "gatilho": "Desde",
+          "volume": -4
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "uma única vez"
+        },
+        {
+          "arquivo": "coro",
+          "gatilho": "a Assunção",
+          "volume": -6
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "em 1950"
+        },
+        {
+          "arquivo": "torcida-corneta",
+          "gatilho": "O Brasil",
+          "volume": -2
+        }
+      ]
+    },
+    {
+      "id": "porque",
+      "cor": "sepia",
+      "selo": {
+        "cor": "POR QUÊ?",
+        "tempo": ""
+      },
+      "locucao": "Por quê? [pausa] Jesus disse: \"Tu és Pedro, e sobre esta pedra edificarei a minha Igreja\". [pausa] (sorrindo) O trocadilho é dele: Pedro quer dizer pedra. [pausa] E depois: \"eu roguei por ti, para que a tua fé não desfaleça; e tu, por tua vez, confirma os teus irmãos\". [pausa] A infalibilidade é uma garantia para você: quando a Igreja define a fé, ela não te ensina errado.",
+      "gatilhos": [
+        {
+          "palavra": "O trocadilho",
+          "evento": "pedra"
+        },
+        {
+          "palavra": "quer dizer pedra",
+          "evento": "vira"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "MT 16,18",
+          "entrada": "carimbo",
+          "palavra": "Tu és Pedro",
+          "ate": "O trocadilho",
+          "posicao": "carimbo"
+        },
+        {
+          "conteudo": "LC 22,32",
+          "entrada": "carimbo",
+          "palavra": "eu roguei",
+          "ate": "A infalibilidade",
+          "posicao": "carimbo",
+          "y": 1060
+        },
+        {
+          "conteudo": "UMA GARANTIA\n{PARA VOCÊ}",
+          "entrada": "pop",
+          "palavra": "uma garantia",
+          "posicao": "titulo",
+          "y": 1000
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "clack",
+          "gatilho": "Tu és Pedro",
+          "volume": -4
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "O trocadilho",
+          "volume": -3
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "quer dizer pedra",
+          "deslocamento": 8
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "eu roguei",
+          "volume": -4
+        }
+      ]
+    },
+    {
+      "id": "fecho",
+      "cor": "sepia",
+      "cauda": 5.3,
+      "locucao": "Moral da história: [pausa] nem tudo o que o papa fala é dogma, [pausa] (seco) e nem tudo o que a tia manda no grupo é verdade. [pausa] Mas quando a Igreja define a fé, dá para confiar. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.",
+      "gatilhos": [
+        {
+          "palavra": "nem tudo o que o papa",
+          "evento": "resposta"
+        },
+        {
+          "palavra": "nem tudo o que a tia",
+          "evento": "emoji"
+        },
+        {
+          "palavra": "E agora você também",
+          "evento": "congela",
+          "duracao": 7.5,
+          "semLimite": true
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "DÁ PARA {CONFIAR}",
+          "entrada": "pop",
+          "palavra": "dá para confiar",
+          "ate": "E foi assim",
+          "posicao": "titulo"
+        },
+        {
+          "conteudo": "SIGA @narradorcatolico",
+          "entrada": "pop",
+          "palavra": "E agora você também",
+          "ancora": "fim",
+          "deslocamento": 3,
+          "posicao": "assinatura"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "sino",
+          "gatilho": "Moral",
+          "volume": -3
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "nem tudo o que o papa",
+          "deslocamento": 6
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "nem tudo o que a tia",
+          "deslocamento": 10
+        },
+        {
+          "arquivo": "vinheta-amen",
+          "gatilho": "E agora você também",
+          "ancora": "fim",
+          "deslocamento": 3
+        }
+      ]
+    }
+  ]
+}
