@@ -1,6 +1,6 @@
 # Ep. 2 · legenda do Reels (Instagram)
 
-Conteúdo conferido com o roteiro e o storyboard: Pastor Aeternus (Concílio Vaticano I, 18/07/1870, cap. 4); Catecismo n. 891; Código de Direito Canônico, cân. 749 §3; Lumen Gentium n. 25; Munificentissimus Deus (Pio XII, 01/11/1950); Mt 16,18; Lc 22,32. Copas do Mundo do Brasil: 5 (1958, 1962, 1970, 1994, 2002); a de 2026 ficou com a Espanha.
+Conteúdo conferido com o roteiro e o storyboard: Pastor Aeternus (Concílio Vaticano I, 18/07/1870, cap. 4); Catecismo n. 891; Código de Direito Canônico, cân. 749 §3; Lumen Gentium n. 25; Munificentissimus Deus (Pio XII, 01/11/1950); Mt 16,18-19; Lc 22,32; Jo 21,15-17; Mt 28,20; Leão XIV, 267º pontífice (biografia oficial, vatican.va). Copas do Mundo do Brasil: 5 (1958, 1962, 1970, 1994, 2002); a de 2026 ficou com a Espanha.
 
 ```
 O papa nunca erra? Erra, sim. E isso não abala em nada o dogma da infalibilidade. 🔐
@@ -18,7 +18,7 @@ E mesmo com o cofre aberto, o papa não cria doutrina nova: ele guarda e explica
 
 Desde 1870, o caso indiscutível é um só: a Assunção de Nossa Senhora, definida por Pio XII em 1950. O Brasil tem mais Copa do Mundo do que isso. ⚽
 
-Por quê? Porque Jesus disse a Pedro: "Tu és Pedro, e sobre esta pedra edificarei a minha Igreja" (Mt 16,18) e "confirma os teus irmãos" (Lc 22,32).
+Por quê? Porque Jesus não deixou a fé solta no mundo. A Pedro ele disse: "Tu és Pedro, e sobre esta pedra edificarei a minha Igreja" e "Eu te darei as chaves do Reino dos céus" (Mt 16,18-19); "confirma os teus irmãos" (Lc 22,32); e, ressuscitado, "Apascenta as minhas ovelhas" (Jo 21,15-17). E prometeu: "Eis que estou convosco todos os dias, até o fim do mundo" (Mt 28,20). A missão passou aos sucessores de Pedro, os bispos de Roma: Leão XIV é o 267º. 🔑
 
 👉 Salve para a próxima discussão no grupo da família.
 💬 Você achava que tudo o que o papa fala é dogma?
