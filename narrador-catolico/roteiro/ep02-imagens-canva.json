@@ -23,7 +23,13 @@
     "s20-tia-catecismo": "MAHcBT-u3FA",
     "s21a-padre-digitando": "MAHcBUlrrRE",
     "s21b-tia-sem-graca": "MAHcBXTrMBY",
-    "s23-padre-close": "MAHcBbM8Cl4"
+    "s23-padre-close": "MAHcBbM8Cl4",
+    "s08b-cofre-3chaves": "MAHcCQul968",
+    "s10b-papa-futebol": "MAHcCdCZmVU",
+    "s16b-jesus-apostolos": "MAHcCZGoXbw",
+    "s18-chaves-pedro": "MAHcCbAddDk",
+    "s19b-apascenta": "MAHcCXXqUTo",
+    "s19c-convosco": "MAHcCXdUBoM"
   },
   "paginas": {
     "ref-papa": 30,
@@ -47,7 +53,13 @@
     "s21a-padre-digitando": 48,
     "s21b-tia-sem-graca": 49,
     "ref-padre": 50,
-    "s23-padre-close": 51
+    "s23-padre-close": 51,
+    "s08b-cofre-3chaves": 56,
+    "s10b-papa-futebol": 57,
+    "s16b-jesus-apostolos": 58,
+    "s18-chaves-pedro": 59,
+    "s19b-apascenta": 60,
+    "s19c-convosco": 61
   },
   "referencias": {
     "papa": "MAHb9JjBnoI",
@@ -204,6 +216,42 @@
       "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo de desenho animado da referência: o mesmo padre da imagem de referência (cabelo escuro bem curto, barba cheia e aparada com fios grisalhos, óculos redondos de armação escura e grossa, corpo robusto, batina preta com colarinho clerical branco), em close do peito para cima, olhando direto para a câmera com um sorriso cúmplice e uma sobrancelha levemente erguida, apontando o dedo para quem assiste, como quem diz \"agora você também sabe\". Sacristia aconchegante desfocada ao fundo, luz quente de janela. Sem texto.",
       "referencias": [
         "MAHcBTvky9Y"
+      ]
+    },
+    "s08b-cofre-3chaves": {
+      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo baú antigo da imagem de referência (madeira escura, reforços de ferro, três cadeados dourados grandes alinhados na frente), agora com TRÊS chaves antigas apoiadas sobre a tampa, lado a lado e bem visíveis: uma dourada, uma prateada e uma de bronze, cada uma com um formato de cabeça diferente. Mesmo enquadramento, mesma sala de pedra escura e mesma luz quente lateral. Sem texto.",
+      "referencias": [
+        "MAHb9NJgRvQ"
+      ]
+    },
+    "s10b-papa-futebol": {
+      "prompt": "Visual de animação 3D caricata no estilo de longa-metragem de animação, com luz de cinema, formato vertical, no mesmo estilo da referência: o mesmo papa da imagem de referência (mesmo rosto, óculos de armação fina, batina, pelegrina e solidéu brancos, cruz peitoral dourada), sorridente e simpático, equilibrando uma bola de futebol clássica na ponta do dedo indicador, com expressão de quem acha graça, num jardim ensolarado com gramado. Humor leve e respeitoso. Sem texto, sem escudos de time.",
+      "referencias": [
+        "MAHb9JjBnoI"
+      ]
+    },
+    "s16b-jesus-apostolos": {
+      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo Jesus da imagem de referência caminhando por uma estrada de terra entre colinas verdes da Galileia, ensinando os doze apóstolos que o seguem e escutam atentos, Pedro logo ao seu lado. Luz dourada de fim de tarde, poeira suave no ar. Cena serena e reverente. Sem texto.",
+      "referencias": [
+        "MAHb9NwOru8"
+      ]
+    },
+    "s18-chaves-pedro": {
+      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: os mesmos Jesus e Pedro da imagem de referência, no mesmo lugar diante do paredão de rocha clara, luz dourada de fim de tarde. Jesus entrega a Pedro duas grandes chaves antigas, uma dourada e uma prateada, colocando-as em suas mãos; Pedro recebe as chaves com reverência e emoção. Cena reverente e serena. Sem texto.",
+      "referencias": [
+        "MAHb9NwOru8"
+      ]
+    },
+    "s19b-apascenta": {
+      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: os mesmos Jesus e Pedro da imagem de referência, agora com Jesus ressuscitado, de túnica clara luminosa, à beira do mar da Galileia ao amanhecer. Os dois estão sentados perto de uma pequena fogueira de brasas com peixes e pão, um barco de pesca na areia ao fundo, a luz rosada da manhã sobre a água. Jesus olha Pedro nos olhos com ternura e Pedro, comovido, coloca a mão no peito. Cena reverente. Sem texto.",
+      "referencias": [
+        "MAHb9NwOru8"
+      ]
+    },
+    "s19c-convosco": {
+      "prompt": "Visual de animação 3D realista com luz de cinema, formato vertical: o mesmo Jesus da imagem de referência, ressuscitado, de túnica clara luminosa, de pé no alto de um monte da Galileia, com os braços levemente abertos, falando aos onze apóstolos ajoelhados e de pé à sua volta, Pedro em destaque à frente. Céu amplo ao amanhecer com raios de luz, colinas ao fundo. Cena reverente e grandiosa. Sem texto.",
+      "referencias": [
+        "MAHb9NwOru8"
       ]
     }
   }

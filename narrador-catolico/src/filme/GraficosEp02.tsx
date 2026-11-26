@@ -46,8 +46,9 @@ const CarimboVermelho: React.FC<{ texto: string; d: number; tam?: number; giro?:
 };
 
 // ───────────────────────── 1. grupo da família (anexo do plano s01, preso à tela do celular)
-/** Tela do celular na imagem s01 (centro, tamanho e giro medidos no quadro 1080 x 1920). */
-export const TELA_S01 = { cx: 529, cy: 875, l: 300, a: 715, giro: -15.8 };
+/** Tela do celular na imagem s01: os quatro cantos medidos no quadro 1080 x 1920 (a tela está em perspectiva),
+ * convertidos numa homografia que leva o retângulo 300 x 700 da conversa exatamente para dentro da tela. */
+export const TELA_S01 = { l: 300, a: 700, matriz: "matrix3d(1.16489, -0.017786197, 0, 0.00015474048, 0.23746407, 1.0436434, 0, -1.1250624e-06, 0, 0, 1, 0, 291.9904, 534.7113, 0, 1)" };
 
 const Bolha: React.FC<{ d: number; children: React.ReactNode; carimbo: number }> = ({ d, children, carimbo }) => {
   if (d < 0) return null;
@@ -59,8 +60,8 @@ const Bolha: React.FC<{ d: number; children: React.ReactNode; carimbo: number }>
         {children}
       </div>
       {carimbo >= 0 && (
-        <div style={{ position: "absolute", right: -18, top: "18%" }}>
-          <CarimboVermelho texto="DOGMA" d={carimbo} tam={26} giro={-14} />
+        <div style={{ position: "absolute", right: -26, bottom: -12 }}>
+          <CarimboVermelho texto="DOGMA" d={carimbo} tam={15} giro={-12} />
         </div>
       )}
     </div>
@@ -74,17 +75,18 @@ export const ChatGrupo: React.FC = () => {
   const m2 = f - (ev("msg2") ?? Infinity);
   const m3 = f - (ev("msg3") ?? Infinity);
   const dg = f - (ev("dogma") ?? Infinity);
-  const texto: React.CSSProperties = { fontFamily: LEGENDA, fontWeight: 800, fontSize: 21, lineHeight: 1.2, color: "#1B1B1B" };
+  const texto: React.CSSProperties = { fontFamily: LEGENDA, fontWeight: 800, fontSize: 19, lineHeight: 1.2, color: "#1B1B1B", whiteSpace: "nowrap" };
   return (
     <div
       style={{
         position: "absolute",
-        left: T.cx - T.l / 2,
-        top: T.cy - T.a / 2,
+        left: 0,
+        top: 0,
         width: T.l,
         height: T.a,
-        transform: `rotate(${T.giro}deg)`,
-        borderRadius: 22,
+        transform: T.matriz,
+        transformOrigin: "0 0",
+        borderRadius: 26,
         overflow: "hidden",
         backgroundColor: "#ECE5DD",
         boxShadow: "inset 0 0 18px rgba(0,0,0,0.25)",

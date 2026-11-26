@@ -78,6 +78,41 @@
    "id": "s23-padre-close",
    "duracao": 3,
    "prompt": "Close-up of the priest looking straight at the camera; after a natural blink he points at the viewer with a knowing, friendly smile and raises one eyebrow slightly. Sacristy softly out of focus. Very slow push-in."
+  },
+  {
+   "id": "s10b-papa-futebol",
+   "duracao": 3,
+   "prompt": "The Pope balances the spinning football on his fingertip, then lets it bounce once and catches it with a playful, amused smile and a little shrug. Sunny garden. Slight camera drift."
+  },
+  {
+   "id": "s16b-jesus-apostolos",
+   "duracao": 5,
+   "prompt": "Jesus walks slowly along the dirt road, gesturing gently with his open hand as he teaches; Peter beside him and the apostles behind walk with him, listening attentively. Golden late-afternoon light, dust in the air. Slow tracking camera moving backward with them."
+  },
+  {
+   "id": "s18-chaves-pedro",
+   "duracao": 6,
+   "prompt": "Jesus places the two great keys into Peter's hands and closes Peter's fingers over them; Peter looks at the keys, then up at Jesus, deeply moved. Golden late-afternoon light, a gentle breeze in their robes. Slow push-in."
+  },
+  {
+   "id": "s19-ceia-longa",
+   "duracao": 10,
+   "prompt": "By warm oil-lamp light at the supper table, Jesus speaks softly and at length to Peter, looking into his eyes, his hand resting on Peter's hand; Peter listens with emotion, nods slowly, lowers his gaze and looks up at Jesus again. The flames flicker gently; the other apostles stay in the soft-focus background. Slow, reverent push-in."
+  },
+  {
+   "id": "s19b-apascenta",
+   "duracao": 5,
+   "prompt": "By the small fire at dawn on the shore, Jesus speaks to Peter with tenderness; Peter, moved, keeps his hand on his heart and nods. The waves move softly, the fire crackles. Very slow push-in."
+  },
+  {
+   "id": "s19c-convosco",
+   "duracao": 7,
+   "prompt": "On the mountaintop at dawn, Jesus opens his arms wide over the apostles as he speaks; they look up at him, some kneeling, light rays moving through the clouds. Reverent and grand. Slow camera rise."
+  },
+  {
+   "id": "s20-tia-longa",
+   "duracao": 8,
+   "prompt": "The woman in the armchair reads the red book calmly, turns a page slowly, smiles serenely, glances up as if reflecting and goes back to reading; steam rises from the teacup beside her. Warm lamp light. Very slow push-in."
   }
  ]
 }
