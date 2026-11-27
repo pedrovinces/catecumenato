@@ -228,5 +228,15 @@
     "url": "https://v3b.fal.media/files/b/0ab40fb7/a00KyOF4GPfNgARaOAhBS_output.mp4",
     "arquivo": "assets/video/ep02/s11m-martelo.mp4",
     "concluido": "2026-11-26 20:57:15"
+  },
+  "s23a-padre-peito": {
+    "request_id": "01a21c62-9759-7771-9b7f-9ed7a31986ee",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "Close-up of the priest looking straight at the camera. For the first half of the shot he keeps his right hand flat on his chest with a humble, warm smile, nodding slightly as if saying 'that is how I learned'. Then, in one smooth natural motion, he lifts the same hand off his chest and points his index finger at the viewer with a knowing, friendly smile and a slightly raised eyebrow, and holds the pointing pose. Same sacristy background softly out of focus, same lighting. Static camera.",
+    "enviado": "2026-11-27 09:42:33",
+    "url": "https://v3b.fal.media/files/b/0ab421c8/kBR1ct7x6YLnRwFngjA05_ABsvQiKm.mp4",
+    "arquivo": "assets/video/ep02/s23a-padre-peito.mp4",
+    "concluido": "2026-11-27 09:48:09"
   }
 }

@@ -317,16 +317,17 @@
    }
   },
   {
-   "id": "s23-padre-close",
+   "id": "s23a-padre-peito",
    "cena": "fecho",
    "palavra": "E foi assim",
    "deslocamento": -3,
+   "trecho": 0.92,
    "camera": {
     "de": {
      "z": 1.0
     },
     "para": {
-     "z": 1.09
+     "z": 1.05
     }
    }
   }

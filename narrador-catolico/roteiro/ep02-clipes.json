@@ -119,6 +119,12 @@
    "duracao": 3,
    "cfg": 0.7,
    "prompt": "The heavy wooden gavel with gold rings swings down quickly and strikes the round wooden block once with force, a small burst of golden dust and a subtle shockwave in the light on impact, the gavel bounces slightly and comes to rest on the block. The red velvet and the hall stay still. Static camera with a very slight push-in."
+  },
+  {
+   "id": "s23a-padre-peito",
+   "duracao": 4,
+   "fim": "s23-padre-close",
+   "prompt": "Close-up of the priest looking straight at the camera. For the first half of the shot he keeps his right hand flat on his chest with a humble, warm smile, nodding slightly as if saying 'that is how I learned'. Then, in one smooth natural motion, he lifts the same hand off his chest and points his index finger at the viewer with a knowing, friendly smile and a slightly raised eyebrow, and holds the pointing pose. Same sacristy background softly out of focus, same lighting. Static camera."
   }
  ]
 }

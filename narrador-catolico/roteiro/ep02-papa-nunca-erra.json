@@ -517,7 +517,7 @@
           "evento": "emoji"
         },
         {
-          "palavra": "E agora você também",
+          "palavra": "também",
           "evento": "congela",
           "duracao": 7.5,
           "semLimite": true

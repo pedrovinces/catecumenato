@@ -7,7 +7,7 @@ Uso:
   python3 -I scripts/fal_clipes.py ep01 --refazer p12-medalha    # gera de novo (substitui)
   python3 -I scripts/fal_clipes.py ep01 --saldo                  # mostra o saldo e sai
 
-Lê roteiro/<codigo>-clipes.json (modelo, estilo, negativo, clipes[id, duracao, prompt]);
+Lê roteiro/<codigo>-clipes.json (modelo, estilo, negativo, clipes[id, duracao, prompt, fim opcional]);
 a imagem de partida é assets/img/<codigo>/<id>.png. O vídeo sai em assets/video/<codigo>/<id>.mp4
 e o registro do pedido (request_id, custo estimado, url) em roteiro/<codigo>-clipes-registro.json.
 
@@ -141,6 +141,8 @@ def main():
             "negative_prompt": plano["negativo"],
             "cfg_scale": c.get("cfg", 0.5),
         }
+        if c.get("fim"):  # imagem final: o modelo anima o caminho entre a imagem inicial e esta
+            corpo["end_image_url"] = data_uri(RAIZ / "assets" / "img" / codigo / f"{c['fim']}.png")
         p = enviar(plano["modelo"], corpo)
         print(f"enviado {c['id']}: {p.get('request_id')}", flush=True)
         registro[c["id"]] = {"request_id": p.get("request_id"), "modelo": plano["modelo"], "duracao": c["duracao"], "prompt": c["prompt"], "enviado": time.strftime("%Y-%m-%d %H:%M:%S")}
