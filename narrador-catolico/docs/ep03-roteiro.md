@@ -51,11 +51,11 @@ Confissão não é bronca: [pausa] é Deus tirando o peso das costas.
 [FECHAMENTO]
 (tom: conclusão, sorriso na voz)
 O Lucas sai do quarto, [pausa] seca a água do chão, [pausa] pede desculpas à mãe… [pausa] e come o frango. [pausa] (sorrindo) Sem reclamar. [pausa]
-Moral da história: [pausa] a serpente fala alto, [pausa] (firme) mas quem escolhe é VOCÊ. [pausa longa]
-(sorrindo) E foi assim que eu aprendi. [pausa] E agora você também. [pausa longa]
-(cúmplice, baixando o tom) Mas como se confessar sem dar branco? [pausa] Isso fica para a parte dois.
+Moral da história: [pausa] a serpente fala alto, [pausa] (firme) mas quem escolhe é VOCÊ. [pausa]
+(cúmplice) Mas como se confessar sem dar branco? [pausa] Isso fica para a parte dois. [pausa longa]
+(sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.
 ```
 
-Gancho no fim: depois do "E agora você também", a imagem segue congelada e a última frase chama a parte 2; na tela, o cartão "CONTINUA NA PARTE 2" e então o logo com a vinheta.
+Gancho da parte 2 logo antes do bordão: a chamada entra com o cartão "CONTINUA NA PARTE 2" na tela; o episódio termina, como sempre, com "E foi assim que eu aprendi. E agora você também.", o congelamento em sépia e o logo com a vinheta.
 
 Duração estimada: cerca de 320 palavras, uns 1:45 depois da aceleração, com o logo.
