@@ -16,7 +16,7 @@ Ritmo natural, como nos episódios anteriores (depois eu acelero).
 A mãe do Lucas chamou pra jantar. [pausa] Uma vez. [pausa] Duas. [pausa] TRÊS. [pausa]
 (acelerando) Na terceira, ele veio. Sentou, olhou o prato e reclamou do frango. [pausa] De novo. [pausa]
 Levantou irritado, derrubou o copo, chamou a mãe de chata [pausa] e saiu batendo a porta. [pausa]
-(seco, cortando a cena) Todo mundo já foi o Lucas. [pausa] A pergunta é: por QUÊ?
+(seco, cortando a cena) Todo mundo já foi o Lucas. [pausa] Mas por que a gente age ASSIM?
 
 [O QUARTO]
 (tom: mais baixo, clima de noite)
@@ -33,7 +33,7 @@ E quem aparece? [pausa] A serpente. [pausa] Com a conversa de sempre: [pausa] qu
 (tom: didático, mas leve)
 Adão e Eva caíram nessa [pausa] e deixaram uma herança para todos nós: o pecado original. [pausa]
 O Batismo apaga esse pecado, [pausa] mas fica uma marca: a inclinação ao mal. [pausa]
-É por isso que a gente SABE o que é certo… [pausa] e faz o errado mesmo assim. [pausa]
+Por isso a gente SABE o que é certo… [pausa] e faz o errado mesmo assim. [pausa]
 (sorrindo) São Paulo já reclamava disso: (devagar) "Não faço o bem que quero, mas o mal que não quero."
 
 [LIBERDADE]
@@ -44,15 +44,15 @@ Quanto mais a gente faz o bem, [pausa] mais livre a gente fica. [pausa]
 
 [CONFISSÃO]
 (tom: caloroso, falando com quem ouve)
-O Lucas sabe que errou. [pausa] E sabe que, sozinho, não vai conseguir mudar. [pausa]
-(caloroso) E não precisa. [pausa] Deus não deixa ninguém sozinho: [pausa] no confessionário, Ele perdoa e dá a graça para recomeçar. [pausa]
-Confissão não é bronca: [pausa] é Deus tirando o peso das costas.
+O Lucas sabe que errou. [pausa] E sabe que, com as próprias forças, não vai mudar. [pausa]
+(caloroso) Nem precisa. [pausa] Deus não larga ninguém: [pausa] no confessionário, Ele perdoa e dá a graça para recomeçar. [pausa]
+Lá ninguém leva bronca: [pausa] Deus tira o peso das suas costas.
 
 [FECHAMENTO]
 (tom: conclusão, sorriso na voz)
 O Lucas sai do quarto, [pausa] seca a água do chão, [pausa] pede desculpas à mãe… [pausa] e come o frango. [pausa] (sorrindo) Sem reclamar. [pausa]
 Moral da história: [pausa] a serpente fala alto, [pausa] (firme) mas quem escolhe é VOCÊ. [pausa]
-(cúmplice) Mas como se confessar sem dar branco? [pausa] Isso fica para a parte dois. [pausa longa]
+(cúmplice) E como se confessar sem dar branco? [pausa] Fica para a parte dois. [pausa longa]
 (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.
 ```
 
