@@ -10,12 +10,15 @@ Organização (seguir o padrão que o autor criou):
 - Uma subpasta por episódio, no formato `Episódio NN - Tema` (ex.: `Episódio 01 - Cores Litúrgicas`,
   id `1AM161fpBEZontD4dF3qVtcwPmgxC7Uu1`; `Episódio 02 - Infalibilidade Papal`, id `1zpf3JhUHx5k33wHYi1EZ0HT4bmHZvqN7`).
   Episódio novo: criar a subpasta no mesmo formato.
-- Episódio em duas partes: uma pasta por parte, lado a lado na raiz (escolha do autor), no formato
-  `Episódio NN (Parte N) - Tema`. O ep. 3 é assim: `Episódio 03 (Parte 1) - Pecado Original`
-  (id `1nC4NESr1Th9CJgZ5igguMu2R-fV4vQxj`) e `Episódio 03 (Parte 2) - Confissão` (id `12TAiDKuAMIslaPBBLJXgXfybhYGGpF9y`).
+- Episódio em duas partes: uma pasta única do episódio na raiz e, dentro dela, uma subpasta por parte
+  (pedido do autor em 28/11; não recriar pastas de parte soltas na raiz). O ep. 3 é assim:
+  `Episódio 03 - Pecado Original e Confissão` (id `1GmNP0x5fKe8Yy_EQuYrASRtFcRNtQv_3`), com
+  `Parte 1 - Pecado Original` (id `1nC4NESr1Th9CJgZ5igguMu2R-fV4vQxj`) e `Parte 2 - Confissão`
+  (id `12TAiDKuAMIslaPBBLJXgXfybhYGGpF9y`). O storyboard, que cobre as duas partes, fica na pasta do episódio
+  (`Ep. 03 - Storyboard (celular).pdf` e `(A4).pdf`); vídeo final, narração e brutos ficam na pasta de cada parte.
   No repositório a parte 2 tem o código `ep04` (arquivos ep04-*), mas tudo que o autor vê diz "Ep. 03 · Parte 2";
   nos nomes de arquivo, `Ep. 03 (Parte 2) - ...`.
-- Dentro de cada pasta:
+- Dentro de cada pasta (do episódio, ou de cada parte):
   - `Ep. NN - <Título> - vídeo final.mp4`: o arquivo final na mais alta qualidade (a renderização original de `out/`).
   - `Ep. NN - Storyboard (celular).pdf` e `Ep. NN - Storyboard (A4).pdf`: o storyboard com tudo.
   - `Ep. NN - Narração com rubricas`: documento Google com o texto da narração, rubricas e pausas.
