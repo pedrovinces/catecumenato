@@ -1,0 +1,119 @@
+{
+  "episodio": 3,
+  "codigo": "ep03",
+  "slug": "ep03-a-culpa-e-da-serpente",
+  "titulo": "A culpa é da serpente?",
+  "handle": "@narradorcatolico",
+  "capa": {
+    "titulo": "A culpa é da serpente?",
+    "imagem": "",
+    "enquadre": {
+      "escala": 1.06,
+      "x": 0,
+      "y": 330
+    },
+    "cores": []
+  },
+  "audio": {
+    "narracao": "audio/ep03/narracao-1.3x.wav",
+    "original": "audio/ep03/narracao.wav",
+    "guia": "audio/ep03/narracao-guia.wav",
+    "trilha": "audio/ep03/fundo.wav",
+    "voz": "estudio"
+  },
+  "legenda": {
+    "destaque": "exata",
+    "minPalavras": 2,
+    "maxPalavras": 4
+  },
+  "glossario": [
+    "Lucas",
+    "Gênesis",
+    "Eva",
+    "Adão",
+    "Batismo",
+    "São Paulo",
+    "confessionário"
+  ],
+  "pronuncia": {},
+  "cenas": [
+    {
+      "id": "abertura",
+      "cor": "sepia",
+      "cauda": 0.7,
+      "locucao": "A mãe do Lucas chamou pra jantar. [pausa] Uma vez. [pausa] Duas. [pausa] TRÊS. [pausa] (acelerando) Na terceira, ele veio. Sentou, olhou o prato e reclamou do frango. [pausa] De novo, mãe?! [pausa] Levantou irritado, derrubou o copo, chamou a mãe de chata [pausa] e saiu batendo a porta. [pausa] (seco, cortando a cena) Todo mundo já foi o Lucas, né? [pausa] Mas por que a gente age ASSIM?",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "quarto",
+      "cor": "sepia",
+      "selo": {
+        "cor": "O QUARTO",
+        "tempo": ""
+      },
+      "locucao": "No quarto, silêncio. [pausa] A lua ilumina a Bíblia em cima da mesa, [pausa] e o anjo da guarda dá aquela sugestão discreta: [pausa] ler um pouco. [pausa] O Lucas abre no Gênesis, capítulo três.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "serpente",
+      "cor": "sepia",
+      "selo": {
+        "cor": "A SERPENTE",
+        "tempo": ""
+      },
+      "locucao": "E quem aparece? [pausa] A serpente. [pausa] Com a conversa de sempre: [pausa] que a mãe manda demais, [pausa] que ele é livre, [pausa] que deve fazer o que der vontade. [pausa] (sorrindo, cúmplice) Repara: é o MESMO papinho que ela usou com Eva: [pausa] \"vocês vão ser como deuses\". [pausa] (seco) Milhares de anos, e ela não trocou nem o roteiro.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "heranca",
+      "cor": "sepia",
+      "selo": {
+        "cor": "A HERANÇA",
+        "tempo": ""
+      },
+      "locucao": "Adão e Eva caíram nessa [pausa] e deixaram uma herança para todos nós: o pecado original. [pausa] O Batismo apaga esse pecado, [pausa] mas fica uma marca: a inclinação ao mal. [pausa] Por isso a gente SABE o que é certo… [pausa] e faz o errado mesmo assim. [pausa] (sorrindo) São Paulo já reclamava disso: (devagar) \"Não faço o bem que quero, mas o mal que não quero.\"",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "liberdade",
+      "cor": "sepia",
+      "selo": {
+        "cor": "LIBERDADE",
+        "tempo": ""
+      },
+      "locucao": "Mas o anjo também tem argumento: [pausa] liberdade não é fazer o que dá vontade. [pausa] Quanto mais a gente faz o bem, [pausa] mais livre a gente fica. [pausa] (divertido) A serpente ainda tenta… [pausa] mas vai perdendo a força, [pausa] até sumir.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "confissao",
+      "cor": "sepia",
+      "selo": {
+        "cor": "CONFISSÃO",
+        "tempo": ""
+      },
+      "locucao": "O Lucas sabe que errou. [pausa] E sabe que, com as próprias forças, não vai mudar. [pausa] (caloroso) Nem precisa. [pausa] Deus não larga ninguém: [pausa] no confessionário, Ele perdoa e dá a graça para recomeçar. [pausa] Lá ninguém leva bronca: [pausa] Deus tira o peso das suas costas.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "fecho",
+      "cor": "sepia",
+      "cauda": 5.3,
+      "locucao": "O Lucas sai do quarto, [pausa] seca a água do chão, [pausa] pede desculpas à mãe… [pausa] e come o frango. [pausa] (sorrindo) Sem reclamar. [pausa] Moral da história: [pausa] a serpente fala alto, [pausa] (firme) mas quem escolhe é VOCÊ. [pausa] (cúmplice) E como se confessar sem dar branco? [pausa] Fica para a parte dois. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    }
+  ]
+}

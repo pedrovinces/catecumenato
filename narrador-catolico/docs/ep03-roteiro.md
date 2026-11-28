@@ -14,9 +14,9 @@ Ritmo natural, como nos episódios anteriores (depois eu acelero).
 [ABERTURA]
 (tom: contando um causo, divertido)
 A mãe do Lucas chamou pra jantar. [pausa] Uma vez. [pausa] Duas. [pausa] TRÊS. [pausa]
-(acelerando) Na terceira, ele veio. Sentou, olhou o prato e reclamou do frango. [pausa] De novo. [pausa]
+(acelerando) Na terceira, ele veio. Sentou, olhou o prato e reclamou do frango. [pausa] De novo, mãe?! [pausa]
 Levantou irritado, derrubou o copo, chamou a mãe de chata [pausa] e saiu batendo a porta. [pausa]
-(seco, cortando a cena) Todo mundo já foi o Lucas. [pausa] Mas por que a gente age ASSIM?
+(seco, cortando a cena) Todo mundo já foi o Lucas, né? [pausa] Mas por que a gente age ASSIM?
 
 [O QUARTO]
 (tom: mais baixo, clima de noite)
@@ -26,7 +26,7 @@ O Lucas abre no Gênesis, capítulo três.
 [A SERPENTE]
 (tom: suspense de brincadeira)
 E quem aparece? [pausa] A serpente. [pausa] Com a conversa de sempre: [pausa] que a mãe manda demais, [pausa] que ele é livre, [pausa] que deve fazer o que der vontade. [pausa]
-(sorrindo, cúmplice) Repara: é o MESMO papo que ela usou com Eva: [pausa] "vocês vão ser como deuses". [pausa]
+(sorrindo, cúmplice) Repara: é o MESMO papinho que ela usou com Eva: [pausa] "vocês vão ser como deuses". [pausa]
 (seco) Milhares de anos, e ela não trocou nem o roteiro.
 
 [A HERANÇA]
