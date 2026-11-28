@@ -158,5 +158,15 @@
     "url": "https://v3b.fal.media/files/b/0ab44ae9/YYZaXJ24d4U5_vhD1nDDz_DGJUnkLB.mp4",
     "arquivo": "assets/video/ep04/s30-mais-frango.mp4",
     "concluido": "2026-11-28 15:03:07"
+  },
+  "s32-lucas-bordao": {
+    "request_id": "01a222b1-fabd-7cb3-b424-e40aaf206e72",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 5,
+    "prompt": "The teenage boy smiles warmly with his right hand resting on his chest for a moment, then raises his other hand and points straight at the camera with a confident, friendly grin, and holds the pointing pose. Warm kitchen light at night. Static camera.",
+    "enviado": "2026-11-28 15:06:59",
+    "url": "https://v3b.fal.media/files/b/0ab44b19/YhMVufY7yX4L43vKavFtA_S1jKBQIe.mp4",
+    "arquivo": "assets/video/ep04/s32-lucas-bordao.mp4",
+    "concluido": "2026-11-28 15:10:58"
   }
 }

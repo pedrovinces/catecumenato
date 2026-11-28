@@ -7,11 +7,11 @@
   "capa": {
     "titulo": "Como se confessar sem dar branco",
     "episodio": "03 · PARTE 2",
-    "imagem": "",
+    "imagem": "s03-branco",
     "enquadre": {
       "escala": 1.06,
       "x": 0,
-      "y": 170
+      "y": 150
     },
     "cores": []
   },

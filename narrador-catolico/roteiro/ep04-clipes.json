@@ -2,7 +2,7 @@
  "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
  "estilo": "High-end 3D animated feature film. Smooth, natural, expressive character animation with subtle secondary motion (breathing, blinking, cloth and hair). Keep exactly the same characters, faces, proportions, outfits and setting as the image. One continuous shot, no cuts, no text.",
  "negativo": "blur, distortion, low quality, morphing face, changing identity, extra fingers, deformed hands, flicker, text, subtitles, watermark, scene cut, camera shake",
- "nota": "Ep. 03 parte 2. Durações pelos tempos reais da narração (1,3x), com folga. s20, s26 e s28 partem das imagens s13, s22 e s09; s02 parte da fila da parte 1; s09 cobre os planos 9 e 10, s23 os planos 23 e 24, s30 os planos 30 e 31. O fecho do Padre é o clipe s27 da parte 1.",
+ "nota": "Ep. 03 parte 2. Durações pelos tempos reais da narração (1,3x), com folga. s20, s26 e s28 partem das imagens s13, s22 e s09; s02 parte da fila da parte 1; s09 cobre os planos 9 e 10, s23 os planos 23 e 24, s30 os planos 30 e 31. O bordão final é do Lucas (s32-lucas-bordao), a pedido do autor, para diferenciar da parte 1, que fechou com o Padre.",
  "clipes": [
   {
    "id": "s01-porta-igreja",
@@ -83,6 +83,11 @@
    "id": "s30-mais-frango",
    "duracao": 7,
    "prompt": "At the dinner table, the smiling boy holds out his empty plate asking for more; his mother's jaw drops in surprise, then she laughs and serves him another piece of roast chicken; mother and son laugh together. Warm dinner light. Static camera with a slow push-in."
+  },
+  {
+   "id": "s32-lucas-bordao",
+   "duracao": 5,
+   "prompt": "The teenage boy smiles warmly with his right hand resting on his chest for a moment, then raises his other hand and points straight at the camera with a confident, friendly grin, and holds the pointing pose. Warm kitchen light at night. Static camera."
   }
  ]
 }

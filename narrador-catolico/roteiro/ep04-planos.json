@@ -1,5 +1,5 @@
 {
- "_comentario": "Planos do ep. 3, parte 2 (código ep04). Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. deslocamento em quadros, trecho em segundos dentro do clipe. s20, s26, s28 e s19 partem das imagens s13, s22 e s09 (atalhos); s02, s08 e s32 vêm da parte 1.",
+ "_comentario": "Planos do ep. 3, parte 2 (código ep04). Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. deslocamento em quadros, trecho em segundos dentro do clipe. s20, s26, s28 e s19 partem das imagens s13, s22 e s09 (atalhos); s02 e s08 vêm da parte 1; o bordão final é do Lucas (s32).",
  "planos": [
   {
    "id": "s01-porta-igreja",
@@ -203,11 +203,11 @@
    "deslocamento": -3
   },
   {
-   "id": "s32-padre-peito",
+   "id": "s32-lucas-bordao",
    "cena": "fecho",
    "palavra": "E foi assim",
    "deslocamento": -6,
-   "trecho": 1.4
+   "trecho": 1.5
   }
  ]
 }
