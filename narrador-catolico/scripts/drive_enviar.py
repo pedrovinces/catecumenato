@@ -30,8 +30,11 @@ import urllib.parse
 import urllib.request
 
 RAIZ_DRIVE = "1u5STBEjiF2uLkfnZ0VXFGFgx6UD3QDEE"  # "Projeto Narrador Católico"
-API = "https://www.googleapis.com/drive/v3"
-UPLOAD = "https://www.googleapis.com/upload/drive/v3/files"
+# DRIVE_HOST=content.googleapis.com: o token vem do proxy da sessão (segredo de rede salvo pelo autor para esse
+# endereço, válido por 1 hora); serve para a sessão que ainda não enxerga DRIVE_PONTE.
+HOST = os.environ.get("DRIVE_HOST", "www.googleapis.com")
+API = f"https://{HOST}/drive/v3"
+UPLOAD = f"https://{HOST}/upload/drive/v3/files"
 BLOCO = 16 * 1024 * 1024  # múltiplo de 256 KiB, como a API exige
 PASTA_MIME = "application/vnd.google-apps.folder"
 DOC_MIME = "application/vnd.google-apps.document"
@@ -42,6 +45,8 @@ def falhar(msg: str):
 
 
 def token() -> str:
+    if HOST != "www.googleapis.com":
+        return "proxy"  # o proxy troca pelo token salvo como segredo de rede
     # caminho gratuito: "ponte" no Google Apps Script do autor, que devolve um token de acesso novo a cada chamada
     ponte = os.environ.get("DRIVE_PONTE")
     if ponte:
@@ -114,7 +119,7 @@ def enviar(tk: str, arquivo: pathlib.Path, pasta_id: str, nome: str | None, doc:
     else:
         meta["parents"] = [pasta_id]
         _, h, _ = chamar("POST", f"{UPLOAD}?uploadType=resumable&supportsAllDrives=true", tk, json.dumps(meta).encode(), cab)
-    sessao = h["Location"]
+    sessao = h["Location"].replace("https://www.googleapis.com/", f"https://{HOST}/")
     enviado = 0
     t0 = time.time()
     with arquivo.open("rb") as f:
