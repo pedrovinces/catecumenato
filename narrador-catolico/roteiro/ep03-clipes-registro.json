@@ -1,0 +1,152 @@
+{
+  "s01-mae-chamando": {
+    "request_id": "01a2225a-d192-74a0-9021-76d201570544",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 5,
+    "prompt": "The mother stands at the kitchen doorway and calls out toward the hallway with her hand cupped beside her mouth; she waits a beat, then calls again louder, leaning forward, wooden spoon in the other hand. Warm late-afternoon light, steam rising from the pot behind her. Static camera with a very slight push-in.",
+    "enviado": "2026-11-28 13:31:46",
+    "url": "https://v3b.fal.media/files/b/0ab448df/i_jZv_1WBiz-L07Y7uiWu_72OFs6ff.mp4",
+    "arquivo": "assets/video/ep03/s01-mae-chamando.mp4",
+    "concluido": "2026-11-28 13:36:05"
+  },
+  "s02-jantar": {
+    "request_id": "01a2225a-d28d-7482-b4f1-d4868d1a6a75",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 6,
+    "prompt": "At the dinner table the teenage boy slumps in his chair, pokes the roast chicken on his plate with a fork, wrinkles his nose and rolls his eyes in disgust; across the table his mother watches him with tired patience and sighs. Warm dinner light. Static camera.",
+    "enviado": "2026-11-28 13:31:47",
+    "url": "https://v3b.fal.media/files/b/0ab448da/FMMRGRLRLYpgfP0YBXzlj_b8zQ5S56.mp4",
+    "arquivo": "assets/video/ep03/s02-jantar.mp4",
+    "concluido": "2026-11-28 13:36:07"
+  },
+  "s03-copo": {
+    "request_id": "01a2225a-d37b-7ad1-9234-d378a043e7f2",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The angry teenage boy jumps up from the dinner table pointing his finger; his arm knocks over the glass of water, which tips over and splashes across the table; his mother gasps with her mouth open. Quick, energetic motion. Static camera.",
+    "enviado": "2026-11-28 13:31:47",
+    "url": "https://v3b.fal.media/files/b/0ab448de/RuNf7uLhUSDsYAx8uUZM2_rCem7yvY.mp4",
+    "arquivo": "assets/video/ep03/s03-copo.mp4",
+    "concluido": "2026-11-28 13:36:07"
+  },
+  "s07-anjo": {
+    "request_id": "01a2225a-d467-7113-bc9f-0f493e7f6146",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "In the moonlit bedroom, the glowing guardian angel behind the sulky teenage boy smiles gently and points toward the Bible on the desk; the boy glances sideways at it, sighs and slowly turns his head toward the book. Soft golden glow around the angel. Very slow push-in.",
+    "enviado": "2026-11-28 13:31:47",
+    "url": "https://v3b.fal.media/files/b/0ab448e2/R5fZopJ0H5xHrw0zAeO6j_wY3jZhfA.mp4",
+    "arquivo": "assets/video/ep03/s07-anjo.mp4",
+    "concluido": "2026-11-28 13:36:33"
+  },
+  "s08-biblia": {
+    "request_id": "01a2225a-d554-7381-897a-3e4d2333dc0f",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "Close-up of a teenager's hands opening a thick Bible on a desk at night; the pages flutter quickly and settle open, moonlight on the paper. Slow push-in.",
+    "enviado": "2026-11-28 13:31:47",
+    "url": "https://v3b.fal.media/files/b/0ab448d9/QAtXT9B6MgE-5F_5LPNUg_DW1C562N.mp4",
+    "arquivo": "assets/video/ep03/s08-biblia.mp4",
+    "concluido": "2026-11-28 13:36:34"
+  },
+  "s09-serpente-biblia": {
+    "request_id": "01a2225a-d674-7f13-9a93-3b803968d543",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "The cartoon serpent rises out of the open Bible like a pop-up book, uncoiling upward, then raises one eyebrow and gives a sly wink to the camera. Moonlit desk. Static camera.",
+    "enviado": "2026-11-28 13:31:48",
+    "url": "https://v3b.fal.media/files/b/0ab448dd/2-yNVc1OydY7-wOlHehCU_2tuGRWH4.mp4",
+    "arquivo": "assets/video/ep03/s09-serpente-biblia.mp4",
+    "concluido": "2026-11-28 13:36:36"
+  },
+  "s10-serpente-ombro": {
+    "request_id": "01a2225a-d761-7cc0-bcc0-01ff00f159f0",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 6,
+    "prompt": "The cartoon serpent coiled on the teenage boy's shoulder whispers into his ear with a sly grin, gesturing with the tip of its tail; the sulking boy listens and nods slowly a few times. Moonlit bedroom. Static camera with a slight push-in.",
+    "enviado": "2026-11-28 13:31:48",
+    "url": "https://v3b.fal.media/files/b/0ab448e1/-Qom3qJH-pQTv_3VXB-C3_xoYkW7TZ.mp4",
+    "arquivo": "assets/video/ep03/s10-serpente-ombro.mp4",
+    "concluido": "2026-11-28 13:36:38"
+  },
+  "s15-ombros": {
+    "request_id": "01a2225a-d876-7d21-9c9e-b1bfdd153b59",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The teenage boy sits on the bed holding a game controller; he looks at the small angel on one shoulder, then at the small serpent on the other, then shrugs and starts pressing the controller buttons with his eyes on the screen. Moonlit bedroom. Static camera.",
+    "enviado": "2026-11-28 13:31:48",
+    "url": "https://v3b.fal.media/files/b/0ab448e0/98GRWJLjeoFHsWReAm0AR_vT7idHqn.mp4",
+    "arquivo": "assets/video/ep03/s15-ombros.mp4",
+    "concluido": "2026-11-28 13:36:39"
+  },
+  "s16-paulo": {
+    "request_id": "01a2225a-d95c-7c82-b479-9cb89b6c197e",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 5,
+    "prompt": "Saint Paul writes a letter on parchment with a quill by the light of an oil lamp; he pauses, sighs and gently rubs his forehead with a faint wry smile, then dips the quill again. Flickering lamplight, reverent mood. Very slow push-in.",
+    "enviado": "2026-11-28 13:31:48",
+    "url": "https://v3b.fal.media/files/b/0ab448e0/IOWW-A3SIoVQnA6cm65R6_M4XEp5sL.mp4",
+    "arquivo": "assets/video/ep03/s16-paulo.mp4",
+    "concluido": "2026-11-28 13:36:41"
+  },
+  "s17-anjo-serpente": {
+    "request_id": "01a2225a-da4e-75f1-aa41-df9cdb0163e7",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 5,
+    "prompt": "On the desk in the moonlit bedroom, the guardian angel calmly raises his index finger and explains something with a serene smile, while the cartoon serpent crosses its tail and rolls its eyes, annoyed. Static camera.",
+    "enviado": "2026-11-28 13:31:49",
+    "url": "https://v3b.fal.media/files/b/0ab448e3/v4jfF5zktCyvca0YUhjHJ_ygGym96P.mp4",
+    "arquivo": "assets/video/ep03/s17-anjo-serpente.mp4",
+    "concluido": "2026-11-28 13:36:42"
+  },
+  "s21-confessionario": {
+    "request_id": "01a2225a-db36-7b20-b027-2de6c23886d3",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 6,
+    "prompt": "The priest sits in the wooden confessional wearing a purple stole; he looks up with a warm welcoming smile and opens his hand in a gentle gesture of welcome, then nods kindly. Candlelight flickers. Static camera with a very slight push-in.",
+    "enviado": "2026-11-28 13:31:49",
+    "url": "https://v3b.fal.media/files/b/0ab448f1/raPOfoFo6gpXZ_huiEiTr_qpaY3MOs.mp4",
+    "arquivo": "assets/video/ep03/s21-confessionario.mp4",
+    "concluido": "2026-11-28 13:39:02"
+  },
+  "s22-peso": {
+    "request_id": "01a2225a-dc2a-7070-8062-ec16b6468564",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The teenage boy is bent under a huge heavy sack on his back; golden light grows around him and the sack dissolves into sparkling light, and he straightens up with relief, takes a deep breath and smiles. Static camera.",
+    "enviado": "2026-11-28 13:31:49",
+    "url": "https://v3b.fal.media/files/b/0ab448ee/0zVGaYAhRd4Zl6IfVYyMf_nJC0BFmm.mp4",
+    "arquivo": "assets/video/ep03/s22-peso.mp4",
+    "concluido": "2026-11-28 13:39:04"
+  },
+  "s23-abraco": {
+    "request_id": "01a2225a-dd38-79e3-916f-ba4d500ced9c",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "In the warm kitchen the teenage boy hugs his mother tightly, a floor cloth in one hand; she hugs him back, surprised and moved, and pats his back. Gentle emotional moment. Slow push-in.",
+    "enviado": "2026-11-28 13:31:49",
+    "url": "https://v3b.fal.media/files/b/0ab448ed/ldrFOs7ZrNjlhl-F-xMZY_MSbA7tbz.mp4",
+    "arquivo": "assets/video/ep03/s23-abraco.mp4",
+    "concluido": "2026-11-28 13:39:05"
+  },
+  "s24-frango": {
+    "request_id": "01a2225a-de3a-73d3-9aff-2084470cd66d",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 7,
+    "prompt": "At the dinner table the teenage boy eats a piece of roast chicken, chewing with a polite smile, and gives a thumbs up; his proud mother smiles, nods and laughs softly, holding her wooden spoon. Warm light. Static camera with a very slow push-in.",
+    "enviado": "2026-11-28 13:31:50",
+    "url": "https://v3b.fal.media/files/b/0ab448fc/l3DhT7AVseATat62L_fnR_a8Cu8fTY.mp4",
+    "arquivo": "assets/video/ep03/s24-frango.mp4",
+    "concluido": "2026-11-28 13:40:53"
+  },
+  "s27-padre-peito": {
+    "request_id": "01a2225a-df16-71f1-a2d2-82c58bb57339",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The priest in the sacristy looks into the camera with a warm, knowing smile and keeps his hand on his chest for a moment, nodding slightly; then he extends his arm and points his index finger straight at the camera, and holds the pointing pose. Static camera.",
+    "enviado": "2026-11-28 13:31:50",
+    "url": "https://v3b.fal.media/files/b/0ab448f5/gvhlaxxKSRK7lie8GGV2P_HRNhozVh.mp4",
+    "arquivo": "assets/video/ep03/s27-padre-peito.mp4",
+    "concluido": "2026-11-28 13:40:54"
+  }
+}

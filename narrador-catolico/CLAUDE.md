@@ -10,10 +10,19 @@ Organização (seguir o padrão que o autor criou):
 - Uma subpasta por episódio, no formato `Episódio NN - Tema` (ex.: `Episódio 01 - Cores Litúrgicas`,
   id `1AM161fpBEZontD4dF3qVtcwPmgxC7Uu1`; `Episódio 02 - Infalibilidade Papal`, id `1zpf3JhUHx5k33wHYi1EZ0HT4bmHZvqN7`).
   Episódio novo: criar a subpasta no mesmo formato.
-- Dentro dela:
+- Episódio em duas partes: uma pasta por parte, lado a lado na raiz (escolha do autor), no formato
+  `Episódio NN (Parte N) - Tema`. O ep. 3 é assim: `Episódio 03 (Parte 1) - Pecado Original`
+  (id `1nC4NESr1Th9CJgZ5igguMu2R-fV4vQxj`) e `Episódio 03 (Parte 2) - Confissão` (id `12TAiDKuAMIslaPBBLJXgXfybhYGGpF9y`).
+  No repositório a parte 2 tem o código `ep04` (arquivos ep04-*), mas tudo que o autor vê diz "Ep. 03 · Parte 2";
+  nos nomes de arquivo, `Ep. 03 (Parte 2) - ...`.
+- Dentro de cada pasta:
   - `Ep. NN - <Título> - vídeo final.mp4`: o arquivo final na mais alta qualidade (a renderização original de `out/`).
   - `Ep. NN - Storyboard (celular).pdf` e `Ep. NN - Storyboard (A4).pdf`: o storyboard com tudo.
   - `Ep. NN - Narração com rubricas`: documento Google com o texto da narração, rubricas e pausas.
+  - Subpastas com os arquivos brutos (pedido do autor): `Imagens (Canva)` (PNGs de cena em resolução cheia e
+    recortes do elenco), `Clipes (fal.ai)` (MP4 originais do Kling) e `Áudio bruto` (gravação original do autor).
+    Ep. 3 parte 1: `Imagens (Canva)` `1tRBhzN3KfyO5dxiU9WDwdwLiCPYWbtmZ`, `Clipes (fal.ai)` `1zZ_f-6vAB7a0COe38v02_idAGT5QKLAX`,
+    `Áudio bruto` `1IB9dsbyDDfo0eZcnXRKPLH0DSJ2BkS4g`.
 
 Como enviar: `python3 -I scripts/drive_enviar.py` (upload retomável, sem limite de tamanho; substitui arquivo de mesmo nome).
 - `pasta "Episódio NN - Tema"` acha ou cria a subpasta e imprime o id.

@@ -38,6 +38,12 @@ CLIMA = {
     "quantas":    [("C2", ["E4", "G4", "C5"]), ("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4", "E5"]), ("G1", ["D4", "G4", "B4"])],  # curiosidade
     "porque":     [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"])],       # reverente
     "fecho":      [("F1", ["C4", "F4", "A4"]), ("G1", ["D4", "G4", "B4"]), ("C2", ["E4", "G4", "C5"])],                                    # resolução
+    # ep. 3
+    "quarto":     [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("D2", ["D4", "F4", "A4"]), ("E2", ["E4", "G#4", "B4"])],      # noite, quieto
+    "serpente":   [("D2", ["D4", "F4", "A4"]), ("C#2", ["E4", "G4", "A#4"]), ("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"])],    # malícia leve
+    "heranca":    [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("E2", ["E4", "G#4", "B4"])],      # sério, didático
+    "liberdade":  [("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"]), ("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4", "E5"])],  # leveza
+    "confissao":  [("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"])],      # acolhimento
 }
 DUR_ACORDE = 3.6  # segundos por acorde (alvo)
 CRUZA = 1.6       # sobreposição entre acordes e entre cenas

@@ -1,0 +1,199 @@
+{
+ "_comentario": "Planos do ep. 3 (parte 1). Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. deslocamento em quadros, trecho em segundos dentro do clipe.",
+ "planos": [
+  {
+   "id": "s01-mae-chamando",
+   "cena": "abertura"
+  },
+  {
+   "id": "s02-jantar",
+   "cena": "abertura",
+   "palavra": "Na terceira",
+   "deslocamento": -3
+  },
+  {
+   "id": "s03-copo",
+   "cena": "abertura",
+   "palavra": "Levantou",
+   "deslocamento": -3
+  },
+  {
+   "id": "s04-porta",
+   "cena": "abertura",
+   "palavra": "e saiu batendo",
+   "deslocamento": -2,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.07,
+     "y": 10
+    }
+   }
+  },
+  {
+   "id": "s03-copo",
+   "chave": "s03-copo-b",
+   "cena": "abertura",
+   "palavra": "Todo mundo",
+   "deslocamento": -10,
+   "trecho": 1.6
+  },
+  {
+   "id": "s06-quarto",
+   "cena": "quarto",
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.14,
+     "x": -60,
+     "y": -90
+    }
+   }
+  },
+  {
+   "id": "s07-anjo",
+   "cena": "quarto",
+   "palavra": "e o anjo",
+   "deslocamento": -3
+  },
+  {
+   "id": "s08-biblia",
+   "cena": "quarto",
+   "palavra": "O Lucas abre",
+   "deslocamento": -3
+  },
+  {
+   "id": "s09-serpente-biblia",
+   "cena": "serpente"
+  },
+  {
+   "id": "s10-serpente-ombro",
+   "cena": "serpente",
+   "palavra": "Com a conversa",
+   "deslocamento": -3
+  },
+  {
+   "id": "s11-eden",
+   "cena": "serpente",
+   "palavra": "Repara",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.1,
+     "x": 20
+    }
+   }
+  },
+  {
+   "id": "s12-roteiro",
+   "cena": "serpente",
+   "palavra": "Milhares",
+   "deslocamento": -3
+  },
+  {
+   "id": "s13-arvore",
+   "cena": "heranca",
+   "camera": {
+    "de": {
+     "z": 1.3,
+     "y": -270
+    },
+    "para": {
+     "z": 1.3,
+     "y": 270
+    }
+   }
+  },
+  {
+   "id": "s14-batismo",
+   "cena": "heranca",
+   "palavra": "O Batismo",
+   "deslocamento": -3
+  },
+  {
+   "id": "s15-ombros",
+   "cena": "heranca",
+   "palavra": "Por isso",
+   "deslocamento": -3
+  },
+  {
+   "id": "s16-paulo",
+   "cena": "heranca",
+   "palavra": "São Paulo",
+   "deslocamento": -3
+  },
+  {
+   "id": "s17-anjo-serpente",
+   "cena": "liberdade"
+  },
+  {
+   "id": "s18-louca",
+   "cena": "liberdade",
+   "palavra": "Quanto mais",
+   "deslocamento": -3
+  },
+  {
+   "id": "s06-quarto",
+   "chave": "s06-quarto-b",
+   "cena": "liberdade",
+   "palavra": "A serpente ainda",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.04,
+     "x": -40
+    },
+    "para": {
+     "z": 1.07,
+     "x": -46
+    }
+   }
+  },
+  {
+   "id": "s20-cama",
+   "cena": "confissao"
+  },
+  {
+   "id": "s21-confessionario",
+   "cena": "confissao",
+   "palavra": "Nem precisa",
+   "deslocamento": -3
+  },
+  {
+   "id": "s22-peso",
+   "cena": "confissao",
+   "palavra": "Lá ninguém",
+   "deslocamento": -3
+  },
+  {
+   "id": "s23-abraco",
+   "cena": "fecho"
+  },
+  {
+   "id": "s24-frango",
+   "cena": "fecho",
+   "palavra": "e come o frango",
+   "deslocamento": -3
+  },
+  {
+   "id": "s26-fila",
+   "cena": "fecho",
+   "palavra": "E como se confessar",
+   "deslocamento": -3
+  },
+  {
+   "id": "s27-padre-peito",
+   "cena": "fecho",
+   "palavra": "E foi assim",
+   "deslocamento": -6,
+   "trecho": 1.4
+  }
+ ]
+}

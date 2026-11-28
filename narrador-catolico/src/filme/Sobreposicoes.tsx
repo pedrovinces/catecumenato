@@ -12,6 +12,7 @@ import { useCena } from "../components/motor/contexto";
 import { cameraNoQuadro, janelaEm, type PlanoQ } from "./planos";
 import { RevelacaoMarca } from "../marca/Revelacao";
 import { ChatGrupo, GraficosEp02 } from "./GraficosEp02";
+import { GraficosEp03 } from "./GraficosEp03";
 
 const CREME = "#F6EBD3";
 const OURO = "#EBCB86";
@@ -340,7 +341,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codi
   const opSelo = Math.min(
     interpolate(f, [4, 12], [0, 1], clamp),
     interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp),
-    codigo === "ep02" ? interpolate(f, [84, 96], [1, 0], clamp) : 1, // no ep. 2 o rótulo sai em 3 s: os rostos ficam no alto
+    codigo === "ep02" || codigo === "ep03" ? interpolate(f, [84, 96], [1, 0], clamp) : 1, // nos ep. 2 e 3 o rótulo sai em 3 s: os rostos ficam no alto
   );
   const tituloNaTela = cena.textos.some((t) => t.posicao === "titulo" && t.entrada !== "impacto" && t.y === undefined && f >= t.inicio && f < t.fim);
   const opVeu = temSelo || tituloNaTela ? (tituloNaTela ? 1 : 0.55) : 0;
@@ -400,6 +401,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codi
         />
       )}
       {codigo === "ep02" && <GraficosEp02 />}
+      {codigo === "ep03" && <GraficosEp03 />}
       {cena.textos.map((t, i) => (
         <TextoFilme key={i} t={t} f={f} cor={cena.cor} temSelo={temSelo} />
       ))}

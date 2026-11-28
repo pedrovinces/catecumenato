@@ -547,6 +547,57 @@ def aplausos():
     return sala(base, 0.9, 0.3)
 
 
+
+# ── ep. 3: porta, copo, sibilo, moeda de jogo, fita rebobinando
+def porta_batendo():
+    d = 1.2
+    t = t_(d)
+    baque = np.sin(2 * np.pi * 70 * t) * np.exp(-t / 0.09) + 0.6 * np.sin(2 * np.pi * 118 * t) * np.exp(-t / 0.06)
+    estalo = filtro(ruido(d), "bandpass", [300, 2500]) * np.exp(-t / 0.025) * 0.9
+    tremor = filtro(ruido(d), "bandpass", [1500, 6000]) * np.exp(-((t - 0.12) / 0.18) ** 2) * 0.12
+    return sala((baque + estalo + tremor) * np.minimum(1, t / 0.001), 0.7, 0.25)
+
+
+def agua_copo():
+    d = 1.4
+    t = t_(d)
+    tilin = sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t / dec) for f, a, dec in ((2350, 0.5, 0.25), (3720, 0.3, 0.18), (5100, 0.2, 0.1)))
+    respingo = filtro(ruido(d), "bandpass", [600, 7000]) * np.exp(-((t - 0.25) / 0.16) ** 2) * 0.55
+    gotas = np.zeros_like(t)
+    for k in range(9):
+        i = int((0.35 + 0.08 * k + RNG.uniform(0, 0.05)) * SR)
+        g = t_(0.04)
+        b = np.sin(2 * np.pi * RNG.uniform(900, 1800) * g) * np.exp(-g / 0.012) * 0.25
+        gotas[i : i + len(b)] += b[: max(0, len(gotas) - i)]
+    return sala(tilin * np.minimum(1, t / 0.001) + respingo + gotas, 0.4, 0.15)
+
+
+def sibilo():
+    d = 1.1
+    t = t_(d)
+    x = filtro(ruido(d), "bandpass", [3500, 9000]) * np.sin(np.pi * np.clip(t / d, 0, 1)) ** 1.5
+    return estereo(x * 0.8, 0.15)
+
+
+def moeda_jogo():
+    y = np.zeros(int(0.45 * SR))
+    for k, nota in enumerate((83, 88)):
+        t = t_(0.09 if k == 0 else 0.3)
+        b = np.sign(np.sin(2 * np.pi * V.hz(nota) * t)) * np.exp(-t / (0.05 if k == 0 else 0.12)) * 0.35
+        i = int(k * 0.08 * SR)
+        y[i : i + len(b)] += b[: len(y) - i]
+    return estereo(filtro(y, "lowpass", 6000))
+
+
+def rebobina():
+    d = 0.9
+    t = t_(d)
+    f = 400 * 2 ** (t / d * 3.2)
+    fase = 2 * np.pi * np.cumsum(f * (1 + 0.04 * np.sin(2 * np.pi * 13 * t))) / SR
+    chiado = filtro(ruido(d), "bandpass", [1200, 6000]) * 0.35
+    x = (np.sin(fase) * 0.3 + chiado) * np.minimum(1, t / 0.03) * np.minimum(1, (d - t) / 0.05)
+    return estereo(x)
+
 GERADORES = {
     "record-scratch": record_scratch,
     "claque-curta": lambda: claque(1.3, 16, False),
@@ -578,6 +629,11 @@ GERADORES = {
     "cadeado-abre": cadeado_abre,
     "cadeado-fecha": cadeado_fecha,
     "batida-hiphop": batida_hiphop,
+    "porta-batendo": porta_batendo,
+    "agua-copo": agua_copo,
+    "sibilo": sibilo,
+    "moeda-jogo": moeda_jogo,
+    "rebobina": rebobina,
 }
 
 

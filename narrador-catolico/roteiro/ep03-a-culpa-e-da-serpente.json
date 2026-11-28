@@ -42,9 +42,106 @@
       "cor": "sepia",
       "cauda": 0.7,
       "locucao": "A mãe do Lucas chamou pra jantar. [pausa] Uma vez. [pausa] Duas. [pausa] TRÊS. [pausa] (acelerando) Na terceira, ele veio. Sentou, olhou o prato e reclamou do frango. [pausa] De novo, mãe?! [pausa] Levantou irritado, derrubou o copo, chamou a mãe de chata [pausa] e saiu batendo a porta. [pausa] (seco, cortando a cena) Todo mundo já foi o Lucas, né? [pausa] Mas por que a gente age ASSIM?",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "Uma vez",
+          "evento": "chama1"
+        },
+        {
+          "palavra": "Duas",
+          "evento": "chama2"
+        },
+        {
+          "palavra": "TRÊS",
+          "evento": "chama3"
+        },
+        {
+          "palavra": "reclamou do frango",
+          "evento": "frango"
+        },
+        {
+          "palavra": "chamou a mãe de chata",
+          "evento": "chata"
+        },
+        {
+          "palavra": "e saiu batendo",
+          "evento": "porta"
+        },
+        {
+          "palavra": "Todo mundo",
+          "evento": "rebobina",
+          "deslocamento": -10
+        },
+        {
+          "palavra": "Todo mundo",
+          "evento": "congela",
+          "duracao": 4,
+          "semLimite": true
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "A CULPA É\nDA {SERPENTE?}",
+          "entrada": "pop",
+          "inicio": 0.35,
+          "ate": "Uma vez",
+          "posicao": "titulo",
+          "y": 1000
+        },
+        {
+          "conteudo": "POR {QUÊ?}",
+          "entrada": "pop",
+          "palavra": "por que",
+          "posicao": "titulo",
+          "y": 1040
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "ting",
+          "gatilho": "Uma vez",
+          "volume": -8
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Duas",
+          "volume": -5
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "TRÊS",
+          "volume": -1
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "reclamou do frango"
+        },
+        {
+          "arquivo": "agua-copo",
+          "gatilho": "derrubou o copo",
+          "volume": -2
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "chamou a mãe de chata",
+          "volume": -4
+        },
+        {
+          "arquivo": "porta-batendo",
+          "gatilho": "batendo a porta",
+          "volume": -1
+        },
+        {
+          "arquivo": "rebobina",
+          "gatilho": "Todo mundo",
+          "deslocamento": -12,
+          "volume": -3
+        },
+        {
+          "arquivo": "record-scratch",
+          "gatilho": "Todo mundo"
+        }
+      ]
     },
     {
       "id": "quarto",
@@ -54,9 +151,37 @@
         "tempo": ""
       },
       "locucao": "No quarto, silêncio. [pausa] A lua ilumina a Bíblia em cima da mesa, [pausa] e o anjo da guarda dá aquela sugestão discreta: [pausa] ler um pouco. [pausa] O Lucas abre no Gênesis, capítulo três.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "ler um pouco",
+          "evento": "balaoAnjo"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "GN 3",
+          "entrada": "carimbo",
+          "palavra": "Gênesis",
+          "posicao": "carimbo"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "plim",
+          "gatilho": "anjo da guarda",
+          "volume": -6
+        },
+        {
+          "arquivo": "pagina",
+          "gatilho": "O Lucas abre",
+          "volume": -2
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Gênesis",
+          "volume": -6
+        }
+      ]
     },
     {
       "id": "serpente",
@@ -66,9 +191,71 @@
         "tempo": ""
       },
       "locucao": "E quem aparece? [pausa] A serpente. [pausa] Com a conversa de sempre: [pausa] que a mãe manda demais, [pausa] que ele é livre, [pausa] que deve fazer o que der vontade. [pausa] (sorrindo, cúmplice) Repara: é o MESMO papinho que ela usou com Eva: [pausa] \"vocês vão ser como deuses\". [pausa] (seco) Milhares de anos, e ela não trocou nem o roteiro.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "que a mãe manda",
+          "evento": "s1"
+        },
+        {
+          "palavra": "que ele é livre",
+          "evento": "s2"
+        },
+        {
+          "palavra": "que deve fazer",
+          "evento": "s3"
+        },
+        {
+          "palavra": "nem o roteiro",
+          "evento": "roteiro"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "GN 3,5",
+          "entrada": "carimbo",
+          "palavra": "vocês vão ser",
+          "ate": "Milhares",
+          "posicao": "carimbo",
+          "y": 1020
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "sibilo",
+          "gatilho": "A serpente",
+          "volume": -2
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "que a mãe manda",
+          "volume": -3
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "que ele é livre",
+          "volume": -3
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "que deve fazer",
+          "volume": -3
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "Repara",
+          "volume": -4
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "vocês vão ser",
+          "volume": -5
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "nem o roteiro",
+          "volume": -3
+        }
+      ]
     },
     {
       "id": "heranca",
@@ -79,8 +266,74 @@
       },
       "locucao": "Adão e Eva caíram nessa [pausa] e deixaram uma herança para todos nós: o pecado original. [pausa] O Batismo apaga esse pecado, [pausa] mas fica uma marca: a inclinação ao mal. [pausa] Por isso a gente SABE o que é certo… [pausa] e faz o errado mesmo assim. [pausa] (sorrindo) São Paulo já reclamava disso: (devagar) \"Não faço o bem que quero, mas o mal que não quero.\"",
       "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "textos": [
+        {
+          "conteudo": "PECADO {ORIGINAL}",
+          "entrada": "pop",
+          "palavra": "o pecado original",
+          "ate": "O Batismo",
+          "posicao": "titulo",
+          "y": 1040
+        },
+        {
+          "conteudo": "CATECISMO 405",
+          "entrada": "carimbo",
+          "palavra": "O Batismo",
+          "ate": "fica uma marca",
+          "posicao": "carimbo",
+          "y": 300
+        },
+        {
+          "conteudo": "FICA A {INCLINAÇÃO AO MAL}",
+          "entrada": "pop",
+          "palavra": "fica uma marca",
+          "ate": "Por isso",
+          "posicao": "titulo",
+          "y": 300
+        },
+        {
+          "conteudo": "SABE O CERTO,\n{FAZ O ERRADO}",
+          "entrada": "pop",
+          "palavra": "e faz o errado",
+          "ate": "São Paulo",
+          "posicao": "titulo",
+          "y": 1000
+        },
+        {
+          "conteudo": "RM 7,19",
+          "entrada": "carimbo",
+          "palavra": "Não faço",
+          "posicao": "carimbo",
+          "y": 1000
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "thud-livro",
+          "gatilho": "uma herança",
+          "volume": -6
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "O Batismo",
+          "volume": -10
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "e faz o errado",
+          "volume": -4
+        },
+        {
+          "arquivo": "pagina",
+          "gatilho": "São Paulo",
+          "volume": -5
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "Não faço",
+          "volume": -6
+        }
+      ]
     },
     {
       "id": "liberdade",
@@ -90,9 +343,75 @@
         "tempo": ""
       },
       "locucao": "Mas o anjo também tem argumento: [pausa] liberdade não é fazer o que dá vontade. [pausa] Quanto mais a gente faz o bem, [pausa] mais livre a gente fica. [pausa] (divertido) A serpente ainda tenta… [pausa] mas vai perdendo a força, [pausa] até sumir.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "Quanto mais",
+          "evento": "hud"
+        },
+        {
+          "palavra": "faz o bem",
+          "evento": "xp1"
+        },
+        {
+          "palavra": "mais livre",
+          "evento": "xp2"
+        },
+        {
+          "palavra": "A serpente ainda",
+          "evento": "encolhe"
+        },
+        {
+          "palavra": "perdendo a força",
+          "evento": "encolhe2"
+        },
+        {
+          "palavra": "até sumir",
+          "evento": "puf"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "LIBERDADE {≠ VONTADE}",
+          "entrada": "pop",
+          "palavra": "liberdade não é",
+          "ate": "Quanto mais",
+          "posicao": "titulo",
+          "y": 1040
+        },
+        {
+          "conteudo": "CATECISMO 1733",
+          "entrada": "carimbo",
+          "palavra": "Quanto mais",
+          "ate": "A serpente",
+          "posicao": "carimbo",
+          "y": 1110
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "moeda-jogo",
+          "gatilho": "faz o bem"
+        },
+        {
+          "arquivo": "moeda-jogo",
+          "gatilho": "mais livre"
+        },
+        {
+          "arquivo": "sibilo",
+          "gatilho": "A serpente ainda",
+          "volume": -4
+        },
+        {
+          "arquivo": "sibilo",
+          "gatilho": "perdendo a força",
+          "volume": -9
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "até sumir",
+          "volume": -2
+        }
+      ]
     },
     {
       "id": "confissao",
@@ -103,17 +422,117 @@
       },
       "locucao": "O Lucas sabe que errou. [pausa] E sabe que, com as próprias forças, não vai mudar. [pausa] (caloroso) Nem precisa. [pausa] Deus não larga ninguém: [pausa] no confessionário, Ele perdoa e dá a graça para recomeçar. [pausa] Lá ninguém leva bronca: [pausa] Deus tira o peso das suas costas.",
       "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "textos": [
+        {
+          "conteudo": "ELE {PERDOA}",
+          "entrada": "pop",
+          "palavra": "Ele perdoa",
+          "ate": "Lá ninguém",
+          "posicao": "titulo",
+          "y": 1040
+        },
+        {
+          "conteudo": "SEM {BRONCA}",
+          "entrada": "pop",
+          "palavra": "ninguém leva bronca",
+          "posicao": "titulo",
+          "y": 1040
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "sino",
+          "gatilho": "Nem precisa",
+          "volume": -9
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "tira o peso",
+          "volume": -4
+        },
+        {
+          "arquivo": "coro",
+          "gatilho": "tira o peso",
+          "volume": -10
+        }
+      ]
     },
     {
       "id": "fecho",
       "cor": "sepia",
       "cauda": 5.3,
       "locucao": "O Lucas sai do quarto, [pausa] seca a água do chão, [pausa] pede desculpas à mãe… [pausa] e come o frango. [pausa] (sorrindo) Sem reclamar. [pausa] Moral da história: [pausa] a serpente fala alto, [pausa] (firme) mas quem escolhe é VOCÊ. [pausa] (cúmplice) E como se confessar sem dar branco? [pausa] Fica para a parte dois. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "pede desculpas",
+          "evento": "desculpa"
+        },
+        {
+          "palavra": "a serpente fala alto",
+          "evento": "serpMini"
+        },
+        {
+          "palavra": "Fica para a parte dois",
+          "evento": "continua"
+        },
+        {
+          "palavra": "também",
+          "evento": "congela",
+          "duracao": 7.5,
+          "semLimite": true
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "QUEM ESCOLHE É {VOCÊ}",
+          "entrada": "pop",
+          "palavra": "quem escolhe",
+          "ate": "E como",
+          "posicao": "titulo",
+          "y": 1030
+        },
+        {
+          "conteudo": "SIGA @narradorcatolico",
+          "entrada": "pop",
+          "palavra": "E agora você também",
+          "ancora": "fim",
+          "deslocamento": 3,
+          "posicao": "assinatura"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "blip",
+          "gatilho": "pede desculpas",
+          "volume": -4
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "Moral",
+          "volume": -4
+        },
+        {
+          "arquivo": "sibilo",
+          "gatilho": "a serpente fala alto",
+          "volume": -8
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "quem escolhe",
+          "volume": -4
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Fica para a parte dois",
+          "volume": -3
+        },
+        {
+          "arquivo": "vinheta-amen",
+          "gatilho": "E agora você também",
+          "ancora": "fim",
+          "deslocamento": 3
+        }
+      ]
     }
   ]
 }
