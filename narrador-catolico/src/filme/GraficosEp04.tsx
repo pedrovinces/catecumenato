@@ -336,7 +336,7 @@ const AtoCartao: React.FC = () => {
   const a = ev("ato");
   if (a === undefined || f < a - 8) return null;
   const sv = ev("salva") ?? Infinity;
-  const pulso = f >= sv ? 1 + 0.12 * Math.max(0, Math.sin((f - sv) * 0.35)) : 1;
+  const pulso = f >= sv + 8 ? 1 + 0.05 * Math.max(0, Math.sin((f - sv - 8) * 0.35)) : 1;
   return (
     <>
       <Desfoque de={a - 4} ate={cena.duracao} />
@@ -345,14 +345,30 @@ const AtoCartao: React.FC = () => {
           <div style={{ fontFamily: SERIFA, fontWeight: 700, fontSize: 52, letterSpacing: "0.08em", color: "#5A3410", textAlign: "center", marginBottom: 18 }}>ATO DE CONTRIÇÃO</div>
           <div style={{ fontFamily: LEGENDA, fontWeight: 800, fontSize: 33, lineHeight: 1.38, color: "#2E1C08", textAlign: "left" }}>{ATO}</div>
           <div style={{ marginTop: 16, fontFamily: SERIFA, fontWeight: 700, fontSize: 22, letterSpacing: "0.1em", color: "#7A5A2A" }}>FÓRMULA DIVULGADA PELA CNBB</div>
-          <div style={{ position: "absolute", right: 26, bottom: 18, display: "flex", alignItems: "center", gap: 10, transform: `scale(${pulso})`, transformOrigin: "100% 100%" }}>
-            <div style={{ fontFamily: LEGENDA, fontWeight: 900, fontSize: 26, color: "#5A3410" }}>SALVE</div>
-            <svg width={44} height={56} viewBox="0 0 44 56">
-              <path d="M4 4 H40 V52 L22 38 L4 52 Z" fill={f >= sv ? "#5A3410" : "none"} stroke="#5A3410" strokeWidth={5} strokeLinejoin="round" />
+          {/* cantoneiras de captura de tela: aparecem no "print" */}
+          {f >= sv && (
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: "absolute", inset: -14, width: "calc(100% + 28px)", height: "calc(100% + 28px)", overflow: "visible", opacity: interpolate(f - sv, [0, 3, 18, 26], [0, 1, 1, 0], clamp) }}>
+              {["M0 8 V0 H8", "M92 0 H100 V8", "M100 92 V100 H92", "M8 100 H0 V92"].map((d, i) => (
+                <path key={i} d={d} fill="none" stroke="#FFFFFF" strokeWidth={6} vectorEffect="non-scaling-stroke" strokeLinecap="round" />
+              ))}
             </svg>
-          </div>
+          )}
         </div>
+        {/* chamada para printar a tela */}
+        {f >= sv && (
+          <div style={{ marginTop: 26, display: "flex", justifyContent: "center", transform: `scale(${pop(f, sv, 8) * pulso})` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, backgroundColor: OURO_FORTE, borderRadius: 40, padding: "12px 30px 12px 22px", boxShadow: "0 12px 28px rgba(0,0,0,0.5)" }}>
+              <svg width={46} height={46} viewBox="0 0 46 46">
+                <rect x={11} y={4} width={24} height={38} rx={5} fill="none" stroke="#1A1208" strokeWidth={4} />
+                <path d="M2 12 V2 H12 M34 2 H44 V12 M44 34 V44 H34 M12 44 H2 V34" fill="none" stroke="#1A1208" strokeWidth={4} strokeLinecap="round" />
+              </svg>
+              <div style={{ fontFamily: LEGENDA, fontWeight: 900, fontSize: 38, letterSpacing: "0.03em", color: "#1A1208", whiteSpace: "nowrap" }}>PRINTE A TELA E LEVE NA FILA</div>
+            </div>
+          </div>
+        )}
       </div>
+      {/* clarão do print */}
+      {f >= sv && f < sv + 8 && <AbsoluteFill style={{ backgroundColor: "#FFFFFF", opacity: interpolate(f - sv, [0, 1, 8], [0, 0.8, 0], clamp) }} />}
     </>
   );
 };

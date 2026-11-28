@@ -10,7 +10,7 @@ O Lucas entrou na fila, ensaiou tudo… e na hora deu branco. Quem nunca? 😅 C
 1️⃣ Exame de consciência: antes da fila, olhe a própria vida com os mandamentos de espelho. Amei a Deus acima de tudo? Faltei à missa de domingo sem motivo? Honrei pai e mãe?
 2️⃣ Arrependimento (contrição): a dor de ter ofendido a Deus, com o propósito de não pecar mais (Catecismo, n. 1451). Se nasce do amor a Deus, é perfeita; se nasce do medo das consequências, é imperfeita, e já serve para se confessar (n. 1452-1453).
 3️⃣ Na hora: sinal da cruz, há quanto tempo foi a última confissão e os pecados, com sinceridade e sem rodeio. Ali você não é advogado de defesa: é réu confesso. E o Juiz está do seu lado.
-4️⃣ Ato de contrição: está inteiro no vídeo. Salve para levar na fila. 📌
+4️⃣ Ato de contrição: está inteiro no vídeo. Printe a tela e leve na fila. 📸
 5️⃣ Absolvição e penitência.
 
 E por que contar para um padre, e não direto para Deus? Porque Jesus quis assim. Ressuscitado, soprou sobre os apóstolos e disse: "Recebei o Espírito Santo. A quem perdoardes os pecados, ser-lhes-ão perdoados; a quem os retiverdes, ser-lhes-ão retidos" (Jo 20,22-23). Essa missão passou dos apóstolos aos bispos e deles aos padres (Catecismo, n. 1461). Quem perdoa é Deus, pela voz do padre. E o que foi dito ali, o padre jamais conta: é o sigilo da confissão (n. 1467). 🔒
@@ -26,5 +26,5 @@ Dica de ouro: confissão não é hora de aconselhamento, tem fila esperando. Que
 
 Primeiras linhas alternativas (é o que aparece antes do "mais"):
 
-- Na hora da confissão deu branco? Salve este vídeo e leve na fila. 📌
+- Na hora da confissão deu branco? Printe o ato de contrição deste vídeo e leve na fila. 📸
 - Por que contar os pecados a um padre, e não direto para Deus? Jesus respondeu. 🙏
