@@ -15,10 +15,14 @@ Organização (seguir o padrão que o autor criou):
   - `Ep. NN - Storyboard (celular).pdf` e `Ep. NN - Storyboard (A4).pdf`: o storyboard com tudo.
   - `Ep. NN - Narração com rubricas`: documento Google com o texto da narração, rubricas e pausas.
 
-Limites do conector a partir da sessão na nuvem:
-- No máximo 10 MB por arquivo e cerca de 3,1 MB de arquivo por chamada.
-- Os vídeos finais (80 a 100 MB) não passam: mandar na conversa e avisar o autor para subir na pasta do episódio.
-- PDF acima de 3,1 MB também não passa: avisar e perguntar como proceder.
+Como enviar: `python3 -I scripts/drive_enviar.py` (upload retomável, sem limite de tamanho; substitui arquivo de mesmo nome).
+- `pasta "Episódio NN - Tema"` acha ou cria a subpasta e imprime o id.
+- `enviar <arquivo> --pasta <id> --nome "..."`, com `--doc` para a narração virar documento Google.
+- Credenciais nas variáveis de ambiente do ambiente "catecumenato", cadastradas pelo autor: GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET e GOOGLE_REFRESH_TOKEN. Vêm de um app OAuth do autor, publicado "Em produção" para o refresh
+  token não expirar em 7 dias. Nunca pedir esses valores no chat.
+- Sem as variáveis, o conector do Drive serve de reserva: no máximo 10 MB por arquivo e cerca de 3,1 MB por chamada.
+  Vídeos não passam por ele.
 
 ## Preferências de texto do autor
 
