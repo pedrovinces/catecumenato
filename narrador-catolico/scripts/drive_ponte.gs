@@ -24,6 +24,8 @@ function json(objeto) {
   return ContentService.createTextOutput(JSON.stringify(objeto)).setMimeType(ContentService.MimeType.JSON);
 }
 
+// Manifesto: copie scripts/drive_ponte.appsscript.json para o appsscript.json do projeto (Configurações do projeto >
+// "Mostrar o arquivo de manifesto"). Ele fixa o escopo de escrita no Drive; sem isso o token pode sair só de leitura.
 // Rode esta função uma vez, no editor, para autorizar o acesso ao Drive (leitura e escrita).
 // A linha do createFile nunca roda; ela existe para o Google pedir a permissão de escrita, sem a qual o envio é recusado.
 function autorizar() {
