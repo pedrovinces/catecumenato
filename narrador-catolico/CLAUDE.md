@@ -2,6 +2,26 @@
 
 ## Entrega no Google Drive (pedido do autor)
 
+### Envio automático, sem o autor pedir (regra do autor, 28/11)
+
+Tudo o que for produzido sobe para o Drive na hora, sem esperar pedido, e a versão nova substitui a anterior
+(mesmo nome no Drive; na pasta fica só a última). Ferramenta: `python3 -I scripts/drive_sync.py <cod> [opções]`,
+que compara o MD5 e só envia o que mudou; destinos em `roteiro/drive-pastas.json`.
+- Vídeo final: automático no fim de `scripts/final.sh` (`--video`). Uma cópia antiga com o nome do arquivo de saída
+  (`<slug>.mp4`, como as que o autor subiu à mão) vai para a lixeira do Drive quando a nova sobe.
+- Clipes do fal.ai: automático no fim de `scripts/fal_clipes.py` (`--clipes`).
+- Imagens do Canva: logo depois de baixar os PNGs para `assets/img/<cod>/`, rodar `--imagens`.
+- Áudio: logo depois de receber uma gravação (`assets/audio/<cod>/*.m4a`), rodar `--audio`. Gravação nova de um
+  episódio que já tem uma: dar outro nome no mapa (`audio`) para não apagar a anterior, a não ser que o autor diga
+  que a antiga não vale mais.
+- Storyboard: depois de gerar os PDFs, rodar `--storyboard`. Narração com rubricas (documento Google): atualizar
+  pelo conector sempre que o texto mudar.
+- Episódio novo: criar a pasta (`drive_enviar.py pasta "Episódio NN - Tema"`) e acrescentar a entrada no mapa.
+- Sem DRIVE_PONTE na sessão, o script só avisa. Gravações até ~2,9 MB vão pelo conector; o resto, dizer ao autor no
+  fim da tarefa o que ficou pendente e por quê.
+
+### Organização
+
 Sempre que um vídeo e o seu storyboard ficarem prontos, enviar para a pasta do projeto no Drive:
 "Projeto Narrador Católico", id `1u5STBEjiF2uLkfnZ0VXFGFgx6UD3QDEE`
 (https://drive.google.com/drive/folders/1u5STBEjiF2uLkfnZ0VXFGFgx6UD3QDEE).
@@ -29,9 +49,11 @@ Organização (seguir o padrão que o autor criou):
     (as três gravações; a v3 é a usada no vídeo).
     Ep. 3 parte 2: `Imagens (Canva)` `1mCW_4LiD0VjZ8kkK-RatISOUYk_aVqsa`, `Clipes (fal.ai)` `1niPwHoNNdEtq-U1jv2MboKX8-lHpcvFP`,
     `Áudio bruto` `1EitY1yaWs2bmPLyOka_Bgnl3EbL4APcl`.
+    Ep. 1: `Imagens (Canva)` `1sldqYmFlRsE_2d4GELrFJVJDO6MWEajO`, `Clipes (fal.ai)` `1ft13T9rHWcupod8COpMrPcduI8M1gNt3`.
+    Ep. 2: `Imagens (Canva)` `1cHn1cUuiSkVwpfS-LFVseUM9QhaxImKG`, `Clipes (fal.ai)` `1tUecUdEYTLgLbuA2TmVxxPQ9tq5wcDKR`.
   - O áudio do episódio fica fora do git (assets/audio/<ep>/), então só a sessão que recebeu a gravação consegue
     enviá-lo; gravações de até ~2,9 MB passam pelo conector do Drive. O vídeo final (out/) também fica fora do git:
-    envie da própria sessão que renderizou, pela ponte (DRIVE_PONTE só existe em sessões abertas depois de salva).
+    envie da própria sessão que renderizou, pela ponte (o `final.sh` já faz isso sozinho quando há DRIVE_PONTE).
 
 Como enviar: `python3 -I scripts/drive_enviar.py` (upload retomável, sem limite de tamanho; substitui arquivo de mesmo nome).
 - `pasta "Episódio NN - Tema"` acha ou cria a subpasta e imprime o id.

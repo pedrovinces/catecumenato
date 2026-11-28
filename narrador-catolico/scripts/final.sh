@@ -31,3 +31,5 @@ npx remotion render src/index.ts "$COD" "out/${COD}-video-mudo.mp4" --muted --cr
 SLUG=$(python3 -I -c "import json,sys;print(json.load(open(sys.argv[1]))['slug'])" "$ROT")
 ffmpeg -v error -y -i "out/${COD}-video-mudo.mp4" -i "out/${COD}-mix.wav" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -shortest -movflags +faststart "out/${SLUG}.mp4"
 echo "pronto: out/${SLUG}.mp4"
+# entrega automática no Drive (pedido do autor): a versão nova substitui a anterior; sem credencial, só avisa
+python3 -I scripts/drive_sync.py "$COD" --video || echo "aviso: o envio ao Drive falhou; rode: python3 -I scripts/drive_sync.py $COD --video"

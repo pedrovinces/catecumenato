@@ -19,6 +19,7 @@ import io
 import json
 import os
 import pathlib
+import subprocess
 import sys
 import time
 
@@ -168,6 +169,8 @@ def main():
             print(f"  ERRO {c['id']}: {e}", flush=True)
         reg_arq.write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"saldo depois: US$ {saldo()}")
+    # entrega automática dos clipes no Drive (pedido do autor); sem credencial, só avisa
+    subprocess.run([sys.executable, "-I", str(RAIZ / "scripts" / "drive_sync.py"), codigo, "--clipes"], check=False)
     if falhas:
         sys.exit(f"falharam: {', '.join(falhas)}")
 
