@@ -384,8 +384,9 @@
           "evento": "pedra"
         },
         {
-          "palavra": "quer dizer pedra",
-          "evento": "vira"
+          "palavra": "Pedro quer dizer",
+          "evento": "vira",
+          "deslocamento": -4
         },
         {
           "palavra": "A missão passou",
