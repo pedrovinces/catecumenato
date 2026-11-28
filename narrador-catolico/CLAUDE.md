@@ -22,7 +22,11 @@ Organização (seguir o padrão que o autor criou):
   - Subpastas com os arquivos brutos (pedido do autor): `Imagens (Canva)` (PNGs de cena em resolução cheia e
     recortes do elenco), `Clipes (fal.ai)` (MP4 originais do Kling) e `Áudio bruto` (gravação original do autor).
     Ep. 3 parte 1: `Imagens (Canva)` `1tRBhzN3KfyO5dxiU9WDwdwLiCPYWbtmZ`, `Clipes (fal.ai)` `1zZ_f-6vAB7a0COe38v02_idAGT5QKLAX`,
-    `Áudio bruto` `1IB9dsbyDDfo0eZcnXRKPLH0DSJ2BkS4g`.
+    `Áudio bruto` `1IB9dsbyDDfo0eZcnXRKPLH0DSJ2BkS4g`. Ep. 2: `Áudio bruto` `1Kdhc2zJsRW905mEcGic4tRTBmQ1X2cPm`
+    (as três gravações; a v3 é a usada no vídeo).
+  - O áudio do episódio fica fora do git (assets/audio/<ep>/), então só a sessão que recebeu a gravação consegue
+    enviá-lo; gravações de até ~2,9 MB passam pelo conector do Drive. O vídeo final (out/) também fica fora do git:
+    envie da própria sessão que renderizou, pela ponte (DRIVE_PONTE só existe em sessões abertas depois de salva).
 
 Como enviar: `python3 -I scripts/drive_enviar.py` (upload retomável, sem limite de tamanho; substitui arquivo de mesmo nome).
 - `pasta "Episódio NN - Tema"` acha ou cria a subpasta e imprime o id.
