@@ -2,7 +2,7 @@
 """Mantém o Google Drive do projeto em dia com o que foi produzido, sem precisar pedir (pedido do autor).
 
 Uso:
-  python3 -I scripts/drive_sync.py ep04 --video          # vídeo final (out/<slug>.mp4)
+  python3 -I scripts/drive_sync.py ep04 --video          # vídeo final (out/<slug>.mp4) e a versão leve (out/<slug>-leve.mp4)
   python3 -I scripts/drive_sync.py ep04 --clipes         # assets/video/ep04/*.mp4 → "Clipes (fal.ai)"
   python3 -I scripts/drive_sync.py ep04 --imagens        # assets/img/ep04/*.png → "Imagens (Canva)"
   python3 -I scripts/drive_sync.py ep04 --audio          # assets/audio/ep04/*.m4a (gravações originais) → "Áudio bruto"
@@ -103,6 +103,9 @@ def main():
         if video.exists():
             nome = f"{m['rotulo']} - {rot['titulo']} - vídeo final.mp4"
             sincronizar(s, [(video, nome)], m["pasta"], "vídeo final")
+            leve = RAIZ / "out" / f"{rot['slug']}-leve.mp4"
+            if leve.exists() and leve.stat().st_mtime >= video.stat().st_mtime:  # só a leve feita a partir desta final
+                sincronizar(s, [(leve, f"{m['rotulo']} - {rot['titulo']} - versão leve (celular).mp4")], m["pasta"], "versão leve")
             antigo = no_drive(s, m["pasta"]).get(video.name)
             if antigo and antigo["name"] != nome:
                 de.chamar("PATCH", f"{de.API}/files/{antigo['id']}?supportsAllDrives=true", s.tk(), json.dumps({"trashed": True}).encode(),

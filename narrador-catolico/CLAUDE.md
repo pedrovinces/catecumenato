@@ -9,6 +9,9 @@ Tudo o que for produzido sobe para o Drive na hora, sem esperar pedido, e a vers
 que compara o MD5 e só envia o que mudou; destinos em `roteiro/drive-pastas.json`.
 - Vídeo final: automático no fim de `scripts/final.sh` (`--video`). Uma cópia antiga com o nome do arquivo de saída
   (`<slug>.mp4`, como as que o autor subiu à mão) vai para a lixeira do Drive quando a nova sobe.
+- Versão leve (baixa resolução, 720p, para o celular): o `final.sh` gera `out/<slug>-leve.mp4` a partir da final e o
+  `--video` envia junto, como `<rotulo> - <título> - versão leve (celular).mp4`, substituindo a anterior. Toda versão
+  leve gerada de outro jeito também sobe (pedido do autor).
 - Clipes do fal.ai: automático no fim de `scripts/fal_clipes.py` (`--clipes`).
 - Imagens do Canva: logo depois de baixar os PNGs para `assets/img/<cod>/`, rodar `--imagens`.
 - Áudio: logo depois de receber uma gravação (`assets/audio/<cod>/*.m4a`), rodar `--audio`. Gravação nova de um
