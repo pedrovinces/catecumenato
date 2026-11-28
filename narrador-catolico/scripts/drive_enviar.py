@@ -45,6 +45,8 @@ def falhar(msg: str):
 
 
 def token() -> str:
+    if os.environ.get("DRIVE_TOKEN"):  # token avulso de 1 hora, passado só no comando (nunca salvo)
+        return os.environ["DRIVE_TOKEN"]
     if HOST != "www.googleapis.com":
         return "proxy"  # o proxy troca pelo token salvo como segredo de rede
     # caminho gratuito: "ponte" no Google Apps Script do autor, que devolve um token de acesso novo a cada chamada

@@ -24,7 +24,9 @@ function json(objeto) {
   return ContentService.createTextOutput(JSON.stringify(objeto)).setMimeType(ContentService.MimeType.JSON);
 }
 
-// Rode esta função uma vez, no editor, para autorizar o acesso ao Drive.
+// Rode esta função uma vez, no editor, para autorizar o acesso ao Drive (leitura e escrita).
+// A linha do createFile nunca roda; ela existe para o Google pedir a permissão de escrita, sem a qual o envio é recusado.
 function autorizar() {
   DriveApp.getRootFolder();
+  if (false) DriveApp.createFile('teste', 'teste');
 }
