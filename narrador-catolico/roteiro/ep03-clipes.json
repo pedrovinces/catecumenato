@@ -1,0 +1,83 @@
+{
+ "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+ "estilo": "High-end 3D animated feature film. Smooth, natural, expressive character animation with subtle secondary motion (breathing, blinking, cloth and hair). Keep exactly the same characters, faces, proportions, outfits and setting as the image. One continuous shot, no cuts, no text.",
+ "negativo": "blur, distortion, low quality, morphing face, changing identity, extra fingers, deformed hands, flicker, text, subtitles, watermark, scene cut, camera shake",
+ "nota": "Durações pelos tempos reais da narração (1,3x), com folga; s24 cobre os planos 24 e 25; s27 fecha as partes 1 e 2.",
+ "clipes": [
+  {
+   "id": "s01-mae-chamando",
+   "duracao": 5,
+   "prompt": "The mother stands at the kitchen doorway and calls out toward the hallway with her hand cupped beside her mouth; she waits a beat, then calls again louder, leaning forward, wooden spoon in the other hand. Warm late-afternoon light, steam rising from the pot behind her. Static camera with a very slight push-in."
+  },
+  {
+   "id": "s02-jantar",
+   "duracao": 6,
+   "prompt": "At the dinner table the teenage boy slumps in his chair, pokes the roast chicken on his plate with a fork, wrinkles his nose and rolls his eyes in disgust; across the table his mother watches him with tired patience and sighs. Warm dinner light. Static camera."
+  },
+  {
+   "id": "s03-copo",
+   "duracao": 4,
+   "prompt": "The angry teenage boy jumps up from the dinner table pointing his finger; his arm knocks over the glass of water, which tips over and splashes across the table; his mother gasps with her mouth open. Quick, energetic motion. Static camera."
+  },
+  {
+   "id": "s07-anjo",
+   "duracao": 4,
+   "prompt": "In the moonlit bedroom, the glowing guardian angel behind the sulky teenage boy smiles gently and points toward the Bible on the desk; the boy glances sideways at it, sighs and slowly turns his head toward the book. Soft golden glow around the angel. Very slow push-in."
+  },
+  {
+   "id": "s08-biblia",
+   "duracao": 3,
+   "prompt": "Close-up of a teenager's hands opening a thick Bible on a desk at night; the pages flutter quickly and settle open, moonlight on the paper. Slow push-in."
+  },
+  {
+   "id": "s09-serpente-biblia",
+   "duracao": 3,
+   "prompt": "The cartoon serpent rises out of the open Bible like a pop-up book, uncoiling upward, then raises one eyebrow and gives a sly wink to the camera. Moonlit desk. Static camera."
+  },
+  {
+   "id": "s10-serpente-ombro",
+   "duracao": 6,
+   "prompt": "The cartoon serpent coiled on the teenage boy's shoulder whispers into his ear with a sly grin, gesturing with the tip of its tail; the sulking boy listens and nods slowly a few times. Moonlit bedroom. Static camera with a slight push-in."
+  },
+  {
+   "id": "s15-ombros",
+   "duracao": 4,
+   "prompt": "The teenage boy sits on the bed holding a game controller; he looks at the small angel on one shoulder, then at the small serpent on the other, then shrugs and starts pressing the controller buttons with his eyes on the screen. Moonlit bedroom. Static camera."
+  },
+  {
+   "id": "s16-paulo",
+   "duracao": 5,
+   "prompt": "Saint Paul writes a letter on parchment with a quill by the light of an oil lamp; he pauses, sighs and gently rubs his forehead with a faint wry smile, then dips the quill again. Flickering lamplight, reverent mood. Very slow push-in."
+  },
+  {
+   "id": "s17-anjo-serpente",
+   "duracao": 5,
+   "prompt": "On the desk in the moonlit bedroom, the guardian angel calmly raises his index finger and explains something with a serene smile, while the cartoon serpent crosses its tail and rolls its eyes, annoyed. Static camera."
+  },
+  {
+   "id": "s21-confessionario",
+   "duracao": 6,
+   "prompt": "The priest sits in the wooden confessional wearing a purple stole; he looks up with a warm welcoming smile and opens his hand in a gentle gesture of welcome, then nods kindly. Candlelight flickers. Static camera with a very slight push-in."
+  },
+  {
+   "id": "s22-peso",
+   "duracao": 4,
+   "prompt": "The teenage boy is bent under a huge heavy sack on his back; golden light grows around him and the sack dissolves into sparkling light, and he straightens up with relief, takes a deep breath and smiles. Static camera."
+  },
+  {
+   "id": "s23-abraco",
+   "duracao": 4,
+   "prompt": "In the warm kitchen the teenage boy hugs his mother tightly, a floor cloth in one hand; she hugs him back, surprised and moved, and pats his back. Gentle emotional moment. Slow push-in."
+  },
+  {
+   "id": "s24-frango",
+   "duracao": 7,
+   "prompt": "At the dinner table the teenage boy eats a piece of roast chicken, chewing with a polite smile, and gives a thumbs up; his proud mother smiles, nods and laughs softly, holding her wooden spoon. Warm light. Static camera with a very slow push-in."
+  },
+  {
+   "id": "s27-padre-peito",
+   "duracao": 4,
+   "prompt": "The priest in the sacristy looks into the camera with a warm, knowing smile and keeps his hand on his chest for a moment, nodding slightly; then he extends his arm and points his index finger straight at the camera, and holds the pointing pose. Static camera."
+  }
+ ]
+}
