@@ -4,9 +4,24 @@
 const CHAVE = 'TROQUE-ESTA-CHAVE';
 
 function doGet(e) {
-  const ok = CHAVE !== 'TROQUE-ESTA-CHAVE' && e && e.parameter && e.parameter.chave === CHAVE;
-  const resposta = ok ? { token: ScriptApp.getOAuthToken() } : { erro: 'chave inválida' };
-  return ContentService.createTextOutput(JSON.stringify(resposta)).setMimeType(ContentService.MimeType.JSON);
+  const recebida = (e && e.parameter && e.parameter.chave) || '';
+  const trocada = CHAVE !== 'TROQUE-ESTA-CHAVE';
+  if (trocada && recebida === CHAVE) {
+    return json({ token: ScriptApp.getOAuthToken() });
+  }
+  // diagnóstico sem mostrar a chave: versão em uso, se a chave do código foi trocada e os tamanhos comparados
+  return json({
+    erro: 'chave inválida',
+    versao: 2,
+    chave_no_codigo_trocada: trocada,
+    tamanho_esperado: CHAVE.length,
+    tamanho_recebido: recebida.length,
+    parametros: Object.keys((e && e.parameter) || {}),
+  });
+}
+
+function json(objeto) {
+  return ContentService.createTextOutput(JSON.stringify(objeto)).setMimeType(ContentService.MimeType.JSON);
 }
 
 // Rode esta função uma vez, no editor, para autorizar o acesso ao Drive.
