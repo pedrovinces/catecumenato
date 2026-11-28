@@ -1,0 +1,162 @@
+{
+  "s01-porta-igreja": {
+    "request_id": "01a222a5-ec9f-75a3-b94a-21bb36d8aaac",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The teenage boy stands in the church doorway, takes a deep breath, puffs out his chest with a determined, brave face, then takes one step forward into the church. Warm late-afternoon light behind him, colored stained-glass light inside. Static camera with a slight push-in.",
+    "enviado": "2026-11-28 14:53:49",
+    "url": "https://v3b.fal.media/files/b/0ab44ac8/KVH4EITUGdM0GeXPXnGM1_voZnUHF1.mp4",
+    "arquivo": "assets/video/ep04/s01-porta-igreja.mp4",
+    "concluido": "2026-11-28 14:57:36"
+  },
+  "s02-fila": {
+    "request_id": "01a222a5-ee19-78f1-8cc8-cbe449547582",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "In the confession line, the teenage boy rereads the crumpled paper in his hands, moving his lips silently as if rehearsing, nervous and sweating, then wipes his palm on his hoodie; the woman in front of him turns her head and gives him an encouraging smile. Static camera.",
+    "enviado": "2026-11-28 14:53:49",
+    "url": "https://v3b.fal.media/files/b/0ab44ad2/tj3yVVyWrhGoyURkM1_wD_4DyaY0Bn.mp4",
+    "arquivo": "assets/video/ep04/s02-fila.mp4",
+    "concluido": "2026-11-28 14:59:16"
+  },
+  "s03-branco": {
+    "request_id": "01a222a5-ef04-7b83-bf97-bad663ea1ca4",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "Kneeling at the confessional grille, the boy opens his mouth to speak but no words come out; he freezes with wide, empty eyes and blinks once, completely blank. Static camera with a very slight push-in.",
+    "enviado": "2026-11-28 14:53:49",
+    "url": "https://v3b.fal.media/files/b/0ab44ac5/FrFudl8uMI6bAcYfRex8F_XUpAmq4B.mp4",
+    "arquivo": "assets/video/ep04/s03-branco.mp4",
+    "concluido": "2026-11-28 14:59:17"
+  },
+  "s05-escrivaninha": {
+    "request_id": "01a222a5-efe9-7af1-b513-f22822e762f3",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "At his desk at night, the boy writes in the notebook, stops, taps the pen on his chin while thinking, then goes back to writing. Warm desk lamp light and moonlight in the window. Static camera.",
+    "enviado": "2026-11-28 14:53:49",
+    "url": "https://v3b.fal.media/files/b/0ab44acb/0En-26A8qJbqZ39JyS_3j_uJBXwVtp.mp4",
+    "arquivo": "assets/video/ep04/s05-escrivaninha.mp4",
+    "concluido": "2026-11-28 14:59:19"
+  },
+  "s09-banco-igreja": {
+    "request_id": "01a222a5-f125-74f1-9739-8ecabaeab8d8",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 7,
+    "prompt": "Kneeling in the church pew with hands folded and eyes closed, the boy slowly lowers his head in sincere repentance; colored stained-glass light shimmers gently on his face; dust motes float in the light. Very slow and calm. Static camera with a very slow push-in.",
+    "enviado": "2026-11-28 14:53:50",
+    "url": "https://v3b.fal.media/files/b/0ab44ad0/B8pmsX_6d5LlrEihScGzS_JwXPBRm0.mp4",
+    "arquivo": "assets/video/ep04/s09-banco-igreja.mp4",
+    "concluido": "2026-11-28 14:59:20"
+  },
+  "s13-confessionario": {
+    "request_id": "01a222a5-f20e-7ac2-bc7e-37e9c8209e17",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 7,
+    "prompt": "In the confessional, the boy makes the sign of the cross and begins to speak quietly; on the other side of the wooden grille, the priest listens with lowered eyes and nods gently. Warm candlelight. Static camera.",
+    "enviado": "2026-11-28 14:53:50",
+    "url": "https://v3b.fal.media/files/b/0ab44ad4/8igrIJcAknBLxL8pk6OZe_FKNSTeEi.mp4",
+    "arquivo": "assets/video/ep04/s13-confessionario.mp4",
+    "concluido": "2026-11-28 14:59:30"
+  },
+  "s14-cavalete": {
+    "request_id": "01a222a5-f2ec-7730-b0bb-a0d188aaa77a",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "Very animated, the boy taps the flip chart several times with his pointer stick and gestures with his other hand, explaining enthusiastically as if in a business meeting; the flip chart itself stays still and blank; behind the grille the priest raises one eyebrow, patient and amused. Static camera.",
+    "enviado": "2026-11-28 14:53:50",
+    "url": "https://v3b.fal.media/files/b/0ab44acb/vm-HkjDNFWzvlyvxwS7vz_i5RiBFlz.mp4",
+    "arquivo": "assets/video/ep04/s14-cavalete.mp4",
+    "concluido": "2026-11-28 14:59:31"
+  },
+  "s16-jesus-ombro": {
+    "request_id": "01a222a5-f42d-73a1-9793-d1e8f8ca029c",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "Jesus gently rests his hand on the kneeling boy's shoulder; the boy slowly lifts his face, comforted and peaceful. Warm soft light, reverent and calm. Static camera.",
+    "enviado": "2026-11-28 14:53:51",
+    "url": "https://v3b.fal.media/files/b/0ab44ac9/DehbW6gPe22ERXEET2HOi_4wKJQoZo.mp4",
+    "arquivo": "assets/video/ep04/s16-jesus-ombro.mp4",
+    "concluido": "2026-11-28 14:59:31"
+  },
+  "s17-fila-enorme": {
+    "request_id": "01a222a5-f546-7d11-b55d-77ad49174e93",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "In the very long confession line, everyone sighs at the same time, shoulders dropping; the woman in front checks her wristwatch impatiently and rolls her eyes; the man in the beach chair fans himself. Static camera.",
+    "enviado": "2026-11-28 14:53:51",
+    "url": "https://v3b.fal.media/files/b/0ab44acb/5UJ2iDTE-kKoq46Qy9rHe_6xQN7vS1.mp4",
+    "arquivo": "assets/video/ep04/s17-fila-enorme.mp4",
+    "concluido": "2026-11-28 14:59:32"
+  },
+  "s20-contricao": {
+    "request_id": "01a222a5-f659-7d73-b910-5281830d6a55",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 5,
+    "prompt": "In the confessional, the priest speaks kindly and makes a small blessing gesture with his hand; the boy joins his hands and closes his eyes, praying. Warm candlelight. Static camera.",
+    "enviado": "2026-11-28 14:53:51",
+    "url": "https://v3b.fal.media/files/b/0ab44acb/lqG1ioOjECFmEEZgc7wD5_aoUOYZf0.mp4",
+    "arquivo": "assets/video/ep04/s20-contricao.mp4",
+    "concluido": "2026-11-28 14:59:33"
+  },
+  "s23-cenaculo": {
+    "request_id": "01a222a5-f761-7332-9375-69a19dd55aa5",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 10,
+    "prompt": "Inside the upper room, the risen Jesus slowly raises his hands and gently breathes over the apostles; a soft warm light passes through the group; the apostles look up, amazed and deeply moved, some bowing their heads. Oil lamps flicker. Reverent, slow and calm. Very slow push-in toward the apostles.",
+    "enviado": "2026-11-28 14:53:51",
+    "url": "https://v3b.fal.media/files/b/0ab44ae8/nJclhaupPvSpviKDFNMP7_RpHZoQjR.mp4",
+    "arquivo": "assets/video/ep04/s23-cenaculo.mp4",
+    "concluido": "2026-11-28 15:02:52"
+  },
+  "s26-absolvicao-mao": {
+    "request_id": "01a222a5-f84e-74c1-9a42-8a1b6b7d2255",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The priest slowly raises his right hand over the kneeling boy in absolution; the warm golden light from above grows brighter and softer around them. Reverent and calm. Static camera.",
+    "enviado": "2026-11-28 14:53:52",
+    "url": "https://v3b.fal.media/files/b/0ab44ae9/Bm_7oqG74STm10DhCdLZR_xtZp2vP5.mp4",
+    "arquivo": "assets/video/ep04/s26-absolvicao-mao.mp4",
+    "concluido": "2026-11-28 15:03:01"
+  },
+  "s27-fatima-ouvido": {
+    "request_id": "01a222a5-f950-73d0-9001-fda5081ff4a6",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "The curious woman stretches her neck and cups her hand behind her ear, leaning toward the confessional with the closed purple curtain; then she pulls back, embarrassed, and looks away innocently. Static camera.",
+    "enviado": "2026-11-28 14:53:52",
+    "url": "https://v3b.fal.media/files/b/0ab44ae0/op2Iq6AivJ75sl_BCisP9_nBelN9wS.mp4",
+    "arquivo": "assets/video/ep04/s27-fatima-ouvido.mp4",
+    "concluido": "2026-11-28 15:03:02"
+  },
+  "s28-penitencia": {
+    "request_id": "01a222a5-fa31-78d3-b594-598ce66dd408",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 4,
+    "prompt": "Kneeling in the pew, the boy finishes his prayer, makes the sign of the cross, then stands up with a light and peaceful expression. Stained-glass light. Static camera.",
+    "enviado": "2026-11-28 14:53:52",
+    "url": "https://v3b.fal.media/files/b/0ab44ae1/B7gLx2sJn9ERbJWmXxSYD_juk0841i.mp4",
+    "arquivo": "assets/video/ep04/s28-penitencia.mp4",
+    "concluido": "2026-11-28 15:03:04"
+  },
+  "s29-escadaria": {
+    "request_id": "01a222a5-fb78-7092-aefb-342d0018ffc8",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 3,
+    "prompt": "The happy boy skips down the church steps into the sunlight and does a little hop on the last step, almost floating; birds fly across the blue sky. Static camera.",
+    "enviado": "2026-11-28 14:53:52",
+    "url": "https://v3b.fal.media/files/b/0ab44ae6/d8Fl-2v-7dbqdNT8CGdqu_ECr2luRY.mp4",
+    "arquivo": "assets/video/ep04/s29-escadaria.mp4",
+    "concluido": "2026-11-28 15:03:06"
+  },
+  "s30-mais-frango": {
+    "request_id": "01a222a5-fc6a-78f2-afab-4285224e3f6c",
+    "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+    "duracao": 7,
+    "prompt": "At the dinner table, the smiling boy holds out his empty plate asking for more; his mother's jaw drops in surprise, then she laughs and serves him another piece of roast chicken; mother and son laugh together. Warm dinner light. Static camera with a slow push-in.",
+    "enviado": "2026-11-28 14:53:53",
+    "url": "https://v3b.fal.media/files/b/0ab44ae9/YYZaXJ24d4U5_vhD1nDDz_DGJUnkLB.mp4",
+    "arquivo": "assets/video/ep04/s30-mais-frango.mp4",
+    "concluido": "2026-11-28 15:03:07"
+  }
+}

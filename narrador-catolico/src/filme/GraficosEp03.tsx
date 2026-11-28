@@ -23,7 +23,7 @@ const CORES_BALAO: Record<Paleta, { fundo: string; texto: string; borda: string 
 
 /** Balão centrado em cx, com o topo em y. O rabicho sai da borda mais próxima e aponta para `alvo` (boca),
  * parando antes dele. Largura e altura estimadas pela fonte (Montserrat ExtraBold em caixa alta). */
-const Balao: React.FC<{
+export const Balao: React.FC<{
   texto: string;
   cx: number;
   y: number;
@@ -94,7 +94,7 @@ const Balao: React.FC<{
 };
 
 /** Opacidade de saída: some em 5 quadros antes de `fim`. */
-const saindo = (f: number, fim: number) => interpolate(f, [fim - 5, fim], [1, 0], clamp);
+export const saindo = (f: number, fim: number) => interpolate(f, [fim - 5, fim], [1, 0], clamp);
 
 // ───────────────────────── 1. abertura: a mãe chama três vezes (s01)
 const Chamados: React.FC = () => {
@@ -189,7 +189,7 @@ const Papinho: React.FC = () => {
 };
 
 /** Carimbo vermelho de impacto (entra grande e assenta). */
-const CarimboVermelho: React.FC<{ texto: string; d: number; tam?: number; giro?: number }> = ({ texto, d, tam = 64, giro = -7 }) => {
+export const CarimboVermelho: React.FC<{ texto: string; d: number; tam?: number; giro?: number }> = ({ texto, d, tam = 64, giro = -7 }) => {
   if (d < 0) return null;
   const e = interpolate(d, [0, 3, 6], [2.2, 0.94, 1], clamp);
   const op = interpolate(d, [0, 2], [0, 1], clamp);
@@ -380,7 +380,7 @@ const Continua: React.FC = () => {
 };
 
 // ───────────────────────── véus atrás de títulos fora da posição padrão
-const Veus: React.FC = () => {
+export const Veus: React.FC = () => {
   const { f, cena } = useCena();
   const t = cena.textos.find((t) => t.y !== undefined && t.posicao === "titulo" && f >= t.inicio && f < t.fim);
   if (!t) return null;

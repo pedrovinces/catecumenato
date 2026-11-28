@@ -13,6 +13,7 @@ import { cameraNoQuadro, janelaEm, type PlanoQ } from "./planos";
 import { RevelacaoMarca } from "../marca/Revelacao";
 import { ChatGrupo, GraficosEp02 } from "./GraficosEp02";
 import { GraficosEp03 } from "./GraficosEp03";
+import { AnexoEp04, GraficosEp04 } from "./GraficosEp04";
 
 const CREME = "#F6EBD3";
 const OURO = "#EBCB86";
@@ -341,7 +342,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codi
   const opSelo = Math.min(
     interpolate(f, [4, 12], [0, 1], clamp),
     interpolate(f, [cena.duracao - 8, cena.duracao], [1, 0], clamp),
-    codigo === "ep02" || codigo === "ep03" ? interpolate(f, [84, 96], [1, 0], clamp) : 1, // nos ep. 2 e 3 o rótulo sai em 3 s: os rostos ficam no alto
+    codigo === "ep02" || codigo === "ep03" || codigo === "ep04" ? interpolate(f, [84, 96], [1, 0], clamp) : 1, // do ep. 2 em diante o rótulo sai em 3 s: os rostos ficam no alto
   );
   const tituloNaTela = cena.textos.some((t) => t.posicao === "titulo" && t.entrada !== "impacto" && t.y === undefined && f >= t.inicio && f < t.fim);
   const opVeu = temSelo || tituloNaTela ? (tituloNaTela ? 1 : 0.55) : 0;
@@ -355,6 +356,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codi
     const transform = `${j ? "scale(1.05) " : ""}${cameraNoQuadro(p, fCam)}`;
     let conteudo: React.ReactNode = null;
     if (p.anexo === "grupo") conteudo = <ChatGrupo />;
+    if (p.anexo?.startsWith("ep04-")) conteudo = <AnexoEp04 nome={p.anexo} />;
     if (p.anexo === "placa") conteudo = <Placa op={interpolate(f, [ev("placa") ?? Infinity, (ev("placa") ?? Infinity) + 6], [0, 1], clamp)} />;
     if (p.anexo === "graca") {
       const g = ev("graca") ?? ev("congela") ?? Infinity;
@@ -402,6 +404,7 @@ export const Sobreposicoes: React.FC<{ planos: PlanoQ[]; janelas: Janela[]; codi
       )}
       {codigo === "ep02" && <GraficosEp02 />}
       {codigo === "ep03" && <GraficosEp03 />}
+      {codigo === "ep04" && <GraficosEp04 />}
       {cena.textos.map((t, i) => (
         <TextoFilme key={i} t={t} f={f} cor={cena.cor} temSelo={temSelo} />
       ))}

@@ -176,7 +176,7 @@ const Etiquetas: React.FC = () => {
 };
 
 // ───────────────────────── 3. cadeados do cofre
-const Cadeado: React.FC<{ aberto: number; vermelho: number; tremor: number }> = ({ aberto, vermelho, tremor }) => {
+export const Cadeado: React.FC<{ aberto: number; vermelho: number; tremor: number }> = ({ aberto, vermelho, tremor }) => {
   const cor = vermelho > 0 ? `rgb(${200 + 30 * vermelho},${150 - 100 * vermelho},${80 - 40 * vermelho})` : aberto > 0.5 ? OURO_FORTE : "#B79A5E";
   return (
     <svg width={96} height={112} viewBox="0 0 96 112" style={{ overflow: "visible", transform: `translateX(${tremor}px)` }}>

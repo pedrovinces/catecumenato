@@ -1,0 +1,88 @@
+{
+ "modelo": "fal-ai/kling-video/v3/pro/image-to-video",
+ "estilo": "High-end 3D animated feature film. Smooth, natural, expressive character animation with subtle secondary motion (breathing, blinking, cloth and hair). Keep exactly the same characters, faces, proportions, outfits and setting as the image. One continuous shot, no cuts, no text.",
+ "negativo": "blur, distortion, low quality, morphing face, changing identity, extra fingers, deformed hands, flicker, text, subtitles, watermark, scene cut, camera shake",
+ "nota": "Ep. 03 parte 2. Durações pelos tempos reais da narração (1,3x), com folga. s20, s26 e s28 partem das imagens s13, s22 e s09; s02 parte da fila da parte 1; s09 cobre os planos 9 e 10, s23 os planos 23 e 24, s30 os planos 30 e 31. O fecho do Padre é o clipe s27 da parte 1.",
+ "clipes": [
+  {
+   "id": "s01-porta-igreja",
+   "duracao": 4,
+   "prompt": "The teenage boy stands in the church doorway, takes a deep breath, puffs out his chest with a determined, brave face, then takes one step forward into the church. Warm late-afternoon light behind him, colored stained-glass light inside. Static camera with a slight push-in."
+  },
+  {
+   "id": "s02-fila",
+   "duracao": 4,
+   "prompt": "In the confession line, the teenage boy rereads the crumpled paper in his hands, moving his lips silently as if rehearsing, nervous and sweating, then wipes his palm on his hoodie; the woman in front of him turns her head and gives him an encouraging smile. Static camera."
+  },
+  {
+   "id": "s03-branco",
+   "duracao": 3,
+   "prompt": "Kneeling at the confessional grille, the boy opens his mouth to speak but no words come out; he freezes with wide, empty eyes and blinks once, completely blank. Static camera with a very slight push-in."
+  },
+  {
+   "id": "s05-escrivaninha",
+   "duracao": 4,
+   "prompt": "At his desk at night, the boy writes in the notebook, stops, taps the pen on his chin while thinking, then goes back to writing. Warm desk lamp light and moonlight in the window. Static camera."
+  },
+  {
+   "id": "s09-banco-igreja",
+   "duracao": 7,
+   "prompt": "Kneeling in the church pew with hands folded and eyes closed, the boy slowly lowers his head in sincere repentance; colored stained-glass light shimmers gently on his face; dust motes float in the light. Very slow and calm. Static camera with a very slow push-in."
+  },
+  {
+   "id": "s13-confessionario",
+   "duracao": 7,
+   "prompt": "In the confessional, the boy makes the sign of the cross and begins to speak quietly; on the other side of the wooden grille, the priest listens with lowered eyes and nods gently. Warm candlelight. Static camera."
+  },
+  {
+   "id": "s14-cavalete",
+   "duracao": 4,
+   "prompt": "Very animated, the boy taps the flip chart several times with his pointer stick and gestures with his other hand, explaining enthusiastically as if in a business meeting; the flip chart itself stays still and blank; behind the grille the priest raises one eyebrow, patient and amused. Static camera."
+  },
+  {
+   "id": "s16-jesus-ombro",
+   "duracao": 3,
+   "prompt": "Jesus gently rests his hand on the kneeling boy's shoulder; the boy slowly lifts his face, comforted and peaceful. Warm soft light, reverent and calm. Static camera."
+  },
+  {
+   "id": "s17-fila-enorme",
+   "duracao": 4,
+   "prompt": "In the very long confession line, everyone sighs at the same time, shoulders dropping; the woman in front checks her wristwatch impatiently and rolls her eyes; the man in the beach chair fans himself. Static camera."
+  },
+  {
+   "id": "s20-contricao",
+   "duracao": 5,
+   "prompt": "In the confessional, the priest speaks kindly and makes a small blessing gesture with his hand; the boy joins his hands and closes his eyes, praying. Warm candlelight. Static camera."
+  },
+  {
+   "id": "s23-cenaculo",
+   "duracao": 10,
+   "prompt": "Inside the upper room, the risen Jesus slowly raises his hands and gently breathes over the apostles; a soft warm light passes through the group; the apostles look up, amazed and deeply moved, some bowing their heads. Oil lamps flicker. Reverent, slow and calm. Very slow push-in toward the apostles."
+  },
+  {
+   "id": "s26-absolvicao-mao",
+   "duracao": 4,
+   "prompt": "The priest slowly raises his right hand over the kneeling boy in absolution; the warm golden light from above grows brighter and softer around them. Reverent and calm. Static camera."
+  },
+  {
+   "id": "s27-fatima-ouvido",
+   "duracao": 4,
+   "prompt": "The curious woman stretches her neck and cups her hand behind her ear, leaning toward the confessional with the closed purple curtain; then she pulls back, embarrassed, and looks away innocently. Static camera."
+  },
+  {
+   "id": "s28-penitencia",
+   "duracao": 4,
+   "prompt": "Kneeling in the pew, the boy finishes his prayer, makes the sign of the cross, then stands up with a light and peaceful expression. Stained-glass light. Static camera."
+  },
+  {
+   "id": "s29-escadaria",
+   "duracao": 3,
+   "prompt": "The happy boy skips down the church steps into the sunlight and does a little hop on the last step, almost floating; birds fly across the blue sky. Static camera."
+  },
+  {
+   "id": "s30-mais-frango",
+   "duracao": 7,
+   "prompt": "At the dinner table, the smiling boy holds out his empty plate asking for more; his mother's jaw drops in surprise, then she laughs and serves him another piece of roast chicken; mother and son laugh together. Warm dinner light. Static camera with a slow push-in."
+  }
+ ]
+}

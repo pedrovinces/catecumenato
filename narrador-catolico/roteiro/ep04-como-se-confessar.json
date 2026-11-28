@@ -43,9 +43,81 @@
       "cor": "sepia",
       "cauda": 0.7,
       "locucao": "Lembra do Lucas? [pausa] Ele resolveu se confessar. [pausa] Entrou na fila, ensaiou tudo, [pausa] a mão suando… [pausa] chegou a vez dele e… [pausa] (seco) deu branco. [pausa] (sorrindo) Todo mundo já travou nessa fila. [pausa] Mas calma: confessar tem passo a passo.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "suando",
+          "evento": "suor"
+        },
+        {
+          "palavra": "deu branco",
+          "evento": "flash"
+        },
+        {
+          "palavra": "branco",
+          "evento": "congela",
+          "duracao": 1.3
+        },
+        {
+          "palavra": "Mas calma",
+          "evento": "passos"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "COMO SE {CONFESSAR}\nSEM DAR BRANCO",
+          "entrada": "pop",
+          "inicio": 0.35,
+          "ate": "Entrou",
+          "posicao": "titulo",
+          "y": 1000
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "blip",
+          "gatilho": "suando",
+          "volume": -8
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "deu branco",
+          "volume": -4
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas calma",
+          "volume": -12,
+          "deslocamento": 0
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas calma",
+          "volume": -12,
+          "deslocamento": 7
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas calma",
+          "volume": -12,
+          "deslocamento": 14
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas calma",
+          "volume": -12,
+          "deslocamento": 21
+        },
+        {
+          "arquivo": "ting",
+          "gatilho": "Mas calma",
+          "volume": -12,
+          "deslocamento": 28
+        }
+      ],
+      "selo": {
+        "cor": "EP. 03 · PARTE 2",
+        "tempo": ""
+      }
     },
     {
       "id": "exame",
@@ -55,9 +127,72 @@
         "tempo": ""
       },
       "locucao": "Primeiro, antes da fila, o exame de consciência: [pausa] olhar a própria vida [pausa] com os mandamentos de espelho. [pausa] (enumerando) Amei a Deus acima de tudo? [pausa] Faltei à missa de domingo sem motivo? [pausa] Honrei pai e mãe? [pausa] (sorrindo) O frango manda lembranças.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "Amei a Deus",
+          "evento": "q1"
+        },
+        {
+          "palavra": "Faltei",
+          "evento": "q2"
+        },
+        {
+          "palavra": "Honrei",
+          "evento": "q3"
+        },
+        {
+          "palavra": "pai e mãe",
+          "evento": "xis",
+          "deslocamento": 14
+        },
+        {
+          "palavra": "lembranças",
+          "evento": "lembrancas"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "OS MANDAMENTOS\n{DE ESPELHO}",
+          "entrada": "pop",
+          "palavra": "com os mandamentos",
+          "ate": "Amei",
+          "posicao": "titulo",
+          "y": 1040
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "pagina",
+          "gatilho": "Primeiro",
+          "volume": -6
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "Amei a Deus",
+          "volume": -8
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "Faltei",
+          "volume": -8
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "Honrei",
+          "volume": -8
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "pai e mãe",
+          "volume": -2,
+          "deslocamento": 14
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "lembranças",
+          "volume": -3
+        }
+      ]
     },
     {
       "id": "arrependimento",
@@ -67,21 +202,187 @@
         "tempo": ""
       },
       "locucao": "Depois vem o arrependimento, [pausa] que a Igreja chama de contrição: [pausa] a dor de ter ofendido a Deus, [pausa] com o propósito de não pecar mais. [pausa] Se a contrição nasce do amor a Deus, [pausa] é perfeita. [pausa] Se ela nasce do medo das consequências, [pausa] é imperfeita… [pausa] (cúmplice) e já serve para se confessar.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "a dor de ter",
+          "evento": "dor"
+        },
+        {
+          "palavra": "com o propósito",
+          "evento": "proposito"
+        },
+        {
+          "palavra": "Se a contrição",
+          "evento": "perfeita"
+        },
+        {
+          "palavra": "Se ela nasce",
+          "evento": "imperfeita"
+        },
+        {
+          "palavra": "e já serve",
+          "evento": "jaserve"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "CATECISMO 1451",
+          "entrada": "carimbo",
+          "palavra": "com o propósito",
+          "ate": "Se a contrição",
+          "posicao": "carimbo",
+          "y": 1150
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "sino",
+          "gatilho": "Depois vem",
+          "volume": -12
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "a dor de ter",
+          "volume": -8
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "com o propósito",
+          "volume": -6
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Se a contrição",
+          "volume": -6
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Se ela nasce",
+          "volume": -8
+        },
+        {
+          "arquivo": "thud-livro",
+          "gatilho": "e já serve",
+          "volume": -4
+        }
+      ]
     },
     {
       "id": "na-hora",
       "cor": "sepia",
       "selo": {
-        "cor": "3 · NA HORA",
+        "cor": "3 · CONFISSÃO",
         "tempo": ""
       },
       "locucao": "Na hora: [pausa] sinal da cruz, [pausa] há quanto tempo foi a última confissão [pausa] e os pecados, com sinceridade e sem rodeio. [pausa] (firme) Não é hora de explicar por que pecou [pausa] nem de se justificar. [pausa] (sorrindo) Ali você não é advogado de defesa: [pausa] é réu confesso. [pausa] E o Juiz está do seu lado. [pausa] (firme) Também não é hora de aconselhamento: [pausa] tem fila esperando. [pausa] (leve) Quer conversar com calma? [pausa] Marca outro horário com o padre. [pausa] (sorrindo) Fica tranquilo: [pausa] o padre já ouviu de tudo. [pausa] O seu frango não vai assustar ninguém.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "sinal da cruz",
+          "evento": "l1"
+        },
+        {
+          "palavra": "há quanto tempo",
+          "evento": "l2"
+        },
+        {
+          "palavra": "e os pecados",
+          "evento": "l3"
+        },
+        {
+          "palavra": "nem de se justificar",
+          "evento": "naoehora"
+        },
+        {
+          "palavra": "advogado de defesa",
+          "evento": "placa"
+        },
+        {
+          "palavra": "é réu confesso",
+          "evento": "reu"
+        },
+        {
+          "palavra": "Também não é hora",
+          "evento": "senha"
+        },
+        {
+          "palavra": "tem fila esperando",
+          "evento": "senha2"
+        },
+        {
+          "palavra": "Marca outro horário",
+          "evento": "circulo"
+        },
+        {
+          "palavra": "o padre já ouviu",
+          "evento": "susto"
+        },
+        {
+          "palavra": "O seu frango",
+          "evento": "frango"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "O JUIZ ESTÁ {DO SEU LADO}",
+          "entrada": "pop",
+          "palavra": "E o Juiz",
+          "ate": "Também",
+          "posicao": "titulo",
+          "y": 1160
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "blip",
+          "gatilho": "sinal da cruz",
+          "volume": -8
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "há quanto tempo",
+          "volume": -8
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "e os pecados",
+          "volume": -8
+        },
+        {
+          "arquivo": "thud-livro",
+          "gatilho": "nem de se justificar",
+          "volume": -2
+        },
+        {
+          "arquivo": "clack",
+          "gatilho": "advogado de defesa",
+          "volume": -6
+        },
+        {
+          "arquivo": "thud-livro",
+          "gatilho": "é réu confesso",
+          "volume": 0
+        },
+        {
+          "arquivo": "cochichos",
+          "gatilho": "Também não é hora",
+          "volume": -6
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "tem fila esperando",
+          "volume": -3
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Marca outro horário",
+          "volume": -6
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "o padre já ouviu",
+          "volume": -8
+        }
+      ]
     },
     {
       "id": "ato",
@@ -91,9 +392,34 @@
         "tempo": ""
       },
       "locucao": "Depois do conselho e da penitência, [pausa] vem o ato de contrição, [pausa] uma oração de arrependimento. [pausa] (cúmplice) O texto inteiro está na tela. [pausa] Salva o vídeo para levar na fila.",
-      "gatilhos": [],
+      "gatilhos": [
+        {
+          "palavra": "O texto inteiro",
+          "evento": "ato"
+        },
+        {
+          "palavra": "Salva o vídeo",
+          "evento": "salva"
+        }
+      ],
       "textos": [],
-      "sfx": []
+      "sfx": [
+        {
+          "arquivo": "sino",
+          "gatilho": "Depois do conselho",
+          "volume": -12
+        },
+        {
+          "arquivo": "pagina",
+          "gatilho": "O texto inteiro",
+          "volume": -4
+        },
+        {
+          "arquivo": "plim",
+          "gatilho": "Salva o vídeo",
+          "volume": -4
+        }
+      ]
     },
     {
       "id": "absolvicao",
@@ -103,18 +429,179 @@
         "tempo": ""
       },
       "locucao": "Aí vem a absolvição. [pausa] E por que contar para um padre, [pausa] e não direto para Deus? [pausa] (firme, sereno) Porque Jesus quis assim. [pausa] Ressuscitado, soprou sobre os apóstolos e disse: [pausa] (devagar) \"Recebei o Espírito Santo. [pausa] A quem perdoardes os pecados, ser-lhes-ão perdoados; [pausa] a quem os retiverdes, ser-lhes-ão retidos.\" [pausa] (normal) Essa missão passou dos apóstolos aos bispos, seus sucessores, [pausa] e deles aos padres. [pausa] (caloroso) Quem perdoa é Deus, [pausa] pela voz do padre. [pausa] E o que foi dito ali, o padre jamais conta: [pausa] é o sigilo da confissão. [pausa] Depois, é cumprir a penitência [pausa] e seguir em frente.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "E por que contar",
+          "evento": "duvida"
+        },
+        {
+          "palavra": "Recebei",
+          "evento": "f1"
+        },
+        {
+          "palavra": "A quem perdoardes",
+          "evento": "f2"
+        },
+        {
+          "palavra": "a quem os retiverdes",
+          "evento": "f3"
+        },
+        {
+          "palavra": "dos apóstolos",
+          "evento": "c1"
+        },
+        {
+          "palavra": "aos bispos",
+          "evento": "c2"
+        },
+        {
+          "palavra": "aos padres",
+          "evento": "c3"
+        },
+        {
+          "palavra": "o padre jamais conta",
+          "evento": "cadeado"
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "JO 20,22-23",
+          "entrada": "carimbo",
+          "palavra": "Ressuscitado",
+          "ate": "Recebei",
+          "posicao": "carimbo",
+          "y": 1150
+        },
+        {
+          "conteudo": "CATECISMO 1461",
+          "entrada": "carimbo",
+          "palavra": "seus sucessores",
+          "ate": "Quem perdoa",
+          "posicao": "carimbo",
+          "y": 1180
+        },
+        {
+          "conteudo": "QUEM PERDOA {É DEUS}",
+          "entrada": "pop",
+          "palavra": "Quem perdoa",
+          "ate": "E o que foi dito",
+          "posicao": "titulo",
+          "y": 1040
+        },
+        {
+          "conteudo": "CATECISMO 1442",
+          "entrada": "carimbo",
+          "palavra": "pela voz do padre",
+          "ate": "E o que foi dito",
+          "posicao": "carimbo",
+          "y": 1170
+        },
+        {
+          "conteudo": "CATECISMO 1467",
+          "entrada": "carimbo",
+          "palavra": "é o sigilo",
+          "ate": "Depois, é cumprir",
+          "posicao": "carimbo",
+          "y": 1150
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "sino",
+          "gatilho": "Aí vem a absolvição",
+          "volume": -10
+        },
+        {
+          "arquivo": "whoosh",
+          "gatilho": "E por que contar",
+          "volume": -6
+        },
+        {
+          "arquivo": "coro",
+          "gatilho": "Recebei",
+          "volume": -12
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "dos apóstolos",
+          "volume": -12
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "aos bispos",
+          "volume": -12
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "aos padres",
+          "volume": -10
+        },
+        {
+          "arquivo": "cadeado-fecha",
+          "gatilho": "o padre jamais conta",
+          "volume": -2
+        }
+      ]
     },
     {
       "id": "fecho",
       "cor": "sepia",
       "cauda": 5.3,
       "locucao": "O Lucas saiu do confessionário leve. [pausa] (sorrindo) Tão leve que, no jantar, [pausa] repetiu o frango. [pausa] Moral da história: [pausa] a vergonha passa rápido, [pausa] (caloroso) e a alma sai lavada. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.",
-      "gatilhos": [],
-      "textos": [],
-      "sfx": []
+      "gatilhos": [
+        {
+          "palavra": "repetiu o frango",
+          "evento": "mais"
+        },
+        {
+          "palavra": "também",
+          "evento": "congela",
+          "duracao": 7.5,
+          "semLimite": true
+        }
+      ],
+      "textos": [
+        {
+          "conteudo": "A ALMA SAI {LAVADA}",
+          "entrada": "pop",
+          "palavra": "e a alma sai lavada",
+          "ate": "E foi assim",
+          "posicao": "titulo",
+          "y": 1040
+        },
+        {
+          "conteudo": "SIGA @narradorcatolico",
+          "entrada": "pop",
+          "palavra": "E agora você também",
+          "ancora": "fim",
+          "deslocamento": 3,
+          "posicao": "assinatura"
+        }
+      ],
+      "sfx": [
+        {
+          "arquivo": "plim",
+          "gatilho": "O Lucas saiu",
+          "volume": -8
+        },
+        {
+          "arquivo": "blip",
+          "gatilho": "repetiu o frango",
+          "volume": -4
+        },
+        {
+          "arquivo": "sino",
+          "gatilho": "Moral",
+          "volume": -4
+        },
+        {
+          "arquivo": "vinheta-amen",
+          "gatilho": "E agora você também",
+          "volume": 0,
+          "ancora": "fim",
+          "deslocamento": 3
+        }
+      ]
     }
   ]
 }

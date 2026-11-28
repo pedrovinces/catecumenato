@@ -8,9 +8,13 @@ import planos02 from "../roteiro/ep02-planos.json";
 import roteiro03 from "../roteiro/ep03-a-culpa-e-da-serpente.json";
 import tempos03 from "../roteiro/ep03-timestamps.json";
 import planos03 from "../roteiro/ep03-planos.json";
+import roteiro04 from "../roteiro/ep04-como-se-confessar.json";
+import tempos04 from "../roteiro/ep04-timestamps.json";
+import planos04 from "../roteiro/ep04-planos.json";
 
 export const EPISODIOS: Record<string, { roteiro: unknown; tempos: unknown; planos?: unknown }> = {
   ep01: { roteiro: roteiro01, tempos: tempos01, planos: planos01 },
   ep02: { roteiro: roteiro02, tempos: tempos02, planos: planos02 },
   ep03: { roteiro: roteiro03, tempos: tempos03, planos: planos03 },
+  ep04: { roteiro: roteiro04, tempos: tempos04, planos: planos04 },
 };

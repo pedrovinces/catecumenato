@@ -1,0 +1,213 @@
+{
+ "_comentario": "Planos do ep. 3, parte 2 (código ep04). Cada plano começa na palavra indicada (ou no início da cena) e vai até o próximo. deslocamento em quadros, trecho em segundos dentro do clipe. s20, s26, s28 e s19 partem das imagens s13, s22 e s09 (atalhos); s02, s08 e s32 vêm da parte 1.",
+ "planos": [
+  {
+   "id": "s01-porta-igreja",
+   "cena": "abertura"
+  },
+  {
+   "id": "s02-fila",
+   "cena": "abertura",
+   "palavra": "Entrou na fila",
+   "deslocamento": -3
+  },
+  {
+   "id": "s03-branco",
+   "cena": "abertura",
+   "palavra": "chegou a vez",
+   "deslocamento": -3
+  },
+  {
+   "id": "s02-fila",
+   "chave": "s02-fila-b",
+   "cena": "abertura",
+   "palavra": "Todo mundo",
+   "deslocamento": -3,
+   "trecho": 2.0
+  },
+  {
+   "id": "s05-escrivaninha",
+   "cena": "exame"
+  },
+  {
+   "id": "s06-espelho",
+   "cena": "exame",
+   "palavra": "olhar a própria vida",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.12,
+     "x": -60
+    }
+   }
+  },
+  {
+   "id": "s05-escrivaninha",
+   "chave": "s05-escrivaninha-b",
+   "cena": "exame",
+   "palavra": "Amei a Deus",
+   "deslocamento": -3,
+   "trecho": 1.5
+  },
+  {
+   "id": "s08-frango",
+   "cena": "exame",
+   "palavra": "O frango manda",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.8,
+     "y": -672
+    },
+    "para": {
+     "z": 1.9,
+     "y": -706
+    }
+   },
+   "anexo": "ep04-frango"
+  },
+  {
+   "id": "s09-banco-igreja",
+   "cena": "arrependimento"
+  },
+  {
+   "id": "s13-confessionario",
+   "cena": "na-hora"
+  },
+  {
+   "id": "s14-cavalete",
+   "cena": "na-hora",
+   "palavra": "Não é hora de explicar",
+   "deslocamento": -3,
+   "anexo": "ep04-cavalete"
+  },
+  {
+   "id": "s15-tribunal",
+   "cena": "na-hora",
+   "palavra": "Ali você",
+   "deslocamento": -3
+  },
+  {
+   "id": "s16-jesus-ombro",
+   "cena": "na-hora",
+   "palavra": "E o Juiz",
+   "deslocamento": -3
+  },
+  {
+   "id": "s17-fila-enorme",
+   "cena": "na-hora",
+   "palavra": "Também não é hora",
+   "deslocamento": -3
+  },
+  {
+   "id": "s18-agenda",
+   "cena": "na-hora",
+   "palavra": "Quer conversar",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.12,
+     "y": -80
+    }
+   },
+   "anexo": "ep04-agenda"
+  },
+  {
+   "id": "s19-padre",
+   "cena": "na-hora",
+   "palavra": "Fica tranquilo",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.45,
+     "x": -255,
+     "y": 420
+    },
+    "para": {
+     "z": 1.52,
+     "x": -262,
+     "y": 440
+    }
+   }
+  },
+  {
+   "id": "s20-contricao",
+   "cena": "ato"
+  },
+  {
+   "id": "s22-absolvicao",
+   "cena": "absolvicao",
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.1,
+     "y": 30
+    }
+   }
+  },
+  {
+   "id": "s23-cenaculo",
+   "cena": "absolvicao",
+   "palavra": "Porque Jesus quis",
+   "deslocamento": -3
+  },
+  {
+   "id": "s25-ordenacao",
+   "cena": "absolvicao",
+   "palavra": "Essa missão",
+   "deslocamento": -3,
+   "camera": {
+    "de": {
+     "z": 1.0
+    },
+    "para": {
+     "z": 1.1,
+     "y": 40
+    }
+   }
+  },
+  {
+   "id": "s26-absolvicao-mao",
+   "cena": "absolvicao",
+   "palavra": "Quem perdoa",
+   "deslocamento": -3
+  },
+  {
+   "id": "s27-fatima-ouvido",
+   "cena": "absolvicao",
+   "palavra": "E o que foi dito",
+   "deslocamento": -3
+  },
+  {
+   "id": "s28-penitencia",
+   "cena": "absolvicao",
+   "palavra": "Depois, é cumprir",
+   "deslocamento": -3
+  },
+  {
+   "id": "s29-escadaria",
+   "cena": "fecho"
+  },
+  {
+   "id": "s30-mais-frango",
+   "cena": "fecho",
+   "palavra": "Tão leve",
+   "deslocamento": -3
+  },
+  {
+   "id": "s32-padre-peito",
+   "cena": "fecho",
+   "palavra": "E foi assim",
+   "deslocamento": -6,
+   "trecho": 1.4
+  }
+ ]
+}

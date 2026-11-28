@@ -44,6 +44,12 @@ CLIMA = {
     "heranca":    [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("E2", ["E4", "G#4", "B4"])],      # sério, didático
     "liberdade":  [("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"]), ("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4", "E5"])],  # leveza
     "confissao":  [("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"])],      # acolhimento
+    # ep. 3, parte 2 (ep04)
+    "exame":      [("C2", ["E4", "G4", "C5"]), ("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("G1", ["D4", "G4", "B4"])],       # didático, leve
+    "arrependimento": [("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"]), ("F1", ["C4", "F4", "A4"]), ("A1", ["C#4", "E4", "A4"])],  # sério, terno
+    "na-hora":    [("G1", ["D4", "G4", "B4"]), ("E2", ["E4", "G4", "B4"]), ("C2", ["E4", "G4", "C5"]), ("D2", ["D4", "F#4", "A4"])],     # prático, ágil
+    "ato":        [("F1", ["C4", "F4", "A4"]), ("D2", ["D4", "F4", "A4"]), ("Bb1", ["D4", "F4", "Bb4"]), ("C2", ["E4", "G4", "C5"])],     # reverente
+    "absolvicao": [("A1", ["C4", "E4", "A4"]), ("F1", ["C4", "F4", "A4"]), ("C2", ["E4", "G4", "C5"]), ("G1", ["D4", "G4", "B4"])],       # caloroso, solene
 }
 DUR_ACORDE = 3.6  # segundos por acorde (alvo)
 CRUZA = 1.6       # sobreposição entre acordes e entre cenas
