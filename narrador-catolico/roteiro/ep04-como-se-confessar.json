@@ -391,14 +391,14 @@
         "cor": "4 · ATO DE CONTRIÇÃO",
         "tempo": ""
       },
-      "locucao": "Depois do conselho e da penitência, [pausa] vem o ato de contrição, [pausa] uma oração de arrependimento. [pausa] (cúmplice) O texto inteiro está na tela. [pausa] Salva o vídeo para levar na fila.",
+      "locucao": "Depois do conselho e da penitência, [pausa] vem o ato de contrição, [pausa] uma oração de arrependimento. [pausa] (cúmplice) O texto inteiro está na tela. [pausa] Printe a tela para levar na fila.",
       "gatilhos": [
         {
           "palavra": "O texto inteiro",
           "evento": "ato"
         },
         {
-          "palavra": "Salva o vídeo",
+          "palavra": "Printe a tela",
           "evento": "salva"
         }
       ],
@@ -416,7 +416,7 @@
         },
         {
           "arquivo": "plim",
-          "gatilho": "Salva o vídeo",
+          "gatilho": "Printe a tela",
           "volume": -4
         }
       ]
@@ -603,5 +603,8 @@
         }
       ]
     }
+  ],
+  "notas": [
+    "Legenda do ato: o autor pediu \"Printe a tela\" no lugar de \"Salva o vídeo\" (a fala gravada continua \"Salva o vídeo\"; mesmo número de palavras, tempos iguais)."
   ]
 }
