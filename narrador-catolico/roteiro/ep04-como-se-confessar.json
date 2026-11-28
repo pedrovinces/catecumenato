@@ -1,0 +1,120 @@
+{
+  "episodio": 3,
+  "codigo": "ep04",
+  "slug": "ep04-como-se-confessar",
+  "titulo": "Como se confessar (sem dar branco)",
+  "handle": "@narradorcatolico",
+  "capa": {
+    "titulo": "Como se confessar sem dar branco",
+    "episodio": "03 · PARTE 2",
+    "imagem": "",
+    "enquadre": {
+      "escala": 1.06,
+      "x": 0,
+      "y": 170
+    },
+    "cores": []
+  },
+  "audio": {
+    "narracao": "audio/ep04/narracao-1.3x.wav",
+    "original": "audio/ep04/narracao.wav",
+    "guia": "audio/ep04/narracao-guia.wav",
+    "trilha": "audio/ep04/fundo.wav",
+    "voz": "estudio"
+  },
+  "legenda": {
+    "destaque": "exata",
+    "minPalavras": 2,
+    "maxPalavras": 4
+  },
+  "glossario": [
+    "Lucas",
+    "contrição",
+    "absolvição",
+    "confessionário",
+    "penitência",
+    "Espírito Santo",
+    "apóstolos"
+  ],
+  "pronuncia": {},
+  "cenas": [
+    {
+      "id": "abertura",
+      "cor": "sepia",
+      "cauda": 0.7,
+      "locucao": "Lembra do Lucas? [pausa] Ele resolveu se confessar. [pausa] Entrou na fila, ensaiou tudo, [pausa] a mão suando… [pausa] chegou a vez dele e… [pausa] (seco) deu branco. [pausa] (sorrindo) Todo mundo já travou nessa fila. [pausa] Mas calma: confessar tem passo a passo.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "exame",
+      "cor": "sepia",
+      "selo": {
+        "cor": "1 · EXAME DE CONSCIÊNCIA",
+        "tempo": ""
+      },
+      "locucao": "Primeiro, antes da fila, o exame de consciência: [pausa] olhar a própria vida [pausa] com os mandamentos de espelho. [pausa] (enumerando) Amei a Deus acima de tudo? [pausa] Faltei à missa de domingo sem motivo? [pausa] Honrei pai e mãe? [pausa] (sorrindo) O frango manda lembranças.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "arrependimento",
+      "cor": "sepia",
+      "selo": {
+        "cor": "2 · ARREPENDIMENTO",
+        "tempo": ""
+      },
+      "locucao": "Depois vem o arrependimento, [pausa] que a Igreja chama de contrição: [pausa] a dor de ter ofendido a Deus, [pausa] com o propósito de não pecar mais. [pausa] Se a contrição nasce do amor a Deus, [pausa] é perfeita. [pausa] Se ela nasce do medo das consequências, [pausa] é imperfeita… [pausa] (cúmplice) e já serve para se confessar.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "na-hora",
+      "cor": "sepia",
+      "selo": {
+        "cor": "3 · NA HORA",
+        "tempo": ""
+      },
+      "locucao": "Na hora: [pausa] sinal da cruz, [pausa] há quanto tempo foi a última confissão [pausa] e os pecados, com sinceridade e sem rodeio. [pausa] (firme) Não é hora de explicar por que pecou [pausa] nem de se justificar. [pausa] (sorrindo) Ali você não é advogado de defesa: [pausa] é réu confesso. [pausa] E o Juiz está do seu lado. [pausa] (firme) Também não é hora de aconselhamento: [pausa] tem fila esperando. [pausa] (leve) Quer conversar com calma? [pausa] Marca outro horário com o padre. [pausa] (sorrindo) Fica tranquilo: [pausa] o padre já ouviu de tudo. [pausa] O seu frango não vai assustar ninguém.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "ato",
+      "cor": "sepia",
+      "selo": {
+        "cor": "4 · ATO DE CONTRIÇÃO",
+        "tempo": ""
+      },
+      "locucao": "Depois do conselho e da penitência, [pausa] vem o ato de contrição, [pausa] uma oração de arrependimento. [pausa] (cúmplice) O texto inteiro está na tela. [pausa] Salva o vídeo para levar na fila.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "absolvicao",
+      "cor": "sepia",
+      "selo": {
+        "cor": "5 · ABSOLVIÇÃO",
+        "tempo": ""
+      },
+      "locucao": "Aí vem a absolvição. [pausa] E por que contar para um padre, [pausa] e não direto para Deus? [pausa] (firme, sereno) Porque Jesus quis assim. [pausa] Ressuscitado, soprou sobre os apóstolos e disse: [pausa] (devagar) \"Recebei o Espírito Santo. [pausa] A quem perdoardes os pecados, ser-lhes-ão perdoados; [pausa] a quem os retiverdes, ser-lhes-ão retidos.\" [pausa] (normal) Essa missão passou dos apóstolos aos bispos, seus sucessores, [pausa] e deles aos padres. [pausa] (caloroso) Quem perdoa é Deus, [pausa] pela voz do padre. [pausa] E o que foi dito ali, o padre jamais conta: [pausa] é o sigilo da confissão. [pausa] Depois, é cumprir a penitência [pausa] e seguir em frente.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    },
+    {
+      "id": "fecho",
+      "cor": "sepia",
+      "cauda": 5.3,
+      "locucao": "O Lucas saiu do confessionário leve. [pausa] (sorrindo) Tão leve que, no jantar, [pausa] repetiu o frango. [pausa] Moral da história: [pausa] a vergonha passa rápido, [pausa] (caloroso) e a alma sai lavada. [pausa longa] (sorrindo) E foi assim que eu aprendi. [pausa] E agora você também.",
+      "gatilhos": [],
+      "textos": [],
+      "sfx": []
+    }
+  ]
+}

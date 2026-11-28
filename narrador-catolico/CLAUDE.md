@@ -24,6 +24,8 @@ Organização (seguir o padrão que o autor criou):
     Ep. 3 parte 1: `Imagens (Canva)` `1tRBhzN3KfyO5dxiU9WDwdwLiCPYWbtmZ`, `Clipes (fal.ai)` `1zZ_f-6vAB7a0COe38v02_idAGT5QKLAX`,
     `Áudio bruto` `1IB9dsbyDDfo0eZcnXRKPLH0DSJ2BkS4g`. Ep. 2: `Áudio bruto` `1Kdhc2zJsRW905mEcGic4tRTBmQ1X2cPm`
     (as três gravações; a v3 é a usada no vídeo).
+    Ep. 3 parte 2: `Imagens (Canva)` `1mCW_4LiD0VjZ8kkK-RatISOUYk_aVqsa`, `Clipes (fal.ai)` `1niPwHoNNdEtq-U1jv2MboKX8-lHpcvFP`,
+    `Áudio bruto` `1EitY1yaWs2bmPLyOka_Bgnl3EbL4APcl`.
   - O áudio do episódio fica fora do git (assets/audio/<ep>/), então só a sessão que recebeu a gravação consegue
     enviá-lo; gravações de até ~2,9 MB passam pelo conector do Drive. O vídeo final (out/) também fica fora do git:
     envie da própria sessão que renderizou, pela ponte (DRIVE_PONTE só existe em sessões abertas depois de salva).

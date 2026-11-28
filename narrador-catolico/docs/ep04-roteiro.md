@@ -30,8 +30,8 @@ Ritmo natural, como nos episódios anteriores (depois eu acelero).
 [ABERTURA]
 (tom: contando um causo, divertido)
 Lembra do Lucas? [pausa] Ele resolveu se confessar. [pausa]
-Entrou na fila, ensaiou tudo, [pausa] a mão suando… [pausa] chegou a vez dele [pausa] e… (seco) deu branco. [pausa]
-(sorrindo) Todo mundo já travou nessa fila. [pausa] Calma: confessar tem passo a passo.
+Entrou na fila, ensaiou tudo, [pausa] a mão suando… [pausa] chegou a vez dele e… [pausa] (seco) deu branco. [pausa]
+(sorrindo) Todo mundo já travou nessa fila. [pausa] Mas calma: confessar tem passo a passo.
 
 [1. EXAME DE CONSCIÊNCIA]
 (tom: didático, leve)
@@ -43,8 +43,8 @@ Primeiro, antes da fila, o exame de consciência: [pausa] olhar a própria vida 
 (tom: mais sério, sem perder a leveza)
 Depois vem o arrependimento, [pausa] que a Igreja chama de contrição: [pausa]
 a dor de ter ofendido a Deus, [pausa] com o propósito de não pecar mais. [pausa]
-Se nasce do amor a Deus, [pausa] é perfeita. [pausa]
-Se nasce do medo das consequências, [pausa] é imperfeita… [pausa] (cúmplice) e já serve para se confessar.
+Se a contrição nasce do amor a Deus, [pausa] é perfeita. [pausa]
+Se ela nasce do medo das consequências, [pausa] é imperfeita… [pausa] (cúmplice) e já serve para se confessar.
 
 [3. NA HORA]
 (tom: prático, ágil)
