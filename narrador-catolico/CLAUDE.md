@@ -17,6 +17,12 @@ que compara o MD5 e só envia o que mudou; destinos em `roteiro/drive-pastas.jso
 - Áudio: logo depois de receber uma gravação (`assets/audio/<cod>/*.m4a`), rodar `--audio`. Gravação nova de um
   episódio que já tem uma: dar outro nome no mapa (`audio`) para não apagar a anterior, a não ser que o autor diga
   que a antiga não vale mais.
+- Legenda do Instagram (regra do autor): todo vídeo tem legenda, escrita em `docs/<cod>-legenda-instagram.md` (o texto
+  do post dentro de um bloco ```), terminando com exatamente 5 hashtags na última linha, sempre com
+  #narradorcatolico entre elas. Referências citadas na legenda seguem a regra de sempre: só as conferidas.
+  `--legenda` gera o .txt e envia para a pasta do vídeo como `<rotulo> - Legenda do Instagram.txt`; recusa o envio se
+  a última linha não tiver 5 hashtags. O `final.sh` já chama `--video --legenda`; se a legenda mudar sem render, rodar
+  `--legenda`.
 - Storyboard: depois de gerar os PDFs, rodar `--storyboard`. Narração com rubricas (documento Google): atualizar
   pelo conector sempre que o texto mudar.
 - Episódio novo: criar a pasta (`drive_enviar.py pasta "Episódio NN - Tema"`) e acrescentar a entrada no mapa.

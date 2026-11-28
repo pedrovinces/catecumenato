@@ -21,7 +21,7 @@ E quando a gente erra? Deus não larga ninguém. No confessionário Ele perdoa, 
 💬 Qual papinho da serpente mais te pega?
 🎙️ Siga @narradorcatolico para não perder a parte 2.
 
-#catolico #igrejacatolica #pecadooriginal #confissao #anjodaguarda #fecatolica #catequese #biblia #jovemcatolico #narradorcatolico
+#catolico #pecadooriginal #anjodaguarda #catequese #narradorcatolico
 ```
 
 Primeiras linhas alternativas (é o que aparece antes do "mais"):

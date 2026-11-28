@@ -21,7 +21,7 @@ Dica de ouro: confissão não é hora de aconselhamento, tem fila esperando. Que
 💬 Qual passo mais trava você?
 🎙️ Siga @narradorcatolico. A parte 1 ("A culpa é da serpente?") está no perfil.
 
-#catolico #igrejacatolica #confissao #sacramento #reconciliacao #atodecontricao #fecatolica #catequese #jovemcatolico #narradorcatolico
+#catolico #confissao #atodecontricao #catequese #narradorcatolico
 ```
 
 Primeiras linhas alternativas (é o que aparece antes do "mais"):

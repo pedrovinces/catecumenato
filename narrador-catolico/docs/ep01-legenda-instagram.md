@@ -23,7 +23,7 @@ Na missa, até a roupa do padre está pregando.
 
 E o preto? Fica para outro episódio.
 
-#catolico #igrejacatolica #liturgia #missa #advento #coresliturgicas #catequese #fecatolica #padre #narradorcatolico
+#catolico #liturgia #coresliturgicas #catequese #narradorcatolico
 ```
 
 Primeiras linhas alternativas (é o que aparece antes do "mais"):

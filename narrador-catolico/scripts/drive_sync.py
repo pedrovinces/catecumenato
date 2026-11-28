@@ -7,6 +7,7 @@ Uso:
   python3 -I scripts/drive_sync.py ep04 --imagens        # assets/img/ep04/*.png → "Imagens (Canva)"
   python3 -I scripts/drive_sync.py ep04 --audio          # assets/audio/ep04/*.m4a (gravações originais) → "Áudio bruto"
   python3 -I scripts/drive_sync.py ep04 --storyboard     # PDFs do storyboard → pasta do episódio
+  python3 -I scripts/drive_sync.py ep04 --legenda        # legenda do Instagram (docs/<cod>-legenda-instagram.md) → .txt na pasta
   python3 -I scripts/drive_sync.py ep04 --tudo
 
 - Destinos em roteiro/drive-pastas.json. As subpastas são achadas pelo nome ou criadas.
@@ -20,6 +21,7 @@ import hashlib
 import importlib.util
 import json
 import pathlib
+import re
 import sys
 import time
 import urllib.parse
@@ -113,6 +115,23 @@ def main():
                 print(f"  cópia antiga '{video.name}' foi para a lixeira do Drive", flush=True)
         else:
             print(f"vídeo final: {video.relative_to(RAIZ)} não existe (renderize antes)")
+
+    if tudo or "--legenda" in opcoes:
+        fonte = RAIZ / m.get("legenda", f"docs/{cod}-legenda-instagram.md")
+        if fonte.exists():
+            bloco = re.search(r"```\n(.*?)\n```", fonte.read_text(encoding="utf-8"), re.S)
+            if not bloco:
+                print(f"legenda: {fonte.name} sem bloco ``` com o texto")
+            else:
+                texto = bloco.group(1).strip() + "\n"
+                tags = re.findall(r"(?<!\S)#\w+", texto.strip().splitlines()[-1])
+                if len(tags) != 5:  # regra do autor: exatamente 5 hashtags no fim
+                    print(f"legenda: a última linha tem {len(tags)} hashtags, e a regra é 5; nada enviado")
+                else:
+                    txt = RAIZ / "out" / f"{cod}-legenda-instagram.txt"
+                    txt.parent.mkdir(exist_ok=True)
+                    txt.write_text(texto, encoding="utf-8")
+                    sincronizar(s, [(txt, f"{m['rotulo']} - Legenda do Instagram.txt")], m["pasta"], "legenda")
 
     if tudo or "--storyboard" in opcoes:
         arqs = [(RAIZ / k, v) for k, v in m.get("storyboard", {}).items() if (RAIZ / k).exists()]

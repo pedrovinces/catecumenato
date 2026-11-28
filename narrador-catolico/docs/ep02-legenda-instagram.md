@@ -25,7 +25,7 @@ Por quê? Porque Jesus não deixou a fé solta no mundo. A Pedro ele disse: "Tu 
 💬 Você achava que tudo o que o papa fala é dogma?
 🎙️ Siga @narradorcatolico para os próximos episódios.
 
-#catolico #igrejacatolica #papa #infalibilidade #dogma #fecatolica #catequese #apologetica #vaticano #narradorcatolico
+#catolico #papa #infalibilidade #apologetica #narradorcatolico
 ```
 
 Primeiras linhas alternativas (é o que aparece antes do "mais"):

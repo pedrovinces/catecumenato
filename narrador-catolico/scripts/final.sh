@@ -35,4 +35,4 @@ echo "pronto: out/${SLUG}.mp4"
 ffmpeg -v error -y -i "out/${SLUG}.mp4" -c:v libx264 -preset medium -crf 26 -vf scale=720:1280 -c:a aac -b:a 128k -movflags +faststart "out/${SLUG}-leve.mp4"
 echo "versão leve: out/${SLUG}-leve.mp4"
 # entrega automática no Drive (pedido do autor): a versão nova substitui a anterior; sem credencial, só avisa
-python3 -I scripts/drive_sync.py "$COD" --video || echo "aviso: o envio ao Drive falhou; rode: python3 -I scripts/drive_sync.py $COD --video"
+python3 -I scripts/drive_sync.py "$COD" --video --legenda || echo "aviso: o envio ao Drive falhou; rode: python3 -I scripts/drive_sync.py $COD --video"

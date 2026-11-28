@@ -1,31 +1,55 @@
 {
- "_comentario": "Destino de cada episódio no Google Drive do projeto (usado por scripts/drive_sync.py). 'pasta' recebe o vídeo final e as subpastas de brutos; 'pasta_storyboard' recebe os PDFs do storyboard; 'audio' dá o nome no Drive de cada gravação original (as não listadas sobem como '<rotulo> - <arquivo>'). As subpastas 'Imagens (Canva)', 'Clipes (fal.ai)' e 'Áudio bruto' são achadas pelo nome ou criadas.",
+ "_comentario": "Destino de cada episódio no Google Drive do projeto (usado por scripts/drive_sync.py). 'pasta' recebe o vídeo final e as subpastas de brutos; 'pasta_storyboard' recebe os PDFs do storyboard; 'audio' dá o nome no Drive de cada gravação original (as não listadas sobem como '<rotulo> - <arquivo>'). As subpastas 'Imagens (Canva)', 'Clipes (fal.ai)' e 'Áudio bruto' são achadas pelo nome ou criadas. 'legenda' aponta o .md com a legenda do Instagram (o primeiro bloco ``` vira o .txt enviado).",
  "ep01": {
   "rotulo": "Ep. 01",
   "pasta": "1AM161fpBEZontD4dF3qVtcwPmgxC7Uu1",
   "pasta_storyboard": "1AM161fpBEZontD4dF3qVtcwPmgxC7Uu1",
-  "storyboard": {"docs/ep01-storyboard-celular.pdf": "Ep. 01 - Storyboard (celular).pdf", "docs/ep01-storyboard.pdf": "Ep. 01 - Storyboard (A4).pdf"},
-  "audio": {}
+  "storyboard": {
+   "docs/ep01-storyboard-celular.pdf": "Ep. 01 - Storyboard (celular).pdf",
+   "docs/ep01-storyboard.pdf": "Ep. 01 - Storyboard (A4).pdf"
+  },
+  "audio": {},
+  "legenda": "docs/ep01-legenda-instagram.md"
  },
  "ep02": {
   "rotulo": "Ep. 02",
   "pasta": "1zpf3JhUHx5k33wHYi1EZ0HT4bmHZvqN7",
   "pasta_storyboard": "1zpf3JhUHx5k33wHYi1EZ0HT4bmHZvqN7",
-  "storyboard": {"docs/ep02-storyboard-celular.pdf": "Ep. 02 - Storyboard (celular).pdf", "docs/ep02-storyboard.pdf": "Ep. 02 - Storyboard (A4).pdf"},
-  "audio": {"narracao-bruta.m4a": "Ep. 02 - Narração (gravação v1).m4a", "narracao-bruta-v2.m4a": "Ep. 02 - Narração (gravação v2).m4a", "narracao-bruta-v3.m4a": "Ep. 02 - Narração (gravação final, v3).m4a"}
+  "storyboard": {
+   "docs/ep02-storyboard-celular.pdf": "Ep. 02 - Storyboard (celular).pdf",
+   "docs/ep02-storyboard.pdf": "Ep. 02 - Storyboard (A4).pdf"
+  },
+  "audio": {
+   "narracao-bruta.m4a": "Ep. 02 - Narração (gravação v1).m4a",
+   "narracao-bruta-v2.m4a": "Ep. 02 - Narração (gravação v2).m4a",
+   "narracao-bruta-v3.m4a": "Ep. 02 - Narração (gravação final, v3).m4a"
+  },
+  "legenda": "docs/ep02-legenda-instagram.md"
  },
  "ep03": {
   "rotulo": "Ep. 03 (Parte 1)",
   "pasta": "1nC4NESr1Th9CJgZ5igguMu2R-fV4vQxj",
   "pasta_storyboard": "1GmNP0x5fKe8Yy_EQuYrASRtFcRNtQv_3",
-  "storyboard": {"docs/ep03-04-storyboard-celular.pdf": "Ep. 03 - Storyboard (celular).pdf", "docs/ep03-04-storyboard.pdf": "Ep. 03 - Storyboard (A4).pdf"},
-  "audio": {"narracao-bruta.m4a": "Ep. 03 - Narração (gravação original).m4a"}
+  "storyboard": {
+   "docs/ep03-04-storyboard-celular.pdf": "Ep. 03 - Storyboard (celular).pdf",
+   "docs/ep03-04-storyboard.pdf": "Ep. 03 - Storyboard (A4).pdf"
+  },
+  "audio": {
+   "narracao-bruta.m4a": "Ep. 03 - Narração (gravação original).m4a"
+  },
+  "legenda": "docs/ep03-legenda-instagram.md"
  },
  "ep04": {
   "rotulo": "Ep. 03 (Parte 2)",
   "pasta": "12TAiDKuAMIslaPBBLJXgXfybhYGGpF9y",
   "pasta_storyboard": "1GmNP0x5fKe8Yy_EQuYrASRtFcRNtQv_3",
-  "storyboard": {"docs/ep03-04-storyboard-celular.pdf": "Ep. 03 - Storyboard (celular).pdf", "docs/ep03-04-storyboard.pdf": "Ep. 03 - Storyboard (A4).pdf"},
-  "audio": {"narracao-bruta.m4a": "Ep. 03 (Parte 2) - Narração (gravação original).m4a"}
+  "storyboard": {
+   "docs/ep03-04-storyboard-celular.pdf": "Ep. 03 - Storyboard (celular).pdf",
+   "docs/ep03-04-storyboard.pdf": "Ep. 03 - Storyboard (A4).pdf"
+  },
+  "audio": {
+   "narracao-bruta.m4a": "Ep. 03 (Parte 2) - Narração (gravação original).m4a"
+  },
+  "legenda": "docs/ep04-legenda-instagram.md"
  }
 }
