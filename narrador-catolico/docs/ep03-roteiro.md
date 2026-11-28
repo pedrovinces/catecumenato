@@ -4,7 +4,7 @@ Tema: pecado original e confissão, a partir da ideia de um amigo do autor (jant
 
 Conferido: Gn 3,4-5 (a fala da serpente a Eva); Rm 7,19; Catecismo n. 405 (o Batismo apaga o pecado original, a inclinação ao mal permanece); n. 1733 (não há verdadeira liberdade senão no serviço do bem); n. 2042 (mandamentos da Igreja: confessar-se ao menos uma vez por ano). A frase atribuída a São Tomás na ideia original não foi encontrada como citação literal; a mesma ideia entra pelo Catecismo n. 1733.
 
-Falas de personagens: o narrador faz, mudando a entonação (indicada nas rubricas). Na edição, a voz da serpente pode ganhar um leve efeito (tom um pouco mais grave e um chiado nos "s"), e a do anjo um eco suave; a serpente vai perdendo volume até sumir.
+Falas de personagens: o narrador faz, mudando a entonação (indicada nas rubricas). Na edição, a voz da serpente ganha um leve efeito (tom um pouco mais grave e um chiado nos "s"), e a do anjo um eco suave; a serpente vai perdendo volume até sumir.
 
 ```
 ROTEIRO DE NARRAÇÃO · EP. 03 · "A CULPA É DA SERPENTE?"
