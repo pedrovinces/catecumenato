@@ -379,11 +379,22 @@ const Duvida: React.FC = () => {
   const d = ev("duvida");
   const fim = pal("Porque Jesus quis") - 3;
   if (d === undefined || f < d || f >= fim) return null;
+  // balão de pensamento logo acima da cabeça do Lucas (centro do cabelo em x ~790, topo em y ~660 no plano s22),
+  // à direita da mão erguida do Padre (que vai até x ~690, y ~570); as bolinhas descem até o cabelo
+  const e = pop(f, d, 9);
+  const bolinha = (x: number, y: number, r: number, atraso: number) => (
+    <div style={{ position: "absolute", left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: r, backgroundColor: "#E9E9E9", boxShadow: "0 4px 10px rgba(0,0,0,0.4)", transform: `scale(${pop(f, d + atraso, 6)})` }} />
+  );
   return (
-    <div style={{ position: "absolute", left: 0, width: 1080, top: 1060, display: "flex", justifyContent: "center", opacity: saindo(f, fim), transform: `scale(${pop(f, d, 9)})`, transformOrigin: "50% 100%" }}>
-      <div style={{ position: "relative" }}>
-        <div style={{ fontFamily: LEGENDA, fontWeight: 900, fontSize: 48, color: "#2C2C2C", backgroundColor: "#E3E3E3", borderRadius: 40, padding: "16px 34px", boxShadow: "0 10px 26px rgba(0,0,0,0.45)", whiteSpace: "nowrap" }}>POR QUE UM PADRE?</div>
-        <div style={{ position: "absolute", left: "50%", bottom: -24, marginLeft: -16, width: 0, height: 0, borderLeft: "16px solid transparent", borderRight: "16px solid transparent", borderTop: "28px solid #E3E3E3" }} />
+    <div style={{ position: "absolute", inset: 0, opacity: saindo(f, fim) }}>
+      {bolinha(784, 660, 10, 0)}
+      {bolinha(796, 628, 15, 2)}
+      <div style={{ position: "absolute", left: 800 - 170, width: 340, top: 450, display: "flex", justifyContent: "center", transform: `scale(${e})`, transformOrigin: "50% 100%" }}>
+        <div style={{ fontFamily: LEGENDA, fontWeight: 900, fontSize: 44, lineHeight: 1.1, color: "#2C2C2C", textAlign: "center", backgroundColor: "#E9E9E9", borderRadius: 60, padding: "18px 30px", boxShadow: "0 10px 26px rgba(0,0,0,0.45)", whiteSpace: "nowrap" }}>
+          POR QUE
+          <br />
+          UM PADRE?
+        </div>
       </div>
     </div>
   );
@@ -490,18 +501,21 @@ export const AnexoEp04: React.FC<{ nome: string }> = ({ nome }) => {
     );
   }
   if (nome === "ep04-cavalete") {
+    // Papel do cavalete medido no clipe (borda direita em perspectiva): x ≈ 175 em y 900, ≈ 200 em y 1000,
+    // ≈ 226 em y 1100; a borda esquerda é a da tela. Cada linha cabe na largura do papel na sua altura, com folga.
+    const linha = (texto: string, tam: number, cor = "#1F3A8A") => <div style={{ fontSize: tam, color: cor, lineHeight: 1.02, whiteSpace: "nowrap" }}>{texto}</div>;
     return (
-      <div style={{ position: "absolute", left: 46, top: 880, width: 270, transform: "rotate(-3deg)", fontFamily: TITULO, color: "#1F3A8A", lineHeight: 1.05, opacity: 0.92 }}>
-        <div style={{ fontSize: 40 }}>POR QUE EU</div>
-        <div style={{ fontSize: 40 }}>DERRUBEI</div>
-        <div style={{ fontSize: 40 }}>O COPO:</div>
-        <div style={{ fontSize: 30, color: "#B3261E", marginTop: 4 }}>UMA ANÁLISE</div>
-        <svg width={230} height={150} viewBox="0 0 230 150" style={{ marginTop: 14 }}>
-          <path d="M10 140 H220 M10 140 V10" stroke="#1F3A8A" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <div style={{ position: "absolute", left: 16, top: 872, fontFamily: TITULO, opacity: 0.9 }}>
+        {linha("POR QUE EU", 27)}
+        {linha("DERRUBEI", 29)}
+        {linha("O COPO:", 29)}
+        {linha("UMA ANÁLISE", 21, "#B3261E")}
+        <svg width={150} height={92} viewBox="0 0 230 150" style={{ marginTop: 8, display: "block" }}>
+          <path d="M10 140 H220 M10 140 V10" stroke="#1F3A8A" strokeWidth={6} fill="none" strokeLinecap="round" />
           <rect x={30} y={90} width={36} height={50} fill="#B3261E" />
           <rect x={86} y={55} width={36} height={85} fill="#1F3A8A" />
           <rect x={142} y={20} width={36} height={120} fill="#2E7D32" />
-          <path d="M30 80 L100 50 L170 14" stroke="#F2A900" strokeWidth={5} fill="none" strokeLinecap="round" />
+          <path d="M30 80 L100 50 L170 14" stroke="#F2A900" strokeWidth={6} fill="none" strokeLinecap="round" />
         </svg>
       </div>
     );
