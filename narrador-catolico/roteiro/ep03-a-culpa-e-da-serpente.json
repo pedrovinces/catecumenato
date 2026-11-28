@@ -6,11 +6,12 @@
   "handle": "@narradorcatolico",
   "capa": {
     "titulo": "A culpa é da serpente?",
-    "imagem": "",
+    "episodio": "03 · PARTE 1",
+    "imagem": "s10-serpente-ombro",
     "enquadre": {
       "escala": 1.06,
       "x": 0,
-      "y": 330
+      "y": 170
     },
     "cores": []
   },

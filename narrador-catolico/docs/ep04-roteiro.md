@@ -1,6 +1,8 @@
-# Ep. 4 · Como se confessar (sem dar branco) · parte 2 · roteiro de narração
+# Ep. 3 · Parte 2 · Como se confessar (sem dar branco) · roteiro de narração
 
-Continuação do ep. 3. Tudo narrado, sem diálogo; Lucas e o Padre no confessionário. Falas de personagens e listas aparecem apenas na tela.
+No repositório os arquivos desta parte usam o código ep04; para o autor e no Drive ela é o Ep. 03 (Parte 2).
+
+Continuação da parte 1 (A culpa é da serpente?). Tudo narrado, sem diálogo; Lucas e o Padre no confessionário. Falas de personagens e listas aparecem apenas na tela.
 
 Na tela (planejado):
 - Fila do confessionário, o Lucas suando; balão "DEU BRANCO".
@@ -21,7 +23,7 @@ As orientações "não se justificar" e "não é hora de aconselhamento" entram 
 Para a passagem caber sem aumentar o tempo, saíram: a frase dos mandamentos da Igreja (confessar-se ao menos uma vez por ano; vale para a legenda do post), a leitura do começo do ato de contrição (o texto continua inteiro na tela), "Deus aproveita até o começo", "nem de desabafo longo" e "Para ninguém"; outras frases ficaram mais curtas.
 
 ```
-ROTEIRO DE NARRAÇÃO · EP. 04 · "COMO SE CONFESSAR (SEM DAR BRANCO)" · PARTE 2
+ROTEIRO DE NARRAÇÃO · EP. 03 (PARTE 2) · "COMO SE CONFESSAR (SEM DAR BRANCO)"
 Ritmo natural, como nos episódios anteriores (depois eu acelero).
 [pausa] = respiro curto, meio segundo · [pausa longa] = um segundo · MAIÚSCULAS = ênfase
 

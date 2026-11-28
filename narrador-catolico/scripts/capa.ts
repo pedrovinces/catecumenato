@@ -18,7 +18,7 @@ const pasta = path.join(RAIZ, "out");
 const capa = roteiro.capa ?? {};
 const props = {
   imagem: capa.imagem ?? imagem,
-  episodio: String(roteiro.episodio).padStart(2, "0"),
+  episodio: capa.episodio ?? String(roteiro.episodio).padStart(2, "0"), // "03 · PARTE 1" nos episódios em duas partes
   titulo: capa.titulo ?? roteiro.titulo,
   cores: capa.cores,
   enquadre: capa.enquadre,

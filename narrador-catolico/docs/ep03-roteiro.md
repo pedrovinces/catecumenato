@@ -1,4 +1,4 @@
-# Ep. 3 · A culpa é da serpente? (parte 1) · roteiro de narração
+# Ep. 3 · Parte 1 · A culpa é da serpente? · roteiro de narração
 
 Tema: pecado original e confissão, a partir da ideia de um amigo do autor (jantar com a mãe, a serpente saindo do Gênesis, o anjo da guarda). Personagens: Lucas (uns 15 anos), a mãe (personagem nova, uns 40), o anjo da guarda, a serpente e o Padre (o pároco) no confessionário.
 
@@ -7,7 +7,7 @@ Formato: tudo narrado, sem diálogo. As falas dos personagens aparecem apenas na
 Conferido: Gn 3,5 (a promessa da serpente a Eva); Rm 7,19; Catecismo n. 405 (o Batismo apaga o pecado original, a inclinação ao mal permanece); n. 1733 (não há verdadeira liberdade senão no serviço do bem); n. 2042 (mandamentos da Igreja: confessar-se ao menos uma vez por ano). A frase atribuída a São Tomás na ideia original não foi encontrada como citação literal; a mesma ideia entra pelo Catecismo n. 1733.
 
 ```
-ROTEIRO DE NARRAÇÃO · EP. 03 · "A CULPA É DA SERPENTE?" · PARTE 1
+ROTEIRO DE NARRAÇÃO · EP. 03 (PARTE 1) · "A CULPA É DA SERPENTE?"
 Ritmo natural, como nos episódios anteriores (depois eu acelero).
 [pausa] = respiro curto, meio segundo · [pausa longa] = um segundo · MAIÚSCULAS = ênfase
 
