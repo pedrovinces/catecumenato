@@ -18,9 +18,10 @@ Organização (seguir o padrão que o autor criou):
 Como enviar: `python3 -I scripts/drive_enviar.py` (upload retomável, sem limite de tamanho; substitui arquivo de mesmo nome).
 - `pasta "Episódio NN - Tema"` acha ou cria a subpasta e imprime o id.
 - `enviar <arquivo> --pasta <id> --nome "..."`, com `--doc` para a narração virar documento Google.
-- Credenciais nas variáveis de ambiente do ambiente "catecumenato", cadastradas pelo autor: GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET e GOOGLE_REFRESH_TOKEN. Vêm de um app OAuth do autor, publicado "Em produção" para o refresh
-  token não expirar em 7 dias. Nunca pedir esses valores no chat.
+- Credencial, cadastrada pelo autor nas variáveis de ambiente do ambiente "catecumenato" (nunca pedir no chat):
+  DRIVE_PONTE, com a URL do app da Web do Apps Script do autor (código em `scripts/drive_ponte.gs`) e `?chave=...`.
+  É gratuito e não expira enquanto a implantação existir. A alternativa com app OAuth no Google Cloud
+  (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN) foi recusada pelo autor.
 - Sem as variáveis, o conector do Drive serve de reserva: no máximo 10 MB por arquivo e cerca de 3,1 MB por chamada.
   Vídeos não passam por ele.
 

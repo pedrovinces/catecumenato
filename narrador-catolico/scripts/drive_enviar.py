@@ -2,6 +2,9 @@
 """Envia as entregas do Narrador Católico para a pasta do projeto no Google Drive, sem limite de tamanho.
 
 Credenciais (o autor cadastra nas variáveis de ambiente do ambiente na nuvem; nunca no chat nem no repositório):
+  DRIVE_PONTE                             caminho gratuito: URL do app da Web do Apps Script do autor, com ?chave=...
+                                          (scripts/drive_ponte.gs); devolve um token de acesso novo a cada envio
+  ou, com um app OAuth próprio no Google Cloud:
   GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET  cliente OAuth do app "Narrador Católico Drive" (Google Cloud)
   GOOGLE_REFRESH_TOKEN                    autorização permanente da conta do autor (escopo drive)
 A cada uso, o refresh token gera um token de acesso novo (o de acesso vale 1 hora; o refresh não expira
@@ -39,6 +42,17 @@ def falhar(msg: str):
 
 
 def token() -> str:
+    # caminho gratuito: "ponte" no Google Apps Script do autor, que devolve um token de acesso novo a cada chamada
+    ponte = os.environ.get("DRIVE_PONTE")
+    if ponte:
+        try:
+            with urllib.request.urlopen(ponte, timeout=60) as r:
+                d = json.load(r)
+        except urllib.error.HTTPError as e:
+            falhar(f"a ponte do Apps Script respondeu {e.code}")
+        if "token" not in d:
+            falhar(f"a ponte do Apps Script recusou: {d.get('erro', d)}")
+        return d["token"]
     faltando = [v for v in ("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_REFRESH_TOKEN") if not os.environ.get(v)]
     if faltando:
         falhar("faltam as variáveis de ambiente " + ", ".join(faltando) + " (o autor cadastra nas configurações do ambiente)")
