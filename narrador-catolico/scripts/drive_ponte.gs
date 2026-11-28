@@ -1,6 +1,6 @@
 // Ponte do Narrador Católico (Google Apps Script, gratuito).
 // Entrega um token de acesso ao Google Drive para o envio automático dos episódios (scripts/drive_enviar.py).
-// Troque a chave abaixo por uma frase longa e só sua; ela fica na URL guardada no ambiente da nuvem.
+// Troque a chave abaixo por uma sequência longa de letras e números, sem espaços; ela vai na URL guardada no ambiente da nuvem.
 const CHAVE = 'TROQUE-ESTA-CHAVE';
 
 function doGet(e) {
